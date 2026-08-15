@@ -2076,7 +2076,7 @@ export default function SysOpsWebsite() {
       <footer>
         <div className="container footer-inner">
           <div className="footer-brand">
-            <<img src="/SYS.png" alt="SYS Ops" style={{height: "32px", width: "auto"}} />
+           <img src="/SYS.png" alt="SYS Ops" style={{height: "32px", width: "auto"}} />
 
             <div>
               <div className="footer-name">SYS OPS</div>
