@@ -1529,7 +1529,7 @@ export default function SysOpsWebsite() {
       <header className="navbar">
         <div className="container nav-inner">
           <a href="#" className="brand-wrap">
-            <div className="brand-mark">SYS</div>
+  <img src="/SYS_Dark.png" alt="SYS Ops" style={{height: "36px", width: "auto"}} />
 
             <div>
               <div className="brand-name">SYS OPS</div>
@@ -2076,7 +2076,7 @@ export default function SysOpsWebsite() {
       <footer>
         <div className="container footer-inner">
           <div className="footer-brand">
-            <div className="footer-mark">SYS</div>
+            <<img src="/SYS.png" alt="SYS Ops" style={{height: "32px", width: "auto"}} />
 
             <div>
               <div className="footer-name">SYS OPS</div>
