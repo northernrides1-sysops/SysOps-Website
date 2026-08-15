@@ -37,8 +37,16 @@ export default function SysOpsWebsite() {
       });
 
       if (res.ok) {
-        setSubmitted(true);
-      }
+  setSubmitted(true);
+  setFormData({
+    service: "",
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+}
     } catch (error) {
       console.error(error);
     } finally {
