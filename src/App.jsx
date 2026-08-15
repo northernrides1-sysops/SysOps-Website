@@ -1916,7 +1916,7 @@ export default function SysOpsWebsite() {
 
                 <div>
                   <small>Email</small>
-                  <span>info@sysops.com</span>
+                  <span>sysops.enquiries@gmail.com</span>
                 </div>
               </div>
 
