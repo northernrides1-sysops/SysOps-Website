@@ -1534,7 +1534,7 @@ export default function SysOpsWebsite() {
             <div>
               <div className="brand-name">SYS OPS</div>
               <div className="brand-sub">
-                Remote Operations & Compliance
+                Remote Operations Specialist
               </div>
             </div>
           </a>
@@ -1941,6 +1941,15 @@ export default function SysOpsWebsite() {
                   <span>www.sysops.com</span>
                 </div>
               </div>
+              <div className="contact-detail">
+  <div className="contact-detail-icon">
+    <i className="ri-linkedin-box-line" />
+  </div>
+  <div>
+    <small>LinkedIn</small>
+    <span>linkedin.com/company/sys-ops</span>
+  </div>
+</div>
             </div>
           </div>
 
@@ -2081,7 +2090,7 @@ export default function SysOpsWebsite() {
             <div>
               <div className="footer-name">SYS OPS</div>
               <div className="footer-sub">
-                Remote Operations & Compliance
+                Remote Operations Specialist
               </div>
             </div>
           </div>
@@ -2097,7 +2106,7 @@ export default function SysOpsWebsite() {
           <div className="footer-copy">
             UK · Ireland · Remote
             <br />
-            info@sysops.com
+            sysops.enquiries@gmail.com
           </div>
         </div>
       </footer>
