@@ -1963,7 +1963,7 @@ export default function SysOpsWebsite() {
                 <h3>Enquiry received.</h3>
 
                 <p>
-                  Thank you. We will be in touch within 24 hours.
+                  Thank you. We will be in touch within 3 hours.
                 </p>
               </div>
             ) : (
@@ -2070,7 +2070,7 @@ export default function SysOpsWebsite() {
                   </button>
 
                   <p className="form-note">
-                    We respond to all enquiries within 24 hours. Your
+                    We respond to all enquiries within 3 hours. Your
                     information is treated confidentially.
                   </p>
                 </form>
