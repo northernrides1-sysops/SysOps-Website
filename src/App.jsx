@@ -34,6 +34,17 @@ const SKYLINE_STAGES = [
   },
 ];
 
+const RIBBON_ITEMS = [
+  "24/7 UK & Ireland Operations Desk Active",
+  "Sage 50 & Cloud Payroll Native",
+  "DBS & Worker Vetting Compliance",
+  "Automated Invoice & Credit Control",
+  "Power BI Real-Time Management Packs",
+  "Right-to-Work Lifecycle Verification",
+  "Dedicated Named Operations Manager",
+  "SLA-Backed 3-Hour Enquiry Response",
+];
+
 export default function SysOpsWebsite() {
   // --- REAL-TIME SKYLINE HERO LOGIC ---
   const [activeStageId, setActiveStageId] = useState("midday");
@@ -466,7 +477,7 @@ export default function SysOpsWebsite() {
           transform: translateY(-1px);
         }
 
-        /* DYNAMIC CANARY WHARF HERO WITH CINEMATIC SOFT BLUR */
+        /* DYNAMIC CANARY WHARF HERO */
 
         .hero {
           padding: 34px 0 0;
@@ -483,12 +494,6 @@ export default function SysOpsWebsite() {
           align-items: center;
         }
 
-        /* 
-          CINEMATIC SOFT BLUR:
-          - blur(2.5px) hides low-res noise & pixelation
-          - scale(1.04) prevents blurred edge bleeding
-          - brightness(0.9) adds rich depth
-        */
         .hero-bg-layer {
           position: absolute;
           inset: -12px;
@@ -664,6 +669,61 @@ export default function SysOpsWebsite() {
           line-height: 1.4;
           text-transform: uppercase;
           letter-spacing: .12em;
+        }
+
+        /* OPERATIONAL MARQUEE RIBBON */
+
+        .ops-ribbon {
+          width: 100%;
+          background: #111317;
+          border-top: 1px solid #232730;
+          border-bottom: 1px solid #232730;
+          padding: 14px 0;
+          overflow: hidden;
+          position: relative;
+          display: flex;
+          user-select: none;
+        }
+
+        .ops-ribbon:hover .ops-ribbon-track {
+          animation-play-state: paused;
+        }
+
+        .ops-ribbon-track {
+          display: flex;
+          align-items: center;
+          gap: 36px;
+          white-space: nowrap;
+          animation: tickerScroll 34s linear infinite;
+          will-change: transform;
+        }
+
+        .ops-ribbon-item {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #cbd5e1;
+        }
+
+        .ops-ribbon-dot {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #10b981;
+          box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+        }
+
+        @keyframes tickerScroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
         }
 
         /* INTRO */
@@ -1654,7 +1714,7 @@ export default function SysOpsWebsite() {
         </div>
       </header>
 
-      {/* DYNAMIC REAL-TIME CANARY WHARF HERO (With cinematic soft blur) */}
+      {/* DYNAMIC REAL-TIME CANARY WHARF HERO */}
       <section className="hero">
         <div className="hero-card">
           {/* 5 CROSSFADING REAL-WORLD TRIPOD LAYERS */}
@@ -1737,6 +1797,18 @@ export default function SysOpsWebsite() {
           </div>
         </div>
       </section>
+
+      {/* CONTINUOUS OPERATIONAL TICKER RIBBON */}
+      <div className="ops-ribbon" aria-hidden="true">
+        <div className="ops-ribbon-track">
+          {RIBBON_ITEMS.concat(RIBBON_ITEMS).map((item, idx) => (
+            <div className="ops-ribbon-item" key={idx}>
+              <span className="ops-ribbon-dot" />
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* INTRO */}
       <section className="intro">
