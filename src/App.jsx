@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// 5 FIXED TRIPOD CANARY WHARF STAGES (Saved directly in your public folder)
+// 5 FIXED TRIPOD CANARY WHARF STAGES (From your public folder)
 const SKYLINE_STAGES = [
   {
     id: "dawn",
@@ -466,7 +466,7 @@ export default function SysOpsWebsite() {
           transform: translateY(-1px);
         }
 
-        /* DYNAMIC CANARY WHARF HERO */
+        /* DYNAMIC CANARY WHARF HERO WITH CINEMATIC SOFT BLUR */
 
         .hero {
           padding: 34px 0 0;
@@ -483,13 +483,21 @@ export default function SysOpsWebsite() {
           align-items: center;
         }
 
+        /* 
+          CINEMATIC SOFT BLUR:
+          - blur(2.5px) hides low-res noise & pixelation
+          - scale(1.04) prevents blurred edge bleeding
+          - brightness(0.9) adds rich depth
+        */
         .hero-bg-layer {
           position: absolute;
-          inset: 0;
+          inset: -12px;
           background-size: cover;
           background-position: center;
+          filter: blur(2.5px) brightness(0.92);
+          transform: scale(1.04);
           transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
-          will-change: opacity;
+          will-change: opacity, filter;
         }
 
         .hero-scrim {
@@ -1646,7 +1654,7 @@ export default function SysOpsWebsite() {
         </div>
       </header>
 
-      {/* DYNAMIC REAL-TIME CANARY WHARF HERO */}
+      {/* DYNAMIC REAL-TIME CANARY WHARF HERO (With cinematic soft blur) */}
       <section className="hero">
         <div className="hero-card">
           {/* 5 CROSSFADING REAL-WORLD TRIPOD LAYERS */}
