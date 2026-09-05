@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// 5 FIXED TRIPOD CANARY WHARF STAGES (Saved directly in your public folder)
+// 5 FIXED TRIPOD CANARY WHARF STAGES
 const SKYLINE_STAGES = [
   {
     id: "dawn",
@@ -46,10 +46,42 @@ const RIBBON_ITEMS = [
 ];
 
 export default function SysOpsWebsite() {
-  // --- REAL-TIME SKYLINE HERO LOGIC ---
+  // NAVIGATION: 'home' | 'services' | 'quote'
+  const [currentPage, setCurrentPage] = useState("home");
+
+  // REAL-TIME SKYLINE TIME
   const [activeStageId, setActiveStageId] = useState("midday");
   const [londonTimeStr, setLondonTimeStr] = useState("");
   const [activeProcessStep, setActiveProcessStep] = useState(0);
+
+  // CALL BOOKING FORM STATE
+  const [callBooked, setCallBooked] = useState(false);
+  const [callData, setCallData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    date: "",
+    timeSlot: "11:00 AM GMT",
+    topic: "General Operational Audit",
+  });
+
+  // QUOTE FORM STATE
+  const [formData, setFormData] = useState({
+    service: "",
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+
+  const FORM_ENDPOINT = "https://formspree.io/f/myegdyej";
+
+  const updateField = (key, value) => {
+    setFormData((prev) => ({ ...prev, [key]: value }));
+  };
 
   const getStageForHour = (hourFloat) => {
     if (hourFloat >= 5.0 && hourFloat < 7.0) return "dawn";
@@ -94,46 +126,10 @@ export default function SysOpsWebsite() {
     return () => clearInterval(interval);
   }, []);
 
-  // --- SCROLL-IN ANIMATION OBSERVER ---
+  // Scroll to top whenever changing pages
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("revealed");
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-
-    const revealElements = document.querySelectorAll(".scroll-reveal");
-    revealElements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
-  // --- CONTACT FORM STATE ---
-  const [formData, setFormData] = useState({
-    service: "",
-    name: "",
-    company: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-
-  const [submitted, setSubmitted] = useState(false);
-  const [sending, setSending] = useState(false);
-
-  const FORM_ENDPOINT = "https://formspree.io/f/myegdyej";
-
-  const updateField = (key, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -167,6 +163,12 @@ export default function SysOpsWebsite() {
     }
   };
 
+  const handleCallSubmit = (e) => {
+    e.preventDefault();
+    setCallBooked(true);
+  };
+
+  // ALL 6 CORE SERVICES (PRESERVED 100%) WITH DETAILED SPECS
   const services = [
     {
       number: "01",
@@ -175,6 +177,14 @@ export default function SysOpsWebsite() {
       description:
         "End-to-end invoice generation, tracking and reconciliation. Overdue payment chasing, credit control support and billing query resolution.",
       tags: ["Invoice Generation", "Credit Control", "Reconciliation"],
+      details: [
+        "Automated sales invoice creation matched against purchase orders and approved timesheets",
+        "Structured credit control schedule with courteous, firm payment chasing",
+        "Weekly aged debtors reporting & reconciliation against live bank feeds",
+        "Supplier billing query resolution within 4 business hours",
+      ],
+      systems: "Sage 50, Xero, QuickBooks, BrightPay, Excel Macro Feeds",
+      sla: "Invoices processed & dispatched within 24 hours of timesheet sign-off",
     },
     {
       number: "02",
@@ -183,6 +193,14 @@ export default function SysOpsWebsite() {
       description:
         "Complete payroll cycles managed end-to-end — timesheet validation, payslip generation, deductions and reconciliation.",
       tags: ["Sage Payroll", "Timesheets", "Payslips"],
+      details: [
+        "Weekly, fortnightly or monthly gross-to-net payroll computation",
+        "Real-time RTI submissions to HMRC / Revenue Ireland",
+        "Electronic payslips distribution via secure worker portal",
+        "Pension auto-enrolment management (Nest, The People's Pension, Smart Pension)",
+      ],
+      systems: "Sage Payroll (Native), BrightPay, Iris, Staffology, Xero Payroll",
+      sla: "Zero-error payroll calculation with 48-hour cut-off compliance",
     },
     {
       number: "03",
@@ -191,6 +209,14 @@ export default function SysOpsWebsite() {
       description:
         "Worker documentation, certification tracking, renewal reminders, vetting coordination and audit-ready records.",
       tags: ["DBS / Vetting", "Certifications", "Audit Records"],
+      details: [
+        "Continuous DBS Update Service & Garda Vetting checks",
+        "CSCS, Gas Safe, CPC, NMC and mandatory certification tracking",
+        "Automated 30/60-day expiry notifications to workers & management",
+        "Instant exportable audit-ready digital folders for regulatory inspections",
+      ],
+      systems: "TrustID, Disclosure Services, Home Office RTW Tool, BrightHR",
+      sla: "100% compliance audit readiness with zero non-compliant workers rostered",
     },
     {
       number: "04",
@@ -199,6 +225,14 @@ export default function SysOpsWebsite() {
       description:
         "Power BI dashboards, KPI tracking, workforce utilisation reports and management packs that make operational data useful.",
       tags: ["Power BI", "KPI Dashboards", "Management Reports"],
+      details: [
+        "Interactive Power BI executive dashboards refreshed on your schedule",
+        "Worker utilisation, overtime trends and client profitability packs",
+        "Monthly financial summaries comparing budget vs. operational reality",
+        "Automated KPI alerts for management exceptions and margin drops",
+      ],
+      systems: "Microsoft Power BI, DAX, Excel Power Query, SQL Data Warehousing",
+      sla: "Executive management reporting packs delivered by the 2nd of each month",
     },
     {
       number: "05",
@@ -207,6 +241,14 @@ export default function SysOpsWebsite() {
       description:
         "Scheduling, placement coordination, worker database management, client liaison and day-to-day back-office execution.",
       tags: ["Scheduling", "Database", "Operations"],
+      details: [
+        "Shift roster management and short-notice relief cover coordination",
+        "Centralised CRM & worker database hygiene maintenance",
+        "Client liaison for booking confirmations and shift confirmations",
+        "Back-office ticket desk answering daily operational communications",
+      ],
+      systems: "Bullhorn, Vincere, Deputy, Rotacloud, Monday.com, ClickUp",
+      sla: "Dedicated operations manager available Mon–Fri 08:00–18:00 GMT",
     },
     {
       number: "06",
@@ -215,6 +257,14 @@ export default function SysOpsWebsite() {
       description:
         "Managing the full worker journey — registration, documentation, right-to-work checks, contracts and offboarding administration.",
       tags: ["Onboarding", "Right-to-Work", "Contracts"],
+      details: [
+        "Digital candidate registration packs and contract signing administration",
+        "Statutory Right-to-Work share code and passport identity verification",
+        "Emergency contact, bank detail verification and P45 collection",
+        "Offboarding administration, holiday pay reconciliation and archiving",
+      ],
+      systems: "DocuSign, Adobe Sign, Home Office Verification Portal, Formstack",
+      sla: "Candidates verified & cleared for deployment within 6 hours of submission",
     },
   ];
 
@@ -357,2088 +407,1059 @@ export default function SysOpsWebsite() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
-        * {
-          box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; background: #f7f7f4; color: #171717; font-family: 'DM Sans', Arial, sans-serif; }
+        a { color: inherit; }
 
-        html {
-          scroll-behavior: smooth;
-        }
-
-        body {
-          margin: 0;
-          background: #f7f7f4;
-          color: #171717;
-          font-family: 'DM Sans', Arial, sans-serif;
-        }
-
-        a {
-          color: inherit;
-        }
-
-        .sys-site {
-          min-height: 100vh;
-          background: #f7f7f4;
-          color: #171717;
-          overflow-x: hidden;
-        }
-
-        /* --- SMOOTH SCROLL-IN ANIMATIONS --- */
-        .scroll-reveal {
-          opacity: 0;
-          transform: translateY(24px);
-          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-          will-change: opacity, transform;
-        }
-
-        .scroll-reveal.revealed {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-
-        .container {
-          width: min(1240px, calc(100% - 64px));
-          margin: 0 auto;
-        }
-
-        .section {
-          padding: 120px 0;
-        }
+        .sys-site { min-height: 100vh; background: #f7f7f4; color: #171717; overflow-x: hidden; }
+        .container { width: min(1240px, calc(100% - 64px)); margin: 0 auto; }
+        .section { padding: 110px 0; }
 
         .eyebrow {
-          display: inline-flex;
-          align-items: center;
-          gap: 9px;
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: .18em;
-          text-transform: uppercase;
-          color: #747474;
+          display: inline-flex; align-items: center; gap: 9px; font-size: 11px;
+          font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #747474;
         }
-
         .eyebrow::before {
-          content: "";
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: #16866f;
-          box-shadow: 0 0 8px rgba(22, 134, 111, 0.4);
+          content: ""; width: 7px; height: 7px; border-radius: 50%; background: #16866f;
         }
 
-        h1,
-        h2,
-        h3,
-        .brand {
-          font-family: 'Manrope', Arial, sans-serif;
-        }
+        h1, h2, h3, .brand { font-family: 'Manrope', Arial, sans-serif; }
 
-        /* NAV */
-
+        /* NAVBAR */
         .navbar {
-          position: sticky;
-          top: 0;
-          z-index: 100;
-          height: 76px;
-          background: rgba(247,247,244,.92);
-          backdrop-filter: blur(18px);
-          border-bottom: 1px solid #e6e6e1;
-          transition: box-shadow 0.3s ease;
+          position: sticky; top: 0; z-index: 100; height: 76px;
+          background: rgba(247,247,244,.94); backdrop-filter: blur(18px); border-bottom: 1px solid #e6e6e1;
         }
+        .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+        .brand-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer; }
+        .brand-name { font-size: 16px; font-weight: 800; letter-spacing: .13em; }
+        .brand-sub { font-size: 8px; letter-spacing: .18em; color: #8b8b87; text-transform: uppercase; margin-top: 2px; }
 
-        .nav-inner {
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 30px;
+        .nav-links { display: flex; align-items: center; gap: 28px; }
+        .nav-links button, .nav-links a {
+          background: transparent; border: 0; padding: 0; cursor: pointer;
+          color: #666662; font-size: 13px; font-weight: 500; font-family: inherit; transition: color .2s;
         }
-
-        .brand-wrap {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          text-decoration: none;
-          transition: transform 0.2s ease;
-        }
-
-        .brand-wrap:hover {
-          transform: scale(1.02);
-        }
-
-        .brand-name {
-          font-size: 16px;
-          font-weight: 800;
-          letter-spacing: .13em;
-        }
-
-        .brand-sub {
-          font-size: 8px;
-          letter-spacing: .18em;
-          color: #8b8b87;
-          text-transform: uppercase;
-          margin-top: 2px;
-        }
-
-        .nav-links {
-          display: flex;
-          align-items: center;
-          gap: 30px;
-        }
-
-        .nav-links a {
-          text-decoration: none;
-          color: #666662;
-          font-size: 13px;
-          font-weight: 500;
-          position: relative;
-          transition: color .2s;
-        }
-
-        .nav-links a::after {
-          content: "";
-          position: absolute;
-          bottom: -4px;
-          left: 0;
-          width: 0;
-          height: 1.5px;
-          background: #16866f;
-          transition: width 0.25s ease;
-        }
-
-        .nav-links a:hover {
-          color: #111;
-        }
-
-        .nav-links a:hover::after {
-          width: 100%;
-        }
+        .nav-links button.active, .nav-links button:hover, .nav-links a:hover { color: #111; font-weight: 700; }
 
         .nav-button {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          padding: 12px 21px;
-          background: #171717;
-          color: #fff;
-          border-radius: 5px;
-          text-decoration: none;
-          font-size: 12px;
-          font-weight: 600;
-          letter-spacing: .04em;
-          transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+          display: inline-flex; align-items: center; justify-content: center;
+          padding: 12px 21px; background: #171717; color: #fff; border-radius: 5px;
+          font-size: 12px; font-weight: 600; letter-spacing: .04em; cursor: pointer; border: 0;
+          transition: transform .2s, background .2s;
         }
-
-        .nav-button:hover {
-          background: #303030;
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
+        .nav-button:hover { background: #303030; transform: translateY(-1px); }
 
         /* HERO */
-
-        .hero {
-          padding: 34px 0 0;
-          background: #f7f7f4;
-        }
-
+        .hero { padding: 34px 0 0; background: #f7f7f4; }
         .hero-card {
-          min-height: 690px;
-          position: relative;
-          overflow: hidden;
-          border-radius: 4px;
-          background: #06080d;
-          display: flex;
-          align-items: center;
+          min-height: 690px; position: relative; overflow: hidden; border-radius: 4px;
+          background: #06080d; display: flex; align-items: center;
         }
-
         .hero-bg-layer {
-          position: absolute;
-          inset: -12px;
-          background-size: cover;
-          background-position: center;
-          filter: blur(2.5px) brightness(0.92);
-          transform: scale(1.04);
-          transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
-          will-change: opacity, filter;
+          position: absolute; inset: -12px; background-size: cover; background-position: center;
+          filter: blur(2.5px) brightness(0.92); transform: scale(1.04);
+          transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1); will-change: opacity;
         }
-
         .hero-scrim {
-          position: absolute;
-          inset: 0;
+          position: absolute; inset: 0;
           background: linear-gradient(90deg, rgba(6,8,13,0.92) 0%, rgba(6,8,13,0.72) 46%, rgba(6,8,13,0.22) 100%);
-          z-index: 3;
-          pointer-events: none;
+          z-index: 3; pointer-events: none;
         }
-
         .hero-time-badge {
-          position: absolute;
-          top: 24px;
-          right: 28px;
-          z-index: 10;
-          display: inline-flex;
-          align-items: center;
-          gap: 7px;
-          padding: 6px 13px;
-          background: rgba(6,8,13,0.75);
-          border: 1px solid rgba(255,255,255,0.2);
-          border-radius: 4px;
-          backdrop-filter: blur(10px);
-          font-size: 11px;
-          letter-spacing: 0.08em;
-          color: #e2e8f0;
-          font-weight: 500;
+          position: absolute; top: 24px; right: 28px; z-index: 10;
+          display: inline-flex; align-items: center; gap: 7px; padding: 6px 13px;
+          background: rgba(6,8,13,0.75); border: 1px solid rgba(255,255,255,0.2);
+          border-radius: 4px; backdrop-filter: blur(10px); font-size: 11px;
+          letter-spacing: 0.08em; color: #e2e8f0; font-weight: 500;
         }
-
         .hero-time-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: #10b981;
-          box-shadow: 0 0 8px #10b981;
-          animation: livePulse 2.5s infinite;
+          width: 6px; height: 6px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981;
         }
-
-        @keyframes livePulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.4; transform: scale(0.85); }
-        }
-
         .hero-content {
-          position: relative;
-          z-index: 5;
-          width: min(1240px, calc(100% - 100px));
-          margin: 0 auto;
-          padding: 100px 0 150px;
-          color: #fff;
+          position: relative; z-index: 5; width: min(1240px, calc(100% - 100px));
+          margin: 0 auto; padding: 100px 0 150px; color: #fff;
         }
-
         .hero-eyebrow {
-          display: inline-flex;
-          align-items: center;
-          gap: 9px;
-          padding: 8px 13px;
-          border: 1px solid rgba(255,255,255,.22);
-          background: rgba(255,255,255,.06);
-          backdrop-filter: blur(8px);
-          border-radius: 3px;
-          font-size: 10px;
-          letter-spacing: .17em;
-          text-transform: uppercase;
-          color: rgba(255,255,255,.9);
-          margin-bottom: 28px;
+          display: inline-flex; align-items: center; gap: 9px; padding: 8px 13px;
+          border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06);
+          backdrop-filter: blur(8px); border-radius: 3px; font-size: 10px;
+          letter-spacing: .17em; text-transform: uppercase; color: rgba(255,255,255,.9); margin-bottom: 28px;
         }
-
-        .hero-eyebrow span {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: #6ed5bb;
-        }
-
+        .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: #6ed5bb; }
         .hero h1 {
-          max-width: 760px;
-          margin: 0;
-          font-size: clamp(50px, 7vw, 88px);
-          line-height: .98;
-          letter-spacing: -.055em;
-          font-weight: 700;
+          max-width: 760px; margin: 0; font-size: clamp(50px, 7vw, 88px);
+          line-height: .98; letter-spacing: -.055em; font-weight: 700;
         }
-
-        .hero h1 span {
-          color: #fff;
-        }
-
         .hero-text {
-          max-width: 610px;
-          margin: 30px 0 36px;
-          font-size: 17px;
-          line-height: 1.75;
-          color: rgba(255,255,255,.8);
+          max-width: 610px; margin: 30px 0 36px; font-size: 17px; line-height: 1.75; color: rgba(255,255,255,.8);
         }
-
-        .hero-actions {
-          display: flex;
-          gap: 12px;
-          flex-wrap: wrap;
+        .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+        .button-light, .button-outline {
+          display: inline-flex; align-items: center; gap: 9px; padding: 14px 22px;
+          border-radius: 4px; font-size: 12px; font-weight: 600; text-decoration: none;
+          letter-spacing: .05em; text-transform: uppercase; transition: .2s; cursor: pointer; border: 0;
         }
-
-        .button-light,
+        .button-light { background: #fff; color: #151515; }
         .button-outline {
-          display: inline-flex;
-          align-items: center;
-          gap: 9px;
-          padding: 14px 22px;
-          border-radius: 4px;
-          font-size: 12px;
-          font-weight: 600;
-          text-decoration: none;
-          letter-spacing: .05em;
-          text-transform: uppercase;
-          transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+          border: 1px solid rgba(255,255,255,.3); color: #fff; background: rgba(255,255,255,.05); backdrop-filter: blur(6px);
         }
-
-        .button-light {
-          background: #fff;
-          color: #151515;
-        }
-
-        .button-light:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-        }
-
-        .button-outline {
-          border: 1px solid rgba(255,255,255,.3);
-          color: #fff;
-          background: rgba(255,255,255,.05);
-          backdrop-filter: blur(6px);
-        }
-
-        .button-outline:hover {
-          background: rgba(255,255,255,.12);
-          border-color: rgba(255,255,255,.5);
-          transform: translateY(-2px);
-        }
+        .button-light:hover, .button-outline:hover { transform: translateY(-2px); }
 
         .hero-stats {
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: min(1120px, calc(100% - 100px));
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          background: #fff;
-          color: #171717;
-          box-shadow: 0 18px 50px rgba(0,0,0,.16);
-          z-index: 6;
-          transition: transform 0.3s ease;
+          position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+          width: min(1120px, calc(100% - 100px)); display: grid; grid-template-columns: repeat(4, 1fr);
+          background: #fff; color: #171717; box-shadow: 0 18px 50px rgba(0,0,0,.16); z-index: 6;
         }
-
-        .hero-stat {
-          padding: 24px 26px;
-          border-right: 1px solid #e8e8e4;
-          transition: background 0.25s ease;
-        }
-
-        .hero-stat:hover {
-          background: #fbfbf9;
-        }
-
-        .hero-stat:last-child {
-          border-right: 0;
-        }
-
-        .hero-stat strong {
-          display: block;
-          font-family: 'Manrope';
-          font-size: 28px;
-          letter-spacing: -.04em;
-        }
-
+        .hero-stat { padding: 24px 26px; border-right: 1px solid #e8e8e4; }
+        .hero-stat:last-child { border-right: 0; }
+        .hero-stat strong { display: block; font-family: 'Manrope'; font-size: 28px; letter-spacing: -.04em; }
         .hero-stat span {
-          display: block;
-          margin-top: 5px;
-          color: #777773;
-          font-size: 10px;
-          line-height: 1.4;
-          text-transform: uppercase;
-          letter-spacing: .12em;
+          display: block; margin-top: 5px; color: #777773; font-size: 10px; line-height: 1.4;
+          text-transform: uppercase; letter-spacing: .12em;
         }
 
-        /* MEASURED FRACTIONALLY SLOW TICKER RIBBON (52s) */
-
+        /* RIBBON */
         .ops-ribbon {
-          width: 100%;
-          background: #101216;
-          border-top: 1px solid #20242c;
-          border-bottom: 1px solid #20242c;
-          padding: 13px 0;
-          overflow: hidden;
-          position: relative;
-          display: flex;
-          user-select: none;
+          width: 100%; background: #101216; border-top: 1px solid #20242c; border-bottom: 1px solid #20242c;
+          padding: 13px 0; overflow: hidden; display: flex; user-select: none;
         }
-
-        .ops-ribbon:hover .ops-ribbon-track {
-          animation-play-state: paused;
-        }
-
+        .ops-ribbon:hover .ops-ribbon-track { animation-play-state: paused; }
         .ops-ribbon-track {
-          display: flex;
-          align-items: center;
-          gap: 40px;
-          white-space: nowrap;
-          animation: tickerScroll 52s linear infinite; /* Measured, executive velocity */
-          will-change: transform;
+          display: flex; align-items: center; gap: 40px; white-space: nowrap;
+          animation: tickerScroll 52s linear infinite; will-change: transform;
         }
-
         .ops-ribbon-item {
-          display: inline-flex;
-          align-items: center;
-          gap: 12px;
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: #cbd5e1;
-          transition: color 0.2s ease;
+          display: inline-flex; align-items: center; gap: 12px; font-size: 11px;
+          font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #cbd5e1;
         }
+        .ops-ribbon-dot { width: 5px; height: 5px; border-radius: 50%; background: #10b981; }
 
-        .ops-ribbon-item:hover {
-          color: #ffffff;
-        }
-
-        .ops-ribbon-dot {
-          width: 5px;
-          height: 5px;
-          border-radius: 50%;
-          background: #10b981;
-          box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
-        }
-
-        @keyframes tickerScroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
+        @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* INTRO */
-
-        .intro {
-          padding: 150px 0 120px;
-        }
-
-        .intro-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 100px;
-          align-items: end;
-        }
-
+        .intro { padding: 140px 0 110px; }
+        .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: end; }
         .intro h2 {
-          max-width: 700px;
-          margin: 20px 0 0;
-          font-size: clamp(38px, 5vw, 62px);
-          line-height: 1.02;
-          letter-spacing: -.055em;
-          font-weight: 700;
+          max-width: 700px; margin: 20px 0 0; font-size: clamp(38px, 5vw, 62px);
+          line-height: 1.02; letter-spacing: -.055em; font-weight: 700;
         }
+        .intro h2 span { color: #a0a09a; }
+        .intro-copy { max-width: 490px; font-size: 16px; line-height: 1.85; color: #6d6d68; }
 
-        .intro h2 span {
-          color: #a0a09a;
-        }
+        /* SERVICES CARDS */
+        .services { background: #fff; border-top: 1px solid #e7e7e2; border-bottom: 1px solid #e7e7e2; }
+        .section-heading { display: flex; justify-content: space-between; gap: 50px; align-items: end; margin-bottom: 58px; }
+        .section-heading h2 { margin: 16px 0 0; font-size: clamp(38px, 4.5vw, 58px); line-height: 1.03; letter-spacing: -.055em; }
+        .section-heading p { max-width: 400px; margin: 0; color: #777772; font-size: 15px; line-height: 1.75; }
 
-        .intro-copy {
-          max-width: 490px;
-          font-size: 16px;
-          line-height: 1.85;
-          color: #6d6d68;
-        }
-
-        .intro-copy strong {
-          color: #222;
-          font-weight: 600;
-        }
-
-        /* SERVICES WITH INTERACTIVE HOVER */
-
-        .services {
-          background: #fff;
-          border-top: 1px solid #e7e7e2;
-          border-bottom: 1px solid #e7e7e2;
-        }
-
-        .section-heading {
-          display: flex;
-          justify-content: space-between;
-          gap: 50px;
-          align-items: end;
-          margin-bottom: 58px;
-        }
-
-        .section-heading h2 {
-          margin: 16px 0 0;
-          font-size: clamp(38px, 4.5vw, 58px);
-          line-height: 1.03;
-          letter-spacing: -.055em;
-        }
-
-        .section-heading p {
-          max-width: 400px;
-          margin: 0;
-          color: #777772;
-          font-size: 15px;
-          line-height: 1.75;
-        }
-
-        .service-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1px;
-          background: #deded9;
-          border: 1px solid #deded9;
-        }
-
+        .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #deded9; border: 1px solid #deded9; }
         .service-card {
-          background: #fff;
-          padding: 38px 34px;
-          min-height: 340px;
-          position: relative;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          cursor: pointer;
+          background: #fff; padding: 38px 34px; min-height: 340px; position: relative;
+          transition: all 0.3s ease; cursor: pointer;
         }
-
-        .service-card:hover {
-          background: #fbfbf9;
-          transform: translateY(-4px);
-          box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-          z-index: 2;
-        }
-
-        .service-top {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-bottom: 55px;
-        }
-
+        .service-card:hover { background: #fbfbf9; transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+        .service-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 55px; }
         .service-icon {
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
-          background: #f0f0eb;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #222;
-          font-size: 20px;
-          transition: all 0.3s ease;
+          width: 48px; height: 48px; border-radius: 50%; background: #f0f0eb;
+          display: flex; align-items: center; justify-content: center; color: #222; font-size: 20px;
         }
-
-        .service-card:hover .service-icon {
-          background: #171717;
-          color: #ffffff;
-          transform: rotate(-6deg) scale(1.08);
-        }
-
-        .service-number {
-          font-size: 11px;
-          letter-spacing: .15em;
-          color: #aaa9a3;
-          font-weight: 600;
-        }
-
-        .service-card h3 {
-          margin: 0 0 14px;
-          font-size: 19px;
-          line-height: 1.25;
-          letter-spacing: -.02em;
-          transition: color 0.2s ease;
-        }
-
-        .service-card:hover h3 {
-          color: #16866f;
-        }
-
-        .service-card p {
-          margin: 0;
-          color: #74746f;
-          font-size: 13px;
-          line-height: 1.75;
-        }
-
-        .service-tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 6px;
-          margin-top: 24px;
-        }
-
-        .service-tag {
-          padding: 5px 9px;
-          border: 1px solid #e3e3de;
-          border-radius: 3px;
-          font-size: 9px;
-          color: #85857f;
-          letter-spacing: .06em;
-          transition: all 0.2s ease;
-        }
-
-        .service-card:hover .service-tag {
-          border-color: #cbd5e1;
-          color: #475569;
-          background: #ffffff;
-        }
+        .service-number { font-size: 11px; letter-spacing: .15em; color: #aaa9a3; font-weight: 600; }
+        .service-card h3 { margin: 0 0 14px; font-size: 19px; line-height: 1.25; letter-spacing: -.02em; }
+        .service-card p { margin: 0; color: #74746f; font-size: 13px; line-height: 1.75; }
+        .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 24px; }
+        .service-tag { padding: 5px 9px; border: 1px solid #e3e3de; border-radius: 3px; font-size: 9px; color: #85857f; letter-spacing: .06em; }
 
         /* WHY */
-
-        .why {
-          background: #f0f1ee;
-        }
-
-        .why-grid {
-          display: grid;
-          grid-template-columns: .9fr 1.1fr;
-          gap: 100px;
-          align-items: center;
-        }
-
+        .why { background: #f0f1ee; }
+        .why-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 100px; align-items: center; }
         .why-image {
-          min-height: 640px;
-          border-radius: 3px;
-          background:
-            linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.35)),
-            url("https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1100&q=85")
-            center/cover;
+          min-height: 640px; border-radius: 3px;
+          background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.35)),
+            url("https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1100&q=85") center/cover;
           position: relative;
-          transition: transform 0.4s ease;
         }
-
-        .why-image:hover {
-          transform: scale(1.01);
-        }
-
         .why-image-card {
-          position: absolute;
-          bottom: 28px;
-          right: -28px;
-          width: 245px;
-          padding: 25px;
-          background: #fff;
-          box-shadow: 0 20px 50px rgba(0,0,0,.15);
-          transition: transform 0.3s ease;
+          position: absolute; bottom: 28px; right: -28px; width: 245px; padding: 25px;
+          background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,.15);
         }
-
-        .why-image-card:hover {
-          transform: translateY(-4px);
-        }
-
-        .why-image-card strong {
-          display: block;
-          font-family: 'Manrope';
-          font-size: 37px;
-          letter-spacing: -.05em;
-        }
-
-        .why-image-card span {
-          display: block;
-          color: #777;
-          font-size: 11px;
-          line-height: 1.55;
-          margin-top: 7px;
-        }
-
-        .why-content h2 {
-          max-width: 620px;
-          margin: 18px 0 24px;
-          font-size: clamp(38px, 4.5vw, 58px);
-          line-height: 1.02;
-          letter-spacing: -.055em;
-        }
-
-        .why-content > p {
-          max-width: 580px;
-          color: #70706b;
-          font-size: 15px;
-          line-height: 1.8;
-        }
-
-        .advantage-list {
-          margin-top: 42px;
-          border-top: 1px solid #d8d8d3;
-        }
-
-        .advantage {
-          display: grid;
-          grid-template-columns: 42px 1fr;
-          gap: 17px;
-          padding: 20px 0;
-          border-bottom: 1px solid #d8d8d3;
-          transition: padding-left 0.25s ease;
-        }
-
-        .advantage:hover {
-          padding-left: 8px;
-        }
-
+        .why-image-card strong { display: block; font-family: 'Manrope'; font-size: 37px; letter-spacing: -.05em; }
+        .why-image-card span { display: block; color: #777; font-size: 11px; line-height: 1.55; margin-top: 7px; }
+        .why-content h2 { max-width: 620px; margin: 18px 0 24px; font-size: clamp(38px, 4.5vw, 58px); line-height: 1.02; letter-spacing: -.055em; }
+        .why-content > p { max-width: 580px; color: #70706b; font-size: 15px; line-height: 1.8; }
+        .advantage-list { margin-top: 42px; border-top: 1px solid #d8d8d3; }
+        .advantage { display: grid; grid-template-columns: 42px 1fr; gap: 17px; padding: 20px 0; border-bottom: 1px solid #d8d8d3; }
         .advantage-icon {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          background: #fff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #555;
-          transition: background 0.2s ease, color 0.2s ease;
+          width: 38px; height: 38px; border-radius: 50%; background: #fff;
+          display: flex; align-items: center; justify-content: center; color: #555;
         }
-
-        .advantage:hover .advantage-icon {
-          background: #16866f;
-          color: #ffffff;
-        }
-
-        .advantage h3 {
-          margin: 1px 0 5px;
-          font-size: 14px;
-        }
-
-        .advantage p {
-          margin: 0;
-          color: #777;
-          font-size: 12px;
-          line-height: 1.65;
-        }
+        .advantage h3 { margin: 1px 0 5px; font-size: 14px; }
+        .advantage p { margin: 0; color: #777; font-size: 12px; line-height: 1.65; }
 
         /* INDUSTRIES */
-
-        .industries {
-          background: #171717;
-          color: #fff;
-        }
-
-        .industries .eyebrow {
-          color: #aaa;
-        }
-
-        .industries .eyebrow::before {
-          background: #76c9b4;
-        }
-
-        .industries-heading {
-          display: grid;
-          grid-template-columns: 1.1fr .9fr;
-          gap: 80px;
-          margin-bottom: 58px;
-          align-items: end;
-        }
-
-        .industries h2 {
-          margin: 16px 0 0;
-          font-size: clamp(38px, 4.5vw, 60px);
-          line-height: 1.02;
-          letter-spacing: -.055em;
-        }
-
-        .industries-heading p {
-          color: #92928e;
-          font-size: 15px;
-          line-height: 1.8;
-        }
-
-        .industry-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          border-top: 1px solid #343434;
-          border-left: 1px solid #343434;
-        }
-
-        .industry {
-          min-height: 240px;
-          padding: 30px;
-          border-right: 1px solid #343434;
-          border-bottom: 1px solid #343434;
-          transition: background .25s ease, transform .25s ease;
-        }
-
-        .industry:hover {
-          background: #242424;
-          transform: scale(1.01);
-        }
-
-        .industry-icon {
-          font-size: 21px;
-          color: #a9aaa5;
-          margin-bottom: 45px;
-          transition: color 0.25s ease;
-        }
-
-        .industry:hover .industry-icon {
-          color: #76c9b4;
-        }
-
-        .industry h3 {
-          margin: 0 0 10px;
-          font-size: 17px;
-        }
-
-        .industry p {
-          margin: 0;
-          color: #8e8e8a;
-          font-size: 12px;
-          line-height: 1.75;
-        }
+        .industries { background: #171717; color: #fff; }
+        .industries .eyebrow { color: #aaa; }
+        .industries .eyebrow::before { background: #76c9b4; }
+        .industries-heading { display: grid; grid-template-columns: 1.1fr .9fr; gap: 80px; margin-bottom: 58px; align-items: end; }
+        .industries h2 { margin: 16px 0 0; font-size: clamp(38px, 4.5vw, 60px); line-height: 1.02; letter-spacing: -.055em; }
+        .industries-heading p { color: #92928e; font-size: 15px; line-height: 1.8; }
+        .industry-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #343434; border-left: 1px solid #343434; }
+        .industry { min-height: 240px; padding: 30px; border-right: 1px solid #343434; border-bottom: 1px solid #343434; transition: background .2s; }
+        .industry:hover { background: #242424; }
+        .industry-icon { font-size: 21px; color: #a9aaa5; margin-bottom: 45px; }
+        .industry h3 { margin: 0 0 10px; font-size: 17px; }
+        .industry p { margin: 0; color: #8e8e8a; font-size: 12px; line-height: 1.75; }
 
         /* PACKAGES */
-
-        .packages {
-          background: #f7f7f4;
-        }
-
-        .packages-heading {
-          text-align: center;
-          max-width: 720px;
-          margin: 0 auto 60px;
-        }
-
-        .packages-heading h2 {
-          margin: 16px 0;
-          font-size: clamp(38px, 4.5vw, 58px);
-          letter-spacing: -.055em;
-          line-height: 1.02;
-        }
-
-        .packages-heading p {
-          color: #777772;
-          font-size: 15px;
-        }
-
-        .package-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
-          max-width: 1080px;
-          margin: 0 auto;
-          align-items: stretch;
-        }
-
-        .package {
-          background: #fff;
-          border: 1px solid #deded9;
-          padding: 34px;
-          position: relative;
-          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-        }
-
-        .package:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 24px 50px rgba(0,0,0,0.08);
-        }
-
-        .package.featured {
-          background: #171717;
-          color: #fff;
-          border-color: #171717;
-          transform: translateY(-10px);
-          box-shadow: 0 24px 60px rgba(0,0,0,.2);
-        }
-
-        .package.featured:hover {
-          transform: translateY(-16px);
-          box-shadow: 0 30px 70px rgba(0,0,0,.3);
-        }
-
+        .packages { background: #f7f7f4; }
+        .packages-heading { text-align: center; max-width: 720px; margin: 0 auto 60px; }
+        .packages-heading h2 { margin: 16px 0; font-size: clamp(38px, 4.5vw, 58px); letter-spacing: -.055em; line-height: 1.02; }
+        .package-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1080px; margin: 0 auto; align-items: stretch; }
+        .package { background: #fff; border: 1px solid #deded9; padding: 34px; position: relative; transition: all .3s; }
+        .package:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .package.featured { background: #171717; color: #fff; border-color: #171717; transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,.12); }
+        .package.featured:hover { transform: translateY(-14px); }
         .popular {
-          position: absolute;
-          top: -12px;
-          left: 28px;
-          padding: 5px 10px;
-          background: #76c9b4;
-          color: #13211d;
-          font-size: 9px;
-          font-weight: 700;
-          letter-spacing: .12em;
-          text-transform: uppercase;
+          position: absolute; top: -12px; left: 28px; padding: 5px 10px; background: #76c9b4;
+          color: #13211d; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
         }
-
-        .package-tier {
-          color: #8b8b85;
-          font-size: 9px;
-          letter-spacing: .18em;
-          text-transform: uppercase;
-          margin-bottom: 14px;
-        }
-
-        .package.featured .package-tier {
-          color: #999;
-        }
-
-        .package h3 {
-          margin: 0;
-          font-size: 22px;
-          letter-spacing: -.025em;
-        }
-
-        .package-price {
-          margin: 28px 0 6px;
-          font-family: 'Manrope';
-          font-size: 43px;
-          font-weight: 700;
-          letter-spacing: -.055em;
-        }
-
-        .package-price span {
-          font-family: 'DM Sans';
-          font-size: 12px;
-          font-weight: 400;
-          letter-spacing: 0;
-          color: #999;
-        }
-
-        .package-description {
-          min-height: 56px;
-          margin: 0 0 26px;
-          color: #777;
-          font-size: 12px;
-          line-height: 1.65;
-        }
-
-        .package.featured .package-description {
-          color: #999;
-        }
-
-        .package-features {
-          padding-top: 22px;
-          border-top: 1px solid #e5e5e0;
-        }
-
-        .package.featured .package-features {
-          border-color: #333;
-        }
-
-        .package-feature {
-          display: flex;
-          gap: 9px;
-          margin-bottom: 12px;
-          color: #60605b;
-          font-size: 12px;
-          line-height: 1.5;
-        }
-
-        .package.featured .package-feature {
-          color: #c1c1bd;
-        }
-
-        .package-feature i {
-          margin-top: 2px;
-          color: #16866f;
-        }
-
+        .package-tier { color: #8b8b85; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 14px; }
+        .package.featured .package-tier { color: #999; }
+        .package h3 { margin: 0; font-size: 22px; letter-spacing: -.025em; }
+        .package-price { margin: 28px 0 6px; font-family: 'Manrope'; font-size: 43px; font-weight: 700; letter-spacing: -.055em; }
+        .package-price span { font-family: 'DM Sans'; font-size: 12px; font-weight: 400; color: #999; }
+        .package-description { min-height: 56px; margin: 0 0 26px; color: #777; font-size: 12px; line-height: 1.65; }
+        .package.featured .package-description { color: #999; }
+        .package-features { padding-top: 22px; border-top: 1px solid #e5e5e0; }
+        .package.featured .package-features { border-color: #333; }
+        .package-feature { display: flex; gap: 9px; margin-bottom: 12px; color: #60605b; font-size: 12px; line-height: 1.5; }
+        .package.featured .package-feature { color: #c1c1bd; }
+        .package-feature i { margin-top: 2px; color: #16866f; }
         .package-button {
-          display: block;
-          margin-top: 30px;
-          padding: 13px;
-          text-align: center;
-          text-decoration: none;
-          border: 1px solid #d8d8d3;
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: .08em;
-          text-transform: uppercase;
-          transition: all 0.25s ease;
+          display: block; margin-top: 30px; padding: 13px; text-align: center; text-decoration: none;
+          border: 1px solid #d8d8d3; font-size: 11px; font-weight: 600; letter-spacing: .08em;
+          text-transform: uppercase; cursor: pointer; transition: all .2s; background: transparent; width: 100%;
         }
+        .package-button:hover { background: #171717; color: #fff; }
+        .package.featured .package-button { background: #fff; border-color: #fff; color: #171717; }
+        .package.featured .package-button:hover { background: #e2e8f0; }
 
-        .package-button:hover {
-          background: #171717;
-          color: #ffffff;
-          border-color: #171717;
-        }
-
-        .package.featured .package-button {
-          background: #fff;
-          border-color: #fff;
-          color: #171717;
-        }
-
-        .package.featured .package-button:hover {
-          background: #e2e8f0;
-        }
-
-        /* PROCESS STEPS */
-
-        .process {
-          background: #fff;
-          border-top: 1px solid #e7e7e2;
-          border-bottom: 1px solid #e7e7e2;
-        }
-
-        .process-heading {
-          max-width: 650px;
-          margin-bottom: 60px;
-        }
-
-        .process-heading h2 {
-          margin: 16px 0;
-          font-size: clamp(38px, 4.5vw, 58px);
-          line-height: 1.02;
-          letter-spacing: -.055em;
-        }
-
-        .process-heading p {
-          margin: 0;
-          color: #777;
-          font-size: 15px;
-          line-height: 1.75;
-        }
-
-        .process-grid {
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          border-top: 1px solid #deded9;
-          border-left: 1px solid #deded9;
-        }
-
+        /* PROCESS */
+        .process { background: #fff; border-top: 1px solid #e7e7e2; border-bottom: 1px solid #e7e7e2; }
+        .process-heading { max-width: 650px; margin-bottom: 60px; }
+        .process-heading h2 { margin: 16px 0; font-size: clamp(38px, 4.5vw, 58px); line-height: 1.02; letter-spacing: -.055em; }
+        .process-grid { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid #deded9; border-left: 1px solid #deded9; }
         .process-step {
-          min-height: 280px;
-          padding: 28px;
-          border-right: 1px solid #deded9;
-          border-bottom: 1px solid #deded9;
-          transition: background 0.25s ease, transform 0.25s ease;
-          cursor: pointer;
+          min-height: 280px; padding: 28px; border-right: 1px solid #deded9; border-bottom: 1px solid #deded9;
+          cursor: pointer; transition: background .2s;
         }
+        .process-step:hover { background: #fbfbf8; }
+        .process-number { font-size: 10px; letter-spacing: .18em; color: #aaa; font-weight: 700; }
+        .process-icon { margin: 55px 0 25px; font-size: 22px; color: #777; transition: transform .2s, color .2s; }
+        .process-step:hover .process-icon { color: #16866f; transform: translateY(-3px); }
+        .process-step h3 { margin: 0 0 10px; font-size: 16px; }
+        .process-step p { margin: 0; color: #777; font-size: 12px; line-height: 1.7; }
 
-        .process-step:hover,
-        .process-step.active {
-          background: #fbfbf8;
+        /* STANDALONE SERVICES PAGE SPECIFIC */
+        .services-detail-hero {
+          padding: 80px 0 50px; background: #111317; color: #fff; border-bottom: 1px solid #232730;
         }
-
-        .process-number {
-          font-size: 10px;
-          letter-spacing: .18em;
-          color: #aaa;
-          font-weight: 700;
-          transition: color 0.2s ease;
+        .services-detail-hero h1 { font-size: clamp(40px, 5.5vw, 68px); margin: 16px 0 20px; line-height: 1.05; }
+        .service-spec-card {
+          background: #fff; border: 1px solid #deded9; border-radius: 4px; padding: 44px;
+          margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
+        .service-spec-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: start; }
+        .spec-checklist { list-style: none; padding: 0; margin: 20px 0 0; }
+        .spec-checklist li { display: flex; gap: 12px; font-size: 14px; line-height: 1.6; margin-bottom: 12px; color: #444; }
+        .spec-checklist li i { color: #16866f; font-size: 18px; margin-top: 2px; }
+        .spec-meta-box { background: #f7f7f4; border: 1px solid #e8e8e3; border-radius: 4px; padding: 24px; }
 
-        .process-step:hover .process-number {
-          color: #16866f;
-        }
+        /* STANDALONE QUOTE & BOOKING PAGE */
+        .booking-hero { padding: 80px 0 50px; background: #111317; color: #fff; border-bottom: 1px solid #232730; }
+        .booking-hero h1 { font-size: clamp(40px, 5.5vw, 68px); margin: 16px 0 20px; line-height: 1.05; }
+        .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
+        .booking-card { background: #fff; border: 1px solid #deded9; border-radius: 4px; padding: 40px; box-shadow: 0 15px 45px rgba(0,0,0,0.05); }
 
-        .process-icon {
-          margin: 55px 0 25px;
-          font-size: 24px;
-          color: #777;
-          transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .process-step:hover .process-icon {
-          color: #16866f;
-          transform: translateY(-4px) scale(1.1);
-        }
-
-        .process-step h3 {
-          margin: 0 0 10px;
-          font-size: 16px;
-        }
-
-        .process-step p {
-          margin: 0;
-          color: #777;
-          font-size: 12px;
-          line-height: 1.7;
-        }
-
-        /* CONTACT */
-
-        .contact {
-          background: #eef0ed;
-        }
-
-        .contact-grid {
-          display: grid;
-          grid-template-columns: .85fr 1.15fr;
-          gap: 90px;
-          align-items: start;
-        }
-
-        .contact h2 {
-          max-width: 600px;
-          margin: 18px 0 22px;
-          font-size: clamp(40px, 5vw, 64px);
-          line-height: 1;
-          letter-spacing: -.06em;
-        }
-
-        .contact-copy {
-          max-width: 490px;
-          color: #70706b;
-          font-size: 15px;
-          line-height: 1.8;
-        }
-
-        .contact-details {
-          margin-top: 42px;
-        }
-
-        .contact-detail {
-          display: flex;
-          gap: 13px;
-          margin-bottom: 21px;
-          transition: transform 0.2s ease;
-        }
-
-        .contact-detail:hover {
-          transform: translateX(4px);
-        }
-
-        .contact-detail-icon {
-          width: 36px;
-          height: 36px;
-          flex-shrink: 0;
-          border-radius: 50%;
-          background: #fff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #666;
-          transition: background 0.2s ease, color 0.2s ease;
-        }
-
-        .contact-detail:hover .contact-detail-icon {
-          background: #16866f;
-          color: #fff;
-        }
-
-        .contact-detail small {
-          display: block;
-          color: #8b8b85;
-          font-size: 9px;
-          letter-spacing: .13em;
-          text-transform: uppercase;
-          margin-bottom: 3px;
-        }
-
-        .contact-detail span {
-          font-size: 13px;
-          color: #333;
-        }
-
-        .contact-form {
-          background: #fff;
-          padding: 40px;
-          border: 1px solid #deded9;
-          box-shadow: 0 18px 50px rgba(0,0,0,.05);
-          transition: box-shadow 0.3s ease;
-        }
-
-        .contact-form:hover {
-          box-shadow: 0 24px 60px rgba(0,0,0,.08);
-        }
-
-        .contact-form h3 {
-          margin: 0 0 28px;
-          font-size: 22px;
-          letter-spacing: -.025em;
-        }
-
-        .form-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 16px;
-        }
-
-        .form-group {
-          margin-bottom: 16px;
-        }
-
-        .form-group.full {
-          grid-column: 1 / -1;
-        }
-
+        .form-group { margin-bottom: 16px; }
+        .form-group.full { grid-column: 1 / -1; }
         .form-group label {
-          display: block;
-          margin-bottom: 7px;
-          font-size: 9px;
-          font-weight: 600;
-          color: #777;
-          letter-spacing: .13em;
-          text-transform: uppercase;
+          display: block; margin-bottom: 7px; font-size: 9px; font-weight: 600;
+          color: #777; letter-spacing: .13em; text-transform: uppercase;
         }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-          width: 100%;
-          border: 1px solid #deded9;
-          background: #fafaf8;
-          padding: 13px 14px;
-          border-radius: 3px;
-          outline: none;
-          font-family: inherit;
-          font-size: 13px;
-          color: #222;
-          transition: border .2s, background .2s, box-shadow .2s;
+        .form-group input, .form-group select, .form-group textarea {
+          width: 100%; border: 1px solid #deded9; background: #fafaf8; padding: 13px 14px;
+          border-radius: 3px; outline: none; font-family: inherit; font-size: 13px; color: #222;
+          transition: border .2s, background .2s;
         }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-          border-color: #16866f;
-          background: #fff;
-          box-shadow: 0 0 0 3px rgba(22, 134, 111, 0.12);
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+          border-color: #16866f; background: #fff;
         }
-
-        .form-group textarea {
-          resize: vertical;
-          min-height: 120px;
-        }
+        .form-group textarea { resize: vertical; min-height: 110px; }
 
         .submit-button {
-          width: 100%;
-          border: 0;
-          background: #171717;
-          color: #fff;
-          padding: 15px 20px;
-          border-radius: 3px;
-          font-family: inherit;
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: .1em;
-          text-transform: uppercase;
-          cursor: pointer;
-          transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
+          width: 100%; border: 0; background: #171717; color: #fff; padding: 15px 20px;
+          border-radius: 3px; font-family: inherit; font-size: 11px; font-weight: 600;
+          letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: background .2s, transform .2s;
         }
-
-        .submit-button:hover {
-          background: #333;
-          transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .submit-button:disabled {
-          opacity: .6;
-          cursor: not-allowed;
-          transform: none;
-        }
-
-        .form-note {
-          margin: 13px 0 0;
-          color: #999;
-          font-size: 10px;
-          line-height: 1.6;
-        }
-
-        .success {
-          text-align: center;
-          padding: 80px 20px;
-        }
-
-        .success-icon {
-          width: 58px;
-          height: 58px;
-          border-radius: 50%;
-          background: #e3f3ee;
-          color: #16866f;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 0 auto 20px;
-          font-size: 25px;
-        }
-
-        .success h3 {
-          font-size: 22px;
-          margin: 0 0 8px;
-        }
-
-        .success p {
-          color: #777;
-          font-size: 13px;
-        }
+        .submit-button:hover { background: #333; transform: translateY(-1px); }
 
         /* FOOTER */
-
-        footer {
-          background: #171717;
-          color: #fff;
-          padding: 46px 0;
+        footer { background: #171717; color: #fff; padding: 46px 0; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+        .footer-brand { display: flex; align-items: center; gap: 12px; }
+        .footer-name { font-size: 13px; font-weight: 700; letter-spacing: .15em; }
+        .footer-sub { font-size: 8px; color: #777; letter-spacing: .15em; text-transform: uppercase; margin-top: 3px; }
+        .footer-links { display: flex; gap: 25px; }
+        .footer-links button, .footer-links a {
+          color: #999; font-size: 11px; text-decoration: none; background: transparent;
+          border: 0; cursor: pointer; font-family: inherit;
         }
+        .footer-links button:hover, .footer-links a:hover { color: #fff; }
+        .footer-copy { color: #666; font-size: 10px; text-align: right; line-height: 1.6; }
 
-        .footer-inner {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 30px;
-        }
-
-        .footer-brand {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
-
-        .footer-name {
-          font-size: 13px;
-          font-weight: 700;
-          letter-spacing: .15em;
-        }
-
-        .footer-sub {
-          font-size: 8px;
-          color: #777;
-          letter-spacing: .15em;
-          text-transform: uppercase;
-          margin-top: 3px;
-        }
-
-        .footer-links {
-          display: flex;
-          gap: 25px;
-        }
-
-        .footer-links a {
-          color: #999;
-          font-size: 11px;
-          text-decoration: none;
-          transition: color 0.2s ease;
-        }
-
-        .footer-links a:hover {
-          color: #fff;
-        }
-
-        .footer-copy {
-          color: #666;
-          font-size: 10px;
-          text-align: right;
-          line-height: 1.6;
-        }
-
-        /* MOBILE */
-
+        /* RESPONSIVE */
         @media (max-width: 1000px) {
-          .nav-links {
-            display: none;
-          }
-
-          .hero-card {
-            min-height: 700px;
-          }
-
-          .hero-stats {
-            width: calc(100% - 50px);
-          }
-
-          .hero-content {
-            width: calc(100% - 70px);
-          }
-
-          .intro-grid,
-          .why-grid,
-          .contact-grid {
-            grid-template-columns: 1fr;
-            gap: 55px;
-          }
-
-          .why-image {
-            min-height: 500px;
-          }
-
-          .service-grid,
-          .industry-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-
-          .process-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-
-          .package-grid {
-            grid-template-columns: 1fr;
-            max-width: 620px;
-          }
-
-          .package.featured {
-            transform: none;
-          }
-
-          .industries-heading {
-            grid-template-columns: 1fr;
-            gap: 25px;
-          }
+          .nav-links { display: none; }
+          .intro-grid, .why-grid, .booking-grid, .service-spec-grid { grid-template-columns: 1fr; gap: 40px; }
+          .service-grid, .industry-grid, .process-grid { grid-template-columns: repeat(2, 1fr); }
+          .package-grid { grid-template-columns: 1fr; max-width: 600px; }
         }
-
         @media (max-width: 650px) {
-          .container {
-            width: min(100% - 36px, 1240px);
-          }
-
-          .section {
-            padding: 82px 0;
-          }
-
-          .navbar {
-            height: 68px;
-          }
-
-          .brand-sub {
-            display: none;
-          }
-
-          .nav-button {
-            padding: 10px 14px;
-            font-size: 10px;
-          }
-
-          .hero {
-            padding: 0;
-          }
-
-          .hero-card {
-            min-height: 760px;
-            border-radius: 0;
-          }
-
-          .hero-content {
-            width: calc(100% - 36px);
-            padding: 90px 0 220px;
-          }
-
-          .hero h1 {
-            font-size: 49px;
-          }
-
-          .hero-text {
-            font-size: 15px;
-          }
-
-          .hero-stats {
-            width: calc(100% - 36px);
-            grid-template-columns: 1fr 1fr;
-          }
-
-          .hero-stat {
-            padding: 17px;
-          }
-
-          .hero-stat:nth-child(2) {
-            border-right: 0;
-          }
-
-          .hero-stat:nth-child(-n+2) {
-            border-bottom: 1px solid #e8e8e4;
-          }
-
-          .hero-stat strong {
-            font-size: 23px;
-          }
-
-          .intro {
-            padding: 90px 0;
-          }
-
-          .intro-grid {
-            gap: 30px;
-          }
-
-          .section-heading {
-            display: block;
-            margin-bottom: 40px;
-          }
-
-          .section-heading p {
-            margin-top: 25px;
-          }
-
-          .service-grid,
-          .industry-grid,
-          .process-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .service-card {
-            min-height: auto;
-          }
-
-          .why-image {
-            min-height: 430px;
-          }
-
-          .why-image-card {
-            right: 15px;
-            bottom: 15px;
-          }
-
-          .contact-form {
-            padding: 25px;
-          }
-
-          .form-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .form-group.full {
-            grid-column: auto;
-          }
-
-          .footer-inner {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-
-          .footer-links {
-            flex-wrap: wrap;
-          }
-
-          .footer-copy {
-            text-align: left;
-          }
+          .hero-content { padding: 80px 0 200px; }
+          .hero-stats { grid-template-columns: 1fr 1fr; width: calc(100% - 36px); }
+          .service-grid, .industry-grid, .process-grid { grid-template-columns: 1fr; }
+          .footer-inner { flex-direction: column; align-items: flex-start; }
         }
       `}</style>
 
-      {/* NAVIGATION */}
+      {/* GLOBAL NAVBAR */}
       <header className="navbar">
         <div className="container nav-inner">
-          <a href="#" className="brand-wrap">
+          <div className="brand-wrap" onClick={() => setCurrentPage("home")}>
             <img src="/SYS_Dark.png" alt="SYS Ops" style={{ height: "36px", width: "auto" }} />
             <div>
               <div className="brand-name">SYS OPS</div>
               <div className="brand-sub">Remote Operations Specialist</div>
             </div>
-          </a>
+          </div>
 
           <nav className="nav-links">
-            <a href="#services">Services</a>
-            <a href="#industries">Industries</a>
-            <a href="#why">Why SYS</a>
-            <a href="#packages">Packages</a>
-            <a href="#process">Process</a>
+            <button
+              className={currentPage === "home" ? "active" : ""}
+              onClick={() => setCurrentPage("home")}
+            >
+              Home
+            </button>
+            <button
+              className={currentPage === "services" ? "active" : ""}
+              onClick={() => setCurrentPage("services")}
+            >
+              Services & Specs
+            </button>
+            <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("industries")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
+              Industries
+            </button>
+            <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("packages")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
+              Packages
+            </button>
+            <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("process")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
+              Process
+            </button>
           </nav>
 
-          <a href="#contact" className="nav-button">
-            Get a Quote
-          </a>
+          <button
+            onClick={() => setCurrentPage("quote")}
+            className="nav-button"
+          >
+            Get a Quote & Book Call
+          </button>
         </div>
       </header>
 
-      {/* DYNAMIC REAL-TIME CANARY WHARF HERO */}
-      <section className="hero">
-        <div className="hero-card">
-          {/* 5 CROSSFADING REAL-WORLD TRIPOD LAYERS */}
-          {SKYLINE_STAGES.map((stage) => {
-            const isVisible = activeStageId === stage.id;
-            return (
-              <div
-                key={stage.id}
-                className="hero-bg-layer"
-                style={{
-                  backgroundImage: `url("${stage.imageUrl}")`,
-                  opacity: isVisible ? 1 : 0,
-                  zIndex: isVisible ? 2 : 1,
-                }}
-              />
-            );
-          })}
+      {/* ======================================================== */}
+      {/* 1. HOMEPAGE VIEW                                        */}
+      {/* ======================================================== */}
+      {currentPage === "home" && (
+        <>
+          {/* REAL-TIME CANARY WHARF HERO */}
+          <section className="hero">
+            <div className="hero-card">
+              {SKYLINE_STAGES.map((stage) => {
+                const isVisible = activeStageId === stage.id;
+                return (
+                  <div
+                    key={stage.id}
+                    className="hero-bg-layer"
+                    style={{
+                      backgroundImage: `url("${stage.imageUrl}")`,
+                      opacity: isVisible ? 1 : 0,
+                      zIndex: isVisible ? 2 : 1,
+                    }}
+                  />
+                );
+              })}
 
-          {/* CONTRAST GRADIENT OVERLAY */}
-          <div className="hero-scrim" />
+              <div className="hero-scrim" />
 
-          {/* TIME BADGE IN TOP-RIGHT CORNER */}
-          <div className="hero-time-badge">
-            <span className="hero-time-dot" />
-            LONDON {londonTimeStr || "12:00"} GMT
-          </div>
+              <div className="hero-time-badge">
+                <span className="hero-time-dot" />
+                LONDON {londonTimeStr || "12:00"} GMT
+              </div>
 
-          {/* HERO CONTENT */}
-          <div className="hero-content">
-            <div className="hero-eyebrow">
-              <span />
-              UK & Ireland Operations Partner
-            </div>
-
-            <h1>
-              The operations behind
-              <br />
-              <span>your business.</span>
-            </h1>
-
-            <p className="hero-text">
-              SYS Ops provides specialist payroll, compliance, billing,
-              reporting and back-office operational support for workforce-led
-              businesses across the UK & Ireland.
-            </p>
-
-            <div className="hero-actions">
-              <a href="#contact" className="button-light">
-                Request a Proposal
-                <i className="ri-arrow-right-line" />
-              </a>
-
-              <a href="#services" className="button-outline">
-                Explore Services
-              </a>
-            </div>
-          </div>
-
-          {/* 4 STATS AT BOTTOM */}
-          <div className="hero-stats">
-            <div className="hero-stat">
-              <strong>9+</strong>
-              <span>Years Experience</span>
-            </div>
-
-            <div className="hero-stat">
-              <strong>50+</strong>
-              <span>Professionals Managed</span>
-            </div>
-
-            <div className="hero-stat">
-              <strong>UK + IE</strong>
-              <span>Markets Supported</span>
-            </div>
-
-            <div className="hero-stat">
-              <strong>60–75%</strong>
-              <span>Potential Cost Saving</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MEASURED CALM TICKER RIBBON (52s duration) */}
-      <div className="ops-ribbon" aria-hidden="true">
-        <div className="ops-ribbon-track">
-          {RIBBON_ITEMS.concat(RIBBON_ITEMS).map((item, idx) => (
-            <div className="ops-ribbon-item" key={idx}>
-              <span className="ops-ribbon-dot" />
-              <span>{item}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* INTRO */}
-      <section className="intro scroll-reveal">
-        <div className="container intro-grid">
-          <div>
-            <div className="eyebrow">About SYS Ops</div>
-
-            <h2>
-              Specialist execution.
-              <br />
-              <span>Without the overhead.</span>
-            </h2>
-          </div>
-
-          <div className="intro-copy">
-            <p>
-              <strong>SYS Ops is a specialist remote operations partner.</strong>
-            </p>
-
-            <p>
-              We take ownership of the operational work that keeps
-              workforce-led businesses moving — from payroll and compliance
-              through to invoicing, reporting and administration.
-            </p>
-
-            <p>
-              Instead of adding another full-time hire, you get an experienced
-              operational function that integrates directly into your business.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SERVICES WITH HOVER MICRO-INTERACTIONS */}
-      <section id="services" className="section services">
-        <div className="container">
-          <div className="section-heading scroll-reveal">
-            <div>
-              <div className="eyebrow">What We Do</div>
-
-              <h2>
-                Operational support
-                <br />
-                that actually works.
-              </h2>
-            </div>
-
-            <p>
-              Practical back-office capability for businesses that manage
-              workers, contractors, field teams and complex operational
-              workflows.
-            </p>
-          </div>
-
-          <div className="service-grid scroll-reveal stagger-1">
-            {services.map((service) => (
-              <div className="service-card" key={service.number}>
-                <div className="service-top">
-                  <div className="service-icon">
-                    <i className={service.icon} />
-                  </div>
-
-                  <div className="service-number">{service.number}</div>
+              <div className="hero-content">
+                <div className="hero-eyebrow">
+                  <span />
+                  UK & Ireland Operations Partner
                 </div>
 
-                <h3>{service.title}</h3>
+                <h1>
+                  The operations behind
+                  <br />
+                  <span>your business.</span>
+                </h1>
 
-                <p>{service.description}</p>
+                <p className="hero-text">
+                  SYS Ops provides specialist payroll, compliance, billing,
+                  reporting and back-office operational support for workforce-led
+                  businesses across the UK & Ireland.
+                </p>
 
-                <div className="service-tags">
-                  {service.tags.map((tag) => (
-                    <span className="service-tag" key={tag}>
-                      {tag}
-                    </span>
-                  ))}
+                <div className="hero-actions">
+                  <button
+                    onClick={() => setCurrentPage("quote")}
+                    className="button-light"
+                  >
+                    Request a Proposal / Call
+                    <i className="ri-arrow-right-line" />
+                  </button>
+
+                  <button
+                    onClick={() => setCurrentPage("services")}
+                    className="button-outline"
+                  >
+                    Explore Full Services
+                  </button>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* WHY SYS */}
-      <section id="why" className="section why">
-        <div className="container why-grid">
-          <div className="why-image scroll-reveal">
-            <div className="why-image-card">
-              <strong>60–75%</strong>
-              <span>
-                Potential cost saving compared with a full-time UK/Ireland
-                back-office hire.
-              </span>
+              <div className="hero-stats">
+                <div className="hero-stat">
+                  <strong>9+</strong>
+                  <span>Years Experience</span>
+                </div>
+                <div className="hero-stat">
+                  <strong>50+</strong>
+                  <span>Professionals Managed</span>
+                </div>
+                <div className="hero-stat">
+                  <strong>UK + IE</strong>
+                  <span>Markets Supported</span>
+                </div>
+                <div className="hero-stat">
+                  <strong>60–75%</strong>
+                  <span>Potential Cost Saving</span>
+                </div>
+              </div>
             </div>
-          </div>
+          </section>
 
-          <div className="why-content scroll-reveal stagger-1">
-            <div className="eyebrow">Why SYS Ops</div>
-
-            <h2>
-              Not generic outsourcing.
-              <br />
-              <span>Specialist execution.</span>
-            </h2>
-
-            <p>
-              Every part of our model is built around operational ownership.
-              You are not handed to a generic support queue. You get a
-              structured partner who understands your processes, systems and
-              workforce.
-            </p>
-
-            <div className="advantage-list">
-              {advantages.map((item) => (
-                <div className="advantage" key={item.title}>
-                  <div className="advantage-icon">
-                    <i className={item.icon} />
-                  </div>
-
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                  </div>
+          {/* MEASURED CALM TICKER RIBBON (52s) */}
+          <div className="ops-ribbon" aria-hidden="true">
+            <div className="ops-ribbon-track">
+              {RIBBON_ITEMS.concat(RIBBON_ITEMS).map((item, idx) => (
+                <div className="ops-ribbon-item" key={idx}>
+                  <span className="ops-ribbon-dot" />
+                  <span>{item}</span>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* INDUSTRIES */}
-      <section id="industries" className="section industries">
-        <div className="container">
-          <div className="industries-heading scroll-reveal">
-            <div>
-              <div className="eyebrow">Who We Serve</div>
-
-              <h2>
-                Built for businesses
-                <br />
-                that run on people.
-              </h2>
-            </div>
-
-            <p>
-              Our experience is particularly suited to workforce-led
-              businesses where compliance, payroll, billing and administration
-              have to work together.
-            </p>
-          </div>
-
-          <div className="industry-grid scroll-reveal stagger-1">
-            {industries.map((industry) => (
-              <div className="industry" key={industry.title}>
-                <div className="industry-icon">
-                  <i className={industry.icon} />
-                </div>
-
-                <h3>{industry.title}</h3>
-
-                <p>{industry.text}</p>
+          {/* INTRO */}
+          <section className="intro">
+            <div className="container intro-grid">
+              <div>
+                <div className="eyebrow">About SYS Ops</div>
+                <h2>
+                  Specialist execution.
+                  <br />
+                  <span>Without the overhead.</span>
+                </h2>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* PACKAGES WITH HOVER ELEVATION */}
-      <section id="packages" className="section packages">
-        <div className="container">
-          <div className="packages-heading scroll-reveal">
-            <div className="eyebrow">Ways to Work With Us</div>
+              <div className="intro-copy">
+                <p>
+                  <strong>SYS Ops is a specialist remote operations partner.</strong>
+                </p>
+                <p>
+                  We take ownership of the operational work that keeps
+                  workforce-led businesses moving — from payroll and compliance
+                  through to invoicing, reporting and administration.
+                </p>
+                <p>
+                  Instead of adding another full-time hire, you get an experienced
+                  operational function that integrates directly into your business.
+                </p>
+              </div>
+            </div>
+          </section>
 
-            <h2>Structured for every scale.</h2>
-
-            <p>
-              Transparent monthly retainers. No unnecessary setup fees. No
-              complicated outsourcing contracts.
-            </p>
-          </div>
-
-          <div className="package-grid scroll-reveal stagger-1">
-            {packages.map((pkg) => (
-              <div
-                className={`package ${pkg.featured ? "featured" : ""}`}
-                key={pkg.title}
-              >
-                {pkg.featured && <div className="popular">Most Popular</div>}
-
-                <div className="package-tier">{pkg.tier}</div>
-
-                <h3>{pkg.title}</h3>
-
-                <div className="package-price">
-                  {pkg.price}
-                  <span>/month</span>
+          {/* 6 CORE SERVICES PREVIEW */}
+          <section id="services" className="section services">
+            <div className="container">
+              <div className="section-heading">
+                <div>
+                  <div className="eyebrow">What We Do</div>
+                  <h2>
+                    Operational support
+                    <br />
+                    that actually works.
+                  </h2>
                 </div>
 
-                <p className="package-description">{pkg.description}</p>
+                <div style={{ textAlign: "right" }}>
+                  <p style={{ marginBottom: "16px" }}>
+                    Practical back-office capability for businesses that manage
+                    workers, contractors, field teams and complex operational
+                    workflows.
+                  </p>
+                  <button
+                    onClick={() => setCurrentPage("services")}
+                    style={{
+                      background: "none",
+                      border: "0",
+                      color: "#16866f",
+                      fontWeight: 700,
+                      fontSize: "13px",
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                    }}
+                  >
+                    View All Detailed Deliverables & SLAs →
+                  </button>
+                </div>
+              </div>
 
-                <div className="package-features">
-                  {pkg.features.map((feature) => (
-                    <div className="package-feature" key={feature}>
-                      <i className="ri-check-line" />
-                      <span>{feature}</span>
+              <div className="service-grid">
+                {services.map((service) => (
+                  <div
+                    className="service-card"
+                    key={service.number}
+                    onClick={() => setCurrentPage("services")}
+                  >
+                    <div className="service-top">
+                      <div className="service-icon">
+                        <i className={service.icon} />
+                      </div>
+                      <div className="service-number">{service.number}</div>
+                    </div>
+
+                    <h3>{service.title}</h3>
+                    <p>{service.description}</p>
+
+                    <div className="service-tags">
+                      {service.tags.map((tag) => (
+                        <span className="service-tag" key={tag}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* WHY SYS */}
+          <section id="why" className="section why">
+            <div className="container why-grid">
+              <div className="why-image">
+                <div className="why-image-card">
+                  <strong>60–75%</strong>
+                  <span>
+                    Potential cost saving compared with a full-time UK/Ireland
+                    back-office hire.
+                  </span>
+                </div>
+              </div>
+
+              <div className="why-content">
+                <div className="eyebrow">Why SYS Ops</div>
+                <h2>
+                  Not generic outsourcing.
+                  <br />
+                  <span>Specialist execution.</span>
+                </h2>
+                <p>
+                  Every part of our model is built around operational ownership.
+                  You are not handed to a generic support queue. You get a
+                  structured partner who understands your processes, systems and
+                  workforce.
+                </p>
+
+                <div className="advantage-list">
+                  {advantages.map((item) => (
+                    <div className="advantage" key={item.title}>
+                      <div className="advantage-icon">
+                        <i className={item.icon} />
+                      </div>
+                      <div>
+                        <h3>{item.title}</h3>
+                        <p>{item.text}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
-
-                <a href="#contact" className="package-button">
-                  Discuss This Package
-                </a>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
 
-      {/* PROCESS */}
-      <section id="process" className="section process">
-        <div className="container process-heading scroll-reveal">
-          <div className="eyebrow">How It Works</div>
-
-          <h2>From conversation to operation.</h2>
-
-          <p>
-            A straightforward onboarding process designed to get your
-            operational support running quickly and with minimal disruption.
-          </p>
-        </div>
-
-        <div className="container">
-          <div className="process-grid scroll-reveal stagger-1">
-            {process.map((step, index) => (
-              <div
-                className={`process-step ${activeProcessStep === index ? "active" : ""}`}
-                key={step.number}
-                onMouseEnter={() => setActiveProcessStep(index)}
-              >
-                <div className="process-number">{step.number}</div>
-
-                <div className="process-icon">
-                  <i
-                    className={[
-                      "ri-search-line",
-                      "ri-file-text-line",
-                      "ri-settings-3-line",
-                      "ri-links-line",
-                      "ri-rocket-line",
-                    ][index]}
-                  />
-                </div>
-
-                <h3>{step.title}</h3>
-
-                <p>{step.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section id="contact" className="section contact">
-        <div className="container contact-grid">
-          <div className="scroll-reveal">
-            <div className="eyebrow">Start a Conversation</div>
-
-            <h2>
-              Let's simplify
-              <br />
-              your operations.
-            </h2>
-
-            <p className="contact-copy">
-              Tell us what is taking up your time. We will look at your
-              operation, understand where the pressure points are and show you
-              where SYS Ops can take ownership.
-            </p>
-
-            <div className="contact-details">
-              <div className="contact-detail">
-                <div className="contact-detail-icon">
-                  <i className="ri-user-line" />
-                </div>
+          {/* INDUSTRIES */}
+          <section id="industries" className="section industries">
+            <div className="container">
+              <div className="industries-heading">
                 <div>
-                  <small>Managing Director</small>
-                  <span>Yasir Awan</span>
+                  <div className="eyebrow">Who We Serve</div>
+                  <h2>
+                    Built for businesses
+                    <br />
+                    that run on people.
+                  </h2>
                 </div>
+                <p>
+                  Our experience is particularly suited to workforce-led
+                  businesses where compliance, payroll, billing and administration
+                  have to work together.
+                </p>
               </div>
 
-              <div className="contact-detail">
-                <div className="contact-detail-icon">
-                  <i className="ri-mail-line" />
-                </div>
-                <div>
-                  <small>Email</small>
-                  <span>sysops.enquiries@gmail.com</span>
-                </div>
+              <div className="industry-grid">
+                {industries.map((industry) => (
+                  <div className="industry" key={industry.title}>
+                    <div className="industry-icon">
+                      <i className={industry.icon} />
+                    </div>
+                    <h3>{industry.title}</h3>
+                    <p>{industry.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* PACKAGES */}
+          <section id="packages" className="section packages">
+            <div className="container">
+              <div className="packages-heading">
+                <div className="eyebrow">Ways to Work With Us</div>
+                <h2>Structured for every scale.</h2>
+                <p>
+                  Transparent monthly retainers. No unnecessary setup fees. No
+                  complicated outsourcing contracts.
+                </p>
               </div>
 
-              <div className="contact-detail">
-                <div className="contact-detail-icon">
-                  <i className="ri-phone-line" />
-                </div>
-                <div>
-                  <small>Phone / WhatsApp</small>
-                  <span>+92 336 824 2425</span>
-                </div>
-              </div>
+              <div className="package-grid">
+                {packages.map((pkg) => (
+                  <div
+                    className={`package ${pkg.featured ? "featured" : ""}`}
+                    key={pkg.title}
+                  >
+                    {pkg.featured && <div className="popular">Most Popular</div>}
+                    <div className="package-tier">{pkg.tier}</div>
+                    <h3>{pkg.title}</h3>
 
-              <div className="contact-detail">
-                <div className="contact-detail-icon">
-                  <i className="ri-global-line" />
-                </div>
-                <div>
-                  <small>Website</small>
-                  <span>www.sysops.com</span>
-                </div>
-              </div>
+                    <div className="package-price">
+                      {pkg.price}
+                      <span>/month</span>
+                    </div>
 
-              <div className="contact-detail">
-                <div className="contact-detail-icon">
-                  <i className="ri-linkedin-box-line" />
-                </div>
-                <div>
-                  <small>LinkedIn</small>
-                  <span>linkedin.com/company/sys-ops</span>
-                </div>
+                    <p className="package-description">{pkg.description}</p>
+
+                    <div className="package-features">
+                      {pkg.features.map((feature) => (
+                        <div className="package-feature" key={feature}>
+                          <i className="ri-check-line" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        updateField("service", pkg.title);
+                        setCurrentPage("quote");
+                      }}
+                      className="package-button"
+                    >
+                      Discuss This Package
+                    </button>
+                  </div>
+                ))}
               </div>
+            </div>
+          </section>
+
+          {/* PROCESS */}
+          <section id="process" className="section process">
+            <div className="container process-heading">
+              <div className="eyebrow">How It Works</div>
+              <h2>From conversation to operation.</h2>
+              <p>
+                A straightforward onboarding process designed to get your
+                operational support running quickly and with minimal disruption.
+              </p>
+            </div>
+
+            <div className="container">
+              <div className="process-grid">
+                {process.map((step, index) => (
+                  <div
+                    className="process-step"
+                    key={step.number}
+                    onClick={() => setCurrentPage("quote")}
+                  >
+                    <div className="process-number">{step.number}</div>
+                    <div className="process-icon">
+                      <i
+                        className={[
+                          "ri-search-line",
+                          "ri-file-text-line",
+                          "ri-settings-3-line",
+                          "ri-links-line",
+                          "ri-rocket-line",
+                        ][index]}
+                      />
+                    </div>
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
+      {/* ======================================================== */}
+      {/* 2. STANDALONE SERVICES & DETAILED SPECS PAGE             */}
+      {/* ======================================================== */}
+      {currentPage === "services" && (
+        <div>
+          <div className="services-detail-hero">
+            <div className="container">
+              <div className="eyebrow" style={{ color: "#94a3b8" }}>
+                Full Operational Portfolio
+              </div>
+              <h1>
+                Comprehensive Back-Office
+                <br />
+                <span style={{ color: "#76c9b4" }}>Capabilities & SLAs.</span>
+              </h1>
+              <p style={{ maxWidth: "680px", color: "#cbd5e1", fontSize: "16px", lineHeight: "1.7" }}>
+                Explore the exact deliverables, guaranteed turnaround SLAs, and native software integrations across all 6 core operational divisions.
+              </p>
             </div>
           </div>
 
-          <div className="contact-form scroll-reveal stagger-1">
-            {submitted ? (
-              <div className="success">
-                <div className="success-icon">
-                  <i className="ri-check-line" />
-                </div>
-                <h3>Enquiry received.</h3>
-                <p>Thank you. We will be in touch within 3 hours.</p>
-              </div>
-            ) : (
-              <>
-                <h3>Request a proposal</h3>
+          <div className="container section">
+            {services.map((service) => (
+              <div className="service-spec-card" key={service.number}>
+                <div className="service-spec-grid">
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+                      <div className="service-icon" style={{ width: "42px", height: "42px" }}>
+                        <i className={service.icon} />
+                      </div>
+                      <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", color: "#888" }}>
+                        SERVICE DIVISION {service.number}
+                      </span>
+                    </div>
 
-                <form onSubmit={handleSubmit}>
-                  <div className="form-grid">
+                    <h2 style={{ fontSize: "28px", margin: "0 0 12px", letterSpacing: "-0.03em" }}>
+                      {service.title}
+                    </h2>
+                    <p style={{ color: "#666", fontSize: "15px", lineHeight: "1.7", margin: "0 0 24px" }}>
+                      {service.description}
+                    </p>
+
+                    <h4 style={{ fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#111", margin: "0 0 12px" }}>
+                      Included Operational Deliverables:
+                    </h4>
+                    <ul className="spec-checklist">
+                      {service.details.map((item, idx) => (
+                        <li key={idx}>
+                          <i className="ri-checkbox-circle-fill" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="spec-meta-box">
+                    <div style={{ marginBottom: "20px" }}>
+                      <small style={{ display: "block", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.14em", color: "#888", marginBottom: "4px" }}>
+                        Turnaround SLA
+                      </small>
+                      <strong style={{ fontSize: "14px", color: "#111", lineHeight: 1.4, display: "block" }}>
+                        {service.sla}
+                      </strong>
+                    </div>
+
+                    <div style={{ marginBottom: "26px" }}>
+                      <small style={{ display: "block", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.14em", color: "#888", marginBottom: "4px" }}>
+                        Supported Systems
+                      </small>
+                      <span style={{ fontSize: "13px", color: "#555" }}>
+                        {service.systems}
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        updateField("service", service.title);
+                        setCurrentPage("quote");
+                      }}
+                      className="submit-button"
+                    >
+                      Inquire About {service.title}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ======================================================== */}
+      {/* 3. STANDALONE GET A QUOTE & DISCOVERY CALL PAGE          */}
+      {/* ======================================================== */}
+      {currentPage === "quote" && (
+        <div>
+          <div className="booking-hero">
+            <div className="container">
+              <div className="eyebrow" style={{ color: "#94a3b8" }}>
+                Start a Conversation
+              </div>
+              <h1>
+                Request a Proposal &
+                <br />
+                <span style={{ color: "#76c9b4" }}>Book an Operational Audit.</span>
+              </h1>
+              <p style={{ maxWidth: "650px", color: "#cbd5e1", fontSize: "16px", lineHeight: "1.7" }}>
+                Choose your preferred way forward: Schedule a 15-minute call with Managing Director Yasir Awan, or submit your exact scope for a formal proposal within 3 hours.
+              </p>
+            </div>
+          </div>
+
+          <div className="container section">
+            <div className="booking-grid">
+              {/* SIDE A: DISCOVERY CALL SCHEDULER */}
+              <div className="booking-card">
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981" }} />
+                  <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#16866f" }}>
+                    Direct Calendar Schedule
+                  </span>
+                </div>
+
+                <h3 style={{ fontSize: "24px", margin: "0 0 10px", letterSpacing: "-0.03em" }}>
+                  15-Min Discovery Call
+                </h3>
+                <p style={{ color: "#666", fontSize: "14px", lineHeight: "1.7", margin: "0 0 24px" }}>
+                  A brief, high-level operational review to understand your current volumes, software stack, and where SYS Ops can eliminate bottlenecks.
+                </p>
+
+                {callBooked ? (
+                  <div style={{ textAlign: "center", padding: "40px 10px", background: "#f0fdf4", borderRadius: "4px" }}>
+                    <i className="ri-calendar-check-line" style={{ fontSize: "42px", color: "#16a34a", display: "block", marginBottom: "12px" }} />
+                    <h4 style={{ margin: "0 0 6px", fontSize: "18px" }}>Audit Call Requested!</h4>
+                    <p style={{ color: "#555", fontSize: "13px", margin: 0 }}>
+                      Thank you, {callData.name}. Yasir Awan will confirm the calendar invite for {callData.date || "your selected date"} at {callData.timeSlot}.
+                    </p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleCallSubmit}>
                     <div className="form-group">
-                      <label>Full Name</label>
+                      <label>Your Name</label>
                       <input
                         required
-                        value={formData.name}
-                        onChange={(e) => updateField("name", e.target.value)}
-                        placeholder="Your name"
+                        value={callData.name}
+                        onChange={(e) => setCallData({ ...callData, name: e.target.value })}
+                        placeholder="John Smith"
                       />
                     </div>
 
                     <div className="form-group">
-                      <label>Company</label>
-                      <input
-                        value={formData.company}
-                        onChange={(e) => updateField("company", e.target.value)}
-                        placeholder="Company name"
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label>Email Address</label>
+                      <label>Work Email</label>
                       <input
                         required
                         type="email"
-                        value={formData.email}
-                        onChange={(e) => updateField("email", e.target.value)}
-                        placeholder="you@company.com"
+                        value={callData.email}
+                        onChange={(e) => setCallData({ ...callData, email: e.target.value })}
+                        placeholder="john@company.co.uk"
                       />
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                      <div className="form-group">
+                        <label>Preferred Date</label>
+                        <input
+                          type="date"
+                          required
+                          value={callData.date}
+                          onChange={(e) => setCallData({ ...callData, date: e.target.value })}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Time Slot (GMT)</label>
+                        <select
+                          value={callData.timeSlot}
+                          onChange={(e) => setCallData({ ...callData, timeSlot: e.target.value })}
+                        >
+                          <option>09:30 AM GMT</option>
+                          <option>11:00 AM GMT</option>
+                          <option>02:00 PM GMT</option>
+                          <option>04:30 PM GMT</option>
+                        </select>
+                      </div>
                     </div>
 
                     <div className="form-group">
-                      <label>Phone</label>
-                      <input
-                        value={formData.phone}
-                        onChange={(e) => updateField("phone", e.target.value)}
-                        placeholder="+44 / +353..."
-                      />
+                      <label>Primary Operational Topic</label>
+                      <select
+                        value={callData.topic}
+                        onChange={(e) => setCallData({ ...callData, topic: e.target.value })}
+                      >
+                        <option>Sage Payroll & Timesheet Processing</option>
+                        <option>Workforce Compliance & Vetting</option>
+                        <option>Billing & Credit Control</option>
+                        <option>General Operational Support</option>
+                      </select>
                     </div>
 
-                    <div className="form-group full">
-                      <label>Service Required</label>
+                    <button type="submit" className="submit-button">
+                      Confirm Discovery Call
+                    </button>
+                  </form>
+                )}
+              </div>
+
+              {/* SIDE B: FORMAL WRITTEN PROPOSAL (FORMSPREE) */}
+              <div className="booking-card">
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#3b82f6" }} />
+                  <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#2563eb" }}>
+                    Formal Written Scope
+                  </span>
+                </div>
+
+                <h3 style={{ fontSize: "24px", margin: "0 0 10px", letterSpacing: "-0.03em" }}>
+                  Request Written Proposal
+                </h3>
+                <p style={{ color: "#666", fontSize: "14px", lineHeight: "1.7", margin: "0 0 24px" }}>
+                  Prefer an itemised written quote? Share your workforce requirements and receive a structured scope & retainer breakdown in 3 hours.
+                </p>
+
+                {submitted ? (
+                  <div style={{ textAlign: "center", padding: "40px 10px", background: "#f0fdf4", borderRadius: "4px" }}>
+                    <i className="ri-check-double-line" style={{ fontSize: "42px", color: "#16a34a", display: "block", marginBottom: "12px" }} />
+                    <h4 style={{ margin: "0 0 6px", fontSize: "18px" }}>Proposal Request Received</h4>
+                    <p style={{ color: "#555", fontSize: "13px", margin: 0 }}>
+                      We are reviewing your requirements and will reply to your email within 3 hours.
+                    </p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                      <div className="form-group">
+                        <label>Full Name</label>
+                        <input
+                          required
+                          value={formData.name}
+                          onChange={(e) => updateField("name", e.target.value)}
+                          placeholder="Your name"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Company</label>
+                        <input
+                          value={formData.company}
+                          onChange={(e) => updateField("company", e.target.value)}
+                          placeholder="Company name"
+                        />
+                      </div>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                      <div className="form-group">
+                        <label>Email Address</label>
+                        <input
+                          required
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => updateField("email", e.target.value)}
+                          placeholder="you@company.com"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Phone / WhatsApp</label>
+                        <input
+                          value={formData.phone}
+                          onChange={(e) => updateField("phone", e.target.value)}
+                          placeholder="+44 / +353..."
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label>Service Division Required</label>
                       <select
                         value={formData.service}
                         onChange={(e) => updateField("service", e.target.value)}
                       >
-                        <option value="">Select a service</option>
-                        <option value="compliance">
-                          Compliance Core — £300/month
-                        </option>
-                        <option value="fullops">
-                          Full Ops Package — £450/month
-                        </option>
-                        <option value="dedicated">
-                          Dedicated Ops Manager — £600/month
-                        </option>
-                        <option value="custom">Custom / Not sure yet</option>
+                        <option value="">Select a package or service</option>
+                        <option value="Invoice & Billing">Invoice & Billing Management</option>
+                        <option value="Payroll & Timesheets">Payroll & Timesheet Processing</option>
+                        <option value="Compliance & Docs">Compliance & Documentation</option>
+                        <option value="Power BI & Data">Data Analysis & Reporting</option>
+                        <option value="Remote Operations">Remote Business Operations</option>
+                        <option value="Worker Lifecycle">Worker Onboarding & Lifecycle</option>
+                        <option value="Full Ops Package">Full Ops Package (£450/mo)</option>
+                        <option value="Compliance Core">Compliance Core (£300/mo)</option>
+                        <option value="Dedicated Ops Manager">Dedicated Ops Manager (£600/mo)</option>
                       </select>
                     </div>
 
-                    <div className="form-group full">
-                      <label>Tell Us About Your Requirements</label>
+                    <div className="form-group">
+                      <label>Operational Requirements</label>
                       <textarea
                         value={formData.message}
                         onChange={(e) => updateField("message", e.target.value)}
-                        placeholder="Tell us about your business, workforce and the operational support you need..."
+                        placeholder="Workforce size, payroll cycles, systems used (e.g. Sage, Xero)..."
                       />
                     </div>
-                  </div>
 
-                  <button
-                    type="submit"
-                    className="submit-button"
-                    disabled={sending}
-                  >
-                    {sending ? "Sending..." : "Submit Enquiry"}
-                  </button>
-
-                  <p className="form-note">
-                    We respond to all enquiries within 3 hours. Your
-                    information is treated confidentially.
-                  </p>
-                </form>
-              </>
-            )}
+                    <button type="submit" className="submit-button" disabled={sending}>
+                      {sending ? "Sending Proposal Request..." : "Submit Proposal Request"}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </div>
           </div>
         </div>
-      </section>
+      )}
 
-      {/* FOOTER */}
+      {/* GLOBAL FOOTER */}
       <footer>
         <div className="container footer-inner">
-          <div className="footer-brand">
+          <div className="footer-brand" onClick={() => setCurrentPage("home")} style={{ cursor: "pointer" }}>
             <img src="/SYS.png" alt="SYS Ops" style={{ height: "32px", width: "auto" }} />
             <div>
               <div className="footer-name">SYS OPS</div>
@@ -2447,15 +1468,13 @@ export default function SysOpsWebsite() {
           </div>
 
           <div className="footer-links">
-            <a href="#services">Services</a>
-            <a href="#industries">Industries</a>
-            <a href="#why">Why SYS</a>
-            <a href="#packages">Packages</a>
-            <a href="#contact">Contact</a>
+            <button onClick={() => setCurrentPage("home")}>Home</button>
+            <button onClick={() => setCurrentPage("services")}>Services & Specs</button>
+            <button onClick={() => setCurrentPage("quote")}>Get a Quote & Book Call</button>
           </div>
 
           <div className="footer-copy">
-            UK · Ireland · Remote
+            UK · Ireland · Remote Operations
             <br />
             sysops.enquiries@gmail.com
           </div>
