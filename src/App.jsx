@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// 5 FIXED TRIPOD CANARY WHARF STAGES (From your public folder)
+// 5 FIXED TRIPOD CANARY WHARF STAGES (Saved directly in your public folder)
 const SKYLINE_STAGES = [
   {
     id: "dawn",
@@ -49,6 +49,7 @@ export default function SysOpsWebsite() {
   // --- REAL-TIME SKYLINE HERO LOGIC ---
   const [activeStageId, setActiveStageId] = useState("midday");
   const [londonTimeStr, setLondonTimeStr] = useState("");
+  const [activeProcessStep, setActiveProcessStep] = useState(0);
 
   const getStageForHour = (hourFloat) => {
     if (hourFloat >= 5.0 && hourFloat < 7.0) return "dawn";
@@ -91,6 +92,25 @@ export default function SysOpsWebsite() {
     updateTime();
     const interval = setInterval(updateTime, 10000);
     return () => clearInterval(interval);
+  }, []);
+
+  // --- SCROLL-IN ANIMATION OBSERVER ---
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    const revealElements = document.querySelectorAll(".scroll-reveal");
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
   }, []);
 
   // --- CONTACT FORM STATE ---
@@ -363,6 +383,23 @@ export default function SysOpsWebsite() {
           overflow-x: hidden;
         }
 
+        /* --- SMOOTH SCROLL-IN ANIMATIONS --- */
+        .scroll-reveal {
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: opacity, transform;
+        }
+
+        .scroll-reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+
         .container {
           width: min(1240px, calc(100% - 64px));
           margin: 0 auto;
@@ -389,6 +426,7 @@ export default function SysOpsWebsite() {
           height: 7px;
           border-radius: 50%;
           background: #16866f;
+          box-shadow: 0 0 8px rgba(22, 134, 111, 0.4);
         }
 
         h1,
@@ -408,6 +446,7 @@ export default function SysOpsWebsite() {
           background: rgba(247,247,244,.92);
           backdrop-filter: blur(18px);
           border-bottom: 1px solid #e6e6e1;
+          transition: box-shadow 0.3s ease;
         }
 
         .nav-inner {
@@ -423,6 +462,11 @@ export default function SysOpsWebsite() {
           align-items: center;
           gap: 12px;
           text-decoration: none;
+          transition: transform 0.2s ease;
+        }
+
+        .brand-wrap:hover {
+          transform: scale(1.02);
         }
 
         .brand-name {
@@ -450,11 +494,27 @@ export default function SysOpsWebsite() {
           color: #666662;
           font-size: 13px;
           font-weight: 500;
+          position: relative;
           transition: color .2s;
+        }
+
+        .nav-links a::after {
+          content: "";
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 0;
+          height: 1.5px;
+          background: #16866f;
+          transition: width 0.25s ease;
         }
 
         .nav-links a:hover {
           color: #111;
+        }
+
+        .nav-links a:hover::after {
+          width: 100%;
         }
 
         .nav-button {
@@ -469,15 +529,16 @@ export default function SysOpsWebsite() {
           font-size: 12px;
           font-weight: 600;
           letter-spacing: .04em;
-          transition: transform .2s, background .2s;
+          transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
         }
 
         .nav-button:hover {
           background: #303030;
-          transform: translateY(-1px);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
-        /* DYNAMIC CANARY WHARF HERO */
+        /* HERO */
 
         .hero {
           padding: 34px 0 0;
@@ -538,6 +599,12 @@ export default function SysOpsWebsite() {
           border-radius: 50%;
           background: #10b981;
           box-shadow: 0 0 8px #10b981;
+          animation: livePulse 2.5s infinite;
+        }
+
+        @keyframes livePulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(0.85); }
         }
 
         .hero-content {
@@ -611,12 +678,17 @@ export default function SysOpsWebsite() {
           text-decoration: none;
           letter-spacing: .05em;
           text-transform: uppercase;
-          transition: .2s;
+          transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
         }
 
         .button-light {
           background: #fff;
           color: #151515;
+        }
+
+        .button-light:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
         }
 
         .button-outline {
@@ -626,8 +698,9 @@ export default function SysOpsWebsite() {
           backdrop-filter: blur(6px);
         }
 
-        .button-light:hover,
         .button-outline:hover {
+          background: rgba(255,255,255,.12);
+          border-color: rgba(255,255,255,.5);
           transform: translateY(-2px);
         }
 
@@ -643,11 +716,17 @@ export default function SysOpsWebsite() {
           color: #171717;
           box-shadow: 0 18px 50px rgba(0,0,0,.16);
           z-index: 6;
+          transition: transform 0.3s ease;
         }
 
         .hero-stat {
           padding: 24px 26px;
           border-right: 1px solid #e8e8e4;
+          transition: background 0.25s ease;
+        }
+
+        .hero-stat:hover {
+          background: #fbfbf9;
         }
 
         .hero-stat:last-child {
@@ -671,14 +750,14 @@ export default function SysOpsWebsite() {
           letter-spacing: .12em;
         }
 
-        /* OPERATIONAL MARQUEE RIBBON */
+        /* MEASURED FRACTIONALLY SLOW TICKER RIBBON (52s) */
 
         .ops-ribbon {
           width: 100%;
-          background: #111317;
-          border-top: 1px solid #232730;
-          border-bottom: 1px solid #232730;
-          padding: 14px 0;
+          background: #101216;
+          border-top: 1px solid #20242c;
+          border-bottom: 1px solid #20242c;
+          padding: 13px 0;
           overflow: hidden;
           position: relative;
           display: flex;
@@ -692,9 +771,9 @@ export default function SysOpsWebsite() {
         .ops-ribbon-track {
           display: flex;
           align-items: center;
-          gap: 36px;
+          gap: 40px;
           white-space: nowrap;
-          animation: tickerScroll 52s linear infinite; /* Fractionally slower, calm & executive */
+          animation: tickerScroll 52s linear infinite; /* Measured, executive velocity */
           will-change: transform;
         }
 
@@ -707,6 +786,11 @@ export default function SysOpsWebsite() {
           letter-spacing: 0.14em;
           text-transform: uppercase;
           color: #cbd5e1;
+          transition: color 0.2s ease;
+        }
+
+        .ops-ribbon-item:hover {
+          color: #ffffff;
         }
 
         .ops-ribbon-dot {
@@ -718,12 +802,8 @@ export default function SysOpsWebsite() {
         }
 
         @keyframes tickerScroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
 
         /* INTRO */
@@ -764,7 +844,7 @@ export default function SysOpsWebsite() {
           font-weight: 600;
         }
 
-        /* SERVICES */
+        /* SERVICES WITH INTERACTIVE HOVER */
 
         .services {
           background: #fff;
@@ -805,14 +885,18 @@ export default function SysOpsWebsite() {
 
         .service-card {
           background: #fff;
-          padding: 36px 32px;
+          padding: 38px 34px;
           min-height: 340px;
           position: relative;
-          transition: background .25s, transform .25s;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          cursor: pointer;
         }
 
         .service-card:hover {
-          background: #f8f8f5;
+          background: #fbfbf9;
+          transform: translateY(-4px);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+          z-index: 2;
         }
 
         .service-top {
@@ -823,8 +907,8 @@ export default function SysOpsWebsite() {
         }
 
         .service-icon {
-          width: 46px;
-          height: 46px;
+          width: 48px;
+          height: 48px;
           border-radius: 50%;
           background: #f0f0eb;
           display: flex;
@@ -832,12 +916,20 @@ export default function SysOpsWebsite() {
           justify-content: center;
           color: #222;
           font-size: 20px;
+          transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+          background: #171717;
+          color: #ffffff;
+          transform: rotate(-6deg) scale(1.08);
         }
 
         .service-number {
           font-size: 11px;
           letter-spacing: .15em;
           color: #aaa9a3;
+          font-weight: 600;
         }
 
         .service-card h3 {
@@ -845,6 +937,11 @@ export default function SysOpsWebsite() {
           font-size: 19px;
           line-height: 1.25;
           letter-spacing: -.02em;
+          transition: color 0.2s ease;
+        }
+
+        .service-card:hover h3 {
+          color: #16866f;
         }
 
         .service-card p {
@@ -868,6 +965,13 @@ export default function SysOpsWebsite() {
           font-size: 9px;
           color: #85857f;
           letter-spacing: .06em;
+          transition: all 0.2s ease;
+        }
+
+        .service-card:hover .service-tag {
+          border-color: #cbd5e1;
+          color: #475569;
+          background: #ffffff;
         }
 
         /* WHY */
@@ -891,6 +995,11 @@ export default function SysOpsWebsite() {
             url("https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1100&q=85")
             center/cover;
           position: relative;
+          transition: transform 0.4s ease;
+        }
+
+        .why-image:hover {
+          transform: scale(1.01);
         }
 
         .why-image-card {
@@ -900,7 +1009,12 @@ export default function SysOpsWebsite() {
           width: 245px;
           padding: 25px;
           background: #fff;
-          box-shadow: 0 15px 45px rgba(0,0,0,.13);
+          box-shadow: 0 20px 50px rgba(0,0,0,.15);
+          transition: transform 0.3s ease;
+        }
+
+        .why-image-card:hover {
+          transform: translateY(-4px);
         }
 
         .why-image-card strong {
@@ -944,6 +1058,11 @@ export default function SysOpsWebsite() {
           gap: 17px;
           padding: 20px 0;
           border-bottom: 1px solid #d8d8d3;
+          transition: padding-left 0.25s ease;
+        }
+
+        .advantage:hover {
+          padding-left: 8px;
         }
 
         .advantage-icon {
@@ -955,6 +1074,12 @@ export default function SysOpsWebsite() {
           align-items: center;
           justify-content: center;
           color: #555;
+          transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .advantage:hover .advantage-icon {
+          background: #16866f;
+          color: #ffffff;
         }
 
         .advantage h3 {
@@ -1017,17 +1142,23 @@ export default function SysOpsWebsite() {
           padding: 30px;
           border-right: 1px solid #343434;
           border-bottom: 1px solid #343434;
-          transition: background .2s;
+          transition: background .25s ease, transform .25s ease;
         }
 
         .industry:hover {
-          background: #202020;
+          background: #242424;
+          transform: scale(1.01);
         }
 
         .industry-icon {
           font-size: 21px;
           color: #a9aaa5;
           margin-bottom: 45px;
+          transition: color 0.25s ease;
+        }
+
+        .industry:hover .industry-icon {
+          color: #76c9b4;
         }
 
         .industry h3 {
@@ -1080,6 +1211,12 @@ export default function SysOpsWebsite() {
           border: 1px solid #deded9;
           padding: 34px;
           position: relative;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+
+        .package:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 24px 50px rgba(0,0,0,0.08);
         }
 
         .package.featured {
@@ -1087,7 +1224,12 @@ export default function SysOpsWebsite() {
           color: #fff;
           border-color: #171717;
           transform: translateY(-10px);
-          box-shadow: 0 20px 50px rgba(0,0,0,.12);
+          box-shadow: 0 24px 60px rgba(0,0,0,.2);
+        }
+
+        .package.featured:hover {
+          transform: translateY(-16px);
+          box-shadow: 0 30px 70px rgba(0,0,0,.3);
         }
 
         .popular {
@@ -1187,6 +1329,13 @@ export default function SysOpsWebsite() {
           font-weight: 600;
           letter-spacing: .08em;
           text-transform: uppercase;
+          transition: all 0.25s ease;
+        }
+
+        .package-button:hover {
+          background: #171717;
+          color: #ffffff;
+          border-color: #171717;
         }
 
         .package.featured .package-button {
@@ -1195,7 +1344,11 @@ export default function SysOpsWebsite() {
           color: #171717;
         }
 
-        /* PROCESS */
+        .package.featured .package-button:hover {
+          background: #e2e8f0;
+        }
+
+        /* PROCESS STEPS */
 
         .process {
           background: #fff;
@@ -1234,18 +1387,37 @@ export default function SysOpsWebsite() {
           padding: 28px;
           border-right: 1px solid #deded9;
           border-bottom: 1px solid #deded9;
+          transition: background 0.25s ease, transform 0.25s ease;
+          cursor: pointer;
+        }
+
+        .process-step:hover,
+        .process-step.active {
+          background: #fbfbf8;
         }
 
         .process-number {
           font-size: 10px;
           letter-spacing: .18em;
           color: #aaa;
+          font-weight: 700;
+          transition: color 0.2s ease;
+        }
+
+        .process-step:hover .process-number {
+          color: #16866f;
         }
 
         .process-icon {
           margin: 55px 0 25px;
-          font-size: 22px;
+          font-size: 24px;
           color: #777;
+          transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .process-step:hover .process-icon {
+          color: #16866f;
+          transform: translateY(-4px) scale(1.1);
         }
 
         .process-step h3 {
@@ -1296,6 +1468,11 @@ export default function SysOpsWebsite() {
           display: flex;
           gap: 13px;
           margin-bottom: 21px;
+          transition: transform 0.2s ease;
+        }
+
+        .contact-detail:hover {
+          transform: translateX(4px);
         }
 
         .contact-detail-icon {
@@ -1308,6 +1485,12 @@ export default function SysOpsWebsite() {
           align-items: center;
           justify-content: center;
           color: #666;
+          transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .contact-detail:hover .contact-detail-icon {
+          background: #16866f;
+          color: #fff;
         }
 
         .contact-detail small {
@@ -1329,6 +1512,11 @@ export default function SysOpsWebsite() {
           padding: 40px;
           border: 1px solid #deded9;
           box-shadow: 0 18px 50px rgba(0,0,0,.05);
+          transition: box-shadow 0.3s ease;
+        }
+
+        .contact-form:hover {
+          box-shadow: 0 24px 60px rgba(0,0,0,.08);
         }
 
         .contact-form h3 {
@@ -1373,14 +1561,15 @@ export default function SysOpsWebsite() {
           font-family: inherit;
           font-size: 13px;
           color: #222;
-          transition: border .2s, background .2s;
+          transition: border .2s, background .2s, box-shadow .2s;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-          border-color: #777;
+          border-color: #16866f;
           background: #fff;
+          box-shadow: 0 0 0 3px rgba(22, 134, 111, 0.12);
         }
 
         .form-group textarea {
@@ -1401,12 +1590,13 @@ export default function SysOpsWebsite() {
           letter-spacing: .1em;
           text-transform: uppercase;
           cursor: pointer;
-          transition: background .2s, transform .2s;
+          transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
         }
 
         .submit-button:hover {
           background: #333;
-          transform: translateY(-1px);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         .submit-button:disabled {
@@ -1494,6 +1684,7 @@ export default function SysOpsWebsite() {
           color: #999;
           font-size: 11px;
           text-decoration: none;
+          transition: color 0.2s ease;
         }
 
         .footer-links a:hover {
@@ -1798,7 +1989,7 @@ export default function SysOpsWebsite() {
         </div>
       </section>
 
-      {/* CONTINUOUS OPERATIONAL TICKER RIBBON */}
+      {/* MEASURED CALM TICKER RIBBON (52s duration) */}
       <div className="ops-ribbon" aria-hidden="true">
         <div className="ops-ribbon-track">
           {RIBBON_ITEMS.concat(RIBBON_ITEMS).map((item, idx) => (
@@ -1811,7 +2002,7 @@ export default function SysOpsWebsite() {
       </div>
 
       {/* INTRO */}
-      <section className="intro">
+      <section className="intro scroll-reveal">
         <div className="container intro-grid">
           <div>
             <div className="eyebrow">About SYS Ops</div>
@@ -1842,10 +2033,10 @@ export default function SysOpsWebsite() {
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* SERVICES WITH HOVER MICRO-INTERACTIONS */}
       <section id="services" className="section services">
         <div className="container">
-          <div className="section-heading">
+          <div className="section-heading scroll-reveal">
             <div>
               <div className="eyebrow">What We Do</div>
 
@@ -1863,7 +2054,7 @@ export default function SysOpsWebsite() {
             </p>
           </div>
 
-          <div className="service-grid">
+          <div className="service-grid scroll-reveal stagger-1">
             {services.map((service) => (
               <div className="service-card" key={service.number}>
                 <div className="service-top">
@@ -1894,7 +2085,7 @@ export default function SysOpsWebsite() {
       {/* WHY SYS */}
       <section id="why" className="section why">
         <div className="container why-grid">
-          <div className="why-image">
+          <div className="why-image scroll-reveal">
             <div className="why-image-card">
               <strong>60–75%</strong>
               <span>
@@ -1904,7 +2095,7 @@ export default function SysOpsWebsite() {
             </div>
           </div>
 
-          <div className="why-content">
+          <div className="why-content scroll-reveal stagger-1">
             <div className="eyebrow">Why SYS Ops</div>
 
             <h2>
@@ -1941,7 +2132,7 @@ export default function SysOpsWebsite() {
       {/* INDUSTRIES */}
       <section id="industries" className="section industries">
         <div className="container">
-          <div className="industries-heading">
+          <div className="industries-heading scroll-reveal">
             <div>
               <div className="eyebrow">Who We Serve</div>
 
@@ -1959,7 +2150,7 @@ export default function SysOpsWebsite() {
             </p>
           </div>
 
-          <div className="industry-grid">
+          <div className="industry-grid scroll-reveal stagger-1">
             {industries.map((industry) => (
               <div className="industry" key={industry.title}>
                 <div className="industry-icon">
@@ -1975,10 +2166,10 @@ export default function SysOpsWebsite() {
         </div>
       </section>
 
-      {/* PACKAGES */}
+      {/* PACKAGES WITH HOVER ELEVATION */}
       <section id="packages" className="section packages">
         <div className="container">
-          <div className="packages-heading">
+          <div className="packages-heading scroll-reveal">
             <div className="eyebrow">Ways to Work With Us</div>
 
             <h2>Structured for every scale.</h2>
@@ -1989,7 +2180,7 @@ export default function SysOpsWebsite() {
             </p>
           </div>
 
-          <div className="package-grid">
+          <div className="package-grid scroll-reveal stagger-1">
             {packages.map((pkg) => (
               <div
                 className={`package ${pkg.featured ? "featured" : ""}`}
@@ -2028,7 +2219,7 @@ export default function SysOpsWebsite() {
 
       {/* PROCESS */}
       <section id="process" className="section process">
-        <div className="container process-heading">
+        <div className="container process-heading scroll-reveal">
           <div className="eyebrow">How It Works</div>
 
           <h2>From conversation to operation.</h2>
@@ -2040,9 +2231,13 @@ export default function SysOpsWebsite() {
         </div>
 
         <div className="container">
-          <div className="process-grid">
+          <div className="process-grid scroll-reveal stagger-1">
             {process.map((step, index) => (
-              <div className="process-step" key={step.number}>
+              <div
+                className={`process-step ${activeProcessStep === index ? "active" : ""}`}
+                key={step.number}
+                onMouseEnter={() => setActiveProcessStep(index)}
+              >
                 <div className="process-number">{step.number}</div>
 
                 <div className="process-icon">
@@ -2069,7 +2264,7 @@ export default function SysOpsWebsite() {
       {/* CONTACT */}
       <section id="contact" className="section contact">
         <div className="container contact-grid">
-          <div>
+          <div className="scroll-reveal">
             <div className="eyebrow">Start a Conversation</div>
 
             <h2>
@@ -2137,7 +2332,7 @@ export default function SysOpsWebsite() {
             </div>
           </div>
 
-          <div className="contact-form">
+          <div className="contact-form scroll-reveal stagger-1">
             {submitted ? (
               <div className="success">
                 <div className="success-icon">
