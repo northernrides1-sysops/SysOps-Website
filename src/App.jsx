@@ -122,7 +122,7 @@ export default function SysOpsWebsite() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
 
   const handleSubmit = async (e) => {
@@ -391,29 +391,59 @@ export default function SysOpsWebsite() {
   return (
     <div className="sys-site">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+        :root {
+          --brand-green: #16866f;
+          --brand-green-hover: #126e5b;
+          --brand-green-light: #76c9b4;
+          --brand-green-subtle: rgba(22, 134, 111, 0.08);
+          --brand-dark: #171717;
+          --brand-bg: #f7f7f4;
+          --brand-border: #e6e6e1;
+          --brand-text-muted: #747474;
+        }
 
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { margin: 0; background: #f7f7f4; color: #171717; font-family: 'DM Sans', Arial, sans-serif; }
+        body { margin: 0; background: var(--brand-bg); color: var(--brand-dark); font-family: 'DM Sans', sans-serif; }
         a { color: inherit; }
 
-        .sys-site { min-height: 100vh; background: #f7f7f4; color: #171717; overflow-x: hidden; }
+        .sys-site { min-height: 100vh; background: var(--brand-bg); color: var(--brand-dark); overflow-x: hidden; font-family: 'DM Sans', sans-serif; }
         .container { width: min(1240px, calc(100% - 64px)); margin: 0 auto; }
         .section { padding: 110px 0; }
 
         .eyebrow {
           display: inline-flex; align-items: center; gap: 9px; font-size: 11px;
-          font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #747474;
+          font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--brand-text-muted);
         }
-        .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #16866f; }
+        .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--brand-green); }
 
-        h1, h2, h3, .brand { font-family: 'Manrope', Arial, sans-serif; }
+        h1, h2, h3, h4, .brand { font-family: 'Manrope', sans-serif; }
+
+        /* KEYFRAME ANIMATIONS */
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseDot {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        @keyframes tickerScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        .animate-fade-in {
+          animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
 
         /* NAVBAR */
         .navbar {
           position: sticky; top: 0; z-index: 100; height: 76px;
-          background: rgba(247,247,244,.94); backdrop-filter: blur(18px); border-bottom: 1px solid #e6e6e1;
+          background: rgba(247,247,244,.94); backdrop-filter: blur(18px); border-bottom: 1px solid var(--brand-border);
+          transition: all 0.3s ease;
         }
         .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
         .brand-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer; }
@@ -423,21 +453,22 @@ export default function SysOpsWebsite() {
         .nav-links { display: flex; align-items: center; gap: 28px; }
         .nav-links button, .nav-links a {
           background: transparent; border: 0; padding: 0; cursor: pointer;
-          color: #666662; font-size: 13px; font-weight: 500; font-family: inherit; transition: color .2s;
+          color: #666662; font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif; transition: color .2s ease;
         }
-        .nav-links button.active, .nav-links button:hover, .nav-links a:hover { color: #111; font-weight: 700; }
+        .nav-links button.active, .nav-links button:hover, .nav-links a:hover { color: var(--brand-green); font-weight: 700; }
 
         /* CLEAN SINGLE ACTION BUTTON */
         .nav-button {
           display: inline-flex; align-items: center; justify-content: center;
-          padding: 12px 24px; background: #171717; color: #fff; border-radius: 4px;
+          padding: 12px 24px; background: var(--brand-green); color: #fff; border-radius: 4px;
           font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-          cursor: pointer; border: 0; transition: transform .2s, background .2s;
+          cursor: pointer; border: 0; font-family: 'DM Sans', sans-serif;
+          transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
         }
-        .nav-button:hover { background: #303030; transform: translateY(-1px); }
+        .nav-button:hover { background: var(--brand-green-hover); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(22, 134, 111, 0.25); }
 
         /* HERO */
-        .hero { padding: 34px 0 0; background: #f7f7f4; }
+        .hero { padding: 34px 0 0; background: var(--brand-bg); }
         .hero-card {
           min-height: 690px; position: relative; overflow: hidden; border-radius: 4px;
           background: #06080d; display: flex; align-items: center;
@@ -460,7 +491,8 @@ export default function SysOpsWebsite() {
           letter-spacing: 0.08em; color: #e2e8f0; font-weight: 500;
         }
         .hero-time-dot {
-          width: 6px; height: 6px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981;
+          width: 6px; height: 6px; border-radius: 50%; background: var(--brand-green); box-shadow: 0 0 8px var(--brand-green);
+          animation: pulseDot 2s infinite ease-in-out;
         }
         .hero-content {
           position: relative; z-index: 5; width: min(1240px, calc(100% - 100px));
@@ -472,7 +504,7 @@ export default function SysOpsWebsite() {
           backdrop-filter: blur(8px); border-radius: 3px; font-size: 10px;
           letter-spacing: .17em; text-transform: uppercase; color: rgba(255,255,255,.9); margin-bottom: 28px;
         }
-        .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: #6ed5bb; }
+        .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-green-light); }
         .hero h1 {
           max-width: 760px; margin: 0; font-size: clamp(50px, 7vw, 88px);
           line-height: .98; letter-spacing: -.055em; font-weight: 700;
@@ -484,22 +516,23 @@ export default function SysOpsWebsite() {
         .button-light, .button-outline {
           display: inline-flex; align-items: center; gap: 9px; padding: 14px 22px;
           border-radius: 4px; font-size: 12px; font-weight: 600; text-decoration: none;
-          letter-spacing: .05em; text-transform: uppercase; transition: .2s; cursor: pointer; border: 0;
+          letter-spacing: .05em; text-transform: uppercase; transition: transform .2s ease, background .2s ease; cursor: pointer; border: 0;
         }
         .button-light { background: #fff; color: #151515; }
+        .button-light:hover { background: #f0f0ed; transform: translateY(-2px); }
         .button-outline {
           border: 1px solid rgba(255,255,255,.3); color: #fff; background: rgba(255,255,255,.05); backdrop-filter: blur(6px);
         }
-        .button-light:hover, .button-outline:hover { transform: translateY(-2px); }
+        .button-outline:hover { background: rgba(255,255,255,.15); transform: translateY(-2px); border-color: #fff; }
 
         .hero-stats {
           position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
           width: min(1120px, calc(100% - 100px)); display: grid; grid-template-columns: repeat(4, 1fr);
-          background: #fff; color: #171717; box-shadow: 0 18px 50px rgba(0,0,0,.16); z-index: 6;
+          background: #fff; color: var(--brand-dark); box-shadow: 0 18px 50px rgba(0,0,0,.16); z-index: 6;
         }
         .hero-stat { padding: 24px 26px; border-right: 1px solid #e8e8e4; }
         .hero-stat:last-child { border-right: 0; }
-        .hero-stat strong { display: block; font-family: 'Manrope'; font-size: 28px; letter-spacing: -.04em; }
+        .hero-stat strong { display: block; font-family: 'Manrope', sans-serif; font-size: 28px; letter-spacing: -.04em; }
         .hero-stat span {
           display: block; margin-top: 5px; color: #777773; font-size: 10px; line-height: 1.4;
           text-transform: uppercase; letter-spacing: .12em;
@@ -519,9 +552,7 @@ export default function SysOpsWebsite() {
           display: inline-flex; align-items: center; gap: 12px; font-size: 11px;
           font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #cbd5e1;
         }
-        .ops-ribbon-dot { width: 5px; height: 5px; border-radius: 50%; background: #10b981; }
-
-        @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .ops-ribbon-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--brand-green); }
 
         /* INTRO */
         .intro { padding: 140px 0 110px; }
@@ -542,14 +573,16 @@ export default function SysOpsWebsite() {
         .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #deded9; border: 1px solid #deded9; }
         .service-card {
           background: #fff; padding: 38px 34px; min-height: 340px; position: relative;
-          transition: all 0.3s ease; cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer;
         }
         .service-card:hover { background: #fbfbf9; transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
         .service-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 55px; }
         .service-icon {
           width: 48px; height: 48px; border-radius: 50%; background: #f0f0eb;
-          display: flex; align-items: center; justify-content: center; color: #222; font-size: 20px;
+          display: flex; align-items: center; justify-content: center; color: var(--brand-green); font-size: 20px;
+          transition: transform .3s ease, background .3s ease, color .3s ease;
         }
+        .service-card:hover .service-icon { transform: scale(1.08); background: var(--brand-green-subtle); }
         .service-number { font-size: 11px; letter-spacing: .15em; color: #aaa9a3; font-weight: 600; }
         .service-card h3 { margin: 0 0 14px; font-size: 19px; line-height: 1.25; letter-spacing: -.02em; }
         .service-card p { margin: 0; color: #74746f; font-size: 13px; line-height: 1.75; }
@@ -569,7 +602,7 @@ export default function SysOpsWebsite() {
           position: absolute; bottom: 28px; right: -28px; width: 245px; padding: 25px;
           background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,.15);
         }
-        .why-image-card strong { display: block; font-family: 'Manrope'; font-size: 37px; letter-spacing: -.05em; }
+        .why-image-card strong { display: block; font-family: 'Manrope', sans-serif; font-size: 37px; letter-spacing: -.05em; color: var(--brand-green); }
         .why-image-card span { display: block; color: #777; font-size: 11px; line-height: 1.55; margin-top: 7px; }
         .why-content h2 { max-width: 620px; margin: 18px 0 24px; font-size: clamp(38px, 4.5vw, 58px); line-height: 1.02; letter-spacing: -.055em; }
         .why-content > p { max-width: 580px; color: #70706b; font-size: 15px; line-height: 1.8; }
@@ -577,56 +610,59 @@ export default function SysOpsWebsite() {
         .advantage { display: grid; grid-template-columns: 42px 1fr; gap: 17px; padding: 20px 0; border-bottom: 1px solid #d8d8d3; }
         .advantage-icon {
           width: 38px; height: 38px; border-radius: 50%; background: #fff;
-          display: flex; align-items: center; justify-content: center; color: #555;
+          display: flex; align-items: center; justify-content: center; color: var(--brand-green);
         }
         .advantage h3 { margin: 1px 0 5px; font-size: 14px; }
         .advantage p { margin: 0; color: #777; font-size: 12px; line-height: 1.65; }
 
         /* INDUSTRIES */
-        .industries { background: #171717; color: #fff; }
+        .industries { background: var(--brand-dark); color: #fff; }
         .industries .eyebrow { color: #aaa; }
-        .industries .eyebrow::before { background: #76c9b4; }
+        .industries .eyebrow::before { background: var(--brand-green-light); }
         .industries-heading { display: grid; grid-template-columns: 1.1fr .9fr; gap: 80px; margin-bottom: 58px; align-items: end; }
         .industries h2 { margin: 16px 0 0; font-size: clamp(38px, 4.5vw, 60px); line-height: 1.02; letter-spacing: -.055em; }
         .industries-heading p { color: #92928e; font-size: 15px; line-height: 1.8; }
         .industry-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #343434; border-left: 1px solid #343434; }
-        .industry { min-height: 240px; padding: 30px; border-right: 1px solid #343434; border-bottom: 1px solid #343434; transition: background .2s; }
-        .industry:hover { background: #242424; }
-        .industry-icon { font-size: 21px; color: #a9aaa5; margin-bottom: 45px; }
+        .industry { min-height: 240px; padding: 30px; border-right: 1px solid #343434; border-bottom: 1px solid #343434; transition: background .2s ease, transform .2s ease; }
+        .industry:hover { background: #222; }
+        .industry-icon { font-size: 21px; color: var(--brand-green-light); margin-bottom: 45px; }
         .industry h3 { margin: 0 0 10px; font-size: 17px; }
         .industry p { margin: 0; color: #8e8e8a; font-size: 12px; line-height: 1.75; }
 
         /* PACKAGES */
-        .packages { background: #f7f7f4; }
+        .packages { background: var(--brand-bg); }
         .packages-heading { text-align: center; max-width: 720px; margin: 0 auto 60px; }
         .packages-heading h2 { margin: 16px 0; font-size: clamp(38px, 4.5vw, 58px); letter-spacing: -.055em; line-height: 1.02; }
         .package-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1080px; margin: 0 auto; align-items: stretch; }
-        .package { background: #fff; border: 1px solid #deded9; padding: 34px; position: relative; transition: all .3s; }
+        .package { background: #fff; border: 1px solid #deded9; padding: 34px; position: relative; transition: all .3s cubic-bezier(0.16, 1, 0.3, 1); }
         .package:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        .package.featured { background: #171717; color: #fff; border-color: #171717; transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,.12); }
+        .package.featured { background: var(--brand-dark); color: #fff; border-color: var(--brand-dark); transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,.12); }
         .popular {
-          position: absolute; top: -12px; left: 28px; padding: 5px 10px; background: #76c9b4;
-          color: #13211d; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+          position: absolute; top: -12px; left: 28px; padding: 5px 10px; background: var(--brand-green);
+          color: #fff; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
         }
         .package-tier { color: #8b8b85; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 14px; }
-        .package.featured .package-tier { color: #999; }
+        .package.featured .package-tier { color: var(--brand-green-light); }
         .package h3 { margin: 0; font-size: 22px; letter-spacing: -.025em; }
-        .package-price { margin: 28px 0 6px; font-family: 'Manrope'; font-size: 43px; font-weight: 700; letter-spacing: -.055em; }
-        .package-price span { font-family: 'DM Sans'; font-size: 12px; font-weight: 400; color: #999; }
+        .package-price { margin: 28px 0 6px; font-family: 'Manrope', sans-serif; font-size: 43px; font-weight: 700; letter-spacing: -.055em; }
+        .package-price span { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400; color: #999; }
         .package-description { min-height: 56px; margin: 0 0 26px; color: #777; font-size: 12px; line-height: 1.65; }
         .package.featured .package-description { color: #999; }
         .package-features { padding-top: 22px; border-top: 1px solid #e5e5e0; }
         .package.featured .package-features { border-color: #333; }
         .package-feature { display: flex; gap: 9px; margin-bottom: 12px; color: #60605b; font-size: 12px; line-height: 1.5; }
         .package.featured .package-feature { color: #c1c1bd; }
-        .package-feature i { margin-top: 2px; color: #16866f; }
+        .package-feature i { margin-top: 2px; color: var(--brand-green); }
+        .package.featured .package-feature i { color: var(--brand-green-light); }
         .package-button {
           display: block; margin-top: 30px; padding: 13px; text-align: center; text-decoration: none;
           border: 1px solid #d8d8d3; font-size: 11px; font-weight: 600; letter-spacing: .08em;
-          text-transform: uppercase; cursor: pointer; transition: all .2s; background: transparent; width: 100%;
+          text-transform: uppercase; cursor: pointer; transition: all .2s ease; background: transparent; width: 100%;
+          font-family: 'DM Sans', sans-serif;
         }
-        .package-button:hover { background: #171717; color: #fff; }
-        .package.featured .package-button { background: #fff; border-color: #fff; color: #171717; }
+        .package-button:hover { background: var(--brand-green); color: #fff; border-color: var(--brand-green); }
+        .package.featured .package-button { background: #fff; border-color: #fff; color: var(--brand-dark); }
+        .package.featured .package-button:hover { background: var(--brand-green-light); color: var(--brand-dark); }
 
         /* PROCESS */
         .process { background: #fff; border-top: 1px solid #e7e7e2; border-bottom: 1px solid #e7e7e2; }
@@ -635,106 +671,116 @@ export default function SysOpsWebsite() {
         .process-grid { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid #deded9; border-left: 1px solid #deded9; }
         .process-step {
           min-height: 280px; padding: 28px; border-right: 1px solid #deded9; border-bottom: 1px solid #deded9;
-          cursor: pointer; transition: background .2s;
+          cursor: pointer; transition: background .2s ease, transform .2s ease;
         }
         .process-step:hover { background: #fbfbf8; }
         .process-number { font-size: 10px; letter-spacing: .18em; color: #aaa; font-weight: 700; }
-        .process-icon { margin: 55px 0 25px; font-size: 22px; color: #777; transition: transform .2s, color .2s; }
-        .process-step:hover .process-icon { color: #16866f; transform: translateY(-3px); }
+        .process-icon { margin: 55px 0 25px; font-size: 22px; color: #777; transition: transform .2s ease, color .2s ease; }
+        .process-step:hover .process-icon { color: var(--brand-green); transform: translateY(-3px); }
         .process-step h3 { margin: 0 0 10px; font-size: 16px; }
         .process-step p { margin: 0; color: #777; font-size: 12px; line-height: 1.7; }
 
         /* STANDALONE SERVICES SPECS PAGE */
         .services-detail-hero {
-          padding: 80px 0 50px; background: #111317; color: #fff; border-bottom: 1px solid #232730;
+          padding: 80px 0 50px; background: var(--brand-dark); color: #fff; border-bottom: 1px solid #282828;
         }
         .services-detail-hero h1 { font-size: clamp(40px, 5.5vw, 68px); margin: 16px 0 20px; line-height: 1.05; }
         .service-spec-card {
           background: #fff; border: 1px solid #deded9; border-radius: 4px; padding: 44px;
           margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+          transition: transform .3s ease, box-shadow .3s ease;
         }
+        .service-spec-card:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(0,0,0,0.06); }
         .service-spec-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: start; }
         .spec-checklist { list-style: none; padding: 0; margin: 20px 0 0; }
         .spec-checklist li { display: flex; gap: 12px; font-size: 14px; line-height: 1.6; margin-bottom: 12px; color: #444; }
-        .spec-checklist li i { color: #16866f; font-size: 18px; margin-top: 2px; }
-        .spec-meta-box { background: #f7f7f4; border: 1px solid #e8e8e3; border-radius: 4px; padding: 24px; }
+        .spec-checklist li i { color: var(--brand-green); font-size: 18px; margin-top: 2px; }
+        .spec-meta-box { background: var(--brand-bg); border: 1px solid #e8e8e3; border-radius: 4px; padding: 24px; }
 
         /* ======================================================== */
-        /* UNIFIED "HOSTPRO STYLE" MINIMALIST CONTACT VIEW          */
+        /* HARMONIZED "HOSTPRO STYLE" MINIMALIST CONTACT VIEW        */
+        /* 100% Matching SYS OPS Fonts, Radii, Palette (#16866f)    */
         /* ======================================================== */
         .contact-view-hero {
-          padding: 75px 0 45px; background: #111317; color: #fff; text-align: center; border-bottom: 1px solid #232730;
+          padding: 85px 0 45px; background: var(--brand-dark); color: #fff; text-align: center; border-bottom: 1px solid #282828;
         }
-        .contact-view-hero h1 { font-size: clamp(36px, 5vw, 56px); margin: 16px auto 14px; line-height: 1.08; max-width: 700px; }
-        .contact-view-hero p { max-width: 540px; margin: 0 auto; color: #94a3b8; font-size: 15px; line-height: 1.6; }
+        .contact-view-hero h1 { font-size: clamp(38px, 5.5vw, 60px); margin: 18px auto 14px; line-height: 1.05; max-width: 720px; font-weight: 700; letter-spacing: -.04em; }
+        .contact-view-hero p { max-width: 560px; margin: 0 auto; color: #a3a39e; font-size: 15px; line-height: 1.7; }
 
         .unified-contact-container {
-          max-width: 680px; margin: -30px auto 100px; position: relative; z-index: 10;
+          max-width: 680px; margin: -36px auto 110px; position: relative; z-index: 10;
         }
         .unified-card {
-          background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 44px 40px;
+          background: #ffffff; border: 1px solid #deded9; border-radius: 4px; padding: 46px 42px;
           box-shadow: 0 20px 50px rgba(0,0,0,0.06);
         }
 
-        /* DUAL ACTION TOGGLE (HostPro Style Selector) */
+        /* DUAL ACTION TOGGLE (Harmonized Pill Selector) */
         .mode-toggle-wrap {
-          display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: #f1f5f9;
-          padding: 5px; border-radius: 6px; margin-bottom: 30px;
+          display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: #eeeee9;
+          padding: 5px; border-radius: 4px; margin-bottom: 32px; border: 1px solid #e4e4dd;
         }
         .mode-toggle-btn {
-          border: 0; background: transparent; padding: 12px 16px; border-radius: 4px;
-          font-size: 13px; font-weight: 600; color: #64748b; cursor: pointer;
+          border: 0; background: transparent; padding: 13px 16px; border-radius: 3px;
+          font-size: 12px; font-weight: 700; color: #6e6e69; cursor: pointer;
           display: flex; align-items: center; justify-content: center; gap: 8px;
-          transition: all 0.2s ease;
+          font-family: 'DM Sans', sans-serif; letter-spacing: 0.04em; text-transform: uppercase;
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .mode-toggle-btn.active {
-          background: #ffffff; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+          background: #ffffff; color: var(--brand-green); box-shadow: 0 2px 8px rgba(0,0,0,0.08); font-weight: 700;
         }
-        .mode-toggle-btn i { font-size: 16px; }
+        .mode-toggle-btn i { font-size: 16px; color: inherit; }
 
-        .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .form-group { margin-bottom: 18px; }
+        .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-group { margin-bottom: 20px; }
         .form-group label {
-          display: block; margin-bottom: 6px; font-size: 11px; font-weight: 700;
-          color: #475569; letter-spacing: .08em; text-transform: uppercase;
+          display: block; margin-bottom: 8px; font-size: 11px; font-weight: 700;
+          color: #4a4a45; letter-spacing: .09em; text-transform: uppercase; font-family: 'DM Sans', sans-serif;
         }
         .form-group input, .form-group select, .form-group textarea {
-          width: 100%; border: 1px solid #cbd5e1; background: #f8fafc; padding: 12px 14px;
-          border-radius: 4px; outline: none; font-family: inherit; font-size: 14px; color: #0f172a;
-          transition: all .2s ease;
+          width: 100%; border: 1px solid #dcdcd5; background: #fafaf8; padding: 13px 15px;
+          border-radius: 4px; outline: none; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--brand-dark);
+          transition: all .25s ease;
         }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-          border-color: #0f172a; background: #ffffff; box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+          border-color: var(--brand-green); background: #ffffff;
+          box-shadow: 0 0 0 3px rgba(22, 134, 111, 0.12);
         }
-        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-group textarea { resize: vertical; min-height: 105px; line-height: 1.6; }
 
         .unified-submit-btn {
-          width: 100%; border: 0; background: #0f172a; color: #ffffff; padding: 16px;
-          border-radius: 4px; font-family: inherit; font-size: 13px; font-weight: 700;
-          letter-spacing: .08em; text-transform: uppercase; cursor: pointer;
-          transition: background .2s, transform .2s; margin-top: 10px;
+          width: 100%; border: 0; background: var(--brand-green); color: #ffffff; padding: 16px;
+          border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+          letter-spacing: .09em; text-transform: uppercase; cursor: pointer;
+          transition: all .25s cubic-bezier(0.16, 1, 0.3, 1); margin-top: 8px;
+          box-shadow: 0 4px 14px rgba(22, 134, 111, 0.22);
         }
-        .unified-submit-btn:hover { background: #1e293b; transform: translateY(-1px); }
+        .unified-submit-btn:hover:not(:disabled) {
+          background: var(--brand-green-hover); transform: translateY(-2px);
+          box-shadow: 0 8px 22px rgba(22, 134, 111, 0.32);
+        }
+        .unified-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
         .contact-direct-tray {
           display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
-          margin-top: 36px; padding-top: 28px; border-top: 1px solid #f1f5f9;
+          margin-top: 36px; padding-top: 28px; border-top: 1px solid #eeeeea;
         }
-        .tray-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #64748b; }
-        .tray-item i { color: #10b981; font-size: 15px; }
+        .tray-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #666662; font-weight: 500; }
+        .tray-item i { color: var(--brand-green); font-size: 16px; }
 
         /* FOOTER */
-        footer { background: #171717; color: #fff; padding: 46px 0; }
+        footer { background: var(--brand-dark); color: #fff; padding: 46px 0; }
         .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 30px; }
         .footer-brand { display: flex; align-items: center; gap: 12px; }
-        .footer-name { font-size: 13px; font-weight: 700; letter-spacing: .15em; }
+        .footer-name { font-size: 13px; font-weight: 700; letter-spacing: .15em; font-family: 'Manrope', sans-serif; }
         .footer-sub { font-size: 8px; color: #777; letter-spacing: .15em; text-transform: uppercase; margin-top: 3px; }
         .footer-links { display: flex; gap: 25px; }
         .footer-links button, .footer-links a {
           color: #999; font-size: 11px; text-decoration: none; background: transparent;
-          border: 0; cursor: pointer; font-family: inherit;
+          border: 0; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: color .2s ease;
         }
-        .footer-links button:hover, .footer-links a:hover { color: #fff; }
+        .footer-links button:hover, .footer-links a:hover { color: var(--brand-green-light); }
         .footer-copy { color: #666; font-size: 10px; text-align: right; line-height: 1.6; }
 
         /* RESPONSIVE */
@@ -749,8 +795,9 @@ export default function SysOpsWebsite() {
           .hero-stats { grid-template-columns: 1fr 1fr; width: calc(100% - 36px); }
           .service-grid, .industry-grid, .process-grid { grid-template-columns: 1fr; }
           .form-grid-2 { grid-template-columns: 1fr; }
-          .unified-card { padding: 28px 20px; }
+          .unified-card { padding: 30px 22px; }
           .footer-inner { flex-direction: column; align-items: flex-start; }
+          .footer-copy { text-align: left; }
         }
       `}</style>
 
@@ -838,7 +885,7 @@ export default function SysOpsWebsite() {
                 <h1>
                   The operations behind
                   <br />
-                  <span>your business.</span>
+                  <span style={{ color: "#ffffff" }}>your business.</span>
                 </h1>
 
                 <p className="hero-text">
@@ -951,13 +998,14 @@ export default function SysOpsWebsite() {
                     style={{
                       background: "none",
                       border: "0",
-                      color: "#16866f",
+                      color: "var(--brand-green)",
                       fontWeight: 700,
                       fontSize: "13px",
                       cursor: "pointer",
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "6px",
+                      fontFamily: "'DM Sans', sans-serif"
                     }}
                   >
                     View All Service Specs & SLAs →
@@ -1170,16 +1218,16 @@ export default function SysOpsWebsite() {
       {/* 2. STANDALONE SERVICES & SPECS PAGE                      */}
       {/* ======================================================== */}
       {currentPage === "services" && (
-        <div>
+        <div className="animate-fade-in">
           <div className="services-detail-hero">
             <div className="container">
-              <div className="eyebrow" style={{ color: "#94a3b8" }}>
+              <div className="eyebrow" style={{ color: "var(--brand-green-light)" }}>
                 Operational Portfolio
               </div>
               <h1>
                 Comprehensive Back-Office
                 <br />
-                <span style={{ color: "#76c9b4" }}>Capabilities & SLAs.</span>
+                <span style={{ color: "var(--brand-green-light)" }}>Capabilities & SLAs.</span>
               </h1>
               <p style={{ maxWidth: "680px", color: "#cbd5e1", fontSize: "16px", lineHeight: "1.7" }}>
                 Explore the exact deliverables, guaranteed turnaround SLAs, and native software integrations across all 6 core operational divisions.
@@ -1208,7 +1256,7 @@ export default function SysOpsWebsite() {
                       {service.description}
                     </p>
 
-                    <h4 style={{ fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "#111", margin: "0 0 12px" }}>
+                    <h4 style={{ fontSize: "12px", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--brand-dark)", margin: "0 0 12px" }}>
                       Included Operational Deliverables:
                     </h4>
                     <ul className="spec-checklist">
@@ -1226,7 +1274,7 @@ export default function SysOpsWebsite() {
                       <small style={{ display: "block", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.14em", color: "#888", marginBottom: "4px" }}>
                         Turnaround SLA
                       </small>
-                      <strong style={{ fontSize: "14px", color: "#111", lineHeight: 1.4, display: "block" }}>
+                      <strong style={{ fontSize: "14px", color: "var(--brand-dark)", lineHeight: 1.4, display: "block" }}>
                         {service.sla}
                       </strong>
                     </div>
@@ -1259,18 +1307,19 @@ export default function SysOpsWebsite() {
       )}
 
       {/* ======================================================== */}
-      {/* 3. CLEAN UNIFIED "HOSTPRO STYLE" CONTACT VIEW            */}
+      {/* 3. CLEAN HARMONIZED CONTACT VIEW                         */}
+      {/* 100% Matching SYS OPS Brand Identity (#16866f)           */}
       {/* ======================================================== */}
       {currentPage === "contact" && (
-        <div>
+        <div className="animate-fade-in">
           <div className="contact-view-hero">
             <div className="container">
-              <div className="eyebrow" style={{ color: "#94a3b8" }}>
+              <div className="eyebrow" style={{ color: "var(--brand-green-light)" }}>
                 Direct Connection
               </div>
               <h1>Let's Discuss Your Operations</h1>
               <p>
-                Fill in your details below, then choose whether you'd like a formal proposal or a 15-minute discovery call.
+                Provide your essential details below, then choose whether you'd prefer an itemised proposal or a quick 15-minute discovery call.
               </p>
             </div>
           </div>
@@ -1279,7 +1328,7 @@ export default function SysOpsWebsite() {
             <div className="unified-contact-container">
               <div className="unified-card">
 
-                {/* THE UNIFIED ACTION TOGGLE */}
+                {/* THE CLEAN DUAL TOGGLE */}
                 <div className="mode-toggle-wrap">
                   <button
                     type="button"
@@ -1301,19 +1350,19 @@ export default function SysOpsWebsite() {
                 </div>
 
                 {submitted ? (
-                  <div style={{ textAlign: "center", padding: "50px 20px" }}>
+                  <div style={{ textAlign: "center", padding: "50px 20px" }} className="animate-fade-in">
                     <div style={{
-                      width: "60px", height: "60px", borderRadius: "50%", background: "#ecfdf5",
-                      color: "#10b981", display: "flex", alignItems: "center", justifyContent: "center",
-                      margin: "0 auto 20px", fontSize: "28px"
+                      width: "64px", height: "64px", borderRadius: "50%", background: "var(--brand-green-subtle)",
+                      color: "var(--brand-green)", display: "flex", alignItems: "center", justifyContent: "center",
+                      margin: "0 auto 20px", fontSize: "30px", border: "1px solid rgba(22, 134, 111, 0.2)"
                     }}>
                       <i className="ri-check-line" />
                     </div>
-                    <h3 style={{ fontSize: "24px", margin: "0 0 10px", color: "#0f172a" }}>
-                      {contactMode === "call" ? "Call Request Confirmed" : "Enquiry Received"}
+                    <h3 style={{ fontSize: "24px", margin: "0 0 10px", color: "var(--brand-dark)", letterSpacing: "-0.03em" }}>
+                      {contactMode === "call" ? "Discovery Call Requested" : "Proposal Request Received"}
                     </h3>
-                    <p style={{ color: "#64748b", fontSize: "15px", maxWidth: "420px", margin: "0 auto 24px", lineHeight: "1.6" }}>
-                      Thank you, {formData.name}. We have received your request and will follow up with you within 3 hours.
+                    <p style={{ color: "#6b6b66", fontSize: "14px", maxWidth: "440px", margin: "0 auto 26px", lineHeight: "1.7" }}>
+                      Thank you, <strong style={{ color: "var(--brand-dark)" }}>{formData.name}</strong>. Yasir Awan and the SYS Ops team have received your details and will follow up with you within 3 business hours.
                     </p>
                     <button
                       onClick={() => { setSubmitted(false); setCurrentPage("home"); }}
@@ -1327,7 +1376,7 @@ export default function SysOpsWebsite() {
                     {/* STEP 1: ESSENTIAL CLIENT INFO */}
                     <div className="form-grid-2">
                       <div className="form-group">
-                        <label>Your Name *</label>
+                        <label>Your Full Name *</label>
                         <input
                           required
                           value={formData.name}
@@ -1341,7 +1390,7 @@ export default function SysOpsWebsite() {
                         <input
                           value={formData.company}
                           onChange={(e) => updateField("company", e.target.value)}
-                          placeholder="Acme Ltd"
+                          placeholder="Acme Operations Ltd"
                         />
                       </div>
                     </div>
@@ -1363,14 +1412,14 @@ export default function SysOpsWebsite() {
                         <input
                           value={formData.phone}
                           onChange={(e) => updateField("phone", e.target.value)}
-                          placeholder="+44 7123 456789"
+                          placeholder="+44 / +353..."
                         />
                       </div>
                     </div>
 
-                    {/* STEP 2: DYNAMIC ADAPTIVE FIELDS */}
+                    {/* STEP 2: ADAPTIVE FIELDS ACCORDING TO SELECTION */}
                     {contactMode === "quote" ? (
-                      <>
+                      <div className="animate-fade-in">
                         <div className="form-group">
                           <label>Service Area of Interest</label>
                           <select
@@ -1386,21 +1435,21 @@ export default function SysOpsWebsite() {
                             <option value="Data Analysis & Power BI">Data Analysis & Reporting (Power BI)</option>
                             <option value="Remote Business Operations">Remote Business Operations</option>
                             <option value="Worker Onboarding & Lifecycle">Worker Onboarding & Lifecycle</option>
-                            <option value="Custom Scope">Custom Scope / Undecided</option>
+                            <option value="Custom Scope">Custom Operational Scope</option>
                           </select>
                         </div>
 
                         <div className="form-group">
-                          <label>Operational Context / Requirements</label>
+                          <label>Operational Scope / Context</label>
                           <textarea
                             value={formData.message}
                             onChange={(e) => updateField("message", e.target.value)}
-                            placeholder="Briefly tell us about your workforce size, current software (Sage, Xero, etc.), or key operational pain points..."
+                            placeholder="Share your workforce size, current software (Sage, Xero, BrightPay), and primary bottlenecks..."
                           />
                         </div>
-                      </>
+                      </div>
                     ) : (
-                      <>
+                      <div className="animate-fade-in">
                         <div className="form-grid-2">
                           <div className="form-group">
                             <label>Preferred Date *</label>
@@ -1427,30 +1476,30 @@ export default function SysOpsWebsite() {
                         </div>
 
                         <div className="form-group">
-                          <label>Discussion Focus</label>
+                          <label>Primary Audit Focus</label>
                           <select
                             value={formData.service}
                             onChange={(e) => updateField("service", e.target.value)}
                           >
-                            <option value="Sage Payroll Review">Sage Payroll & Timesheets Audit</option>
-                            <option value="Compliance & Vetting">Worker Vetting & Compliance Audit</option>
-                            <option value="Billing & Debtor Days">Billing & Credit Control Overhaul</option>
-                            <option value="Full Back-Office Review">General Operational Assessment</option>
+                            <option value="Sage Payroll Review">Sage Payroll & Timesheets Workflow</option>
+                            <option value="Compliance & Vetting">Right-to-Work & Worker Vetting Audit</option>
+                            <option value="Billing & Debtor Days">Billing & Credit Control Optimization</option>
+                            <option value="Full Back-Office Review">Full Operational Architecture Review</option>
                           </select>
                         </div>
-                      </>
+                      </div>
                     )}
 
                     <button type="submit" className="unified-submit-btn" disabled={sending}>
                       {sending
-                        ? "Sending..."
+                        ? "Transmitting Request..."
                         : contactMode === "call"
-                        ? "Schedule 15-Min Call →"
+                        ? "Confirm Discovery Call Booking →"
                         : "Submit Proposal Request →"}
                     </button>
 
-                    <p style={{ margin: "14px 0 0", color: "#94a3b8", fontSize: "11px", textAlign: "center" }}>
-                      🔒 SLA guarantee: We respond within 3 business hours. No spam.
+                    <p style={{ margin: "14px 0 0", color: "#8b8b85", fontSize: "11px", textAlign: "center" }}>
+                      🔒 SLA-backed response: Written proposal or call confirmation within 3 business hours.
                     </p>
                   </form>
                 )}
