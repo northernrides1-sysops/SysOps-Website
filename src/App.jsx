@@ -46,34 +46,29 @@ const RIBBON_ITEMS = [
 ];
 
 export default function SysOpsWebsite() {
-  // NAVIGATION: 'home' | 'services' | 'quote'
+  // NAVIGATION: 'home' | 'services' | 'contact'
   const [currentPage, setCurrentPage] = useState("home");
 
   // REAL-TIME SKYLINE TIME
   const [activeStageId, setActiveStageId] = useState("midday");
   const [londonTimeStr, setLondonTimeStr] = useState("");
-  const [activeProcessStep, setActiveProcessStep] = useState(0);
 
-  // CALL BOOKING FORM STATE
-  const [callBooked, setCallBooked] = useState(false);
-  const [callData, setCallData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    date: "",
-    timeSlot: "11:00 AM GMT",
-    topic: "General Operational Audit",
-  });
+  // UNIFIED CONTACT ACTION: 'quote' | 'call'
+  const [contactMode, setContactMode] = useState("quote");
 
-  // QUOTE FORM STATE
+  // UNIFIED FORM STATE
   const [formData, setFormData] = useState({
-    service: "",
     name: "",
     company: "",
     email: "",
     phone: "",
+    actionType: "Request a Proposal",
+    service: "Full Ops Package",
+    preferredDate: "",
+    preferredTime: "11:00 AM GMT",
     message: "",
   });
+
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
 
@@ -126,7 +121,6 @@ export default function SysOpsWebsite() {
     return () => clearInterval(interval);
   }, []);
 
-  // Scroll to top whenever changing pages
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentPage]);
@@ -135,6 +129,11 @@ export default function SysOpsWebsite() {
     e.preventDefault();
     setSending(true);
 
+    const payload = {
+      ...formData,
+      actionType: contactMode === "call" ? "15-Min Discovery Call" : "Written Proposal Request",
+    };
+
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
@@ -142,19 +141,11 @@ export default function SysOpsWebsite() {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
         setSubmitted(true);
-        setFormData({
-          service: "",
-          name: "",
-          company: "",
-          email: "",
-          phone: "",
-          message: "",
-        });
       }
     } catch (error) {
       console.error(error);
@@ -163,12 +154,7 @@ export default function SysOpsWebsite() {
     }
   };
 
-  const handleCallSubmit = (e) => {
-    e.preventDefault();
-    setCallBooked(true);
-  };
-
-  // ALL 6 CORE SERVICES (PRESERVED 100%) WITH DETAILED SPECS
+  // ALL 6 CORE SERVICES (PRESERVED 100%)
   const services = [
     {
       number: "01",
@@ -420,9 +406,7 @@ export default function SysOpsWebsite() {
           display: inline-flex; align-items: center; gap: 9px; font-size: 11px;
           font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #747474;
         }
-        .eyebrow::before {
-          content: ""; width: 7px; height: 7px; border-radius: 50%; background: #16866f;
-        }
+        .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #16866f; }
 
         h1, h2, h3, .brand { font-family: 'Manrope', Arial, sans-serif; }
 
@@ -443,11 +427,12 @@ export default function SysOpsWebsite() {
         }
         .nav-links button.active, .nav-links button:hover, .nav-links a:hover { color: #111; font-weight: 700; }
 
+        /* CLEAN SINGLE ACTION BUTTON */
         .nav-button {
           display: inline-flex; align-items: center; justify-content: center;
-          padding: 12px 21px; background: #171717; color: #fff; border-radius: 5px;
-          font-size: 12px; font-weight: 600; letter-spacing: .04em; cursor: pointer; border: 0;
-          transition: transform .2s, background .2s;
+          padding: 12px 24px; background: #171717; color: #fff; border-radius: 4px;
+          font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+          cursor: pointer; border: 0; transition: transform .2s, background .2s;
         }
         .nav-button:hover { background: #303030; transform: translateY(-1px); }
 
@@ -548,7 +533,7 @@ export default function SysOpsWebsite() {
         .intro h2 span { color: #a0a09a; }
         .intro-copy { max-width: 490px; font-size: 16px; line-height: 1.85; color: #6d6d68; }
 
-        /* SERVICES CARDS */
+        /* SERVICES OVERVIEW */
         .services { background: #fff; border-top: 1px solid #e7e7e2; border-bottom: 1px solid #e7e7e2; }
         .section-heading { display: flex; justify-content: space-between; gap: 50px; align-items: end; margin-bottom: 58px; }
         .section-heading h2 { margin: 16px 0 0; font-size: clamp(38px, 4.5vw, 58px); line-height: 1.03; letter-spacing: -.055em; }
@@ -619,7 +604,6 @@ export default function SysOpsWebsite() {
         .package { background: #fff; border: 1px solid #deded9; padding: 34px; position: relative; transition: all .3s; }
         .package:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
         .package.featured { background: #171717; color: #fff; border-color: #171717; transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,.12); }
-        .package.featured:hover { transform: translateY(-14px); }
         .popular {
           position: absolute; top: -12px; left: 28px; padding: 5px 10px; background: #76c9b4;
           color: #13211d; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
@@ -643,7 +627,6 @@ export default function SysOpsWebsite() {
         }
         .package-button:hover { background: #171717; color: #fff; }
         .package.featured .package-button { background: #fff; border-color: #fff; color: #171717; }
-        .package.featured .package-button:hover { background: #e2e8f0; }
 
         /* PROCESS */
         .process { background: #fff; border-top: 1px solid #e7e7e2; border-bottom: 1px solid #e7e7e2; }
@@ -661,7 +644,7 @@ export default function SysOpsWebsite() {
         .process-step h3 { margin: 0 0 10px; font-size: 16px; }
         .process-step p { margin: 0; color: #777; font-size: 12px; line-height: 1.7; }
 
-        /* STANDALONE SERVICES PAGE SPECIFIC */
+        /* STANDALONE SERVICES SPECS PAGE */
         .services-detail-hero {
           padding: 80px 0 50px; background: #111317; color: #fff; border-bottom: 1px solid #232730;
         }
@@ -676,34 +659,69 @@ export default function SysOpsWebsite() {
         .spec-checklist li i { color: #16866f; font-size: 18px; margin-top: 2px; }
         .spec-meta-box { background: #f7f7f4; border: 1px solid #e8e8e3; border-radius: 4px; padding: 24px; }
 
-        /* STANDALONE QUOTE & BOOKING PAGE */
-        .booking-hero { padding: 80px 0 50px; background: #111317; color: #fff; border-bottom: 1px solid #232730; }
-        .booking-hero h1 { font-size: clamp(40px, 5.5vw, 68px); margin: 16px 0 20px; line-height: 1.05; }
-        .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
-        .booking-card { background: #fff; border: 1px solid #deded9; border-radius: 4px; padding: 40px; box-shadow: 0 15px 45px rgba(0,0,0,0.05); }
+        /* ======================================================== */
+        /* UNIFIED "HOSTPRO STYLE" MINIMALIST CONTACT VIEW          */
+        /* ======================================================== */
+        .contact-view-hero {
+          padding: 75px 0 45px; background: #111317; color: #fff; text-align: center; border-bottom: 1px solid #232730;
+        }
+        .contact-view-hero h1 { font-size: clamp(36px, 5vw, 56px); margin: 16px auto 14px; line-height: 1.08; max-width: 700px; }
+        .contact-view-hero p { max-width: 540px; margin: 0 auto; color: #94a3b8; font-size: 15px; line-height: 1.6; }
 
-        .form-group { margin-bottom: 16px; }
-        .form-group.full { grid-column: 1 / -1; }
+        .unified-contact-container {
+          max-width: 680px; margin: -30px auto 100px; position: relative; z-index: 10;
+        }
+        .unified-card {
+          background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 44px 40px;
+          box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+        }
+
+        /* DUAL ACTION TOGGLE (HostPro Style Selector) */
+        .mode-toggle-wrap {
+          display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: #f1f5f9;
+          padding: 5px; border-radius: 6px; margin-bottom: 30px;
+        }
+        .mode-toggle-btn {
+          border: 0; background: transparent; padding: 12px 16px; border-radius: 4px;
+          font-size: 13px; font-weight: 600; color: #64748b; cursor: pointer;
+          display: flex; align-items: center; justify-content: center; gap: 8px;
+          transition: all 0.2s ease;
+        }
+        .mode-toggle-btn.active {
+          background: #ffffff; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .mode-toggle-btn i { font-size: 16px; }
+
+        .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .form-group { margin-bottom: 18px; }
         .form-group label {
-          display: block; margin-bottom: 7px; font-size: 9px; font-weight: 600;
-          color: #777; letter-spacing: .13em; text-transform: uppercase;
+          display: block; margin-bottom: 6px; font-size: 11px; font-weight: 700;
+          color: #475569; letter-spacing: .08em; text-transform: uppercase;
         }
         .form-group input, .form-group select, .form-group textarea {
-          width: 100%; border: 1px solid #deded9; background: #fafaf8; padding: 13px 14px;
-          border-radius: 3px; outline: none; font-family: inherit; font-size: 13px; color: #222;
-          transition: border .2s, background .2s;
+          width: 100%; border: 1px solid #cbd5e1; background: #f8fafc; padding: 12px 14px;
+          border-radius: 4px; outline: none; font-family: inherit; font-size: 14px; color: #0f172a;
+          transition: all .2s ease;
         }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-          border-color: #16866f; background: #fff;
+          border-color: #0f172a; background: #ffffff; box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
         }
-        .form-group textarea { resize: vertical; min-height: 110px; }
+        .form-group textarea { resize: vertical; min-height: 100px; }
 
-        .submit-button {
-          width: 100%; border: 0; background: #171717; color: #fff; padding: 15px 20px;
-          border-radius: 3px; font-family: inherit; font-size: 11px; font-weight: 600;
-          letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: background .2s, transform .2s;
+        .unified-submit-btn {
+          width: 100%; border: 0; background: #0f172a; color: #ffffff; padding: 16px;
+          border-radius: 4px; font-family: inherit; font-size: 13px; font-weight: 700;
+          letter-spacing: .08em; text-transform: uppercase; cursor: pointer;
+          transition: background .2s, transform .2s; margin-top: 10px;
         }
-        .submit-button:hover { background: #333; transform: translateY(-1px); }
+        .unified-submit-btn:hover { background: #1e293b; transform: translateY(-1px); }
+
+        .contact-direct-tray {
+          display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+          margin-top: 36px; padding-top: 28px; border-top: 1px solid #f1f5f9;
+        }
+        .tray-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #64748b; }
+        .tray-item i { color: #10b981; font-size: 15px; }
 
         /* FOOTER */
         footer { background: #171717; color: #fff; padding: 46px 0; }
@@ -722,7 +740,7 @@ export default function SysOpsWebsite() {
         /* RESPONSIVE */
         @media (max-width: 1000px) {
           .nav-links { display: none; }
-          .intro-grid, .why-grid, .booking-grid, .service-spec-grid { grid-template-columns: 1fr; gap: 40px; }
+          .intro-grid, .why-grid, .service-spec-grid { grid-template-columns: 1fr; gap: 40px; }
           .service-grid, .industry-grid, .process-grid { grid-template-columns: repeat(2, 1fr); }
           .package-grid { grid-template-columns: 1fr; max-width: 600px; }
         }
@@ -730,6 +748,8 @@ export default function SysOpsWebsite() {
           .hero-content { padding: 80px 0 200px; }
           .hero-stats { grid-template-columns: 1fr 1fr; width: calc(100% - 36px); }
           .service-grid, .industry-grid, .process-grid { grid-template-columns: 1fr; }
+          .form-grid-2 { grid-template-columns: 1fr; }
+          .unified-card { padding: 28px 20px; }
           .footer-inner { flex-direction: column; align-items: flex-start; }
         }
       `}</style>
@@ -756,7 +776,7 @@ export default function SysOpsWebsite() {
               className={currentPage === "services" ? "active" : ""}
               onClick={() => setCurrentPage("services")}
             >
-              Services & Specs
+              Services
             </button>
             <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("industries")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
               Industries
@@ -769,11 +789,12 @@ export default function SysOpsWebsite() {
             </button>
           </nav>
 
+          {/* UNIFIED SINGLE ACTION BUTTON */}
           <button
-            onClick={() => setCurrentPage("quote")}
+            onClick={() => setCurrentPage("contact")}
             className="nav-button"
           >
-            Get a Quote & Book Call
+            Contact Us
           </button>
         </div>
       </header>
@@ -828,10 +849,10 @@ export default function SysOpsWebsite() {
 
                 <div className="hero-actions">
                   <button
-                    onClick={() => setCurrentPage("quote")}
+                    onClick={() => setCurrentPage("contact")}
                     className="button-light"
                   >
-                    Request a Proposal / Call
+                    Contact Us
                     <i className="ri-arrow-right-line" />
                   </button>
 
@@ -839,7 +860,7 @@ export default function SysOpsWebsite() {
                     onClick={() => setCurrentPage("services")}
                     className="button-outline"
                   >
-                    Explore Full Services
+                    Explore Services
                   </button>
                 </div>
               </div>
@@ -906,7 +927,7 @@ export default function SysOpsWebsite() {
             </div>
           </section>
 
-          {/* 6 CORE SERVICES PREVIEW */}
+          {/* 6 CORE SERVICES OVERVIEW */}
           <section id="services" className="section services">
             <div className="container">
               <div className="section-heading">
@@ -939,7 +960,7 @@ export default function SysOpsWebsite() {
                       gap: "6px",
                     }}
                   >
-                    View All Detailed Deliverables & SLAs →
+                    View All Service Specs & SLAs →
                   </button>
                 </div>
               </div>
@@ -1092,7 +1113,7 @@ export default function SysOpsWebsite() {
                     <button
                       onClick={() => {
                         updateField("service", pkg.title);
-                        setCurrentPage("quote");
+                        setCurrentPage("contact");
                       }}
                       className="package-button"
                     >
@@ -1121,7 +1142,7 @@ export default function SysOpsWebsite() {
                   <div
                     className="process-step"
                     key={step.number}
-                    onClick={() => setCurrentPage("quote")}
+                    onClick={() => setCurrentPage("contact")}
                   >
                     <div className="process-number">{step.number}</div>
                     <div className="process-icon">
@@ -1146,14 +1167,14 @@ export default function SysOpsWebsite() {
       )}
 
       {/* ======================================================== */}
-      {/* 2. STANDALONE SERVICES & DETAILED SPECS PAGE             */}
+      {/* 2. STANDALONE SERVICES & SPECS PAGE                      */}
       {/* ======================================================== */}
       {currentPage === "services" && (
         <div>
           <div className="services-detail-hero">
             <div className="container">
               <div className="eyebrow" style={{ color: "#94a3b8" }}>
-                Full Operational Portfolio
+                Operational Portfolio
               </div>
               <h1>
                 Comprehensive Back-Office
@@ -1222,9 +1243,10 @@ export default function SysOpsWebsite() {
                     <button
                       onClick={() => {
                         updateField("service", service.title);
-                        setCurrentPage("quote");
+                        setCurrentPage("contact");
                       }}
-                      className="submit-button"
+                      className="nav-button"
+                      style={{ width: "100%", padding: "14px" }}
                     >
                       Inquire About {service.title}
                     </button>
@@ -1237,219 +1259,218 @@ export default function SysOpsWebsite() {
       )}
 
       {/* ======================================================== */}
-      {/* 3. STANDALONE GET A QUOTE & DISCOVERY CALL PAGE          */}
+      {/* 3. CLEAN UNIFIED "HOSTPRO STYLE" CONTACT VIEW            */}
       {/* ======================================================== */}
-      {currentPage === "quote" && (
+      {currentPage === "contact" && (
         <div>
-          <div className="booking-hero">
+          <div className="contact-view-hero">
             <div className="container">
               <div className="eyebrow" style={{ color: "#94a3b8" }}>
-                Start a Conversation
+                Direct Connection
               </div>
-              <h1>
-                Request a Proposal &
-                <br />
-                <span style={{ color: "#76c9b4" }}>Book an Operational Audit.</span>
-              </h1>
-              <p style={{ maxWidth: "650px", color: "#cbd5e1", fontSize: "16px", lineHeight: "1.7" }}>
-                Choose your preferred way forward: Schedule a 15-minute call with Managing Director Yasir Awan, or submit your exact scope for a formal proposal within 3 hours.
+              <h1>Let's Discuss Your Operations</h1>
+              <p>
+                Fill in your details below, then choose whether you'd like a formal proposal or a 15-minute discovery call.
               </p>
             </div>
           </div>
 
-          <div className="container section">
-            <div className="booking-grid">
-              {/* SIDE A: DISCOVERY CALL SCHEDULER */}
-              <div className="booking-card">
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
-                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981" }} />
-                  <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#16866f" }}>
-                    Direct Calendar Schedule
-                  </span>
+          <div className="container">
+            <div className="unified-contact-container">
+              <div className="unified-card">
+
+                {/* THE UNIFIED ACTION TOGGLE */}
+                <div className="mode-toggle-wrap">
+                  <button
+                    type="button"
+                    className={`mode-toggle-btn ${contactMode === "quote" ? "active" : ""}`}
+                    onClick={() => setContactMode("quote")}
+                  >
+                    <i className="ri-file-text-line" />
+                    Request a Proposal
+                  </button>
+
+                  <button
+                    type="button"
+                    className={`mode-toggle-btn ${contactMode === "call" ? "active" : ""}`}
+                    onClick={() => setContactMode("call")}
+                  >
+                    <i className="ri-phone-line" />
+                    Book 15-Min Call
+                  </button>
                 </div>
-
-                <h3 style={{ fontSize: "24px", margin: "0 0 10px", letterSpacing: "-0.03em" }}>
-                  15-Min Discovery Call
-                </h3>
-                <p style={{ color: "#666", fontSize: "14px", lineHeight: "1.7", margin: "0 0 24px" }}>
-                  A brief, high-level operational review to understand your current volumes, software stack, and where SYS Ops can eliminate bottlenecks.
-                </p>
-
-                {callBooked ? (
-                  <div style={{ textAlign: "center", padding: "40px 10px", background: "#f0fdf4", borderRadius: "4px" }}>
-                    <i className="ri-calendar-check-line" style={{ fontSize: "42px", color: "#16a34a", display: "block", marginBottom: "12px" }} />
-                    <h4 style={{ margin: "0 0 6px", fontSize: "18px" }}>Audit Call Requested!</h4>
-                    <p style={{ color: "#555", fontSize: "13px", margin: 0 }}>
-                      Thank you, {callData.name}. Yasir Awan will confirm the calendar invite for {callData.date || "your selected date"} at {callData.timeSlot}.
-                    </p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleCallSubmit}>
-                    <div className="form-group">
-                      <label>Your Name</label>
-                      <input
-                        required
-                        value={callData.name}
-                        onChange={(e) => setCallData({ ...callData, name: e.target.value })}
-                        placeholder="John Smith"
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label>Work Email</label>
-                      <input
-                        required
-                        type="email"
-                        value={callData.email}
-                        onChange={(e) => setCallData({ ...callData, email: e.target.value })}
-                        placeholder="john@company.co.uk"
-                      />
-                    </div>
-
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-                      <div className="form-group">
-                        <label>Preferred Date</label>
-                        <input
-                          type="date"
-                          required
-                          value={callData.date}
-                          onChange={(e) => setCallData({ ...callData, date: e.target.value })}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label>Time Slot (GMT)</label>
-                        <select
-                          value={callData.timeSlot}
-                          onChange={(e) => setCallData({ ...callData, timeSlot: e.target.value })}
-                        >
-                          <option>09:30 AM GMT</option>
-                          <option>11:00 AM GMT</option>
-                          <option>02:00 PM GMT</option>
-                          <option>04:30 PM GMT</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label>Primary Operational Topic</label>
-                      <select
-                        value={callData.topic}
-                        onChange={(e) => setCallData({ ...callData, topic: e.target.value })}
-                      >
-                        <option>Sage Payroll & Timesheet Processing</option>
-                        <option>Workforce Compliance & Vetting</option>
-                        <option>Billing & Credit Control</option>
-                        <option>General Operational Support</option>
-                      </select>
-                    </div>
-
-                    <button type="submit" className="submit-button">
-                      Confirm Discovery Call
-                    </button>
-                  </form>
-                )}
-              </div>
-
-              {/* SIDE B: FORMAL WRITTEN PROPOSAL (FORMSPREE) */}
-              <div className="booking-card">
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
-                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#3b82f6" }} />
-                  <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#2563eb" }}>
-                    Formal Written Scope
-                  </span>
-                </div>
-
-                <h3 style={{ fontSize: "24px", margin: "0 0 10px", letterSpacing: "-0.03em" }}>
-                  Request Written Proposal
-                </h3>
-                <p style={{ color: "#666", fontSize: "14px", lineHeight: "1.7", margin: "0 0 24px" }}>
-                  Prefer an itemised written quote? Share your workforce requirements and receive a structured scope & retainer breakdown in 3 hours.
-                </p>
 
                 {submitted ? (
-                  <div style={{ textAlign: "center", padding: "40px 10px", background: "#f0fdf4", borderRadius: "4px" }}>
-                    <i className="ri-check-double-line" style={{ fontSize: "42px", color: "#16a34a", display: "block", marginBottom: "12px" }} />
-                    <h4 style={{ margin: "0 0 6px", fontSize: "18px" }}>Proposal Request Received</h4>
-                    <p style={{ color: "#555", fontSize: "13px", margin: 0 }}>
-                      We are reviewing your requirements and will reply to your email within 3 hours.
+                  <div style={{ textAlign: "center", padding: "50px 20px" }}>
+                    <div style={{
+                      width: "60px", height: "60px", borderRadius: "50%", background: "#ecfdf5",
+                      color: "#10b981", display: "flex", alignItems: "center", justifyContent: "center",
+                      margin: "0 auto 20px", fontSize: "28px"
+                    }}>
+                      <i className="ri-check-line" />
+                    </div>
+                    <h3 style={{ fontSize: "24px", margin: "0 0 10px", color: "#0f172a" }}>
+                      {contactMode === "call" ? "Call Request Confirmed" : "Enquiry Received"}
+                    </h3>
+                    <p style={{ color: "#64748b", fontSize: "15px", maxWidth: "420px", margin: "0 auto 24px", lineHeight: "1.6" }}>
+                      Thank you, {formData.name}. We have received your request and will follow up with you within 3 hours.
                     </p>
+                    <button
+                      onClick={() => { setSubmitted(false); setCurrentPage("home"); }}
+                      className="nav-button"
+                    >
+                      Return to Homepage
+                    </button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit}>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                    {/* STEP 1: ESSENTIAL CLIENT INFO */}
+                    <div className="form-grid-2">
                       <div className="form-group">
-                        <label>Full Name</label>
+                        <label>Your Name *</label>
                         <input
                           required
                           value={formData.name}
                           onChange={(e) => updateField("name", e.target.value)}
-                          placeholder="Your name"
+                          placeholder="John Smith"
                         />
                       </div>
+
                       <div className="form-group">
-                        <label>Company</label>
+                        <label>Company Name</label>
                         <input
                           value={formData.company}
                           onChange={(e) => updateField("company", e.target.value)}
-                          placeholder="Company name"
+                          placeholder="Acme Ltd"
                         />
                       </div>
                     </div>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                    <div className="form-grid-2">
                       <div className="form-group">
-                        <label>Email Address</label>
+                        <label>Work Email *</label>
                         <input
                           required
                           type="email"
                           value={formData.email}
                           onChange={(e) => updateField("email", e.target.value)}
-                          placeholder="you@company.com"
+                          placeholder="john@company.co.uk"
                         />
                       </div>
+
                       <div className="form-group">
                         <label>Phone / WhatsApp</label>
                         <input
                           value={formData.phone}
                           onChange={(e) => updateField("phone", e.target.value)}
-                          placeholder="+44 / +353..."
+                          placeholder="+44 7123 456789"
                         />
                       </div>
                     </div>
 
-                    <div className="form-group">
-                      <label>Service Division Required</label>
-                      <select
-                        value={formData.service}
-                        onChange={(e) => updateField("service", e.target.value)}
-                      >
-                        <option value="">Select a package or service</option>
-                        <option value="Invoice & Billing">Invoice & Billing Management</option>
-                        <option value="Payroll & Timesheets">Payroll & Timesheet Processing</option>
-                        <option value="Compliance & Docs">Compliance & Documentation</option>
-                        <option value="Power BI & Data">Data Analysis & Reporting</option>
-                        <option value="Remote Operations">Remote Business Operations</option>
-                        <option value="Worker Lifecycle">Worker Onboarding & Lifecycle</option>
-                        <option value="Full Ops Package">Full Ops Package (£450/mo)</option>
-                        <option value="Compliance Core">Compliance Core (£300/mo)</option>
-                        <option value="Dedicated Ops Manager">Dedicated Ops Manager (£600/mo)</option>
-                      </select>
-                    </div>
+                    {/* STEP 2: DYNAMIC ADAPTIVE FIELDS */}
+                    {contactMode === "quote" ? (
+                      <>
+                        <div className="form-group">
+                          <label>Service Area of Interest</label>
+                          <select
+                            value={formData.service}
+                            onChange={(e) => updateField("service", e.target.value)}
+                          >
+                            <option value="Full Ops Package">Full Ops Package (£450/month) — Most Popular</option>
+                            <option value="Compliance Core">Compliance Core (£300/month)</option>
+                            <option value="Dedicated Ops Manager">Dedicated Ops Manager (£600/month)</option>
+                            <option value="Invoice & Billing Management">Invoice & Billing Management</option>
+                            <option value="Payroll & Timesheet Processing">Payroll & Timesheet Processing</option>
+                            <option value="Compliance & Documentation">Compliance & Documentation</option>
+                            <option value="Data Analysis & Power BI">Data Analysis & Reporting (Power BI)</option>
+                            <option value="Remote Business Operations">Remote Business Operations</option>
+                            <option value="Worker Onboarding & Lifecycle">Worker Onboarding & Lifecycle</option>
+                            <option value="Custom Scope">Custom Scope / Undecided</option>
+                          </select>
+                        </div>
 
-                    <div className="form-group">
-                      <label>Operational Requirements</label>
-                      <textarea
-                        value={formData.message}
-                        onChange={(e) => updateField("message", e.target.value)}
-                        placeholder="Workforce size, payroll cycles, systems used (e.g. Sage, Xero)..."
-                      />
-                    </div>
+                        <div className="form-group">
+                          <label>Operational Context / Requirements</label>
+                          <textarea
+                            value={formData.message}
+                            onChange={(e) => updateField("message", e.target.value)}
+                            placeholder="Briefly tell us about your workforce size, current software (Sage, Xero, etc.), or key operational pain points..."
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="form-grid-2">
+                          <div className="form-group">
+                            <label>Preferred Date *</label>
+                            <input
+                              type="date"
+                              required
+                              value={formData.preferredDate}
+                              onChange={(e) => updateField("preferredDate", e.target.value)}
+                            />
+                          </div>
 
-                    <button type="submit" className="submit-button" disabled={sending}>
-                      {sending ? "Sending Proposal Request..." : "Submit Proposal Request"}
+                          <div className="form-group">
+                            <label>Time Slot (GMT)</label>
+                            <select
+                              value={formData.preferredTime}
+                              onChange={(e) => updateField("preferredTime", e.target.value)}
+                            >
+                              <option>09:30 AM GMT</option>
+                              <option>11:00 AM GMT</option>
+                              <option>02:00 PM GMT</option>
+                              <option>04:30 PM GMT</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="form-group">
+                          <label>Discussion Focus</label>
+                          <select
+                            value={formData.service}
+                            onChange={(e) => updateField("service", e.target.value)}
+                          >
+                            <option value="Sage Payroll Review">Sage Payroll & Timesheets Audit</option>
+                            <option value="Compliance & Vetting">Worker Vetting & Compliance Audit</option>
+                            <option value="Billing & Debtor Days">Billing & Credit Control Overhaul</option>
+                            <option value="Full Back-Office Review">General Operational Assessment</option>
+                          </select>
+                        </div>
+                      </>
+                    )}
+
+                    <button type="submit" className="unified-submit-btn" disabled={sending}>
+                      {sending
+                        ? "Sending..."
+                        : contactMode === "call"
+                        ? "Schedule 15-Min Call →"
+                        : "Submit Proposal Request →"}
                     </button>
+
+                    <p style={{ margin: "14px 0 0", color: "#94a3b8", fontSize: "11px", textAlign: "center" }}>
+                      🔒 SLA guarantee: We respond within 3 business hours. No spam.
+                    </p>
                   </form>
                 )}
+
+                {/* BOTTOM TRAY: DIRECT REACH */}
+                <div className="contact-direct-tray">
+                  <div className="tray-item">
+                    <i className="ri-mail-line" />
+                    <span>sysops.enquiries@gmail.com</span>
+                  </div>
+                  <div className="tray-item">
+                    <i className="ri-phone-line" />
+                    <span>+92 336 824 2425</span>
+                  </div>
+                  <div className="tray-item">
+                    <i className="ri-shield-check-line" />
+                    <span>UK & Ireland Coverage</span>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -1469,8 +1490,8 @@ export default function SysOpsWebsite() {
 
           <div className="footer-links">
             <button onClick={() => setCurrentPage("home")}>Home</button>
-            <button onClick={() => setCurrentPage("services")}>Services & Specs</button>
-            <button onClick={() => setCurrentPage("quote")}>Get a Quote & Book Call</button>
+            <button onClick={() => setCurrentPage("services")}>Services</button>
+            <button onClick={() => setCurrentPage("contact")}>Contact Us</button>
           </div>
 
           <div className="footer-copy">
