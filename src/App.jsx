@@ -694,7 +694,7 @@ export default function SysOpsWebsite() {
           align-items: center;
           gap: 36px;
           white-space: nowrap;
-          animation: tickerScroll 34s linear infinite;
+          animation: tickerScroll 52s linear infinite; /* Fractionally slower, calm & executive */
           will-change: transform;
         }
 
