@@ -952,7 +952,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
      {/* ======================================================== */}
           {/* COMMAND DECK: 3-PILLAR OPERATIONAL ENGINE                */}
           {/* ======================================================== */}
-          <section id="services" style={{ padding: "90px 0", background: "#fbfbfa", borderBottom: "1px solid #e7e7e2" }}>
+         <section id="services" style={{ padding: "90px 0", background: "#fbfbfa", borderBottom: "1px solid #e7e7e2" }}>
             <div className="container">
               
               {/* Section Header */}
@@ -992,12 +992,12 @@ const [opsPillar, setOpsPillar] = useState("finance");
                         cursor: "pointer",
                         transition: "all 0.2s ease",
                         border: isActive ? "1px solid #16866f" : "1px solid #d1d5db",
-                        background: isActive ? "#111827" : "#ffffff",
+                        background: isActive ? "#16866f" : "#ffffff",
                         color: isActive ? "#ffffff" : "#374151",
-                        boxShadow: isActive ? "0 4px 14px rgba(17,24,39,0.12)" : "none",
+                        boxShadow: isActive ? "0 4px 14px rgba(22,134,111,0.2)" : "none",
                       }}
                     >
-                      <span style={{ fontSize: "11px", fontWeight: 800, padding: "2px 6px", borderRadius: "4px", background: isActive ? "#16866f" : "#f3f4f6", color: isActive ? "#ffffff" : "#6b7280" }}>
+                      <span style={{ fontSize: "11px", fontWeight: 800, padding: "2px 6px", borderRadius: "4px", background: isActive ? "rgba(0,0,0,0.2)" : "#f3f4f6", color: isActive ? "#ffffff" : "#6b7280" }}>
                         {tab.num}
                       </span>
                       {tab.label}
@@ -1014,7 +1014,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px" }}>
                     {/* Left: Workflow Execution */}
                     <div>
-                      <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "8px" }}>
+                      <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#22a085", fontWeight: 700, marginBottom: "8px" }}>
                         Live Workflow Execution
                       </div>
                       <h3 style={{ fontSize: "24px", fontWeight: 700, margin: "0 0 8px 0", color: "#ffffff" }}>
@@ -1032,7 +1032,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                           { step: "Phase 4", title: "Bureau & Ledger Export", desc: "Zero-error batch generation mapped directly into your payroll engine and accounting system." },
                         ].map((s, idx) => (
                           <div key={idx} style={{ display: "flex", gap: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "12px 16px" }}>
-                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#34d399", padding: "3px 6px", background: "rgba(52, 211, 153, 0.12)", borderRadius: "4px", height: "fit-content" }}>
+                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#22a085", padding: "3px 6px", background: "rgba(34, 160, 133, 0.12)", borderRadius: "4px", height: "fit-content" }}>
                               {s.step}
                             </div>
                             <div>
@@ -1047,18 +1047,18 @@ const [opsPillar, setOpsPillar] = useState("finance");
                     {/* Right: SLAs & Deliverables */}
                     <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "12px", padding: "28px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                       <div>
-                        <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "14px" }}>
+                        <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#22a085", fontWeight: 700, marginBottom: "14px" }}>
                           SLA Guarantees & Deliverables
                         </div>
                         
                         {/* Metric Highlights */}
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
                           <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>24-Hour</div>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#22a085" }}>24-Hour</div>
                             <div style={{ fontSize: "12px", color: "#9ca3af" }}>Invoice Dispatch SLA</div>
                           </div>
                           <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>0% Discrepancy</div>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#22a085" }}>0% Discrepancy</div>
                             <div style={{ fontSize: "12px", color: "#9ca3af" }}>Pre-Run Payroll Target</div>
                           </div>
                         </div>
@@ -1072,7 +1072,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                             "Import-ready bureau files (BACS, direct bank formats)",
                           ].map((item, i) => (
                             <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#d1d5db" }}>
-                              <span style={{ color: "#34d399", fontWeight: "bold" }}>✓</span> {item}
+                              <span style={{ color: "#22a085", fontWeight: "bold" }}>✓</span> {item}
                             </div>
                           ))}
                         </div>
@@ -1115,7 +1115,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px" }}>
                     {/* Left: Workflow Execution */}
                     <div>
-                      <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "8px" }}>
+                      <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#22a085", fontWeight: 700, marginBottom: "8px" }}>
                         Live Workflow Execution
                       </div>
                       <h3 style={{ fontSize: "24px", fontWeight: 700, margin: "0 0 8px 0", color: "#ffffff" }}>
@@ -1133,7 +1133,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                           { step: "Phase 4", title: "Automated Expiry Triggers", desc: "Proactive 60, 30, and 14-day renewal alerts preventing lapsed visas or expired certifications." },
                         ].map((s, idx) => (
                           <div key={idx} style={{ display: "flex", gap: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "12px 16px" }}>
-                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#34d399", padding: "3px 6px", background: "rgba(52, 211, 153, 0.12)", borderRadius: "4px", height: "fit-content" }}>
+                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#22a085", padding: "3px 6px", background: "rgba(34, 160, 133, 0.12)", borderRadius: "4px", height: "fit-content" }}>
                               {s.step}
                             </div>
                             <div>
@@ -1148,17 +1148,17 @@ const [opsPillar, setOpsPillar] = useState("finance");
                     {/* Right: SLAs & Deliverables */}
                     <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "12px", padding: "28px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                       <div>
-                        <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "14px" }}>
+                        <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#22a085", fontWeight: 700, marginBottom: "14px" }}>
                           SLA Guarantees & Deliverables
                         </div>
                         
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
                           <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>100% Ready</div>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#22a085" }}>100% Ready</div>
                             <div style={{ fontSize: "12px", color: "#9ca3af" }}>Inspection & Audit Files</div>
                           </div>
                           <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>&lt; 4 Hours</div>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#22a085" }}>&lt; 4 Hours</div>
                             <div style={{ fontSize: "12px", color: "#9ca3af" }}>Fast-Track Vetting Pack</div>
                           </div>
                         </div>
@@ -1171,7 +1171,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                             "Weekly compliance health status scorecards",
                           ].map((item, i) => (
                             <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#d1d5db" }}>
-                              <span style={{ color: "#34d399", fontWeight: "bold" }}>✓</span> {item}
+                              <span style={{ color: "#22a085", fontWeight: "bold" }}>✓</span> {item}
                             </div>
                           ))}
                         </div>
@@ -1213,7 +1213,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px" }}>
                     {/* Left: Workflow Execution */}
                     <div>
-                      <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "8px" }}>
+                      <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#22a085", fontWeight: 700, marginBottom: "8px" }}>
                         Live Workflow Execution
                       </div>
                       <h3 style={{ fontSize: "24px", fontWeight: 700, margin: "0 0 8px 0", color: "#ffffff" }}>
@@ -1231,7 +1231,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                           { step: "Phase 4", title: "Weekly Strategy Flash Report", desc: "Clear executive briefing highlighting gross margin trends, unbilled hours, and workforce capacity." },
                         ].map((s, idx) => (
                           <div key={idx} style={{ display: "flex", gap: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "12px 16px" }}>
-                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#34d399", padding: "3px 6px", background: "rgba(52, 211, 153, 0.12)", borderRadius: "4px", height: "fit-content" }}>
+                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#22a085", padding: "3px 6px", background: "rgba(34, 160, 133, 0.12)", borderRadius: "4px", height: "fit-content" }}>
                               {s.step}
                             </div>
                             <div>
@@ -1246,17 +1246,17 @@ const [opsPillar, setOpsPillar] = useState("finance");
                     {/* Right: SLAs & Deliverables */}
                     <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "12px", padding: "28px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                       <div>
-                        <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "14px" }}>
+                        <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#22a085", fontWeight: 700, marginBottom: "14px" }}>
                           SLA Guarantees & Deliverables
                         </div>
                         
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
                           <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>&lt; 15 Mins</div>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#22a085" }}>&lt; 15 Mins</div>
                             <div style={{ fontSize: "12px", color: "#9ca3af" }}>Inbox Triage Speed</div>
                           </div>
                           <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>Live BI</div>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#22a085" }}>Live BI</div>
                             <div style={{ fontSize: "12px", color: "#9ca3af" }}>Weekly Flash Management</div>
                           </div>
                         </div>
@@ -1269,7 +1269,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                             "Seamless absence and holiday cover for internal admin staff",
                           ].map((item, i) => (
                             <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#d1d5db" }}>
-                              <span style={{ color: "#34d399", fontWeight: "bold" }}>✓</span> {item}
+                              <span style={{ color: "#22a085", fontWeight: "bold" }}>✓</span> {item}
                             </div>
                           ))}
                         </div>
