@@ -961,7 +961,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                   <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#16866f" }} />
                   Operational Command Deck
                 </div>
-                <h2 style={{ fontSize: "36px", fontWeight: 800, color: "#111827", lineHeight: 1.18, letterSpacing: "-0.02em", margin: "0 0 14px 0" }}>
+                <h2 style={{ fontSize: "36px", fontWeight: 800, color: "#171717", lineHeight: 1.18, letterSpacing: "-0.02em", margin: "0 0 14px 0" }}>
                   The engine behind <span style={{ color: "#16866f" }}>workforce enterprises</span>.
                 </h2>
                 <p style={{ fontSize: "16px", color: "#4b5563", lineHeight: 1.6, margin: 0 }}>
@@ -1007,7 +1007,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
               </div>
 
               {/* Dynamic Console Deck */}
-              <div style={{ background: "#111827", borderRadius: "16px", border: "1px solid #1f2937", color: "#ffffff", padding: "40px", boxShadow: "0 20px 40px -15px rgba(0,0,0,0.25)" }}>
+              <div style={{ background: "#171717", borderRadius: "16px", border: "1px solid #2a2a2a", color: "#ffffff", padding: "40px", boxShadow: "0 20px 40px -15px rgba(0,0,0,0.25)" }}>
                 
                 {/* PILLAR 1: FINANCE & CASH FLOW */}
                 {opsPillar === "finance" && (
@@ -1054,7 +1054,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                         {/* Metric Highlights */}
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
                           <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#22a085" }}>24-Hour</div>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "##ffffff" }}>24-Hour</div>
                             <div style={{ fontSize: "12px", color: "#9ca3af" }}>Invoice Dispatch SLA</div>
                           </div>
                           <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
