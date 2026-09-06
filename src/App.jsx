@@ -48,7 +48,7 @@ const RIBBON_ITEMS = [
 export default function SysOpsWebsite() {
   // NAVIGATION: 'home' | 'services' | 'contact'
   const [currentPage, setCurrentPage] = useState("home");
-
+const [opsPillar, setOpsPillar] = useState("finance");
   // REAL-TIME SKYLINE TIME
   const [activeStageId, setActiveStageId] = useState("midday");
   const [londonTimeStr, setLondonTimeStr] = useState("");
@@ -949,71 +949,365 @@ export default function SysOpsWebsite() {
           </div>
 
                    {/* 6 CORE SERVICES OVERVIEW */}
-          <section id="services" className="section services">
+     {/* ======================================================== */}
+          {/* COMMAND DECK: 3-PILLAR OPERATIONAL ENGINE                */}
+          {/* ======================================================== */}
+          <section id="services" style={{ padding: "90px 0", background: "#fbfbfa", borderBottom: "1px solid #e7e7e2" }}>
             <div className="container">
-              <div className="section-heading">
-                <div>
-                  <div className="eyebrow">What We Do</div>
-                  <h2>
-                    Operational support
-                    <br />
-                    that actually works.
-                  </h2>
+              
+              {/* Section Header */}
+              <div style={{ maxWidth: "760px", marginBottom: "42px" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#16866f", marginBottom: "12px" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#16866f" }} />
+                  Operational Command Deck
                 </div>
-
-                <div style={{ textAlign: "right" }}>
-                  <p style={{ marginBottom: "16px" }}>
-                    Practical back-office capability for businesses that manage
-                    workers, contractors, field teams and complex operational
-                    workflows.
-                  </p>
-                  <button
-                    onClick={() => setCurrentPage("services")}
-                    style={{
-                      background: "none",
-                      border: "0",
-                      color: "var(--brand-green)",
-                      fontWeight: 700,
-                      fontSize: "13px",
-                      cursor: "pointer",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontFamily: "'DM Sans', sans-serif"
-                    }}
-                  >
-                    View All Service Specs & SLAs →
-                  </button>
-                </div>
+                <h2 style={{ fontSize: "36px", fontWeight: 800, color: "#111827", lineHeight: 1.18, letterSpacing: "-0.02em", margin: "0 0 14px 0" }}>
+                  The engine behind <span style={{ color: "#16866f" }}>workforce enterprises</span>.
+                </h2>
+                <p style={{ fontSize: "16px", color: "#4b5563", lineHeight: 1.6, margin: 0 }}>
+                  Explore how SYS Ops absorbs, verifies, and executes your high-friction recurring workflows — from weekly payroll cutoffs to live Power BI management reporting.
+                </p>
               </div>
 
-              <div className="service-grid">
-                {services.map((service) => (
-                  <div
-                    className="service-card"
-                    key={service.number}
-                    onClick={() => setCurrentPage("services")}
-                  >
-                    <div className="service-top">
-                      <div className="service-icon">
-                        <i className={service.icon} />
+              {/* 3 Interactive Category Tabs */}
+              <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "28px" }}>
+                {[
+                  { id: "finance", num: "01", label: "Finance & Cash Flow Engine" },
+                  { id: "workforce", num: "02", label: "Workforce & Compliance Safeguards" },
+                  { id: "intelligence", num: "03", label: "Intelligence & Remote Desk" },
+                ].map((tab) => {
+                  const isActive = opsPillar === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setOpsPillar(tab.id)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        padding: "12px 22px",
+                        borderRadius: "8px",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                        transition: "all 0.2s ease",
+                        border: isActive ? "1px solid #16866f" : "1px solid #d1d5db",
+                        background: isActive ? "#111827" : "#ffffff",
+                        color: isActive ? "#ffffff" : "#374151",
+                        boxShadow: isActive ? "0 4px 14px rgba(17,24,39,0.12)" : "none",
+                      }}
+                    >
+                      <span style={{ fontSize: "11px", fontWeight: 800, padding: "2px 6px", borderRadius: "4px", background: isActive ? "#16866f" : "#f3f4f6", color: isActive ? "#ffffff" : "#6b7280" }}>
+                        {tab.num}
+                      </span>
+                      {tab.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Dynamic Console Deck */}
+              <div style={{ background: "#111827", borderRadius: "16px", border: "1px solid #1f2937", color: "#ffffff", padding: "40px", boxShadow: "0 20px 40px -15px rgba(0,0,0,0.25)" }}>
+                
+                {/* PILLAR 1: FINANCE & CASH FLOW */}
+                {opsPillar === "finance" && (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px" }}>
+                    {/* Left: Workflow Execution */}
+                    <div>
+                      <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "8px" }}>
+                        Live Workflow Execution
                       </div>
-                      <div className="service-number">{service.number}</div>
+                      <h3 style={{ fontSize: "24px", fontWeight: 700, margin: "0 0 8px 0", color: "#ffffff" }}>
+                        Invoice & Payroll Operations
+                      </h3>
+                      <p style={{ fontSize: "14px", color: "#9ca3af", lineHeight: 1.6, marginBottom: "24px" }}>
+                        We eliminate Friday payroll panic and late invoicing cycles by owning the entire verification, calculation, and bureau export workflow.
+                      </p>
+
+                      <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                        {[
+                          { step: "Phase 1", title: "Intake & Timesheet Chasing", desc: "Systematic Friday aggregation of site registers, worker clock-ins, and client PO approvals." },
+                          { step: "Phase 2", title: "Rate & Variance Audit", desc: "Cross-checking standard hours, overtime premiums, CIS/PAYE deductions, and client charge rates." },
+                          { step: "Phase 3", title: "One-Click Client Sign-Off", desc: "Structured approval packs sent to client managers with transparent digital audit verification." },
+                          { step: "Phase 4", title: "Bureau & Ledger Export", desc: "Zero-error batch generation mapped directly into your payroll engine and accounting system." },
+                        ].map((s, idx) => (
+                          <div key={idx} style={{ display: "flex", gap: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "12px 16px" }}>
+                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#34d399", padding: "3px 6px", background: "rgba(52, 211, 153, 0.12)", borderRadius: "4px", height: "fit-content" }}>
+                              {s.step}
+                            </div>
+                            <div>
+                              <div style={{ fontSize: "14px", fontWeight: 600, color: "#ffffff", marginBottom: "2px" }}>{s.title}</div>
+                              <div style={{ fontSize: "12px", color: "#9ca3af", lineHeight: 1.4 }}>{s.desc}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
-                    <h3>{service.title}</h3>
-                    <p>{service.description}</p>
+                    {/* Right: SLAs & Deliverables */}
+                    <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "12px", padding: "28px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                      <div>
+                        <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "14px" }}>
+                          SLA Guarantees & Deliverables
+                        </div>
+                        
+                        {/* Metric Highlights */}
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
+                          <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>24-Hour</div>
+                            <div style={{ fontSize: "12px", color: "#9ca3af" }}>Invoice Dispatch SLA</div>
+                          </div>
+                          <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>0% Discrepancy</div>
+                            <div style={{ fontSize: "12px", color: "#9ca3af" }}>Pre-Run Payroll Target</div>
+                          </div>
+                        </div>
 
-                    <div className="service-tags">
-                      {service.tags.map((tag) => (
-                        <span className="service-tag" key={tag}>
-                          {tag}
-                        </span>
-                      ))}
+                        {/* Deliverables Checklist */}
+                        <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
+                          {[
+                            "Weekly Net & Gross margin reconciliation packs",
+                            "Aged debtor tracking and automated chasing workflows",
+                            "Subcontractor CIS statement prep and tax withholding",
+                            "Import-ready bureau files (BACS, direct bank formats)",
+                          ].map((item, i) => (
+                            <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#d1d5db" }}>
+                              <span style={{ color: "#34d399", fontWeight: "bold" }}>✓</span> {item}
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Supported Software */}
+                        <div style={{ marginBottom: "24px" }}>
+                          <div style={{ fontSize: "11px", color: "#9ca3af", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                            Native Software Stack:
+                          </div>
+                          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                            {["Sage 50", "BrightPay", "Xero", "QuickBooks", "Bullhorn Pay & Bill", "PayCircle"].map((tech) => (
+                              <span key={tech} style={{ fontSize: "11px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", padding: "4px 8px", color: "#e5e7eb" }}>
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                        <button
+                          onClick={() => setCurrentPage("services")}
+                          style={{ flex: 1, padding: "12px 18px", borderRadius: "6px", background: "#16866f", color: "#ffffff", border: "none", fontWeight: 600, fontSize: "13px", cursor: "pointer" }}
+                        >
+                          View Full Specs →
+                        </button>
+                        <button
+                          onClick={() => setCurrentPage("contact")}
+                          style={{ padding: "12px 18px", borderRadius: "6px", background: "transparent", color: "#ffffff", border: "1px solid rgba(255,255,255,0.2)", fontWeight: 600, fontSize: "13px", cursor: "pointer" }}
+                        >
+                          Enquire for Finance
+                        </button>
+                      </div>
                     </div>
                   </div>
-                ))}
+                )}
+
+                {/* PILLAR 2: WORKFORCE & COMPLIANCE */}
+                {opsPillar === "workforce" && (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px" }}>
+                    {/* Left: Workflow Execution */}
+                    <div>
+                      <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "8px" }}>
+                        Live Workflow Execution
+                      </div>
+                      <h3 style={{ fontSize: "24px", fontWeight: 700, margin: "0 0 8px 0", color: "#ffffff" }}>
+                        Vetting & Worker Lifecycle
+                      </h3>
+                      <p style={{ fontSize: "14px", color: "#9ca3af", lineHeight: 1.6, marginBottom: "24px" }}>
+                        From initial candidate registration to active site deployment — ensuring every worker is vetted, right-to-work verified, and 100% audit-proof.
+                      </p>
+
+                      <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                        {[
+                          { step: "Phase 1", title: "Applicant Intake (< 15 mins)", desc: "Direct candidate contact upon referral to capture RTW credentials, bank details, and photo ID." },
+                          { step: "Phase 2", title: "Credential & Ticket Vetting", desc: "DBS checking, CSCS ticket validation, nursing PINs, and automated 5-year work history references." },
+                          { step: "Phase 3", title: "CRM Profile & Compliance Tag", desc: "Creating verified digital candidate files with strict pay/charge rates and skill matrix tagging." },
+                          { step: "Phase 4", title: "Automated Expiry Triggers", desc: "Proactive 60, 30, and 14-day renewal alerts preventing lapsed visas or expired certifications." },
+                        ].map((s, idx) => (
+                          <div key={idx} style={{ display: "flex", gap: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "12px 16px" }}>
+                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#34d399", padding: "3px 6px", background: "rgba(52, 211, 153, 0.12)", borderRadius: "4px", height: "fit-content" }}>
+                              {s.step}
+                            </div>
+                            <div>
+                              <div style={{ fontSize: "14px", fontWeight: 600, color: "#ffffff", marginBottom: "2px" }}>{s.title}</div>
+                              <div style={{ fontSize: "12px", color: "#9ca3af", lineHeight: 1.4 }}>{s.desc}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Right: SLAs & Deliverables */}
+                    <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "12px", padding: "28px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                      <div>
+                        <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "14px" }}>
+                          SLA Guarantees & Deliverables
+                        </div>
+                        
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
+                          <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>100% Ready</div>
+                            <div style={{ fontSize: "12px", color: "#9ca3af" }}>Inspection & Audit Files</div>
+                          </div>
+                          <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>&lt; 4 Hours</div>
+                            <div style={{ fontSize: "12px", color: "#9ca3af" }}>Fast-Track Vetting Pack</div>
+                          </div>
+                        </div>
+
+                        <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
+                          {[
+                            "Digital Right-to-Work verification audit certs",
+                            "Enhanced DBS and update service renewal tracking",
+                            "Site-specific CSCS ticket and H&S induction matrices",
+                            "Weekly compliance health status scorecards",
+                          ].map((item, i) => (
+                            <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#d1d5db" }}>
+                              <span style={{ color: "#34d399", fontWeight: "bold" }}>✓</span> {item}
+                            </div>
+                          ))}
+                        </div>
+
+                        <div style={{ marginBottom: "24px" }}>
+                          <div style={{ fontSize: "11px", color: "#9ca3af", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                            Verified Compatibility:
+                          </div>
+                          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                            {["TrustID RTW", "Home Office Share Codes", "CarePlanner", "Bullhorn", "Vincere", "Deputy"].map((tech) => (
+                              <span key={tech} style={{ fontSize: "11px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", padding: "4px 8px", color: "#e5e7eb" }}>
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                        <button
+                          onClick={() => setCurrentPage("services")}
+                          style={{ flex: 1, padding: "12px 18px", borderRadius: "6px", background: "#16866f", color: "#ffffff", border: "none", fontWeight: 600, fontSize: "13px", cursor: "pointer" }}
+                        >
+                          View Compliance Specs →
+                        </button>
+                        <button
+                          onClick={() => setCurrentPage("contact")}
+                          style={{ padding: "12px 18px", borderRadius: "6px", background: "transparent", color: "#ffffff", border: "1px solid rgba(255,255,255,0.2)", fontWeight: 600, fontSize: "13px", cursor: "pointer" }}
+                        >
+                          Enquire for Compliance
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* PILLAR 3: INTELLIGENCE & REMOTE DESK */}
+                {opsPillar === "intelligence" && (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px" }}>
+                    {/* Left: Workflow Execution */}
+                    <div>
+                      <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "8px" }}>
+                        Live Workflow Execution
+                      </div>
+                      <h3 style={{ fontSize: "24px", fontWeight: 700, margin: "0 0 8px 0", color: "#ffffff" }}>
+                        Power BI & Operations Desk
+                      </h3>
+                      <p style={{ fontSize: "14px", color: "#9ca3af", lineHeight: 1.6, marginBottom: "24px" }}>
+                        We plug into your business as a dedicated UK & Ireland operational unit, delivering real-time leadership analytics and rapid query resolution.
+                      </p>
+
+                      <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                        {[
+                          { step: "Phase 1", title: "Central Inbox & Ticket Triage", desc: "15-minute response SLA for incoming worker queries, change requests, and client orders." },
+                          { step: "Phase 2", title: "Shared Resource Coordination", desc: "Dispatching work orders, liaising with site supervisors, and confirming roster attendance." },
+                          { step: "Phase 3", title: "Power BI Data Engineering", desc: "Consolidating hours, revenue, and payroll data into live dashboards accessible by leadership." },
+                          { step: "Phase 4", title: "Weekly Strategy Flash Report", desc: "Clear executive briefing highlighting gross margin trends, unbilled hours, and workforce capacity." },
+                        ].map((s, idx) => (
+                          <div key={idx} style={{ display: "flex", gap: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "12px 16px" }}>
+                            <div style={{ fontSize: "10px", fontWeight: 800, color: "#34d399", padding: "3px 6px", background: "rgba(52, 211, 153, 0.12)", borderRadius: "4px", height: "fit-content" }}>
+                              {s.step}
+                            </div>
+                            <div>
+                              <div style={{ fontSize: "14px", fontWeight: 600, color: "#ffffff", marginBottom: "2px" }}>{s.title}</div>
+                              <div style={{ fontSize: "12px", color: "#9ca3af", lineHeight: 1.4 }}>{s.desc}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Right: SLAs & Deliverables */}
+                    <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "12px", padding: "28px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                      <div>
+                        <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.15em", color: "#34d399", fontWeight: 700, marginBottom: "14px" }}>
+                          SLA Guarantees & Deliverables
+                        </div>
+                        
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
+                          <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>&lt; 15 Mins</div>
+                            <div style={{ fontSize: "12px", color: "#9ca3af" }}>Inbox Triage Speed</div>
+                          </div>
+                          <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#34d399" }}>Live BI</div>
+                            <div style={{ fontSize: "12px", color: "#9ca3af" }}>Weekly Flash Management</div>
+                          </div>
+                        </div>
+
+                        <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
+                          {[
+                            "Custom Power BI gross margin and labor utilization views",
+                            "Named UK & Ireland Operations Account Manager",
+                            "Transparent task boards with real-time ticket logs",
+                            "Seamless absence and holiday cover for internal admin staff",
+                          ].map((item, i) => (
+                            <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#d1d5db" }}>
+                              <span style={{ color: "#34d399", fontWeight: "bold" }}>✓</span> {item}
+                            </div>
+                          ))}
+                        </div>
+
+                        <div style={{ marginBottom: "24px" }}>
+                          <div style={{ fontSize: "11px", color: "#9ca3af", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                            Analytics & Desk Stack:
+                          </div>
+                          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                            {["Microsoft Power BI", "Excel Power Query", "SimPRO", "Monday.com", "Slack & Teams", "Google Workspace"].map((tech) => (
+                              <span key={tech} style={{ fontSize: "11px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", padding: "4px 8px", color: "#e5e7eb" }}>
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                        <button
+                          onClick={() => setCurrentPage("services")}
+                          style={{ flex: 1, padding: "12px 18px", borderRadius: "6px", background: "#16866f", color: "#ffffff", border: "none", fontWeight: 600, fontSize: "13px", cursor: "pointer" }}
+                        >
+                          View Analytics Specs →
+                        </button>
+                        <button
+                          onClick={() => setCurrentPage("contact")}
+                          style={{ padding: "12px 18px", borderRadius: "6px", background: "transparent", color: "#ffffff", border: "1px solid rgba(255,255,255,0.2)", fontWeight: 600, fontSize: "13px", cursor: "pointer" }}
+                        >
+                          Enquire for Ops Desk
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
               </div>
+
             </div>
           </section>
 
