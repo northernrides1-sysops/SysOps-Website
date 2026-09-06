@@ -825,6 +825,9 @@ export default function SysOpsWebsite() {
             >
               Services
             </button>
+            <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("about")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
+              About
+            </button>
             <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("industries")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
               Industries
             </button>
@@ -945,36 +948,7 @@ export default function SysOpsWebsite() {
             </div>
           </div>
 
-          {/* INTRO */}
-          <section className="intro">
-            <div className="container intro-grid">
-              <div>
-                <div className="eyebrow">About SYS Ops</div>
-                <h2>
-                  Specialist execution.
-                  <br />
-                  <span>Without the overhead.</span>
-                </h2>
-              </div>
-
-              <div className="intro-copy">
-                <p>
-                  <strong>SYS Ops is a specialist remote operations partner.</strong>
-                </p>
-                <p>
-                  We take ownership of the operational work that keeps
-                  workforce-led businesses moving — from payroll and compliance
-                  through to invoicing, reporting and administration.
-                </p>
-                <p>
-                  Instead of adding another full-time hire, you get an experienced
-                  operational function that integrates directly into your business.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* 6 CORE SERVICES OVERVIEW */}
+                   {/* 6 CORE SERVICES OVERVIEW */}
           <section id="services" className="section services">
             <div className="container">
               <div className="section-heading">
@@ -1208,6 +1182,34 @@ export default function SysOpsWebsite() {
                     <p>{step.text}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </section>
+           {/* INTRO */}
+         <section id="about" className="intro" style={{ borderTop: "1px solid #e7e7e2", background: "#ffffff" }}>
+            <div className="container intro-grid">
+              <div>
+                <div className="eyebrow">About SYS Ops</div>
+                <h2>
+                  Specialist execution.
+                  <br />
+                  <span>Without the overhead.</span>
+                </h2>
+              </div>
+
+              <div className="intro-copy">
+                <p>
+                  <strong>SYS Ops is a specialist remote operations partner.</strong>
+                </p>
+                <p>
+                  We take ownership of the operational work that keeps
+                  workforce-led businesses moving — from payroll and compliance
+                  through to invoicing, reporting and administration.
+                </p>
+                <p>
+                  Instead of adding another full-time hire, you get an experienced
+                  operational function that integrates directly into your business.
+                </p>
               </div>
             </div>
           </section>
