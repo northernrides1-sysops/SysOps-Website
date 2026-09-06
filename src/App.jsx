@@ -826,9 +826,6 @@ export default function SysOpsWebsite() {
               Services
             </button>
             <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("about")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
-              About
-            </button>
-            <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("industries")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
               Industries
             </button>
             <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("packages")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
@@ -836,6 +833,9 @@ export default function SysOpsWebsite() {
             </button>
             <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("process")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
               Process
+               About
+            </button>
+            <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("industries")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
             </button>
           </nav>
 
