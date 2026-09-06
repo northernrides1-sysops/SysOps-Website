@@ -1315,15 +1315,14 @@ const [opsPillar, setOpsPillar] = useState("finance");
 
             </div>
           </section>
-
-         {/* ======================================================== */}
+{/* ======================================================== */}
           {/* COMBINED: WHY SYS OPS & CAPACITY ROI CALCULATOR          */}
           {/* ======================================================== */}
-          <section id="why" className="calculator-section" style={{ padding: "100px 0", background: "#f7f7f4", borderTop: "1px solid #e7e7e2", borderBottom: "1px solid #e7e7e2" }}>
-            <div className="container">
+          <section id="why" style={{ padding: "100px 0", background: "#fbfbfa", borderTop: "1px solid #e7e7e2", borderBottom: "1px solid #e7e7e2" }}>
+            <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
               
               {/* SECTION HEADER */}
-              <div style={{ maxWidth: "780px", marginBottom: "48px" }}>
+              <div style={{ maxWidth: "780px", marginBottom: "40px" }}>
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#16866f", marginBottom: "12px" }}>
                   <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#16866f" }} />
                   Operational Capacity & Cost Analysis
@@ -1337,7 +1336,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
               </div>
 
               {/* 4 CORE VALUE PILLARS */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginBottom: "40px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginBottom: "48px" }}>
                 {[
                   { title: "Execution Rigour", desc: "No vague advice or hands-off templates. We log into your tools and perform the actual work every day." },
                   { title: "End-to-End Ownership", desc: "From Friday timesheet cutoffs to client sign-off, we chase, reconcile, and close loops proactively." },
@@ -1374,18 +1373,29 @@ const [opsPillar, setOpsPillar] = useState("finance");
                 const percentageSaved = Math.round((annualSavings / annualCostDrag) * 100) || 58;
 
                 return (
-                  <div className="calculator-grid">
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "30px", alignItems: "stretch" }}>
                     
                     {/* LEFT INPUTS CONTROLS */}
-                    <div className="calc-controls-card">
-                      <div className="calc-header-currency">
-                        <h3>Configure Parameters</h3>
-                        <div className="currency-selector">
+                    <div style={{ background: "#ffffff", border: "1px solid #deded9", borderRadius: "8px", padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                      
+                      {/* Currency Header */}
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "28px", paddingBottom: "16px", borderBottom: "1px solid #eeeeea" }}>
+                        <h3 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "#171717" }}>Configure Parameters</h3>
+                        <div style={{ display: "flex", gap: "4px", background: "#f0f0eb", padding: "3px", borderRadius: "4px" }}>
                           {['£', '€', '$'].map((curr) => (
                             <button
                               key={curr}
-                              className={calcCurrency === curr ? 'active' : ''}
                               onClick={() => setCalcCurrency(curr)}
+                              style={{
+                                border: "none",
+                                background: calcCurrency === curr ? "#171717" : "transparent",
+                                color: calcCurrency === curr ? "#ffffff" : "#666660",
+                                padding: "4px 10px",
+                                fontSize: "11px",
+                                fontWeight: 700,
+                                borderRadius: "3px",
+                                cursor: "pointer"
+                              }}
                             >
                               {curr === '£' ? '£ GBP' : curr === '€' ? '€ EUR' : '$ USD'}
                             </button>
@@ -1394,10 +1404,10 @@ const [opsPillar, setOpsPillar] = useState("finance");
                       </div>
 
                       {/* Slider 1: Team Size */}
-                      <div className="calc-slider-group">
-                        <div className="calc-slider-header">
-                          <label>Team Members / Coordinators</label>
-                          <strong>{calcTeamSize} {calcTeamSize === 1 ? 'person' : 'people'}</strong>
+                      <div style={{ marginBottom: "26px" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                          <label style={{ fontSize: "13px", fontWeight: 700, color: "#222" }}>Team Members / Coordinators</label>
+                          <strong style={{ fontSize: "16px", color: "#16866f" }}>{calcTeamSize} {calcTeamSize === 1 ? 'person' : 'people'}</strong>
                         </div>
                         <input
                           type="range"
@@ -1405,23 +1415,23 @@ const [opsPillar, setOpsPillar] = useState("finance");
                           max="50"
                           value={calcTeamSize}
                           onChange={(e) => setCalcTeamSize(Number(e.target.value))}
-                          className="calc-range-input"
+                          style={{ width: "100%", height: "6px", accentColor: "#16866f", cursor: "pointer" }}
                         />
                         <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#888882", marginTop: "4px" }}>
                           <span>1 person</span>
                           <span>25 people</span>
                           <span>50+ people</span>
                         </div>
-                        <span className="calc-slider-hint">
+                        <span style={{ display: "block", fontSize: "11px", color: "#888882", marginTop: "6px", lineHeight: 1.4 }}>
                           Consultants, recruiters, site managers, or care coordinators spending time on admin.
                         </span>
                       </div>
 
                       {/* Slider 2: Weekly Admin Hours */}
-                      <div className="calc-slider-group">
-                        <div className="calc-slider-header">
-                          <label>Weekly Admin & Ops Hours (per person)</label>
-                          <strong>{calcAdminHours} hrs / wk</strong>
+                      <div style={{ marginBottom: "26px" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                          <label style={{ fontSize: "13px", fontWeight: 700, color: "#222" }}>Weekly Admin & Ops Hours (per person)</label>
+                          <strong style={{ fontSize: "16px", color: "#16866f" }}>{calcAdminHours} hrs / wk</strong>
                         </div>
                         <input
                           type="range"
@@ -1429,23 +1439,23 @@ const [opsPillar, setOpsPillar] = useState("finance");
                           max="25"
                           value={calcAdminHours}
                           onChange={(e) => setCalcAdminHours(Number(e.target.value))}
-                          className="calc-range-input"
+                          style={{ width: "100%", height: "6px", accentColor: "#16866f", cursor: "pointer" }}
                         />
                         <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#888882", marginTop: "4px" }}>
                           <span>2 hrs (Light)</span>
                           <span>10 hrs (Standard)</span>
                           <span>25 hrs (Severe Drag)</span>
                         </div>
-                        <span className="calc-slider-hint">
+                        <span style={{ display: "block", fontSize: "11px", color: "#888882", marginTop: "6px", lineHeight: 1.4 }}>
                           Time spent chasing timesheets, checking RTW, booking rotas, and handling billing queries.
                         </span>
                       </div>
 
                       {/* Slider 3: Hourly Staff Cost */}
-                      <div className="calc-slider-group" style={{ marginBottom: "20px" }}>
-                        <div className="calc-slider-header">
-                          <label>Average Staff Cost per Hour (Salary + Burden)</label>
-                          <strong>{calcCurrency}{calcHourlyRate} / hr</strong>
+                      <div style={{ marginBottom: "24px" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                          <label style={{ fontSize: "13px", fontWeight: 700, color: "#222" }}>Average Staff Cost per Hour (Salary + Burden)</label>
+                          <strong style={{ fontSize: "16px", color: "#16866f" }}>{calcCurrency}{calcHourlyRate} / hr</strong>
                         </div>
                         <input
                           type="range"
@@ -1454,14 +1464,14 @@ const [opsPillar, setOpsPillar] = useState("finance");
                           step="5"
                           value={calcHourlyRate}
                           onChange={(e) => setCalcHourlyRate(Number(e.target.value))}
-                          className="calc-range-input"
+                          style={{ width: "100%", height: "6px", accentColor: "#16866f", cursor: "pointer" }}
                         />
                         <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#888882", marginTop: "4px" }}>
                           <span>{calcCurrency}15/hr</span>
                           <span>{calcCurrency}50/hr</span>
                           <span>{calcCurrency}100/hr</span>
                         </div>
-                        <span className="calc-slider-hint">
+                        <span style={{ display: "block", fontSize: "11px", color: "#888882", marginTop: "6px", lineHeight: 1.4 }}>
                           Includes base pay plus employer NI, pension, and desk/software overhead.
                         </span>
                       </div>
@@ -1469,7 +1479,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                       {/* Formula Summary Bar */}
                       <div style={{ background: "#fafaf8", border: "1px solid #eeeeea", borderRadius: "6px", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px", color: "#666" }}>
                         <div>
-                          <strong>Your Calculation:</strong> {calcAdminHours} hrs × {calcTeamSize} staff = <span style={{ color: "#171717", fontWeight: "bold" }}>{weeklyHoursLost} hrs/week lost</span>
+                          <strong>Calculation:</strong> {calcAdminHours} hrs × {calcTeamSize} staff = <span style={{ color: "#171717", fontWeight: "bold" }}>{weeklyHoursLost} hrs/wk lost</span>
                         </div>
                         <button
                           onClick={() => { setCalcTeamSize(5); setCalcAdminHours(10); setCalcHourlyRate(35); setCalcCurrency('£'); }}
@@ -1482,69 +1492,75 @@ const [opsPillar, setOpsPillar] = useState("finance");
                     </div>
 
                     {/* RIGHT RESULTS CARD (Obsidian #171717) */}
-                    <div className="calc-results-card" style={{ background: "#171717" }}>
+                    <div style={{ background: "#171717", color: "#ffffff", borderRadius: "8px", padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                       
-                      <div className="calc-results-top">
-                        <span className="calc-kicker">Capacity Trapped in Administration</span>
-                        <div className="calc-primary-stat">
-                          {monthlyHoursLost.toLocaleString()}<span className="calc-period">+ hrs / month</span>
+                      <div style={{ marginBottom: "24px" }}>
+                        <span style={{ fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#76c9b4", display: "block", marginBottom: "8px" }}>
+                          Capacity Trapped in Administration
+                        </span>
+                        <div style={{ fontSize: "44px", fontWeight: 800, letterSpacing: "-0.03em", color: "#ffffff", lineHeight: 1 }}>
+                          {monthlyHoursLost.toLocaleString()}
+                          <span style={{ fontSize: "15px", fontWeight: 400, color: "#999", marginLeft: "6px" }}>+ hrs / month</span>
                         </div>
-                        <p className="calc-stat-sub">
-                          Valued at <strong>{calcCurrency}{monthlyCostDrag.toLocaleString()}/month</strong> (~{calcCurrency}{annualCostDrag.toLocaleString()}/year) in non-billable clerical drag.
+                        <p style={{ color: "#a8a8a2", fontSize: "13px", lineHeight: 1.6, margin: "14px 0 0 0" }}>
+                          Valued at <strong style={{ color: "#ffffff" }}>{calcCurrency}{monthlyCostDrag.toLocaleString()}/month</strong> (~{calcCurrency}{annualCostDrag.toLocaleString()}/year) in non-billable clerical drag.
                         </p>
                       </div>
 
                       {/* 2x2 Metric Spotlight */}
-                      <div className="calc-metrics-grid">
-                        <div className="calc-metric-box">
-                          <span className="calc-metric-label">Annual Financial Drag</span>
-                          <span className="calc-metric-value" style={{ color: "#eab308" }}>
-                            {calcCurrency}{annualCostDrag.toLocaleString()}
-                          </span>
-                          <span className="calc-metric-sub">Trapped in non-core tasks</span>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "22px" }}>
+                        <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
+                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Annual Cost Drag</span>
+                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#eab308", display: "block" }}>{calcCurrency}{annualCostDrag.toLocaleString()}</span>
+                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Trapped in non-core tasks</span>
                         </div>
 
-                        <div className="calc-metric-box">
-                          <span className="calc-metric-label">Headcount Equivalent</span>
-                          <span className="calc-metric-value" style={{ color: "#76c9b4" }}>
-                            {equivalentFTE} FTE
-                          </span>
-                          <span className="calc-metric-sub">Full-time roles lost to admin</span>
+                        <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
+                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Headcount Equivalent</span>
+                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#76c9b4", display: "block" }}>{equivalentFTE} FTE</span>
+                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Full-time roles lost</span>
                         </div>
 
-                        <div className="calc-metric-box">
-                          <span className="calc-metric-label">SYS Ops Retainer Est.</span>
-                          <span className="calc-metric-value" style={{ color: "#ffffff" }}>
-                            {calcCurrency}{sysOpsMonthlyFee.toLocaleString()}<span style={{ fontSize: "12px", color: "#888" }}>/mo</span>
-                          </span>
-                          <span className="calc-metric-sub">Predictable operational desk</span>
+                        <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
+                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>SYS Ops Retainer Est.</span>
+                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#ffffff", display: "block" }}>{calcCurrency}{sysOpsMonthlyFee.toLocaleString()}<span style={{ fontSize: "12px", color: "#888" }}>/mo</span></span>
+                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Predictable operational desk</span>
                         </div>
 
-                        <div className="calc-metric-box">
-                          <span className="calc-metric-label">Estimated Net Savings</span>
-                          <span className="calc-metric-value" style={{ color: "#76c9b4" }}>
-                            {calcCurrency}{annualSavings.toLocaleString()}
-                          </span>
-                          <span className="calc-metric-sub">{percentageSaved}% bottom-line relief</span>
+                        <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
+                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Estimated Net Savings</span>
+                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#76c9b4", display: "block" }}>{calcCurrency}{annualSavings.toLocaleString()}</span>
+                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>{percentageSaved}% bottom-line relief</span>
                         </div>
                       </div>
 
                       {/* Unlocked Capacity Box */}
-                      <div className="sysops-cost-comparison">
-                        <div>
-                          <strong>What your business unlocks with SYS Ops:</strong>
-                          <p>
-                            • Consultants gain 8–12 hrs/week for billing & fee-earning calls<br />
-                            • Zero Friday payroll panic, timesheet errors, or unbilled hours<br />
-                            • 52-week operational coverage with guaranteed 4-hour SLAs
-                          </p>
-                        </div>
+                      <div style={{ background: "rgba(22, 134, 111, 0.12)", border: "1px solid rgba(118, 201, 180, 0.25)", borderRadius: "6px", padding: "14px 16px", marginBottom: "20px" }}>
+                        <strong style={{ display: "block", fontSize: "12px", color: "#76c9b4", marginBottom: "4px" }}>What your business unlocks with SYS Ops:</strong>
+                        <p style={{ margin: 0, fontSize: "11.5px", color: "#c9c9c4", lineHeight: 1.5 }}>
+                          • Consultants gain 8–12 hrs/week for billing & fee-earning calls<br />
+                          • Zero Friday payroll panic, timesheet errors, or unbilled hours<br />
+                          • 52-week operational coverage with guaranteed 4-hour SLAs
+                        </p>
                       </div>
 
                       {/* CTA Button */}
                       <button
-                        className="calc-apply-btn"
                         onClick={() => setCurrentPage('contact')}
+                        style={{
+                          width: "100%",
+                          background: "#ffffff",
+                          color: "#171717",
+                          border: "none",
+                          padding: "14px 20px",
+                          borderRadius: "4px",
+                          fontSize: "11px",
+                          fontWeight: 700,
+                          letterSpacing: "0.06em",
+                          textTransform: "uppercase",
+                          cursor: "pointer",
+                          transition: "all 0.2s"
+                        }}
                       >
                         Reclaim This Capacity with SYS Ops →
                       </button>
