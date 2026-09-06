@@ -49,6 +49,11 @@ export default function SysOpsWebsite() {
   // NAVIGATION: 'home' | 'services' | 'contact'
   const [currentPage, setCurrentPage] = useState("home");
 const [opsPillar, setOpsPillar] = useState("finance");
+  // Capacity & ROI Calculator State
+  const [calcTeamSize, setCalcTeamSize] = useState(5);
+  const [calcAdminHours, setCalcAdminHours] = useState(10);
+  const [calcHourlyRate, setCalcHourlyRate] = useState(35);
+  const [calcCurrency, setCalcCurrency] = useState('£');
   // REAL-TIME SKYLINE TIME
   const [activeStageId, setActiveStageId] = useState("midday");
   const [londonTimeStr, setLondonTimeStr] = useState("");
@@ -1311,47 +1316,281 @@ const [opsPillar, setOpsPillar] = useState("finance");
             </div>
           </section>
 
-          {/* WHY SYS */}
-          <section id="why" className="section why">
-            <div className="container why-grid">
-              <div className="why-image">
-                <div className="why-image-card">
-                  <strong>60–75%</strong>
-                  <span>
-                    Potential cost saving compared with a full-time UK/Ireland
-                    back-office hire.
-                  </span>
+         {/* ======================================================== */}
+          {/* COMBINED: WHY SYS OPS & CAPACITY ROI CALCULATOR          */}
+          {/* ======================================================== */}
+          <section id="why" className="calculator-section" style={{ padding: "100px 0", background: "#f7f7f4", borderTop: "1px solid #e7e7e2", borderBottom: "1px solid #e7e7e2" }}>
+            <div className="container">
+              
+              {/* SECTION HEADER */}
+              <div style={{ maxWidth: "780px", marginBottom: "48px" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#16866f", marginBottom: "12px" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#16866f" }} />
+                  Operational Capacity & Cost Analysis
                 </div>
-              </div>
-
-              <div className="why-content">
-                <div className="eyebrow">Why SYS Ops</div>
-                <h2>
-                  Not generic outsourcing.
-                  <br />
-                  <span>Specialist execution.</span>
+                <h2 style={{ fontSize: "36px", fontWeight: 800, color: "#171717", lineHeight: 1.18, letterSpacing: "-0.02em", margin: "0 0 14px 0" }}>
+                  How much capacity is admin taking from your team?
                 </h2>
-                <p>
-                  Every part of our model is built around operational ownership.
-                  You are not handed to a generic support queue. You get a
-                  structured partner who understands your processes, systems and
-                  workforce.
+                <p style={{ fontSize: "16px", color: "#4b5563", lineHeight: 1.6, margin: 0 }}>
+                  When core consultants, coordinators, or operations managers spend their week chasing timesheets, checking documents, and resolving invoice variances, revenue stops. Calculate your exact operational drag below.
                 </p>
+              </div>
 
-                <div className="advantage-list">
-                  {advantages.map((item) => (
-                    <div className="advantage" key={item.title}>
-                      <div className="advantage-icon">
-                        <i className={item.icon} />
-                      </div>
-                      <div>
-                        <h3>{item.title}</h3>
-                        <p>{item.text}</p>
-                      </div>
+              {/* 4 CORE VALUE PILLARS */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginBottom: "40px" }}>
+                {[
+                  { title: "Execution Rigour", desc: "No vague advice or hands-off templates. We log into your tools and perform the actual work every day." },
+                  { title: "End-to-End Ownership", desc: "From Friday timesheet cutoffs to client sign-off, we chase, reconcile, and close loops proactively." },
+                  { title: "Operational Continuity", desc: "Backed by documented SOPs and team redundancy. Zero holiday blackouts or sickness bottlenecks." },
+                  { title: "Full Commercial Visibility", desc: "Transparent activity logs, SLA response tracking, and weekly gross margin flash reports." },
+                ].map((item, idx) => (
+                  <div key={idx} style={{ background: "#ffffff", border: "1px solid #deded9", borderRadius: "6px", padding: "20px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                      <span style={{ color: "#16866f", fontWeight: "bold", fontSize: "16px" }}>✓</span>
+                      <strong style={{ fontSize: "14px", color: "#171717" }}>{item.title}</strong>
                     </div>
-                  ))}
+                    <p style={{ fontSize: "12.5px", color: "#666660", lineHeight: 1.5, margin: 0 }}>
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* DETAILED ROI CALCULATOR */}
+              {(() => {
+                const weeklyHoursLost = calcTeamSize * calcAdminHours;
+                const monthlyHoursLost = Math.round(weeklyHoursLost * 4.33);
+                const annualHoursLost = weeklyHoursLost * 52;
+                
+                const weeklyCostDrag = weeklyHoursLost * calcHourlyRate;
+                const monthlyCostDrag = Math.round(weeklyCostDrag * 4.33);
+                const annualCostDrag = weeklyCostDrag * 52;
+
+                const equivalentFTE = (weeklyHoursLost / 37.5).toFixed(1);
+                
+                // Estimated SYS Ops Retainer for this volume
+                const sysOpsMonthlyFee = Math.round(monthlyCostDrag * 0.42);
+                const annualSavings = Math.max(0, annualCostDrag - (sysOpsMonthlyFee * 12));
+                const percentageSaved = Math.round((annualSavings / annualCostDrag) * 100) || 58;
+
+                return (
+                  <div className="calculator-grid">
+                    
+                    {/* LEFT INPUTS CONTROLS */}
+                    <div className="calc-controls-card">
+                      <div className="calc-header-currency">
+                        <h3>Configure Parameters</h3>
+                        <div className="currency-selector">
+                          {['£', '€', '$'].map((curr) => (
+                            <button
+                              key={curr}
+                              className={calcCurrency === curr ? 'active' : ''}
+                              onClick={() => setCalcCurrency(curr)}
+                            >
+                              {curr === '£' ? '£ GBP' : curr === '€' ? '€ EUR' : '$ USD'}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Slider 1: Team Size */}
+                      <div className="calc-slider-group">
+                        <div className="calc-slider-header">
+                          <label>Team Members / Coordinators</label>
+                          <strong>{calcTeamSize} {calcTeamSize === 1 ? 'person' : 'people'}</strong>
+                        </div>
+                        <input
+                          type="range"
+                          min="1"
+                          max="50"
+                          value={calcTeamSize}
+                          onChange={(e) => setCalcTeamSize(Number(e.target.value))}
+                          className="calc-range-input"
+                        />
+                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#888882", marginTop: "4px" }}>
+                          <span>1 person</span>
+                          <span>25 people</span>
+                          <span>50+ people</span>
+                        </div>
+                        <span className="calc-slider-hint">
+                          Consultants, recruiters, site managers, or care coordinators spending time on admin.
+                        </span>
+                      </div>
+
+                      {/* Slider 2: Weekly Admin Hours */}
+                      <div className="calc-slider-group">
+                        <div className="calc-slider-header">
+                          <label>Weekly Admin & Ops Hours (per person)</label>
+                          <strong>{calcAdminHours} hrs / wk</strong>
+                        </div>
+                        <input
+                          type="range"
+                          min="2"
+                          max="25"
+                          value={calcAdminHours}
+                          onChange={(e) => setCalcAdminHours(Number(e.target.value))}
+                          className="calc-range-input"
+                        />
+                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#888882", marginTop: "4px" }}>
+                          <span>2 hrs (Light)</span>
+                          <span>10 hrs (Standard)</span>
+                          <span>25 hrs (Severe Drag)</span>
+                        </div>
+                        <span className="calc-slider-hint">
+                          Time spent chasing timesheets, checking RTW, booking rotas, and handling billing queries.
+                        </span>
+                      </div>
+
+                      {/* Slider 3: Hourly Staff Cost */}
+                      <div className="calc-slider-group" style={{ marginBottom: "20px" }}>
+                        <div className="calc-slider-header">
+                          <label>Average Staff Cost per Hour (Salary + Burden)</label>
+                          <strong>{calcCurrency}{calcHourlyRate} / hr</strong>
+                        </div>
+                        <input
+                          type="range"
+                          min="15"
+                          max="100"
+                          step="5"
+                          value={calcHourlyRate}
+                          onChange={(e) => setCalcHourlyRate(Number(e.target.value))}
+                          className="calc-range-input"
+                        />
+                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#888882", marginTop: "4px" }}>
+                          <span>{calcCurrency}15/hr</span>
+                          <span>{calcCurrency}50/hr</span>
+                          <span>{calcCurrency}100/hr</span>
+                        </div>
+                        <span className="calc-slider-hint">
+                          Includes base pay plus employer NI, pension, and desk/software overhead.
+                        </span>
+                      </div>
+
+                      {/* Formula Summary Bar */}
+                      <div style={{ background: "#fafaf8", border: "1px solid #eeeeea", borderRadius: "6px", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px", color: "#666" }}>
+                        <div>
+                          <strong>Your Calculation:</strong> {calcAdminHours} hrs × {calcTeamSize} staff = <span style={{ color: "#171717", fontWeight: "bold" }}>{weeklyHoursLost} hrs/week lost</span>
+                        </div>
+                        <button
+                          onClick={() => { setCalcTeamSize(5); setCalcAdminHours(10); setCalcHourlyRate(35); setCalcCurrency('£'); }}
+                          style={{ border: "none", background: "transparent", color: "#16866f", cursor: "pointer", fontSize: "11px", fontWeight: "bold" }}
+                        >
+                          Reset Defaults
+                        </button>
+                      </div>
+
+                    </div>
+
+                    {/* RIGHT RESULTS CARD (Obsidian #171717) */}
+                    <div className="calc-results-card" style={{ background: "#171717" }}>
+                      
+                      <div className="calc-results-top">
+                        <span className="calc-kicker">Capacity Trapped in Administration</span>
+                        <div className="calc-primary-stat">
+                          {monthlyHoursLost.toLocaleString()}<span className="calc-period">+ hrs / month</span>
+                        </div>
+                        <p className="calc-stat-sub">
+                          Valued at <strong>{calcCurrency}{monthlyCostDrag.toLocaleString()}/month</strong> (~{calcCurrency}{annualCostDrag.toLocaleString()}/year) in non-billable clerical drag.
+                        </p>
+                      </div>
+
+                      {/* 2x2 Metric Spotlight */}
+                      <div className="calc-metrics-grid">
+                        <div className="calc-metric-box">
+                          <span className="calc-metric-label">Annual Financial Drag</span>
+                          <span className="calc-metric-value" style={{ color: "#eab308" }}>
+                            {calcCurrency}{annualCostDrag.toLocaleString()}
+                          </span>
+                          <span className="calc-metric-sub">Trapped in non-core tasks</span>
+                        </div>
+
+                        <div className="calc-metric-box">
+                          <span className="calc-metric-label">Headcount Equivalent</span>
+                          <span className="calc-metric-value" style={{ color: "#76c9b4" }}>
+                            {equivalentFTE} FTE
+                          </span>
+                          <span className="calc-metric-sub">Full-time roles lost to admin</span>
+                        </div>
+
+                        <div className="calc-metric-box">
+                          <span className="calc-metric-label">SYS Ops Retainer Est.</span>
+                          <span className="calc-metric-value" style={{ color: "#ffffff" }}>
+                            {calcCurrency}{sysOpsMonthlyFee.toLocaleString()}<span style={{ fontSize: "12px", color: "#888" }}>/mo</span>
+                          </span>
+                          <span className="calc-metric-sub">Predictable operational desk</span>
+                        </div>
+
+                        <div className="calc-metric-box">
+                          <span className="calc-metric-label">Estimated Net Savings</span>
+                          <span className="calc-metric-value" style={{ color: "#76c9b4" }}>
+                            {calcCurrency}{annualSavings.toLocaleString()}
+                          </span>
+                          <span className="calc-metric-sub">{percentageSaved}% bottom-line relief</span>
+                        </div>
+                      </div>
+
+                      {/* Unlocked Capacity Box */}
+                      <div className="sysops-cost-comparison">
+                        <div>
+                          <strong>What your business unlocks with SYS Ops:</strong>
+                          <p>
+                            • Consultants gain 8–12 hrs/week for billing & fee-earning calls<br />
+                            • Zero Friday payroll panic, timesheet errors, or unbilled hours<br />
+                            • 52-week operational coverage with guaranteed 4-hour SLAs
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* CTA Button */}
+                      <button
+                        className="calc-apply-btn"
+                        onClick={() => setCurrentPage('contact')}
+                      >
+                        Reclaim This Capacity with SYS Ops →
+                      </button>
+
+                    </div>
+
+                  </div>
+                );
+              })()}
+
+              {/* THREE-WAY COMPARISON TABLE (HOW SYS OPS COMPARES) */}
+              <div style={{ marginTop: "60px" }}>
+                <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 28px auto" }}>
+                  <h3 style={{ fontSize: "22px", fontWeight: 700, color: "#171717", margin: "0 0 8px 0" }}>How SYS Ops Compares</h3>
+                  <p style={{ fontSize: "14px", color: "#666660", margin: 0 }}>Why workforce businesses choose a dedicated operational partner over hiring or general VAs.</p>
+                </div>
+
+                <div style={{ overflowX: "auto", borderRadius: "8px", border: "1px solid #deded9", background: "#ffffff" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "620px", fontSize: "13px" }}>
+                    <thead>
+                      <tr style={{ background: "#f5f5f2", borderBottom: "1px solid #deded9", textAlign: "left" }}>
+                        <th style={{ padding: "14px 18px", fontWeight: 700, color: "#171717" }}>Operational Aspect</th>
+                        <th style={{ padding: "14px 18px", fontWeight: 600, color: "#666660" }}>Ad-hoc Virtual Assistants</th>
+                        <th style={{ padding: "14px 18px", fontWeight: 600, color: "#666660" }}>Hiring In-House Admin</th>
+                        <th style={{ padding: "14px 18px", fontWeight: 700, color: "#16866f", background: "#eef7f5" }}>SYS Ops Partnership</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        { aspect: "Ownership & Follow-through", va: "Requires constant task micromanagement", inhouse: "Depends on single employee consistency", sysops: "Complete proactive ownership of recurring workflows" },
+                        { aspect: "Workforce Sector Knowledge", va: "Generalists with no idea of CIS, DBS or rotas", inhouse: "Requires months of training & onboarding", sysops: "Pre-trained in workforce rotas, compliance & payroll" },
+                        { aspect: "Cost & Employment Liabilities", va: "Cheap hourly but expensive in management time", inhouse: "High fixed salaries, NI, pension & recruiting fees", sysops: "Flexible, predictable retainer with zero HR liabilities" },
+                        { aspect: "Business Continuity", va: "High turnover and frequent ghosting", inhouse: "Sick days and holidays stall operations", sysops: "Backed by team SOP redundancy — zero downtime" },
+                      ].map((row, i) => (
+                        <tr key={i} style={{ borderBottom: i === 3 ? "none" : "1px solid #eeeeea" }}>
+                          <td style={{ padding: "14px 18px", fontWeight: 600, color: "#171717" }}>{row.aspect}</td>
+                          <td style={{ padding: "14px 18px", color: "#666660" }}>{row.va}</td>
+                          <td style={{ padding: "14px 18px", color: "#666660" }}>{row.inhouse}</td>
+                          <td style={{ padding: "14px 18px", fontWeight: 600, color: "#16866f", background: "#f8fdfc" }}>{row.sysops}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
+
             </div>
           </section>
 
