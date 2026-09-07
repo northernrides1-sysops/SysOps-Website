@@ -1553,7 +1553,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                           <span style={{ fontSize: "11px", fontWeight: 700, color: "#76c9b4", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "8px" }}>
                             Active SYS Ops Solutions for Your Selection:
                           </span>
-                          <div style={{ display: "flex", flexDirection: "column", gap: "8px", maxHeight: "170px", overflowY: "auto", paddingRight: "4px" }}>
+                         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                             {bottlenecksList.filter(b => selectedBottlenecks.includes(b.id)).map(b => (
                               <div key={b.id} style={{ background: "#222222", borderLeft: "3px solid #16866f", padding: "7px 10px", borderRadius: "0 4px 4px 0" }}>
                                 <strong style={{ fontSize: "12px", color: "#ffffff", display: "block" }}>{b.title}</strong>
