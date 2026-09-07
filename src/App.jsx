@@ -51,9 +51,8 @@ export default function SysOpsWebsite() {
 const [opsPillar, setOpsPillar] = useState("finance");
   // Capacity & ROI Calculator State
   const [calcTeamSize, setCalcTeamSize] = useState(5);
-  const [calcAdminHours, setCalcAdminHours] = useState(10);
-  const [calcHourlyRate, setCalcHourlyRate] = useState(35);
   const [calcCurrency, setCalcCurrency] = useState('£');
+  const [selectedBottlenecks, setSelectedBottlenecks] = useState(['timesheets', 'compliance', 'crm']);
   // REAL-TIME SKYLINE TIME
   const [activeStageId, setActiveStageId] = useState("midday");
   const [londonTimeStr, setLondonTimeStr] = useState("");
@@ -1316,32 +1315,32 @@ const [opsPillar, setOpsPillar] = useState("finance");
             </div>
           </section>
 {/* ======================================================== */}
-          {/* COMBINED: WHY SYS OPS & CAPACITY ROI CALCULATOR          */}
+          {/* COMBINED: BOTTLENECK AUDIT & CAPACITY CALCULATOR         */}
           {/* ======================================================== */}
           <section id="why" style={{ padding: "100px 0", background: "#fbfbfa", borderTop: "1px solid #e7e7e2", borderBottom: "1px solid #e7e7e2" }}>
             <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
               
               {/* SECTION HEADER */}
-              <div style={{ maxWidth: "780px", marginBottom: "40px" }}>
+              <div style={{ maxWidth: "800px", marginBottom: "40px" }}>
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#16866f", marginBottom: "12px" }}>
                   <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#16866f" }} />
-                  Operational Capacity & Cost Analysis
+                  Operational Capacity & Bottleneck Audit
                 </div>
                 <h2 style={{ fontSize: "36px", fontWeight: 800, color: "#171717", lineHeight: 1.18, letterSpacing: "-0.02em", margin: "0 0 14px 0" }}>
-                  How much capacity is admin taking from your team?
+                  How much capacity are administrative fires costing you?
                 </h2>
                 <p style={{ fontSize: "16px", color: "#4b5563", lineHeight: 1.6, margin: 0 }}>
-                  When core consultants, coordinators, or operations managers spend their week chasing timesheets, checking documents, and resolving invoice variances, revenue stops. Calculate your exact operational drag below.
+                  Select your team size and check the administrative tasks stealing hours from your fee-earners. See the real-time operational drag and how SYS Ops resolves each bottleneck.
                 </p>
               </div>
 
               {/* 4 CORE VALUE PILLARS */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginBottom: "48px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginBottom: "44px" }}>
                 {[
-                  { title: "Execution Rigour", desc: "No vague advice or hands-off templates. We log into your tools and perform the actual work every day." },
-                  { title: "End-to-End Ownership", desc: "From Friday timesheet cutoffs to client sign-off, we chase, reconcile, and close loops proactively." },
-                  { title: "Operational Continuity", desc: "Backed by documented SOPs and team redundancy. Zero holiday blackouts or sickness bottlenecks." },
-                  { title: "Full Commercial Visibility", desc: "Transparent activity logs, SLA response tracking, and weekly gross margin flash reports." },
+                  { title: "Execution Rigour", desc: "No vague advice. We log directly into your ATS, payroll, and billing software to perform the daily work." },
+                  { title: "52-Week Continuity", desc: "Named primary and secondary pod leads ensure zero holiday blackouts or single-person sickness bottlenecks." },
+                  { title: "Zero Employer Liabilities", desc: "No employer NI (13.8%), pension contributions, recruiter placement fees, or hardware costs." },
+                  { title: "Contractual Turnarounds", desc: "Guaranteed 4-hour SLAs on candidate vetting packs, billing queries, and weekly payroll runs." },
                 ].map((item, idx) => (
                   <div key={idx} style={{ background: "#ffffff", border: "1px solid #deded9", borderRadius: "6px", padding: "20px" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
@@ -1355,212 +1354,238 @@ const [opsPillar, setOpsPillar] = useState("finance");
                 ))}
               </div>
 
-             {/* DETAILED ROI & CAPACITY RECOVERY CALCULATOR */}
+              {/* UNIFIED BOTTLENECK & CALCULATOR ENGINE */}
               {(() => {
-                const weeklyHoursLost = calcTeamSize * calcAdminHours;
-                const monthlyHoursLost = Math.round(weeklyHoursLost * 4.33);
-                const annualHoursLost = weeklyHoursLost * 52;
-                
-                const weeklyCostDrag = weeklyHoursLost * calcHourlyRate;
-                const monthlyCostDrag = Math.round(weeklyCostDrag * 4.33);
-                const annualCostDrag = weeklyCostDrag * 52;
+                const bottlenecksList = [
+                  {
+                    id: 'timesheets',
+                    title: 'Friday Timesheet Chasing',
+                    hours: 3.5,
+                    desc: 'Chasing 30+ missing timesheets, worker rate arguments, and late sign-offs.',
+                    solution: 'Proactive 3-stage chasing cycles starting Wednesday; fully reconciled by Friday 12 PM.'
+                  },
+                  {
+                    id: 'compliance',
+                    title: 'Right-to-Work & Document Vetting',
+                    hours: 2.5,
+                    desc: 'Validating share codes, DBS checks, and tickets to prevent £45k civil penalties.',
+                    solution: 'Zero-breach digital onboarding gates; full audit pack delivered in under 4 hours.'
+                  },
+                  {
+                    id: 'invoicing',
+                    title: 'Invoice Queries & PO Matching',
+                    hours: 2.0,
+                    desc: 'Clients rejecting invoices due to missing PO numbers, rate mismatches, or disputed hours.',
+                    solution: 'Pre-dispatch audit matched directly to client POs; zero rejected invoices on ledgers.'
+                  },
+                  {
+                    id: 'crm',
+                    title: 'CRM Data Entry & Candidate Admin',
+                    hours: 3.0,
+                    desc: 'Top recruiters spending 20% of their day formatting CVs and typing data into Bullhorn/Vincere.',
+                    solution: 'Recruiters send raw files; SYS Ops formats profiles and clears administrative files.'
+                  },
+                  {
+                    id: 'cover',
+                    title: 'Holiday & Sickness Cover Gaps',
+                    hours: 2.0,
+                    desc: 'Internal administrators off on leave, causing payroll stalls and customer service backlog.',
+                    solution: 'Living SOP runbooks and pod redundancy ensure 100% operational continuity.'
+                  }
+                ];
 
+                const toggleBottleneck = (id) => {
+                  if (selectedBottlenecks.includes(id)) {
+                    if (selectedBottlenecks.length > 1) {
+                      setSelectedBottlenecks(selectedBottlenecks.filter(item => item !== id));
+                    }
+                  } else {
+                    setSelectedBottlenecks([...selectedBottlenecks, id]);
+                  }
+                };
+
+                // Calculate hours directly from selected bottlenecks!
+                const hoursPerPersonPerWeek = selectedBottlenecks.reduce((sum, id) => {
+                  const b = bottlenecksList.find(item => item.id === id);
+                  return sum + (b ? b.hours : 0);
+                }, 0);
+
+                const weeklyHoursLost = Math.round(calcTeamSize * hoursPerPersonPerWeek);
+                const monthlyHoursLost = weeklyHoursLost * 4;
+                const annualHoursLost = monthlyHoursLost * 12;
                 const equivalentFTE = (weeklyHoursLost / 37.5).toFixed(1);
 
                 return (
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "30px", alignItems: "stretch" }}>
                     
-                    {/* LEFT INPUTS CONTROLS */}
-                    <div style={{ background: "#ffffff", border: "1px solid #deded9", borderRadius: "8px", padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                    {/* LEFT: TEAM SIZE + BOTTLENECK SELECTOR */}
+                    <div style={{ background: "#ffffff", border: "1px solid #deded9", borderRadius: "8px", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                       
-                      {/* Currency Header */}
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "28px", paddingBottom: "16px", borderBottom: "1px solid #eeeeea" }}>
-                        <h3 style={{ margin: 0, fontSize: "18px", fontWeight: 700, color: "#171717" }}>Configure Parameters</h3>
-                        <div style={{ display: "flex", gap: "4px", background: "#f0f0eb", padding: "3px", borderRadius: "4px" }}>
-                          {['£', '€', '$'].map((curr) => (
-                            <button
-                              key={curr}
-                              onClick={() => setCalcCurrency(curr)}
-                              style={{
-                                border: "none",
-                                background: calcCurrency === curr ? "#171717" : "transparent",
-                                color: calcCurrency === curr ? "#ffffff" : "#666660",
-                                padding: "4px 10px",
-                                fontSize: "11px",
-                                fontWeight: 700,
-                                borderRadius: "3px",
-                                cursor: "pointer"
-                              }}
-                            >
-                              {curr === '£' ? '£ GBP' : curr === '€' ? '€ EUR' : '$ USD'}
-                            </button>
-                          ))}
+                      <div>
+                        {/* Team Size Slider */}
+                        <div style={{ paddingBottom: "22px", borderBottom: "1px solid #eeeeea", marginBottom: "22px" }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                            <label style={{ fontSize: "14px", fontWeight: 800, color: "#171717" }}>1. Select Your Team Size</label>
+                            <strong style={{ fontSize: "16px", color: "#16866f" }}>{calcTeamSize} {calcTeamSize === 1 ? 'person' : 'people'}</strong>
+                          </div>
+                          <input
+                            type="range"
+                            min="1"
+                            max="30"
+                            value={calcTeamSize}
+                            onChange={(e) => setCalcTeamSize(Number(e.target.value))}
+                            style={{ width: "100%", height: "6px", accentColor: "#16866f", cursor: "pointer" }}
+                          />
+                          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#888882", marginTop: "4px" }}>
+                            <span>1 person</span>
+                            <span>15 people</span>
+                            <span>30+ people</span>
+                          </div>
                         </div>
-                      </div>
 
-                      {/* Slider 1: Team Size */}
-                      <div style={{ marginBottom: "26px" }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                          <label style={{ fontSize: "13px", fontWeight: 700, color: "#222" }}>Team Members / Coordinators</label>
-                          <strong style={{ fontSize: "16px", color: "#16866f" }}>{calcTeamSize} {calcTeamSize === 1 ? 'person' : 'people'}</strong>
-                        </div>
-                        <input
-                          type="range"
-                          min="1"
-                          max="50"
-                          value={calcTeamSize}
-                          onChange={(e) => setCalcTeamSize(Number(e.target.value))}
-                          style={{ width: "100%", height: "6px", accentColor: "#16866f", cursor: "pointer" }}
-                        />
-                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#888882", marginTop: "4px" }}>
-                          <span>1 person</span>
-                          <span>25 people</span>
-                          <span>50+ people</span>
-                        </div>
-                        <span style={{ display: "block", fontSize: "11px", color: "#888882", marginTop: "6px", lineHeight: 1.4 }}>
-                          Consultants, recruiters, site managers, or care coordinators spending time on admin.
-                        </span>
-                      </div>
-
-                      {/* Slider 2: Weekly Admin Hours */}
-                      <div style={{ marginBottom: "26px" }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                          <label style={{ fontSize: "13px", fontWeight: 700, color: "#222" }}>Weekly Admin & Ops Hours (per person)</label>
-                          <strong style={{ fontSize: "16px", color: "#16866f" }}>{calcAdminHours} hrs / wk</strong>
-                        </div>
-                        <input
-                          type="range"
-                          min="2"
-                          max="25"
-                          value={calcAdminHours}
-                          onChange={(e) => setCalcAdminHours(Number(e.target.value))}
-                          style={{ width: "100%", height: "6px", accentColor: "#16866f", cursor: "pointer" }}
-                        />
-                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#888882", marginTop: "4px" }}>
-                          <span>2 hrs (Light)</span>
-                          <span>10 hrs (Standard)</span>
-                          <span>25 hrs (Severe Drag)</span>
-                        </div>
-                        <span style={{ display: "block", fontSize: "11px", color: "#888882", marginTop: "6px", lineHeight: 1.4 }}>
-                          Time spent chasing timesheets, checking RTW, booking rotas, and handling billing queries.
-                        </span>
-                      </div>
-
-                      {/* Slider 3: Hourly Staff Cost */}
-                      <div style={{ marginBottom: "24px" }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                          <label style={{ fontSize: "13px", fontWeight: 700, color: "#222" }}>Average Staff Cost per Hour (Salary + Burden)</label>
-                          <strong style={{ fontSize: "16px", color: "#16866f" }}>{calcCurrency}{calcHourlyRate} / hr</strong>
-                        </div>
-                        <input
-                          type="range"
-                          min="15"
-                          max="100"
-                          step="5"
-                          value={calcHourlyRate}
-                          onChange={(e) => setCalcHourlyRate(Number(e.target.value))}
-                          style={{ width: "100%", height: "6px", accentColor: "#16866f", cursor: "pointer" }}
-                        />
-                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", color: "#888882", marginTop: "4px" }}>
-                          <span>{calcCurrency}15/hr</span>
-                          <span>{calcCurrency}50/hr</span>
-                          <span>{calcCurrency}100/hr</span>
-                        </div>
-                        <span style={{ display: "block", fontSize: "11px", color: "#888882", marginTop: "6px", lineHeight: 1.4 }}>
-                          Includes base pay plus employer NI, pension, and desk/software overhead.
-                        </span>
-                      </div>
-
-                      {/* Formula Summary Bar */}
-                      <div style={{ background: "#fafaf8", border: "1px solid #eeeeea", borderRadius: "6px", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px", color: "#666" }}>
+                        {/* Bottleneck Checklist */}
                         <div>
-                          <strong>Calculation:</strong> {calcAdminHours} hrs × {calcTeamSize} staff = <span style={{ color: "#171717", fontWeight: "bold" }}>{weeklyHoursLost} hrs/wk lost</span>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                            <label style={{ fontSize: "14px", fontWeight: 800, color: "#171717" }}>2. Where Do You Lose Hours?</label>
+                            <span style={{ fontSize: "11px", color: "#16866f", fontWeight: 700 }}>{hoursPerPersonPerWeek} hrs/person/wk</span>
+                          </div>
+
+                          <div style={{ display: "flex", flexDirection: "column", gap: "9px" }}>
+                            {bottlenecksList.map((b) => {
+                              const isChecked = selectedBottlenecks.includes(b.id);
+                              return (
+                                <div
+                                  key={b.id}
+                                  onClick={() => toggleBottleneck(b.id)}
+                                  style={{
+                                    padding: "11px 14px",
+                                    borderRadius: "6px",
+                                    border: isChecked ? "2px solid #16866f" : "1px solid #e2e2dd",
+                                    background: isChecked ? "#f4faf8" : "#ffffff",
+                                    cursor: "pointer",
+                                    transition: "all 0.15s ease",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    gap: "10px"
+                                  }}
+                                >
+                                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                    <div style={{
+                                      width: "18px",
+                                      height: "18px",
+                                      borderRadius: "4px",
+                                      border: isChecked ? "2px solid #16866f" : "2px solid #c5c5be",
+                                      background: isChecked ? "#16866f" : "#ffffff",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      color: "#ffffff",
+                                      fontSize: "12px",
+                                      fontWeight: "bold",
+                                      flexShrink: 0
+                                    }}>
+                                      {isChecked ? "✓" : ""}
+                                    </div>
+                                    <div>
+                                      <strong style={{ fontSize: "13px", color: "#171717", display: "block" }}>{b.title}</strong>
+                                      <span style={{ fontSize: "11.5px", color: "#666660" }}>{b.desc}</span>
+                                    </div>
+                                  </div>
+                                  <span style={{ fontSize: "11px", fontWeight: 700, color: isChecked ? "#16866f" : "#888", whiteSpace: "nowrap" }}>
+                                    +{b.hours}h /wk
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
+                      </div>
+
+                      {/* Formula Summary Footer */}
+                      <div style={{ marginTop: "20px", background: "#fafaf8", border: "1px solid #eeeeea", borderRadius: "6px", padding: "10px 14px", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "11.5px", color: "#666" }}>
+                        <span><strong>Formula:</strong> {hoursPerPersonPerWeek} hrs × {calcTeamSize} staff = <strong>{weeklyHoursLost} hrs/wk lost</strong></span>
                         <button
-                          onClick={() => { setCalcTeamSize(5); setCalcAdminHours(10); setCalcHourlyRate(35); setCalcCurrency('£'); }}
+                          onClick={() => { setCalcTeamSize(5); setSelectedBottlenecks(['timesheets', 'compliance', 'crm']); }}
                           style={{ border: "none", background: "transparent", color: "#16866f", cursor: "pointer", fontSize: "11px", fontWeight: "bold" }}
                         >
-                          Reset Defaults
+                          Reset
                         </button>
                       </div>
 
                     </div>
 
-                    {/* RIGHT RESULTS CARD (Obsidian #171717) */}
-                    <div style={{ background: "#171717", color: "#ffffff", borderRadius: "8px", padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                    {/* RIGHT: LIVE IMPACT METRICS & HOW SYS OPS FIXES IT */}
+                    <div style={{ background: "#171717", color: "#ffffff", borderRadius: "8px", padding: "34px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                       
-                      <div style={{ marginBottom: "24px" }}>
-                        <span style={{ fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#76c9b4", display: "block", marginBottom: "8px" }}>
-                          Capacity Trapped in Administration
-                        </span>
-                        <div style={{ fontSize: "44px", fontWeight: 800, letterSpacing: "-0.03em", color: "#ffffff", lineHeight: 1 }}>
-                          {monthlyHoursLost.toLocaleString()}
-                          <span style={{ fontSize: "15px", fontWeight: 400, color: "#999", marginLeft: "6px" }}>+ hrs / month</span>
+                      <div>
+                        <div style={{ marginBottom: "20px" }}>
+                          <span style={{ fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#76c9b4", display: "block", marginBottom: "6px" }}>
+                            Real-Time Capacity Trapped in Admin
+                          </span>
+                          <div style={{ fontSize: "42px", fontWeight: 800, letterSpacing: "-0.03em", color: "#ffffff", lineHeight: 1 }}>
+                            {monthlyHoursLost.toLocaleString()}
+                            <span style={{ fontSize: "15px", fontWeight: 400, color: "#999", marginLeft: "6px" }}>hrs / month</span>
+                          </div>
+                          <p style={{ color: "#a8a8a2", fontSize: "12.5px", lineHeight: 1.5, margin: "10px 0 0 0" }}>
+                            Equivalent to <strong style={{ color: "#76c9b4" }}>{equivalentFTE} full-time coordinator(s)</strong> spending 100% of their working hours on paperwork rather than revenue.
+                          </p>
                         </div>
-                        <p style={{ color: "#a8a8a2", fontSize: "13px", lineHeight: 1.6, margin: "14px 0 0 0" }}>
-                          Valued at <strong style={{ color: "#ffffff" }}>{calcCurrency}{monthlyCostDrag.toLocaleString()}/month</strong> in non-billable administrative drag that could be redirected to revenue generation.
-                        </p>
+
+                        {/* 3 Live Metric Badges */}
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px", marginBottom: "20px" }}>
+                          <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "10px" }}>
+                            <span style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", color: "#888", display: "block" }}>Weekly Drain</span>
+                            <span style={{ fontSize: "17px", fontWeight: 700, color: "#ffffff" }}>{weeklyHoursLost} hrs</span>
+                          </div>
+                          <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "10px" }}>
+                            <span style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", color: "#888", display: "block" }}>Annual Drain</span>
+                            <span style={{ fontSize: "17px", fontWeight: 700, color: "#eab308" }}>{annualHoursLost.toLocaleString()} hrs</span>
+                          </div>
+                          <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "10px" }}>
+                            <span style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", color: "#888", display: "block" }}>Staff Equivalent</span>
+                            <span style={{ fontSize: "17px", fontWeight: 700, color: "#76c9b4" }}>{equivalentFTE} FTE</span>
+                          </div>
+                        </div>
+
+                        {/* Active SYS Ops Solutions for their checked items */}
+                        <div style={{ marginBottom: "18px" }}>
+                          <span style={{ fontSize: "11px", fontWeight: 700, color: "#76c9b4", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "8px" }}>
+                            Active SYS Ops Solutions for Your Selection:
+                          </span>
+                          <div style={{ display: "flex", flexDirection: "column", gap: "8px", maxHeight: "170px", overflowY: "auto", paddingRight: "4px" }}>
+                            {bottlenecksList.filter(b => selectedBottlenecks.includes(b.id)).map(b => (
+                              <div key={b.id} style={{ background: "#222222", borderLeft: "3px solid #16866f", padding: "7px 10px", borderRadius: "0 4px 4px 0" }}>
+                                <strong style={{ fontSize: "12px", color: "#ffffff", display: "block" }}>{b.title}</strong>
+                                <span style={{ fontSize: "11px", color: "#a8a8a2", lineHeight: 1.4 }}>{b.solution}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
 
-                      {/* 2x2 Metric Spotlight */}
-                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "22px" }}>
-                        
-                        <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
-                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Annual Cost Drag</span>
-                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#eab308", display: "block" }}>{calcCurrency}{annualCostDrag.toLocaleString()}</span>
-                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Current internal payroll leak</span>
-                        </div>
-
-                        <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
-                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Headcount Equivalent</span>
-                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#76c9b4", display: "block" }}>{equivalentFTE} FTE</span>
-                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Full-time roles lost to paperwork</span>
-                        </div>
-
-                        <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
-                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Annual Hours Lost</span>
-                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#ffffff", display: "block" }}>{annualHoursLost.toLocaleString()} hrs</span>
-                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Non-billable clerical work</span>
-                        </div>
-
-                        <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
-                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Capacity Recoverable</span>
-                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#76c9b4", display: "block" }}>Up to 85%</span>
-                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Reclaimed for fee earning</span>
-                        </div>
-
+                      {/* CTA Block */}
+                      <div>
+                        <button
+                          onClick={() => setCurrentPage('contact')}
+                          style={{
+                            width: "100%",
+                            background: "#ffffff",
+                            color: "#171717",
+                            border: "none",
+                            padding: "14px 20px",
+                            borderRadius: "4px",
+                            fontSize: "11px",
+                            fontWeight: 700,
+                            letterSpacing: "0.06em",
+                            textTransform: "uppercase",
+                            cursor: "pointer",
+                            transition: "all 0.2s"
+                          }}
+                        >
+                          Reclaim This Capacity with SYS Ops →
+                        </button>
                       </div>
-
-                      {/* Unlocked Capacity Box */}
-                      <div style={{ background: "rgba(22, 134, 111, 0.12)", border: "1px solid rgba(118, 201, 180, 0.25)", borderRadius: "6px", padding: "14px 16px", marginBottom: "20px" }}>
-                        <strong style={{ display: "block", fontSize: "12px", color: "#76c9b4", marginBottom: "4px" }}>What your business unlocks with SYS Ops:</strong>
-                        <p style={{ margin: 0, fontSize: "11.5px", color: "#c9c9c4", lineHeight: 1.5 }}>
-                          • Consultants gain 8–12 hrs/week for billing & fee-earning calls<br />
-                          • Zero Friday payroll panic, timesheet errors, or unbilled hours<br />
-                          • 52-week operational coverage with guaranteed 4-hour SLAs
-                        </p>
-                      </div>
-
-                      {/* CTA Button */}
-                      <button
-                        onClick={() => setCurrentPage('contact')}
-                        style={{
-                          width: "100%",
-                          background: "#ffffff",
-                          color: "#171717",
-                          border: "none",
-                          padding: "14px 20px",
-                          borderRadius: "4px",
-                          fontSize: "11px",
-                          fontWeight: 700,
-                          letterSpacing: "0.06em",
-                          textTransform: "uppercase",
-                          cursor: "pointer",
-                          transition: "all 0.2s"
-                        }}
-                      >
-                        Reclaim This Capacity with SYS Ops →
-                      </button>
 
                     </div>
 
