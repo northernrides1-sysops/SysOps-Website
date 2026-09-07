@@ -1355,7 +1355,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
                 ))}
               </div>
 
-              {/* DETAILED ROI CALCULATOR */}
+             {/* DETAILED ROI & CAPACITY RECOVERY CALCULATOR */}
               {(() => {
                 const weeklyHoursLost = calcTeamSize * calcAdminHours;
                 const monthlyHoursLost = Math.round(weeklyHoursLost * 4.33);
@@ -1366,11 +1366,6 @@ const [opsPillar, setOpsPillar] = useState("finance");
                 const annualCostDrag = weeklyCostDrag * 52;
 
                 const equivalentFTE = (weeklyHoursLost / 37.5).toFixed(1);
-                
-                // Estimated SYS Ops Retainer for this volume
-                const sysOpsMonthlyFee = Math.round(monthlyCostDrag * 0.42);
-                const annualSavings = Math.max(0, annualCostDrag - (sysOpsMonthlyFee * 12));
-                const percentageSaved = Math.round((annualSavings / annualCostDrag) * 100) || 58;
 
                 return (
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "30px", alignItems: "stretch" }}>
@@ -1503,35 +1498,37 @@ const [opsPillar, setOpsPillar] = useState("finance");
                           <span style={{ fontSize: "15px", fontWeight: 400, color: "#999", marginLeft: "6px" }}>+ hrs / month</span>
                         </div>
                         <p style={{ color: "#a8a8a2", fontSize: "13px", lineHeight: 1.6, margin: "14px 0 0 0" }}>
-                          Valued at <strong style={{ color: "#ffffff" }}>{calcCurrency}{monthlyCostDrag.toLocaleString()}/month</strong> (~{calcCurrency}{annualCostDrag.toLocaleString()}/year) in non-billable clerical drag.
+                          Valued at <strong style={{ color: "#ffffff" }}>{calcCurrency}{monthlyCostDrag.toLocaleString()}/month</strong> in non-billable administrative drag that could be redirected to revenue generation.
                         </p>
                       </div>
 
                       {/* 2x2 Metric Spotlight */}
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "22px" }}>
+                        
                         <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
                           <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Annual Cost Drag</span>
                           <span style={{ fontSize: "20px", fontWeight: 700, color: "#eab308", display: "block" }}>{calcCurrency}{annualCostDrag.toLocaleString()}</span>
-                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Trapped in non-core tasks</span>
+                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Current internal payroll leak</span>
                         </div>
 
                         <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
                           <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Headcount Equivalent</span>
                           <span style={{ fontSize: "20px", fontWeight: 700, color: "#76c9b4", display: "block" }}>{equivalentFTE} FTE</span>
-                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Full-time roles lost</span>
+                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Full-time roles lost to paperwork</span>
                         </div>
 
                         <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
-                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>SYS Ops Retainer Est.</span>
-                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#ffffff", display: "block" }}>{calcCurrency}{sysOpsMonthlyFee.toLocaleString()}<span style={{ fontSize: "12px", color: "#888" }}>/mo</span></span>
-                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Predictable operational desk</span>
+                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Annual Hours Lost</span>
+                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#ffffff", display: "block" }}>{annualHoursLost.toLocaleString()} hrs</span>
+                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Non-billable clerical work</span>
                         </div>
 
                         <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "14px" }}>
-                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Estimated Net Savings</span>
-                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#76c9b4", display: "block" }}>{calcCurrency}{annualSavings.toLocaleString()}</span>
-                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>{percentageSaved}% bottom-line relief</span>
+                          <span style={{ fontSize: "9.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "4px" }}>Capacity Recoverable</span>
+                          <span style={{ fontSize: "20px", fontWeight: 700, color: "#76c9b4", display: "block" }}>Up to 85%</span>
+                          <span style={{ fontSize: "11px", color: "#888", display: "block", marginTop: "2px" }}>Reclaimed for fee earning</span>
                         </div>
+
                       </div>
 
                       {/* Unlocked Capacity Box */}
