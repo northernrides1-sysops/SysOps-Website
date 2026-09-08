@@ -1062,94 +1062,87 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
          {/* ======================================================== */}
           {/* NATIVE SOFTWARE & TECH STACK TRUST STRIP (ANIMATED)     */}
           {/* ======================================================== */}
-          <section style={{ background: "#ffffff", borderBottom: "1px solid #e7e7e2", padding: "32px 0 36px 0" }}>
-            <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
-              
-              {/* SLIM HEADER CAPTION */}
-              <div style={{ textAlign: "center", marginBottom: "22px" }}>
-                <span style={{ fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#888880", display: "inline-flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#16866f" }} />
-                  Native Workflow Compatibility Across Leading Recruitment, Finance & Operations Platforms
-                </span>
-              </div>
-
-              {/* CLEAN HORIZONTAL BADGE ROW WITH HOVER MICRO-ANIMATIONS */}
-              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", gap: "10px 14px" }}>
-                {[
-                  // ATS & RECRUITMENT CRM
-                  { name: "Bullhorn", type: "Enterprise ATS", color: "#ff6b00" },
-                  { name: "Vincere", type: "Recruitment OS", color: "#1d4ed8" },
-                  { name: "Mercury xRM", type: "MS Dynamics", color: "#7c3aed" },
-                  { name: "Firefish", type: "Candidate ATS", color: "#0284c7" },
-                  
-                  // FINANCE & PAYROLL
-                  { name: "Sage 50 & Express", type: "Payroll / CIS", color: "#10b981" },
-                  { name: "BrightPay", type: "UK & IE ROS", color: "#0ea5e9" },
-                  { name: "Xero", type: "Cloud Invoicing", color: "#13b5ea" },
-                  { name: "QuickBooks", type: "Ledger / VAT", color: "#22c55e" },
-                  
-                  // REPORTING & DASHBOARDS
-                  { name: "Microsoft Power BI", type: "Executive BI", color: "#f59e0b" },
-                  
-                  // OPS & WORKFLOW LIAISON
-                  { name: "Slack", type: "Desk Comms", color: "#e11d48" },
-                  { name: "Monday.com", type: "SOP Tracking", color: "#f43f5e" },
-                  
-                  // VMS & TIMESHEETS
-                  { name: "SAP Fieldglass", type: "Enterprise VMS", color: "#ca8a04" },
-                  { name: "1Click", type: "Agency Portals", color: "#64748b" }
-                ].map((tool, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                      background: "#f9f9f7",
-                      border: "1px solid #deded9",
-                      borderRadius: "6px",
-                      padding: "7px 13px",
-                      cursor: "default",
-                      transition: "all 0.22s cubic-bezier(0.16, 1, 0.3, 1)"
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-3px)";
-                      e.currentTarget.style.background = "#ffffff";
-                      e.currentTarget.style.borderColor = "#16866f";
-                      e.currentTarget.style.boxShadow = "0 8px 18px rgba(0,0,0,0.06)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.background = "#f9f9f7";
-                      e.currentTarget.style.borderColor = "#deded9";
-                      e.currentTarget.style.boxShadow = "none";
-                    }}
-                  >
-                    {/* ACCENT COLORED SYSTEM DOT */}
-                    <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: tool.color }} />
-                    
-                    {/* SOFTWARE TITLE */}
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#171717", letterSpacing: "-0.01em" }}>
-                      {tool.name}
-                    </span>
-
-                    {/* SUB-CATEGORY BADGE */}
-                    <span style={{ fontSize: "9.5px", fontWeight: 500, color: "#777770", background: "#ecece8", padding: "2px 6px", borderRadius: "4px" }}>
-                      {tool.type}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* REASSURANCE NOTE */}
-              <div style={{ textAlign: "center", marginTop: "18px" }}>
-                <p style={{ fontSize: "11.5px", color: "#6b7280", margin: 0 }}>
-                  Using a proprietary CRM or bespoke portal? Our SOP runbooks integrate into internal client systems within <strong>48 hours</strong>.
-                </p>
-              </div>
-
+          {/* ======================================================== */}
+          {/* NATIVE SOFTWARE & TECH STACK TRUST STRIP (TICKER STYLE)  */}
+          {/* ======================================================== */}
+          <div 
+            className="ops-ribbon"
+            aria-hidden="true"
+            style={{ 
+              width: "100%", 
+              background: "#101216", 
+              borderTop: "1px solid #20242c", 
+              borderBottom: "1px solid #20242c", 
+              padding: "16px 0", 
+              overflow: "hidden", 
+              display: "flex", 
+              flexDirection: "column",
+              gap: "8px",
+              userSelect: "none" 
+            }}
+          >
+            {/* SUBTLE CAPTION */}
+            <div style={{ textAlign: "center" }}>
+              <span style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#64748b" }}>
+                Pre-Trained Across Your Core Recruitment, Payroll & BI Platforms
+              </span>
             </div>
-          </section>
+
+            {/* INFINITE CONTINUOUS LOGO TRACK */}
+            <div className="ops-ribbon-track" style={{ display: "flex", alignItems: "center", gap: "45px", whiteSpace: "nowrap" }}>
+              {[
+                { name: "Bullhorn", label: "Enterprise ATS", color: "#ff6b00" },
+                { name: "Vincere", label: "Recruitment OS", color: "#2563eb" },
+                { name: "Mercury xRM", label: "Dynamics CRM", color: "#8b5cf6" },
+                { name: "Firefish", label: "Candidate ATS", color: "#06b6d4" },
+                { name: "Sage 50 & Express", label: "Payroll / CIS", color: "#10b981" },
+                { name: "BrightPay", label: "UK & IE ROS", color: "#0284c7" },
+                { name: "Xero", label: "Cloud Invoicing", color: "#13b5ea" },
+                { name: "QuickBooks", label: "VAT & Ledger", color: "#22c55e" },
+                { name: "Microsoft Power BI", label: "Executive BI", color: "#f59e0b" },
+                { name: "Slack", label: "Desk Comms", color: "#e11d48" },
+                { name: "Monday.com", label: "Workflow SOPs", color: "#f43f5e" },
+                { name: "SAP Fieldglass", label: "Enterprise VMS", color: "#eab308" },
+                { name: "1Click", label: "Agency Timesheets", color: "#64748b" },
+                // Duplicate loop for seamless infinite animation
+                { name: "Bullhorn", label: "Enterprise ATS", color: "#ff6b00" },
+                { name: "Vincere", label: "Recruitment OS", color: "#2563eb" },
+                { name: "Mercury xRM", label: "Dynamics CRM", color: "#8b5cf6" },
+                { name: "Firefish", label: "Candidate ATS", color: "#06b6d4" },
+                { name: "Sage 50 & Express", label: "Payroll / CIS", color: "#10b981" },
+                { name: "BrightPay", label: "UK & IE ROS", color: "#0284c7" },
+                { name: "Xero", label: "Cloud Invoicing", color: "#13b5ea" },
+                { name: "QuickBooks", label: "VAT & Ledger", color: "#22c55e" },
+                { name: "Microsoft Power BI", label: "Executive BI", color: "#f59e0b" },
+                { name: "Slack", label: "Desk Comms", color: "#e11d48" },
+                { name: "Monday.com", label: "Workflow SOPs", color: "#f43f5e" },
+                { name: "SAP Fieldglass", label: "Enterprise VMS", color: "#eab308" },
+                { name: "1Click", label: "Agency Timesheets", color: "#64748b" }
+              ].map((logo, idx) => (
+                <div 
+                  key={idx} 
+                  style={{ 
+                    display: "inline-flex", 
+                    alignItems: "center", 
+                    gap: "8px", 
+                    opacity: 0.88,
+                    cursor: "default",
+                    transition: "opacity 0.2s ease"
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.opacity = 1; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.opacity = 0.88; }}
+                >
+                  <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: logo.color }} />
+                  <span style={{ fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.02em", color: "#ffffff" }}>
+                    {logo.name}
+                  </span>
+                  <span style={{ fontSize: "9px", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: "#94a3b8", background: "#1b2028", border: "1px solid #28303d", padding: "2px 6px", borderRadius: "3px" }}>
+                    {logo.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
 
                    {/* 6 CORE SERVICES OVERVIEW */}
      {/* ======================================================== */}
