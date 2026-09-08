@@ -966,7 +966,17 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
       {/* 1. HOMEPAGE VIEW                                        */}
       {/* ======================================================== */}
       {currentPage === "home" && (
-        <>
+        <> {/* MEASURED CALM TICKER RIBBON (MOVED DIRECTLY BELOW HEADER) */}
+          <div className="ops-ribbon" aria-hidden="true" style={{ width: "100%", background: "#101216", borderTop: "1px solid #20242c", borderBottom: "1px solid #20242c", padding: "11px 0", overflow: "hidden", display: "flex", userSelect: "none" }}>
+            <div className="ops-ribbon-track">
+              {RIBBON_ITEMS.concat(RIBBON_ITEMS).map((item, idx) => (
+                <div className="ops-ribbon-item" key={idx}>
+                  <span className="ops-ribbon-dot" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
           {/* REAL-TIME CANARY WHARF HERO */}
           <section className="hero">
             <div className="hero-card">
@@ -1049,17 +1059,97 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
             </div>
           </section>
 
-          {/* MEASURED CALM TICKER RIBBON (52s) */}
-          <div className="ops-ribbon" aria-hidden="true">
-            <div className="ops-ribbon-track">
-              {RIBBON_ITEMS.concat(RIBBON_ITEMS).map((item, idx) => (
-                <div className="ops-ribbon-item" key={idx}>
-                  <span className="ops-ribbon-dot" />
-                  <span>{item}</span>
-                </div>
-              ))}
+         {/* ======================================================== */}
+          {/* NATIVE SOFTWARE & TECH STACK TRUST STRIP (ANIMATED)     */}
+          {/* ======================================================== */}
+          <section style={{ background: "#ffffff", borderBottom: "1px solid #e7e7e2", padding: "32px 0 36px 0" }}>
+            <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+              
+              {/* SLIM HEADER CAPTION */}
+              <div style={{ textAlign: "center", marginBottom: "22px" }}>
+                <span style={{ fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#888880", display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#16866f" }} />
+                  Native Workflow Compatibility Across Leading Recruitment, Finance & Operations Platforms
+                </span>
+              </div>
+
+              {/* CLEAN HORIZONTAL BADGE ROW WITH HOVER MICRO-ANIMATIONS */}
+              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", gap: "10px 14px" }}>
+                {[
+                  // ATS & RECRUITMENT CRM
+                  { name: "Bullhorn", type: "Enterprise ATS", color: "#ff6b00" },
+                  { name: "Vincere", type: "Recruitment OS", color: "#1d4ed8" },
+                  { name: "Mercury xRM", type: "MS Dynamics", color: "#7c3aed" },
+                  { name: "Firefish", type: "Candidate ATS", color: "#0284c7" },
+                  
+                  // FINANCE & PAYROLL
+                  { name: "Sage 50 & Express", type: "Payroll / CIS", color: "#10b981" },
+                  { name: "BrightPay", type: "UK & IE ROS", color: "#0ea5e9" },
+                  { name: "Xero", type: "Cloud Invoicing", color: "#13b5ea" },
+                  { name: "QuickBooks", type: "Ledger / VAT", color: "#22c55e" },
+                  
+                  // REPORTING & DASHBOARDS
+                  { name: "Microsoft Power BI", type: "Executive BI", color: "#f59e0b" },
+                  
+                  // OPS & WORKFLOW LIAISON
+                  { name: "Slack", type: "Desk Comms", color: "#e11d48" },
+                  { name: "Monday.com", type: "SOP Tracking", color: "#f43f5e" },
+                  
+                  // VMS & TIMESHEETS
+                  { name: "SAP Fieldglass", type: "Enterprise VMS", color: "#ca8a04" },
+                  { name: "1Click", type: "Agency Portals", color: "#64748b" }
+                ].map((tool, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      background: "#f9f9f7",
+                      border: "1px solid #deded9",
+                      borderRadius: "6px",
+                      padding: "7px 13px",
+                      cursor: "default",
+                      transition: "all 0.22s cubic-bezier(0.16, 1, 0.3, 1)"
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(-3px)";
+                      e.currentTarget.style.background = "#ffffff";
+                      e.currentTarget.style.borderColor = "#16866f";
+                      e.currentTarget.style.boxShadow = "0 8px 18px rgba(0,0,0,0.06)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.background = "#f9f9f7";
+                      e.currentTarget.style.borderColor = "#deded9";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    {/* ACCENT COLORED SYSTEM DOT */}
+                    <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: tool.color }} />
+                    
+                    {/* SOFTWARE TITLE */}
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#171717", letterSpacing: "-0.01em" }}>
+                      {tool.name}
+                    </span>
+
+                    {/* SUB-CATEGORY BADGE */}
+                    <span style={{ fontSize: "9.5px", fontWeight: 500, color: "#777770", background: "#ecece8", padding: "2px 6px", borderRadius: "4px" }}>
+                      {tool.type}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* REASSURANCE NOTE */}
+              <div style={{ textAlign: "center", marginTop: "18px" }}>
+                <p style={{ fontSize: "11.5px", color: "#6b7280", margin: 0 }}>
+                  Using a proprietary CRM or bespoke portal? Our SOP runbooks integrate into internal client systems within <strong>48 hours</strong>.
+                </p>
+              </div>
+
             </div>
-          </div>
+          </section>
 
                    {/* 6 CORE SERVICES OVERVIEW */}
      {/* ======================================================== */}
