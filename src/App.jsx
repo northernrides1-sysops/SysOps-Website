@@ -1523,6 +1523,9 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                 const monthlyHoursLost = weeklyHoursLost * 4;
                 const annualHoursLost = monthlyHoursLost * 12;
                 const equivalentFTE = (weeklyHoursLost / 37.5).toFixed(1);
+  const hourlyCost = selectedCountry === 'IE' ? 26 : selectedCountry === 'US' ? 28 : 22;
+const monthlyCostLost = monthlyHoursLost * hourlyCost;
+const annualCostLost = annualHoursLost * hourlyCost;
 
                 return (
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "30px", alignItems: "stretch" }}>
@@ -1629,34 +1632,38 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                       
                       <div>
                         <div style={{ marginBottom: "20px" }}>
-                          <span style={{ fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#76c9b4", display: "block", marginBottom: "6px" }}>
-                            Real-Time Capacity Trapped in Admin
-                          </span>
-                          <div style={{ fontSize: "42px", fontWeight: 800, letterSpacing: "-0.03em", color: "#ffffff", lineHeight: 1 }}>
-                            {monthlyHoursLost.toLocaleString()}
-                            <span style={{ fontSize: "15px", fontWeight: 400, color: "#999", marginLeft: "6px" }}>hrs / month</span>
-                          </div>
-                          <p style={{ color: "#a8a8a2", fontSize: "12.5px", lineHeight: 1.5, margin: "10px 0 0 0" }}>
-                            Equivalent to <strong style={{ color: "#76c9b4" }}>{equivalentFTE} full-time coordinator(s)</strong> spending 100% of their working hours on paperwork rather than revenue.
-                          </p>
-                        </div>
+                        <span style={{ fontSize: "10.5px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#76c9b4", display: "block", marginBottom: "6px" }}>
+  Estimated Operational & Payroll Drain
+</span>
+<div style={{ display: "flex", alignItems: "baseline", gap: "10px", marginBottom: "4px" }}>
+  <div style={{ fontSize: "42px", fontWeight: 800, letterSpacing: "-0.03em", color: "#ffffff", lineHeight: 1 }}>
+    {activeSymbol}{monthlyCostLost.toLocaleString()}
+    <span style={{ fontSize: "14px", fontWeight: 400, color: "#9ca3af", marginLeft: "4px" }}>/ mo</span>
+  </div>
+  <div style={{ fontSize: "15px", fontWeight: 600, color: "#76c9b4" }}>
+    ({monthlyHoursLost.toLocaleString()} hrs / mo)
+  </div>
+</div>
+<p style={{ color: "#a8a8a2", fontSize: "12px", lineHeight: 1.45, margin: "8px 0 0 0" }}>
+  Equivalent to losing <strong style={{ color: "#ffffff" }}>{activeSymbol}{annualCostLost.toLocaleString()} / year</strong> in salaried capacity or <strong style={{ color: "#76c9b4" }}>{equivalentFTE} full-time coordinator(s)</strong> tied up in paperwork.
+</p>
+</div>
 
-                        {/* 3 Live Metric Badges */}
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px", marginBottom: "20px" }}>
-                          <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "10px" }}>
-                            <span style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", color: "#888", display: "block" }}>Weekly Drain</span>
-                            <span style={{ fontSize: "17px", fontWeight: 700, color: "#ffffff" }}>{weeklyHoursLost} hrs</span>
-                          </div>
-                          <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "10px" }}>
-                            <span style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", color: "#888", display: "block" }}>Annual Drain</span>
-                            <span style={{ fontSize: "17px", fontWeight: 700, color: "#eab308" }}>{annualHoursLost.toLocaleString()} hrs</span>
-                          </div>
-                          <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "10px" }}>
-                            <span style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", color: "#888", display: "block" }}>Staff Equivalent</span>
-                            <span style={{ fontSize: "17px", fontWeight: 700, color: "#76c9b4" }}>{equivalentFTE} FTE</span>
-                          </div>
-                        </div>
-
+{/* 3 Live Metric Badges */}
+<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px", marginBottom: "20px" }}>
+  <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "10px" }}>
+    <span style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", color: "#888", display: "block" }}>Monthly Drain</span>
+    <span style={{ fontSize: "16px", fontWeight: 700, color: "#ffffff" }}>{activeSymbol}{monthlyCostLost.toLocaleString()}</span>
+  </div>
+  <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "10px" }}>
+    <span style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", color: "#888", display: "block" }}>Annual Drain</span>
+    <span style={{ fontSize: "16px", fontWeight: 700, color: "#eab308" }}>{activeSymbol}{annualCostLost.toLocaleString()}</span>
+  </div>
+  <div style={{ background: "#242424", border: "1px solid #333333", borderRadius: "6px", padding: "10px" }}>
+    <span style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", color: "#888", display: "block" }}>Staff Equivalent</span>
+    <span style={{ fontSize: "16px", fontWeight: 700, color: "#76c9b4" }}>{equivalentFTE} FTE</span>
+  </div>
+</div>
                         {/* Active SYS Ops Solutions for their checked items */}
                         <div style={{ marginBottom: "18px" }}>
                           <span style={{ fontSize: "11px", fontWeight: 700, color: "#76c9b4", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "8px" }}>
