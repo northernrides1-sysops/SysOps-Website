@@ -564,7 +564,25 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
           display: inline-flex; align-items: center; gap: 12px; font-size: 11px;
           font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #cbd5e1;
         }
-        .ops-ribbon-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--brand-green); }
+        .ops-ribbon-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--brand-green); } 
+        @keyframes smoothTicker {
+          0% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .tech-logo-strip {
+          width: 100%; background: #0c0e12; border-top: 1px solid #1a1e26; border-bottom: 1px solid #1a1e26;
+          padding: 12px 0; overflow: hidden; display: flex; user-select: none;
+        }
+        .tech-logo-strip:hover .tech-logo-track { animation-play-state: paused; }
+        .tech-logo-track {
+          display: flex; align-items: center; gap: 48px; white-space: nowrap;
+          animation: smoothTicker 35s linear infinite; will-change: transform;
+        }
+        .tech-logo-item {
+          display: inline-flex; align-items: center; gap: 10px; opacity: 0.85;
+          transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer;
+        }
+        .tech-logo-item:hover { opacity: 1; transform: scale(1.05); }
 
         /* INTRO */
         .intro { padding: 140px 0 110px; }
@@ -1065,81 +1083,101 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
           {/* ======================================================== */}
           {/* NATIVE SOFTWARE & TECH STACK TRUST STRIP (TICKER STYLE)  */}
           {/* ======================================================== */}
-          <div 
-            className="ops-ribbon"
-            aria-hidden="true"
-            style={{ 
-              width: "100%", 
-              background: "#101216", 
-              borderTop: "1px solid #20242c", 
-              borderBottom: "1px solid #20242c", 
-              padding: "16px 0", 
-              overflow: "hidden", 
-              display: "flex", 
-              flexDirection: "column",
-              gap: "8px",
-              userSelect: "none" 
-            }}
-          >
-            {/* SUBTLE CAPTION */}
-            <div style={{ textAlign: "center" }}>
-              <span style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#64748b" }}>
-                Pre-Trained Across Your Core Recruitment, Payroll & BI Platforms
-              </span>
-            </div>
+        {/* SLIM SILKY SMOOTH REAL TECH LOGO TICKER */}
+          <div className="tech-logo-strip" aria-hidden="true">
+            <div className="tech-logo-track">
+              {[1, 2].map((repeat) => (
+                <React.Fragment key={repeat}>
+                  {/* Bullhorn */}
+                  <div className="tech-logo-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path d="M4 8l10-4v16L4 16V8z" fill="#ff6b00" />
+                      <path d="M14 8l6-2v12l-6-2V8z" fill="#ff944d" />
+                    </svg>
+                    <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#f1f5f9" }}>Bullhorn</span>
+                  </div>
 
-            {/* INFINITE CONTINUOUS LOGO TRACK */}
-            <div className="ops-ribbon-track" style={{ display: "flex", alignItems: "center", gap: "45px", whiteSpace: "nowrap" }}>
-              {[
-                { name: "Bullhorn", label: "Enterprise ATS", color: "#ff6b00" },
-                { name: "Vincere", label: "Recruitment OS", color: "#2563eb" },
-                { name: "Mercury xRM", label: "Dynamics CRM", color: "#8b5cf6" },
-                { name: "Firefish", label: "Candidate ATS", color: "#06b6d4" },
-                { name: "Sage 50 & Express", label: "Payroll / CIS", color: "#10b981" },
-                { name: "BrightPay", label: "UK & IE ROS", color: "#0284c7" },
-                { name: "Xero", label: "Cloud Invoicing", color: "#13b5ea" },
-                { name: "QuickBooks", label: "VAT & Ledger", color: "#22c55e" },
-                { name: "Microsoft Power BI", label: "Executive BI", color: "#f59e0b" },
-                { name: "Slack", label: "Desk Comms", color: "#e11d48" },
-                { name: "Monday.com", label: "Workflow SOPs", color: "#f43f5e" },
-                { name: "SAP Fieldglass", label: "Enterprise VMS", color: "#eab308" },
-                { name: "1Click", label: "Agency Timesheets", color: "#64748b" },
-                // Duplicate loop for seamless infinite animation
-                { name: "Bullhorn", label: "Enterprise ATS", color: "#ff6b00" },
-                { name: "Vincere", label: "Recruitment OS", color: "#2563eb" },
-                { name: "Mercury xRM", label: "Dynamics CRM", color: "#8b5cf6" },
-                { name: "Firefish", label: "Candidate ATS", color: "#06b6d4" },
-                { name: "Sage 50 & Express", label: "Payroll / CIS", color: "#10b981" },
-                { name: "BrightPay", label: "UK & IE ROS", color: "#0284c7" },
-                { name: "Xero", label: "Cloud Invoicing", color: "#13b5ea" },
-                { name: "QuickBooks", label: "VAT & Ledger", color: "#22c55e" },
-                { name: "Microsoft Power BI", label: "Executive BI", color: "#f59e0b" },
-                { name: "Slack", label: "Desk Comms", color: "#e11d48" },
-                { name: "Monday.com", label: "Workflow SOPs", color: "#f43f5e" },
-                { name: "SAP Fieldglass", label: "Enterprise VMS", color: "#eab308" },
-                { name: "1Click", label: "Agency Timesheets", color: "#64748b" }
-              ].map((logo, idx) => (
-                <div 
-                  key={idx} 
-                  style={{ 
-                    display: "inline-flex", 
-                    alignItems: "center", 
-                    gap: "8px", 
-                    opacity: 0.88,
-                    cursor: "default",
-                    transition: "opacity 0.2s ease"
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.opacity = 1; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.opacity = 0.88; }}
-                >
-                  <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: logo.color }} />
-                  <span style={{ fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.02em", color: "#ffffff" }}>
-                    {logo.name}
-                  </span>
-                  <span style={{ fontSize: "9px", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: "#94a3b8", background: "#1b2028", border: "1px solid #28303d", padding: "2px 6px", borderRadius: "3px" }}>
-                    {logo.label}
-                  </span>
-                </div>
+                  {/* Vincere */}
+                  <div className="tech-logo-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <polygon points="2,3 12,21 22,3 17,3 12,13 7,3" fill="#2563eb" />
+                    </svg>
+                    <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#f1f5f9" }}>Vincere</span>
+                  </div>
+
+                  {/* Sage 50 */}
+                  <div className="tech-logo-item">
+                    <svg width="22" height="18" viewBox="0 0 32 20" fill="none">
+                      <path d="M6 14c-2 0-4-1-4-3 0-3 3-4 6-4 4 0 5 2 5 2M16 7c2 0 4 1 4 3 0 3-3 4-6 4-4 0-5-2-5-2M26 14c-2 0-4-1-4-3 0-3 3-4 6-4 4 0 5 2 5 2" stroke="#00dc7d" strokeWidth="2.5" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#00dc7d" }}>Sage 50</span>
+                  </div>
+
+                  {/* BrightPay */}
+                  <div className="tech-logo-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="9" stroke="#0ea5e9" strokeWidth="2.5" />
+                      <path d="M12 7v5l3 3" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#f1f5f9" }}>BrightPay</span>
+                  </div>
+
+                  {/* Xero */}
+                  <div className="tech-logo-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M6 6l12 12M18 6L6 18" stroke="#13b5ea" strokeWidth="3" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#13b5ea" }}>Xero</span>
+                  </div>
+
+                  {/* QuickBooks */}
+                  <div className="tech-logo-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="10" fill="#2ca01c" />
+                      <path d="M9 15V9h2a3 3 0 010 6H9zm6-6v6h-2a3 3 0 010-6h2z" fill="#ffffff" />
+                    </svg>
+                    <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#f1f5f9" }}>QuickBooks</span>
+                  </div>
+
+                  {/* Power BI */}
+                  <div className="tech-logo-item">
+                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
+                      <rect x="0" y="10" width="4" height="8" rx="1" fill="#f59e0b" />
+                      <rect x="6" y="5" width="4" height="13" rx="1" fill="#fbbf24" />
+                      <rect x="12" y="1" width="4" height="17" rx="1" fill="#fde047" />
+                    </svg>
+                    <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#f59e0b" }}>Power BI</span>
+                  </div>
+
+                  {/* Slack */}
+                  <div className="tech-logo-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <circle cx="7" cy="7" r="3" fill="#e01e5a" />
+                      <circle cx="17" cy="7" r="3" fill="#36c5f0" />
+                      <circle cx="17" cy="17" r="3" fill="#2eb67d" />
+                      <circle cx="7" cy="17" r="3" fill="#ecb22e" />
+                    </svg>
+                    <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#f1f5f9" }}>Slack</span>
+                  </div>
+
+                  {/* Monday.com */}
+                  <div className="tech-logo-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <circle cx="6" cy="14" r="3" fill="#ff3d57" />
+                      <circle cx="12" cy="12" r="3" fill="#ffcb00" />
+                      <circle cx="18" cy="10" r="3" fill="#00d647" />
+                    </svg>
+                    <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#f1f5f9" }}>Monday.com</span>
+                  </div>
+
+                  {/* Fieldglass */}
+                  <div className="tech-logo-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#eab308" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#f1f5f9" }}>SAP Fieldglass</span>
+                  </div>
+                </React.Fragment>
               ))}
             </div>
           </div>
