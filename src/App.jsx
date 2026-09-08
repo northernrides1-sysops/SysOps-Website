@@ -51,7 +51,15 @@ export default function SysOpsWebsite() {
 const [opsPillar, setOpsPillar] = useState("finance");
   // Capacity & ROI Calculator State
   const [calcTeamSize, setCalcTeamSize] = useState(5);
-  const [calcCurrency, setCalcCurrency] = useState('£');
+ // Country & Currency Selector
+  const [selectedCountry, setSelectedCountry] = useState('UK'); // 'UK' | 'IE' | 'US'
+
+  const countrySymbols = {
+    UK: { symbol: '£', code: 'GBP', label: 'UK (£)', flag: '🇬🇧' },
+    IE: { symbol: '€', code: 'EUR', label: 'Ireland (€)', flag: '🇮🇪' },
+    US: { symbol: '$', code: 'USD', label: 'International ($)', flag: '🇺🇸' }
+  };
+  const activeSymbol = countrySymbols[selectedCountry]?.symbol || '£';
   const [selectedBottlenecks, setSelectedBottlenecks] = useState(['timesheets', 'compliance', 'crm']);
   // REAL-TIME SKYLINE TIME
   const [activeStageId, setActiveStageId] = useState("midday");
@@ -844,6 +852,47 @@ const [opsPillar, setOpsPillar] = useState("finance");
           </nav>
 
           {/* UNIFIED SINGLE ACTION BUTTON */}
+          {/* REGIONAL CURRENCY SWITCHER */}
+              <div style={{ display: "inline-flex", alignItems: "center", background: "#f0f0eb", padding: "3px 4px", borderRadius: "20px", border: "1px solid #deded9", marginRight: "12px" }}>
+                {[
+                  { id: 'UK', flag: '🇬🇧', label: '£ GBP' },
+                  { id: 'IE', flag: '🇮🇪', label: '€ EUR' },
+                  { id: 'US', flag: '🇺🇸', label: '$ USD' }
+                ].map((c) => {
+                  const isActive = selectedCountry === c.id;
+                  return (
+                    <button
+                      key={c.id}
+                      onClick={() => setSelectedCountry(c.id)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "5px",
+                        border: "none",
+                        background: isActive ? "#171717" : "transparent",
+                        color: isActive ? "#ffffff" : "#555550",
+                        padding: "5px 10px",
+                        borderRadius: "16px",
+                        fontSize: "12px",
+                        fontWeight: isActive ? 700 : 500,
+                        cursor: "pointer",
+                        transition: "all 0.2s ease"
+                      }}
+                    >
+                      <span style={{ fontSize: "13px" }}>{c.flag}</span>
+                      <span>{c.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* UNIFIED SINGLE ACTION BUTTON */}
+              <button
+                onClick={() => setCurrentPage("contact")}
+                className="nav-button"
+              >
+                Contact Us
+              </button>
           <button
             onClick={() => setCurrentPage("contact")}
             className="nav-button"
