@@ -1665,56 +1665,245 @@ const [opsPillar, setOpsPillar] = useState("finance");
             </div>
           </section>
 
-          {/* PACKAGES */}
-          <section id="packages" className="section packages">
-            <div className="container">
-              <div className="packages-heading">
-                <div className="eyebrow">Ways to Work With Us</div>
-                <h2>Structured for every scale.</h2>
-                <p>
-                  Transparent monthly retainers. No unnecessary setup fees. No
-                  complicated outsourcing contracts.
+        {/* ======================================================== */}
+          {/* PRICING & RETAINER TIERS                                 */}
+          {/* ======================================================== */}
+          <section id="pricing" style={{ padding: "100px 0", background: "#ffffff", borderBottom: "1px solid #e7e7e2" }}>
+            <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+              
+              {/* HEADER */}
+              <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 56px auto" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#16866f", marginBottom: "12px" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#16866f" }} />
+                  Transparent Engagement Models
+                </div>
+                <h2 style={{ fontSize: "38px", fontWeight: 800, color: "#171717", lineHeight: 1.15, letterSpacing: "-0.02em", margin: "0 0 14px 0" }}>
+                  Structured for every scale.
+                </h2>
+                <p style={{ fontSize: "16px", color: "#4b5563", lineHeight: 1.6, margin: 0 }}>
+                  Predictable monthly retainers. 30-day rolling agreements with zero setup fees or long-term lock-ins.
                 </p>
               </div>
 
-              <div className="package-grid">
-                {packages.map((pkg) => (
-                  <div
-                    className={`package ${pkg.featured ? "featured" : ""}`}
-                    key={pkg.title}
-                  >
-                    {pkg.featured && <div className="popular">Most Popular</div>}
-                    <div className="package-tier">{pkg.tier}</div>
-                    <h3>{pkg.title}</h3>
-
-                    <div className="package-price">
-                      {pkg.price}
-                      <span>/month</span>
+              {/* 3 PRICING CARDS */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "28px", alignItems: "stretch" }}>
+                
+                {/* TIER 1: COMPLIANCE CORE */}
+                <div style={{ background: "#ffffff", border: "1px solid #deded9", borderRadius: "8px", padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                  <div>
+                    <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "8px" }}>
+                      Tier One
+                    </span>
+                    <h3 style={{ fontSize: "22px", fontWeight: 800, color: "#171717", margin: "0 0 12px 0" }}>
+                      Compliance Core
+                    </h3>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
+                      <span style={{ fontSize: "14px", fontWeight: 600, color: "#666" }}>From</span>
+                      <span style={{ fontSize: "42px", fontWeight: 800, color: "#171717" }}>£495</span>
+                      <span style={{ fontSize: "13px", color: "#888" }}>/ month</span>
                     </div>
+                    <p style={{ fontSize: "13.5px", color: "#666660", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
+                      For growing agencies establishing a watertight, zero-breach candidate onboarding and compliance desk.
+                    </p>
 
-                    <p className="package-description">{pkg.description}</p>
-
-                    <div className="package-features">
-                      {pkg.features.map((feature) => (
-                        <div className="package-feature" key={feature}>
-                          <i className="ri-check-line" />
-                          <span>{feature}</span>
-                        </div>
-                      ))}
+                    <div style={{ borderTop: "1px solid #eeeeea", paddingTop: "20px", marginBottom: "28px" }}>
+                      <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", color: "#171717", display: "block", marginBottom: "12px", letterSpacing: "0.05em" }}>
+                        What’s Included:
+                      </span>
+                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px", fontSize: "13px", color: "#444" }}>
+                        {[
+                          "Home Office RTW & share code verification",
+                          "DBS, tickets & certification expiry tracking",
+                          "Candidate vetting & audit-ready digital packs",
+                          "Pre-placement compliance sign-off gates",
+                          "Monthly compliance health & audit summary",
+                          "Guaranteed 4-hour candidate pack turnaround"
+                        ].map((item, idx) => (
+                          <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
+                            <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-
-                    <button
-                      onClick={() => {
-                        updateField("service", pkg.title);
-                        setCurrentPage("contact");
-                      }}
-                      className="package-button"
-                    >
-                      Discuss This Package
-                    </button>
                   </div>
-                ))}
+
+                  <button
+                    onClick={() => {
+                      setFormData(prev => ({ ...prev, service: "Compliance Core" }));
+                      setCurrentPage('contact');
+                    }}
+                    style={{
+                      width: "100%",
+                      background: "#f4f4f1",
+                      color: "#171717",
+                      border: "1px solid #d4d4cd",
+                      padding: "13px 20px",
+                      borderRadius: "4px",
+                      fontSize: "11.5px",
+                      fontWeight: 700,
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
+                      cursor: "pointer",
+                      transition: "all 0.2s"
+                    }}
+                  >
+                    Discuss Compliance Core →
+                  </button>
+                </div>
+
+                {/* TIER 2: FULL OPS PACKAGE (HERO - OBSIDIAN #171717) */}
+                <div style={{ background: "#171717", color: "#ffffff", border: "1px solid #171717", borderRadius: "8px", padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", transform: "scale(1.02)", boxShadow: "0 14px 34px rgba(0,0,0,0.12)" }}>
+                  
+                  {/* POPULAR BADGE */}
+                  <div style={{ position: "absolute", top: "-13px", left: "50%", transform: "translateX(-50%)", background: "#16866f", color: "#ffffff", padding: "4px 14px", borderRadius: "12px", fontSize: "10px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                    Most Selected by Agencies
+                  </div>
+
+                  <div>
+                    <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#76c9b4", display: "block", marginBottom: "8px" }}>
+                      Tier Two
+                    </span>
+                    <h3 style={{ fontSize: "22px", fontWeight: 800, color: "#ffffff", margin: "0 0 12px 0" }}>
+                      Full Ops Package
+                    </h3>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
+                      <span style={{ fontSize: "14px", fontWeight: 600, color: "#9ca3af" }}>From</span>
+                      <span style={{ fontSize: "42px", fontWeight: 800, color: "#ffffff" }}>£850</span>
+                      <span style={{ fontSize: "13px", color: "#9ca3af" }}>/ month</span>
+                    </div>
+                    <p style={{ fontSize: "13.5px", color: "#a8a8a2", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
+                      Complete operational desk taking full ownership of your Friday payroll cutoffs, timesheet chasing, and billing.
+                    </p>
+
+                    <div style={{ borderTop: "1px solid #2a2a2a", paddingTop: "20px", marginBottom: "28px" }}>
+                      <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", color: "#76c9b4", display: "block", marginBottom: "12px", letterSpacing: "0.05em" }}>
+                        Everything in Core, Plus:
+                      </span>
+                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px", fontSize: "13px", color: "#d1d1cc" }}>
+                        {[
+                          "Proactive Friday timesheet chasing & validation",
+                          "Payroll reconciliation & file staging for bank sign-off",
+                          "Client PO matching & pre-billing invoice dispatch",
+                          "Fast 2-hour client billing query resolution",
+                          "ATS/CRM candidate profiling & file administration",
+                          "52-week primary + secondary pod lead redundancy"
+                        ].map((item, idx) => (
+                          <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
+                            <span style={{ color: "#76c9b4", fontWeight: "bold" }}>✓</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setFormData(prev => ({ ...prev, service: "Full Ops Package" }));
+                      setCurrentPage('contact');
+                    }}
+                    style={{
+                      width: "100%",
+                      background: "#ffffff",
+                      color: "#171717",
+                      border: "none",
+                      padding: "14px 20px",
+                      borderRadius: "4px",
+                      fontSize: "11.5px",
+                      fontWeight: 700,
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
+                      cursor: "pointer",
+                      transition: "all 0.2s"
+                    }}
+                  >
+                    Select Full Ops Package →
+                  </button>
+                </div>
+
+                {/* TIER 3: DEDICATED OPS MANAGER */}
+                <div style={{ background: "#ffffff", border: "1px solid #deded9", borderRadius: "8px", padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                  <div>
+                    <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "8px" }}>
+                      Tier Three
+                    </span>
+                    <h3 style={{ fontSize: "22px", fontWeight: 800, color: "#171717", margin: "0 0 12px 0" }}>
+                      Dedicated Ops Pod
+                    </h3>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
+                      <span style={{ fontSize: "14px", fontWeight: 600, color: "#666" }}>From</span>
+                      <span style={{ fontSize: "42px", fontWeight: 800, color: "#171717" }}>£1,250</span>
+                      <span style={{ fontSize: "13px", color: "#888" }}>/ month</span>
+                    </div>
+                    <p style={{ fontSize: "13.5px", color: "#666660", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
+                      For scaling recruitment and healthcare firms requiring a dedicated operational lead and commercial reporting.
+                    </p>
+
+                    <div style={{ borderTop: "1px solid #eeeeea", paddingTop: "20px", marginBottom: "28px" }}>
+                      <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", color: "#171717", display: "block", marginBottom: "12px", letterSpacing: "0.05em" }}>
+                        Everything in Full Ops, Plus:
+                      </span>
+                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px", fontSize: "13px", color: "#444" }}>
+                        {[
+                          "Dedicated named Senior Operations Lead",
+                          "Direct Slack/Teams desk liaison with fee-earners",
+                          "Weekly gross margin & consultant billing flash reports",
+                          "Vendor & portal management (Fieldglass, 1Click, etc.)",
+                          "Priority 1-hour SLA response escalations",
+                          "Monthly workflow reviews & process optimization"
+                        ].map((item, idx) => (
+                          <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
+                            <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setFormData(prev => ({ ...prev, service: "Dedicated Ops Manager" }));
+                      setCurrentPage('contact');
+                    }}
+                    style={{
+                      width: "100%",
+                      background: "#f4f4f1",
+                      color: "#171717",
+                      border: "1px solid #d4d4cd",
+                      padding: "13px 20px",
+                      borderRadius: "4px",
+                      fontSize: "11.5px",
+                      fontWeight: 700,
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
+                      cursor: "pointer",
+                      transition: "all 0.2s"
+                    }}
+                  >
+                    Discuss Dedicated Pod →
+                  </button>
+                </div>
+
               </div>
+
+              {/* REASSURANCE BAR BELOW PRICING */}
+              <div style={{ marginTop: "44px", background: "#f8f8f6", border: "1px solid #e7e7e2", borderRadius: "6px", padding: "16px 24px", display: "flex", flexWrap: "wrap", justifyContent: "space-around", alignItems: "center", gap: "16px", fontSize: "13px", color: "#555" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
+                  <span><strong>30-Day Rolling Agreements</strong> (No 12-month lock-in)</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
+                  <span><strong>Zero Onboarding or Setup Fees</strong></span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
+                  <span><strong>UK Time Zone Coverage</strong> (9:00 AM – 5:30 PM GMT)</span>
+                </div>
+              </div>
+
             </div>
           </section>
 
