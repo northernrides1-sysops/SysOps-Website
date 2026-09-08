@@ -480,7 +480,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
         .nav-button:hover { background: var(--brand-green-hover); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(22, 134, 111, 0.25); }
 
         /* HERO */
-        .hero { padding: 34px 0 0; background: var(--brand-bg); }
+        .hero { padding: 0; background: var(--brand-bg); }
         .hero-card {
           min-height: 690px; position: relative; overflow: hidden; border-radius: 4px;
           background: #06080d; display: flex; align-items: center;
