@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // 5 FIXED TRIPOD CANARY WHARF STAGES
 const SKYLINE_STAGES = [
