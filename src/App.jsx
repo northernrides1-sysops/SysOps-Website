@@ -1523,7 +1523,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                 const monthlyHoursLost = weeklyHoursLost * 4;
                 const annualHoursLost = monthlyHoursLost * 12;
                 const equivalentFTE = (weeklyHoursLost / 37.5).toFixed(1);
-  const hourlyCost = selectedCountry === 'IE' ? 26 : selectedCountry === 'US' ? 28 : 22;
+  const hourlyCost = 22;
 const monthlyCostLost = monthlyHoursLost * hourlyCost;
 const annualCostLost = annualHoursLost * hourlyCost;
 
