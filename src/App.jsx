@@ -1774,8 +1774,8 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
             </div>
           </section>
 
-        {/* ======================================================== */}
-          {/* PRICING & RETAINER TIERS                                 */}
+       {/* ======================================================== */}
+          {/* PRICING & RETAINER TIERS (DYNAMIC CURRENCY & ANIMATED)   */}
           {/* ======================================================== */}
           <section id="pricing" style={{ padding: "100px 0", background: "#ffffff", borderBottom: "1px solid #e7e7e2" }}>
             <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
@@ -1784,21 +1784,43 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
               <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 56px auto" }}>
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#16866f", marginBottom: "12px" }}>
                   <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#16866f" }} />
-                  Transparent Engagement Models
+                  Transparent Engagement Models • {countrySymbols[selectedCountry]?.flag} {countrySymbols[selectedCountry]?.code}
                 </div>
                 <h2 style={{ fontSize: "38px", fontWeight: 800, color: "#171717", lineHeight: 1.15, letterSpacing: "-0.02em", margin: "0 0 14px 0" }}>
                   Structured for every scale.
                 </h2>
                 <p style={{ fontSize: "16px", color: "#4b5563", lineHeight: 1.6, margin: 0 }}>
-                  Predictable monthly retainers. 30-day rolling agreements with zero setup fees or long-term lock-ins.
+                  Predictable monthly retainers in {activeSymbol} ({countrySymbols[selectedCountry]?.code}). 30-day rolling agreements with zero setup fees or long-term lock-ins.
                 </p>
               </div>
 
-              {/* 3 PRICING CARDS */}
+              {/* 3 PRICING CARDS WITH SMOOTH HOVER ANIMATIONS */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "28px", alignItems: "stretch" }}>
                 
                 {/* TIER 1: COMPLIANCE CORE */}
-                <div style={{ background: "#ffffff", border: "1px solid #deded9", borderRadius: "8px", padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <div 
+                  style={{ 
+                    background: "#ffffff", 
+                    border: "1px solid #deded9", 
+                    borderRadius: "8px", 
+                    padding: "36px", 
+                    display: "flex", 
+                    flexDirection: "column", 
+                    justifyContent: "space-between",
+                    transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+                    cursor: "default"
+                  }}
+                  onMouseEnter={(e) => { 
+                    e.currentTarget.style.transform = "translateY(-8px)"; 
+                    e.currentTarget.style.boxShadow = "0 16px 36px rgba(0,0,0,0.08)";
+                    e.currentTarget.style.borderColor = "#16866f";
+                  }}
+                  onMouseLeave={(e) => { 
+                    e.currentTarget.style.transform = "translateY(0px)"; 
+                    e.currentTarget.style.boxShadow = "none";
+                    e.currentTarget.style.borderColor = "#deded9";
+                  }}
+                >
                   <div>
                     <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "8px" }}>
                       Tier One
@@ -1808,11 +1830,11 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                     </h3>
                     <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
                       <span style={{ fontSize: "14px", fontWeight: 600, color: "#666" }}>From</span>
-                      <span style={{ fontSize: "42px", fontWeight: 800, color: "#171717" }}>£495</span>
+                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#171717", letterSpacing: "-0.02em" }}>{activeSymbol}495</span>
                       <span style={{ fontSize: "13px", color: "#888" }}>/ month</span>
                     </div>
                     <p style={{ fontSize: "13.5px", color: "#666660", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
-                      For growing agencies establishing a watertight, zero-breach candidate onboarding and compliance desk.
+                      For growing agencies establishing a watertight, zero-breach candidate onboarding and vetting desk.
                     </p>
 
                     <div style={{ borderTop: "1px solid #eeeeea", paddingTop: "20px", marginBottom: "28px" }}>
@@ -1821,8 +1843,8 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                       </span>
                       <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px", fontSize: "13px", color: "#444" }}>
                         {[
-                          "Home Office RTW & share code verification",
-                          "DBS, tickets & certification expiry tracking",
+                          selectedCountry === 'IE' ? "Irish GNIB/IRP & Right-to-Work validation" : "Home Office RTW & share code verification",
+                          selectedCountry === 'IE' ? "Garda vetting & ticket expiry tracking" : "DBS, tickets & certification expiry tracking",
                           "Candidate vetting & audit-ready digital packs",
                           "Pre-placement compliance sign-off gates",
                           "Monthly compliance health & audit summary",
@@ -1839,7 +1861,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
 
                   <button
                     onClick={() => {
-                      setFormData(prev => ({ ...prev, service: "Compliance Core" }));
+                      setFormData(prev => ({ ...prev, service: `Compliance Core (${countrySymbols[selectedCountry]?.code})` }));
                       setCurrentPage('contact');
                     }}
                     style={{
@@ -1854,18 +1876,43 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                       letterSpacing: "0.06em",
                       textTransform: "uppercase",
                       cursor: "pointer",
-                      transition: "all 0.2s"
+                      transition: "all 0.2s ease"
                     }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#171717"; e.currentTarget.style.color = "#ffffff"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "#f4f4f1"; e.currentTarget.style.color = "#171717"; }}
                   >
                     Discuss Compliance Core →
                   </button>
                 </div>
 
                 {/* TIER 2: FULL OPS PACKAGE (HERO - OBSIDIAN #171717) */}
-                <div style={{ background: "#171717", color: "#ffffff", border: "1px solid #171717", borderRadius: "8px", padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", transform: "scale(1.02)", boxShadow: "0 14px 34px rgba(0,0,0,0.12)" }}>
+                <div 
+                  style={{ 
+                    background: "#171717", 
+                    color: "#ffffff", 
+                    border: "1px solid #171717", 
+                    borderRadius: "8px", 
+                    padding: "36px", 
+                    display: "flex", 
+                    flexDirection: "column", 
+                    justifyContent: "space-between", 
+                    position: "relative", 
+                    transform: "scale(1.02)", 
+                    boxShadow: "0 14px 34px rgba(0,0,0,0.12)",
+                    transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)"
+                  }}
+                  onMouseEnter={(e) => { 
+                    e.currentTarget.style.transform = "scale(1.03) translateY(-8px)"; 
+                    e.currentTarget.style.boxShadow = "0 24px 50px rgba(0,0,0,0.28)"; 
+                  }}
+                  onMouseLeave={(e) => { 
+                    e.currentTarget.style.transform = "scale(1.02) translateY(0px)"; 
+                    e.currentTarget.style.boxShadow = "0 14px 34px rgba(0,0,0,0.12)"; 
+                  }}
+                >
                   
                   {/* POPULAR BADGE */}
-                  <div style={{ position: "absolute", top: "-13px", left: "50%", transform: "translateX(-50%)", background: "#16866f", color: "#ffffff", padding: "4px 14px", borderRadius: "12px", fontSize: "10px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                  <div style={{ position: "absolute", top: "-13px", left: "50%", transform: "translateX(-50%)", background: "#16866f", color: "#ffffff", padding: "4px 14px", borderRadius: "12px", fontSize: "10px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", boxShadow: "0 4px 12px rgba(22,134,111,0.35)" }}>
                     Most Selected by Agencies
                   </div>
 
@@ -1878,7 +1925,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                     </h3>
                     <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
                       <span style={{ fontSize: "14px", fontWeight: 600, color: "#9ca3af" }}>From</span>
-                      <span style={{ fontSize: "42px", fontWeight: 800, color: "#ffffff" }}>£850</span>
+                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#ffffff", letterSpacing: "-0.02em" }}>{activeSymbol}850</span>
                       <span style={{ fontSize: "13px", color: "#9ca3af" }}>/ month</span>
                     </div>
                     <p style={{ fontSize: "13.5px", color: "#a8a8a2", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
@@ -1892,7 +1939,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                       <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px", fontSize: "13px", color: "#d1d1cc" }}>
                         {[
                           "Proactive Friday timesheet chasing & validation",
-                          "Payroll reconciliation & file staging for bank sign-off",
+                          selectedCountry === 'IE' ? "Irish payroll prep & RCT deduction reconciliation" : "UK payroll reconciliation (PAYE/CIS/Umbrella)",
                           "Client PO matching & pre-billing invoice dispatch",
                           "Fast 2-hour client billing query resolution",
                           "ATS/CRM candidate profiling & file administration",
@@ -1909,7 +1956,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
 
                   <button
                     onClick={() => {
-                      setFormData(prev => ({ ...prev, service: "Full Ops Package" }));
+                      setFormData(prev => ({ ...prev, service: `Full Ops Package (${countrySymbols[selectedCountry]?.code})` }));
                       setCurrentPage('contact');
                     }}
                     style={{
@@ -1924,15 +1971,39 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                       letterSpacing: "0.06em",
                       textTransform: "uppercase",
                       cursor: "pointer",
-                      transition: "all 0.2s"
+                      transition: "all 0.2s ease"
                     }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#76c9b4"; e.currentTarget.style.color = "#171717"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "#ffffff"; e.currentTarget.style.color = "#171717"; }}
                   >
                     Select Full Ops Package →
                   </button>
                 </div>
 
-                {/* TIER 3: DEDICATED OPS MANAGER */}
-                <div style={{ background: "#ffffff", border: "1px solid #deded9", borderRadius: "8px", padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                {/* TIER 3: DEDICATED OPS POD */}
+                <div 
+                  style={{ 
+                    background: "#ffffff", 
+                    border: "1px solid #deded9", 
+                    borderRadius: "8px", 
+                    padding: "36px", 
+                    display: "flex", 
+                    flexDirection: "column", 
+                    justifyContent: "space-between",
+                    transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+                    cursor: "default"
+                  }}
+                  onMouseEnter={(e) => { 
+                    e.currentTarget.style.transform = "translateY(-8px)"; 
+                    e.currentTarget.style.boxShadow = "0 16px 36px rgba(0,0,0,0.08)";
+                    e.currentTarget.style.borderColor = "#16866f";
+                  }}
+                  onMouseLeave={(e) => { 
+                    e.currentTarget.style.transform = "translateY(0px)"; 
+                    e.currentTarget.style.boxShadow = "none";
+                    e.currentTarget.style.borderColor = "#deded9";
+                  }}
+                >
                   <div>
                     <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "8px" }}>
                       Tier Three
@@ -1942,7 +2013,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                     </h3>
                     <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
                       <span style={{ fontSize: "14px", fontWeight: 600, color: "#666" }}>From</span>
-                      <span style={{ fontSize: "42px", fontWeight: 800, color: "#171717" }}>£1,250</span>
+                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#171717", letterSpacing: "-0.02em" }}>{activeSymbol}1,250</span>
                       <span style={{ fontSize: "13px", color: "#888" }}>/ month</span>
                     </div>
                     <p style={{ fontSize: "13.5px", color: "#666660", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
@@ -1973,7 +2044,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
 
                   <button
                     onClick={() => {
-                      setFormData(prev => ({ ...prev, service: "Dedicated Ops Manager" }));
+                      setFormData(prev => ({ ...prev, service: `Dedicated Ops Pod (${countrySymbols[selectedCountry]?.code})` }));
                       setCurrentPage('contact');
                     }}
                     style={{
@@ -1988,8 +2059,10 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                       letterSpacing: "0.06em",
                       textTransform: "uppercase",
                       cursor: "pointer",
-                      transition: "all 0.2s"
+                      transition: "all 0.2s ease"
                     }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#171717"; e.currentTarget.style.color = "#ffffff"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "#f4f4f1"; e.currentTarget.style.color = "#171717"; }}
                   >
                     Discuss Dedicated Pod →
                   </button>
@@ -2009,7 +2082,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
-                  <span><strong>UK Time Zone Coverage</strong> (9:00 AM – 5:30 PM GMT)</span>
+                  <span><strong>{selectedCountry === 'IE' ? 'Irish & UK' : 'UK & Ireland'} Business Hours Coverage</strong> (9:00 AM – 5:30 PM GMT)</span>
                 </div>
               </div>
 
