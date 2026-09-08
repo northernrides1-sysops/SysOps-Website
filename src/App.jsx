@@ -53,7 +53,7 @@ const [opsPillar, setOpsPillar] = useState("finance");
   const [calcTeamSize, setCalcTeamSize] = useState(5);
  // Country & Currency Selector
   const [selectedCountry, setSelectedCountry] = useState('UK'); // 'UK' | 'IE' | 'US'
-
+const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
   const countrySymbols = {
     UK: { symbol: '£', code: 'GBP', label: 'UK (£)', flag: '🇬🇧' },
     IE: { symbol: '€', code: 'EUR', label: 'Ireland (€)', flag: '🇮🇪' },
@@ -852,53 +852,113 @@ const [opsPillar, setOpsPillar] = useState("finance");
           </nav>
 
           {/* UNIFIED SINGLE ACTION BUTTON */}
-          {/* REGIONAL CURRENCY SWITCHER */}
-              <div style={{ display: "inline-flex", alignItems: "center", background: "#f0f0eb", padding: "3px 4px", borderRadius: "20px", border: "1px solid #deded9", marginRight: "12px" }}>
-                {[
-                  { id: 'UK', flag: '🇬🇧', label: '£ GBP' },
-                  { id: 'IE', flag: '🇮🇪', label: '€ EUR' },
-                  { id: 'US', flag: '🇺🇸', label: '$ USD' }
-                ].map((c) => {
-                  const isActive = selectedCountry === c.id;
-                  return (
-                    <button
-                      key={c.id}
-                      onClick={() => setSelectedCountry(c.id)}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "5px",
-                        border: "none",
-                        background: isActive ? "#171717" : "transparent",
-                        color: isActive ? "#ffffff" : "#555550",
-                        padding: "5px 10px",
-                        borderRadius: "16px",
-                        fontSize: "12px",
-                        fontWeight: isActive ? 700 : 500,
-                        cursor: "pointer",
-                        transition: "all 0.2s ease"
-                      }}
-                    >
-                      <span style={{ fontSize: "13px" }}>{c.flag}</span>
-                      <span>{c.label}</span>
-                    </button>
-                  );
-                })}
+          {/* COMPACT REGION & CURRENCY DROPDOWN */}
+              <div style={{ position: "relative", marginRight: "14px" }}>
+                <button
+                  type="button"
+                  onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    background: "#ffffff",
+                    border: "1px solid #d4d4cd",
+                    borderRadius: "6px",
+                    padding: "6px 11px",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    color: "#171717",
+                    cursor: "pointer",
+                    transition: "all 0.15s ease"
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#16866f"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#d4d4cd"; }}
+                >
+                  <span style={{ fontSize: "14px" }}>
+                    {selectedCountry === 'UK' ? '🇬🇧' : selectedCountry === 'IE' ? '🇮🇪' : '🇺🇸'}
+                  </span>
+                  <span>
+                    {selectedCountry === 'UK' ? 'GBP (£)' : selectedCountry === 'IE' ? 'EUR (€)' : 'USD ($)'}
+                  </span>
+                  <span style={{ fontSize: "10px", color: "#888", marginLeft: "2px" }}>▼</span>
+                </button>
+
+                {/* DROPDOWN MENU */}
+                {currencyDropdownOpen && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "calc(100% + 6px)",
+                      right: 0,
+                      background: "#ffffff",
+                      border: "1px solid #e2e2dc",
+                      borderRadius: "8px",
+                      boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
+                      padding: "6px",
+                      width: "180px",
+                      zIndex: 100,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "2px"
+                    }}
+                  >
+                    {[
+                      { id: 'UK', flag: '🇬🇧', name: 'United Kingdom', curr: 'GBP (£)' },
+                      { id: 'IE', flag: '🇮🇪', name: 'Ireland', curr: 'EUR (€)' },
+                      { id: 'US', flag: '🇺🇸', name: 'International', curr: 'USD ($)' },
+                    ].map((item) => {
+                      const isSelected = selectedCountry === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedCountry(item.id);
+                            setCurrencyDropdownOpen(false);
+                          }}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            padding: "8px 10px",
+                            border: "none",
+                            borderRadius: "5px",
+                            background: isSelected ? "#f0f7f5" : "transparent",
+                            color: isSelected ? "#16866f" : "#222222",
+                            fontSize: "12px",
+                            fontWeight: isSelected ? 700 : 500,
+                            cursor: "pointer",
+                            textAlign: "left",
+                            transition: "background 0.1s"
+                          }}
+                          onMouseEnter={(e) => {
+                            if (!isSelected) e.currentTarget.style.background = "#f5f5f2";
+                          }}
+                          onMouseLeave={(e) => {
+                            if (!isSelected) e.currentTarget.style.background = "transparent";
+                          }}
+                        >
+                          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                            <span style={{ fontSize: "14px" }}>{item.flag}</span>
+                            <span>{item.name}</span>
+                          </div>
+                          <span style={{ fontSize: "10.5px", color: isSelected ? "#16866f" : "#888" }}>
+                            {item.curr.split(' ')[0]}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
-              {/* UNIFIED SINGLE ACTION BUTTON */}
+              {/* ONLY ONE SINGLE CONTACT US BUTTON */}
               <button
                 onClick={() => setCurrentPage("contact")}
                 className="nav-button"
               >
                 Contact Us
               </button>
-          <button
-            onClick={() => setCurrentPage("contact")}
-            className="nav-button"
-          >
-            Contact Us
-          </button>
         </div>
       </header>
 
