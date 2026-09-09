@@ -2828,35 +2828,92 @@ const annualCostLost = annualHoursLost * hourlyCost;
       )}
 
       {/* GLOBAL FOOTER */}
-<footer style={{ background: "#0c0e12", color: "#ffffff", borderTop: "1px solid #1a1e26", padding: "60px 0 30px" }}>
+<footer style={{ background: "#08090c", color: "#ffffff", borderTop: "1px solid #161a22", padding: "80px 0 40px" }}>
         <div className="container">
           
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr 1.2fr", gap: "40px", marginBottom: "44px" }}>
+          {/* MAIN 4-COLUMN HOSTPRO GRID */}
+          <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 1.4fr", gap: "50px", marginBottom: "60px" }}>
             
-            {/* BRAND */}
+            {/* COL 1: BRAND + TAGLINE + QUICK AUDIT INPUT */}
             <div>
               <div 
-                style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer", marginBottom: "8px" }}
+                style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px", cursor: "pointer" }}
                 onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
               >
-                <img src="/SYS.png" alt="SYS Ops" style={{ height: "32px", width: "auto" }} />
-                <div>
-                  <div style={{ fontSize: "15px", fontWeight: 800, letterSpacing: "0.12em", fontFamily: "'Manrope', sans-serif" }}>SYS OPS</div>
-                  <div style={{ fontSize: "8px", color: "#16866f", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700 }}>Remote Operations Specialist</div>
-                </div>
+                <img src="/SYS.png" alt="SYS Ops" style={{ height: "30px", width: "auto" }} />
+                <span style={{ fontSize: "17px", fontWeight: 800, letterSpacing: "0.14em", fontFamily: "'Manrope', sans-serif" }}>
+                  SYS OPS
+                </span>
               </div>
-              <div style={{ fontSize: "12px", color: "#64748b", marginTop: "12px" }}>
-                UK & Ireland Back-Office Execution
+              
+              <p style={{ fontSize: "13px", color: "#8b949e", lineHeight: 1.6, margin: "0 0 24px 0", maxWidth: "290px" }}>
+                Streamline operations, eliminate payroll friction, and scale your workforce.
+              </p>
+
+              {/* HOSTPRO-STYLE INLINE ACTION BOX */}
+              <div>
+                <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#e2e8f0", display: "block", marginBottom: "8px" }}>
+                  Request an Operational Audit
+                </span>
+                <div style={{ display: "flex", maxWidth: "320px", background: "#12151c", border: "1px solid #232936", borderRadius: "6px", overflow: "hidden" }}>
+                  <input
+                    type="email"
+                    placeholder="name@company.co.uk"
+                    style={{
+                      flex: 1,
+                      background: "transparent",
+                      border: "none",
+                      padding: "10px 14px",
+                      fontSize: "12px",
+                      color: "#ffffff",
+                      outline: "none",
+                      fontFamily: "'DM Sans', sans-serif"
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        updateField("email", e.currentTarget.value);
+                        setCurrentPage("contact");
+                      }
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setCurrentPage("contact")}
+                    style={{
+                      background: "var(--brand-green)",
+                      color: "#ffffff",
+                      border: "none",
+                      padding: "0 16px",
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      letterSpacing: "0.06em",
+                      textTransform: "uppercase",
+                      cursor: "pointer",
+                      transition: "background 0.2s"
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "var(--brand-green-hover)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "var(--brand-green)"; }}
+                  >
+                    Discuss
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* SERVICES */}
+            {/* COL 2: SERVICES */}
             <div>
-              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#e2e8f0", marginBottom: "14px" }}>
+              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#e2e8f0", marginBottom: "20px" }}>
                 Services
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "9px" }}>
-                {["Payroll & Timesheets", "Compliance & Vetting", "Invoice Management", "Power BI Reporting"].map((s, idx) => (
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                {[
+                  "Payroll & Timesheets",
+                  "Compliance & Vetting",
+                  "Invoice Management",
+                  "Power BI Dashboards",
+                  "Onboarding & Lifecycle",
+                  "Remote Ops Desk",
+                ].map((s, idx) => (
                   <button
                     key={idx}
                     type="button"
@@ -2864,7 +2921,17 @@ const annualCostLost = annualHoursLost * hourlyCost;
                       updateField("service", s);
                       setCurrentPage("contact");
                     }}
-                    style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "12.5px", cursor: "pointer" }}
+                    style={{
+                      background: "transparent",
+                      border: 0,
+                      padding: 0,
+                      textAlign: "left",
+                      color: "#8b949e",
+                      fontSize: "13px",
+                      cursor: "pointer",
+                      transition: "color 0.15s ease",
+                      fontFamily: "'DM Sans', sans-serif"
+                    }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = "#76c9b4"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.color = "#8b949e"; }}
                   >
@@ -2874,16 +2941,16 @@ const annualCostLost = annualHoursLost * hourlyCost;
               </div>
             </div>
 
-            {/* COMPANY */}
+            {/* COL 3: PAGES / NAVIGATION */}
             <div>
-              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#e2e8f0", marginBottom: "14px" }}>
-                Company
+              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#e2e8f0", marginBottom: "20px" }}>
+                Pages
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "9px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 <button
                   type="button"
                   onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "12.5px", cursor: "pointer" }}
+                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "13px", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
                   onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.color = "#8b949e"; }}
                 >
@@ -2892,51 +2959,120 @@ const annualCostLost = annualHoursLost * hourlyCost;
                 <button
                   type="button"
                   onClick={() => { setCurrentPage("services"); }}
-                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "12.5px", cursor: "pointer" }}
+                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "13px", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
                   onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.color = "#8b949e"; }}
                 >
-                  Service Specs
+                  Services
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("why")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
+                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "13px", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#8b949e"; }}
+                >
+                  Audit Calculator
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("pricing")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
+                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "13px", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#8b949e"; }}
+                >
+                  Pricing
                 </button>
                 <button
                   type="button"
                   onClick={() => { setCurrentPage("contact"); }}
-                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#16866f", fontSize: "12.5px", fontWeight: 700, cursor: "pointer" }}
+                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "var(--brand-green-light)", fontSize: "13px", fontWeight: 700, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
                 >
-                  Contact Us →
+                  Contact →
                 </button>
               </div>
             </div>
 
-            {/* DIRECT CONTACT */}
+            {/* COL 4: CONTACT & LINKEDIN */}
             <div>
-              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#e2e8f0", marginBottom: "14px" }}>
-                Direct Contact
+              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#e2e8f0", marginBottom: "20px" }}>
+                Contact
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px", fontSize: "12.5px" }}>
-                <a href="mailto:sysops.enquiries@gmail.com" style={{ color: "#cbd5e1", textDecoration: "none" }}>
-                  sysops.enquiries@gmail.com
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px", fontSize: "13px" }}>
+                
+                {/* LinkedIn Direct */}
+                <a
+                  href="https://www.linkedin.com/company/sys-ops/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    color: "#cbd5e1",
+                    textDecoration: "none",
+                    transition: "color 0.15s ease"
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#0a66c2"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#cbd5e1"; }}
+                >
+                  <i className="ri-linkedin-box-fill" style={{ fontSize: "17px", color: "#0a66c2" }} />
+                  <span>LinkedIn</span>
                 </a>
-                <a href="tel:+923368242425" style={{ color: "#cbd5e1", textDecoration: "none" }}>
-                  +92 336 824 2425
+
+                {/* Email */}
+                <a
+                  href="mailto:sysops.enquiries@gmail.com"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    color: "#cbd5e1",
+                    textDecoration: "none",
+                    transition: "color 0.15s ease"
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#76c9b4"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#cbd5e1"; }}
+                >
+                  <i className="ri-mail-line" style={{ fontSize: "16px", color: "var(--brand-green)" }} />
+                  <span>sysops.enquiries@gmail.com</span>
                 </a>
-                <div style={{ color: "#64748b", fontSize: "11.5px" }}>
-                  Mon – Fri, 09:00 – 17:30 GMT
+
+                {/* Phone / WhatsApp */}
+                <a
+                  href="tel:+923368242425"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    color: "#cbd5e1",
+                    textDecoration: "none",
+                    transition: "color 0.15s ease"
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#76c9b4"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#cbd5e1"; }}
+                >
+                  <i className="ri-phone-line" style={{ fontSize: "16px", color: "var(--brand-green)" }} />
+                  <span>+92 336 824 2425</span>
+                </a>
+
+                {/* Working Hours */}
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#8b949e", fontSize: "12px", marginTop: "4px" }}>
+                  <i className="ri-time-line" style={{ fontSize: "15px", color: "#8b949e" }} />
+                  <span>Mon – Fri, 09:00 – 17:30 GMT</span>
                 </div>
               </div>
             </div>
 
           </div>
 
-          {/* BOTTOM COPYRIGHT */}
-          <div style={{ borderTop: "1px solid #1a1e26", paddingTop: "20px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px", fontSize: "11.5px", color: "#64748b" }}>
+          {/* BOTTOM COPYRIGHT & LEGAL BAR (IDENTICAL TO HOSTPRO) */}
+          <div style={{ borderTop: "1px solid #161a22", paddingTop: "28px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "14px", fontSize: "12px", color: "#6e7681" }}>
             <div>
-              © 2026 SYS OPS. All rights reserved.
+              © 2025 SYS OPS. All rights reserved.
             </div>
-            <div style={{ display: "flex", gap: "16px" }}>
-              <span>UK & Ireland Operations</span>
-              <span>•</span>
-              <span>GDPR Compliant</span>
+            <div style={{ color: "#6e7681", fontSize: "12px" }}>
+              The operations behind your business
             </div>
           </div>
 
