@@ -2828,27 +2828,176 @@ const annualCostLost = annualHoursLost * hourlyCost;
       )}
 
       {/* GLOBAL FOOTER */}
-      <footer>
-        <div className="container footer-inner">
-          <div className="footer-brand" onClick={() => setCurrentPage("home")} style={{ cursor: "pointer" }}>
-            <img src="/SYS.png" alt="SYS Ops" style={{ height: "32px", width: "auto" }} />
+            <footer style={{ background: "#0c0e12", color: "#ffffff", borderTop: "1px solid #1a1e26", padding: "70px 0 35px" }}>
+        <div className="container">
+          
+          {/* TOP 4-COLUMN GRID */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "40px", marginBottom: "50px" }}>
+            
+            {/* COL 1: BRAND IDENTITY & CREDENTIALS */}
             <div>
-              <div className="footer-name">SYS OPS</div>
-              <div className="footer-sub">Remote Operations Specialist</div>
+              <div 
+                style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px", cursor: "pointer" }}
+                onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+              >
+                <img src="/SYS.png" alt="SYS Ops" style={{ height: "34px", width: "auto" }} />
+                <div>
+                  <div style={{ fontSize: "16px", fontWeight: 800, letterSpacing: "0.12em", fontFamily: "'Manrope', sans-serif" }}>SYS OPS</div>
+                  <div style={{ fontSize: "8.5px", color: "#16866f", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 700 }}>Remote Operations Specialist</div>
+                </div>
+              </div>
+              <p style={{ fontSize: "13px", color: "#8b949e", lineHeight: 1.65, margin: "0 0 18px 0" }}>
+                Specialist payroll, compliance, invoicing, and back-office operational support for workforce-led businesses across the UK & Ireland.
+              </p>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "7px", padding: "5px 10px", background: "rgba(22, 134, 111, 0.12)", border: "1px solid rgba(22, 134, 111, 0.25)", borderRadius: "4px", fontSize: "11px", color: "#76c9b4", fontWeight: 600 }}>
+                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#16866f" }} />
+                London GMT Desk Active
+              </div>
+            </div>
+
+            {/* COL 2: CORE DIVISIONS */}
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#ffffff", marginBottom: "16px" }}>
+                Operational Services
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px", fontSize: "13px" }}>
+                {[
+                  "Payroll & Timesheet Processing",
+                  "Compliance & Right-to-Work Vetting",
+                  "Invoice & Billing Management",
+                  "Power BI Real-Time Management Packs",
+                  "Worker Lifecycle & Onboarding",
+                  "Remote Business Operations Desk",
+                ].map((item, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      updateField("service", item);
+                      setCurrentPage("contact");
+                    }}
+                    style={{
+                      background: "transparent",
+                      border: 0,
+                      padding: 0,
+                      textAlign: "left",
+                      color: "#8b949e",
+                      fontSize: "12.5px",
+                      cursor: "pointer",
+                      transition: "color 0.15s ease",
+                      fontFamily: "'DM Sans', sans-serif"
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "#76c9b4"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "#8b949e"; }}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* COL 3: QUICK NAVIGATION & ENGAGEMENT */}
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#ffffff", marginBottom: "16px" }}>
+                Navigation & Framework
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px", fontSize: "13px" }}>
+                <button
+                  type="button"
+                  onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "12.5px", cursor: "pointer" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#8b949e"; }}
+                >
+                  Homepage
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setCurrentPage("services"); }}
+                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "12.5px", cursor: "pointer" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#8b949e"; }}
+                >
+                  Service Specs & SLAs
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("why")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
+                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "12.5px", cursor: "pointer" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#8b949e"; }}
+                >
+                  Capacity & ROI Calculator
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("pricing")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
+                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "12.5px", cursor: "pointer" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#8b949e"; }}
+                >
+                  Retainer Packages
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("process")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
+                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#8b949e", fontSize: "12.5px", cursor: "pointer" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#8b949e"; }}
+                >
+                  7-Day Onboarding Process
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setCurrentPage("contact"); }}
+                  style={{ background: "transparent", border: 0, padding: 0, textAlign: "left", color: "#16866f", fontSize: "12.5px", fontWeight: 700, cursor: "pointer" }}
+                >
+                  Book Discovery Call →
+                </button>
+              </div>
+            </div>
+
+            {/* COL 4: DIRECT CONTACT & HOURS */}
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#ffffff", marginBottom: "16px" }}>
+                Operations Desk
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px", fontSize: "13px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "9px", color: "#e2e8f0" }}>
+                  <i className="ri-mail-line" style={{ color: "#16866f", fontSize: "16px" }} />
+                  <a href="mailto:sysops.enquiries@gmail.com" style={{ textDecoration: "none", color: "inherit" }}>sysops.enquiries@gmail.com</a>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "9px", color: "#e2e8f0" }}>
+                  <i className="ri-phone-line" style={{ color: "#16866f", fontSize: "16px" }} />
+                  <a href="tel:+923368242425" style={{ textDecoration: "none", color: "inherit" }}>+92 336 824 2425</a>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "9px", color: "#8b949e" }}>
+                  <i className="ri-time-line" style={{ color: "#16866f", fontSize: "16px" }} />
+                  <span>Mon – Fri, 09:00 – 17:30 GMT</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "9px", color: "#8b949e" }}>
+                  <i className="ri-shield-check-line" style={{ color: "#16866f", fontSize: "16px" }} />
+                  <span>SLA: 3-Hour Response Time</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* BOTTOM COPYRIGHT & LEGAL STRIP */}
+          <div style={{ borderTop: "1px solid #1a1e26", paddingTop: "24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "14px", fontSize: "11px", color: "#6e7681" }}>
+            <div>
+              © {new Date().getFullYear()} SYS OPS. All rights reserved. Specialist Remote Operations.
+            </div>
+            <div style={{ display: "flex", gap: "20px" }}>
+              <span>UK & Ireland Native</span>
+              <span>•</span>
+              <span>GDPR Compliant</span>
+              <span>•</span>
+              <span>30-Day Rolling Agreements</span>
             </div>
           </div>
 
-          <div className="footer-links">
-            <button onClick={() => setCurrentPage("home")}>Home</button>
-            <button onClick={() => setCurrentPage("services")}>Services</button>
-            <button onClick={() => setCurrentPage("contact")}>Contact Us</button>
-          </div>
-
-          <div className="footer-copy">
-            UK · Ireland · Remote Operations
-            <br />
-            sysops.enquiries@gmail.com
-          </div>
         </div>
       </footer>
     </div>
