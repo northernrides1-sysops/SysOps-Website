@@ -576,7 +576,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
         .tech-logo-strip:hover .tech-logo-track { animation-play-state: paused; }
         .tech-logo-track {
           display: flex; align-items: center; gap: 40px; white-space: nowrap; width: max-content;
-          animation: smoothTicker 42s linear infinite; will-change: transform;
+          animation: smoothTicker 60s linear infinite; will-change: transform;
         }
         .tech-logo-item {
           display: inline-flex; align-items: center; gap: 9px; opacity: 0.85; flex-shrink: 0;
