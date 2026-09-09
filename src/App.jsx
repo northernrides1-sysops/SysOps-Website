@@ -2421,12 +2421,10 @@ const annualCostLost = annualHoursLost * hourlyCost;
                   </p>
 
                   <div style={{ display: "flex", gap: "20px", marginTop: "8px", flexWrap: "wrap", fontSize: "12px", color: "#16866f", fontWeight: 700 }}>
-                    <span>• London GMT Business Hours</span>
-                    <span>• Named Pod Lead</span>
-                    <span>• Strict Data Privacy</span>
+                    <span>• UK & Ireland Business Hours (GMT)</span>
+                    <span>• Dedicated Named Operations Manager</span>
+                    <span>• Strict GDPR & Data Compliance</span>
                   </div>
-                </div>
-              </div>
 
               {/* THREE OPERATIONAL PILLARS (VALUE DIFFERENTIATORS) */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", marginBottom: "60px" }}>
