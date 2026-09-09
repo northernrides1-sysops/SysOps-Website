@@ -2417,7 +2417,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                   </div>
                   
                   <p style={{ fontSize: "14px", color: "#555550", lineHeight: 1.7, margin: 0 }}>
-                    We do not offer generic virtual assistants. We embed <strong>pre-trained operational pods</strong> directly into your ATS, accounting, and compliance portals to execute daily work with total accountability.
+                    We do not offer generic virtual assistants. Instead of adding another high-cost hire, we provide dedicated <strong>back-office specialists</strong> who integrate directly into your systems to execute daily work with total accountability.
                   </p>
 
                   <div style={{ display: "flex", gap: "20px", marginTop: "8px", flexWrap: "wrap", fontSize: "12px", color: "#16866f", fontWeight: 700 }}>
