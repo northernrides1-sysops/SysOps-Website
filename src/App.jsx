@@ -2828,11 +2828,11 @@ const annualCostLost = annualHoursLost * hourlyCost;
       )}
 
       {/* GLOBAL FOOTER */}
-<footer style={{ background: "#08090c", color: "#ffffff", borderTop: "1px solid #161a22", padding: "80px 0 40px" }}>
+<footer style={{ background: "#08090c", color: "#ffffff", borderTop: "1px solid #161a22", padding: "45px 0 24px" }}>
         <div className="container">
           
           {/* MAIN 4-COLUMN HOSTPRO GRID */}
-          <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 1.4fr", gap: "50px", marginBottom: "60px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 1.4fr", gap: "50px", marginBottom: "30px" }}>
             
             {/* COL 1: BRAND + TAGLINE + QUICK AUDIT INPUT */}
             <div>
@@ -2850,7 +2850,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                 Streamline operations, eliminate payroll friction, and scale your workforce.
               </p>
 
-              {/* HOSTPRO-STYLE INLINE ACTION BOX */}
+              {/*INLINE ACTION BOX */}
               <div>
                 <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#e2e8f0", display: "block", marginBottom: "8px" }}>
                   Request an Operational Audit
@@ -3067,9 +3067,9 @@ const annualCostLost = annualHoursLost * hourlyCost;
           </div>
 
           {/* BOTTOM COPYRIGHT & LEGAL BAR (IDENTICAL TO HOSTPRO) */}
-          <div style={{ borderTop: "1px solid #161a22", paddingTop: "28px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "14px", fontSize: "12px", color: "#6e7681" }}>
+          <div style={{ borderTop: "1px solid #161a22", paddingTop: "16px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "14px", fontSize: "12px", color: "#6e7681" }}>
             <div>
-              © 2025 SYS OPS. All rights reserved.
+              © 2026 SYS OPS. All rights reserved.
             </div>
             <div style={{ color: "#6e7681", fontSize: "12px" }}>
               The operations behind your business
