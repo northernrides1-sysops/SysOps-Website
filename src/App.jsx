@@ -2382,32 +2382,132 @@ const annualCostLost = annualHoursLost * hourlyCost;
               </div>
             </div>
           </section>
-           {/* INTRO */}
-         <section id="about" className="intro" style={{ borderTop: "1px solid #e7e7e2", background: "#ffffff" }}>
-            <div className="container intro-grid">
-              <div>
-                <div className="eyebrow">About SYS Ops</div>
-                <h2>
-                  Specialist execution.
-                  <br />
-                  <span>Without the overhead.</span>
-                </h2>
+          {/* ======================================================== */}
+          {/* ABOUT SYS OPS: PURPOSE-BUILT WORKFORCE OPERATIONAL HUB     */}
+          {/* ======================================================== */}
+          <section id="about" style={{ padding: "110px 0", background: "#ffffff", borderTop: "1px solid #e7e7e2" }}>
+            <div className="container">
+              
+              {/* TOP ROW: MANIFESTO & MISSION */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "60px", alignItems: "start", marginBottom: "64px" }}>
+                <div>
+                  <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#16866f", marginBottom: "14px" }}>
+                    <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#16866f" }} />
+                    About SYS Ops
+                  </div>
+                  <h2 style={{ fontSize: "clamp(38px, 4.5vw, 56px)", fontWeight: 800, color: "#171717", lineHeight: 1.05, letterSpacing: "-0.03em", margin: "0 0 16px 0" }}>
+                    Specialist execution.
+                    <br />
+                    <span style={{ color: "#9ca3af" }}>Without the overhead.</span>
+                  </h2>
+                  <p style={{ fontSize: "16px", color: "#4b5563", lineHeight: 1.7, margin: 0, maxWidth: "520px" }}>
+                    SYS Ops was engineered to solve a systemic problem in workforce businesses: billing leaks, payroll cut-off panic, and high-earning recruiters trapped in administrative fires.
+                  </p>
+                </div>
+
+                <div style={{ background: "#fbfbfa", border: "1px solid #e7e7e2", borderRadius: "8px", padding: "32px", display: "flex", flexDirection: "column", gap: "16px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px", borderBottom: "1px solid #eeeeea", paddingBottom: "16px" }}>
+                    <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "rgba(22, 134, 111, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#16866f", fontSize: "18px", fontWeight: "bold" }}>
+                      ✓
+                    </div>
+                    <div>
+                      <strong style={{ fontSize: "14px", color: "#171717", display: "block" }}>UK & Ireland Workforce Specialism</strong>
+                      <span style={{ fontSize: "12px", color: "#666660" }}>9+ years managing high-velocity temporary and contract rosters.</span>
+                    </div>
+                  </div>
+                  
+                  <p style={{ fontSize: "14px", color: "#555550", lineHeight: 1.7, margin: 0 }}>
+                    We do not offer generic virtual assistants. We embed <strong>pre-trained operational pods</strong> directly into your ATS, accounting, and compliance portals to execute daily work with total accountability.
+                  </p>
+
+                  <div style={{ display: "flex", gap: "20px", marginTop: "8px", flexWrap: "wrap", fontSize: "12px", color: "#16866f", fontWeight: 700 }}>
+                    <span>• London GMT Business Hours</span>
+                    <span>• Named Pod Lead</span>
+                    <span>• Strict Data Privacy</span>
+                  </div>
+                </div>
               </div>
 
-              <div className="intro-copy">
-                <p>
-                  <strong>SYS Ops is a specialist remote operations partner.</strong>
-                </p>
-                <p>
-                  We take ownership of the operational work that keeps
-                  workforce-led businesses moving — from payroll and compliance
-                  through to invoicing, reporting and administration.
-                </p>
-                <p>
-                  Instead of adding another full-time hire, you get an experienced
-                  operational function that integrates directly into your business.
-                </p>
+              {/* THREE OPERATIONAL PILLARS (VALUE DIFFERENTIATORS) */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", marginBottom: "60px" }}>
+                {[
+                  {
+                    num: "01",
+                    title: "Proactive Workflow Ownership",
+                    desc: "We don't wait for tickets or instructions. We follow living SOP runbooks, chasing missing timesheets on Wednesdays so Friday payroll runs cleanly.",
+                  },
+                  {
+                    num: "02",
+                    title: "Native Software Pre-Training",
+                    desc: "Experienced with Sage 50, BrightPay, Xero, Bullhorn, and Power BI from day one. Zero weeks lost training staff on basic workforce workflows.",
+                  },
+                  {
+                    num: "03",
+                    title: "Zero Employer Liabilities",
+                    desc: "No employer NI (13.8%), pension auto-enrolment, recruitment placement fees, or hardware costs. A predictable monthly retainer on a rolling 30-day agreement.",
+                  },
+                ].map((col, idx) => (
+                  <div key={idx} style={{ background: "#ffffff", border: "1px solid #deded9", borderRadius: "8px", padding: "30px 26px" }}>
+                    <div style={{ fontSize: "12px", fontWeight: 800, color: "#16866f", letterSpacing: "0.1em", marginBottom: "12px" }}>
+                      PILLAR {col.num}
+                    </div>
+                    <h3 style={{ fontSize: "18px", fontWeight: 800, color: "#171717", margin: "0 0 10px 0" }}>
+                      {col.title}
+                    </h3>
+                    <p style={{ fontSize: "13px", color: "#666660", lineHeight: 1.65, margin: 0 }}>
+                      {col.desc}
+                    </p>
+                  </div>
+                ))}
               </div>
+
+              {/* BOTTOM STRIP: DIRECT CTA BRIDGE BEFORE FOOTER */}
+              <div style={{ background: "#171717", borderRadius: "10px", padding: "40px 48px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "24px" }}>
+                <div>
+                  <h3 style={{ fontSize: "22px", fontWeight: 800, color: "#ffffff", margin: "0 0 6px 0", letterSpacing: "-0.01em" }}>
+                    Ready to streamline your back-office operations?
+                  </h3>
+                  <p style={{ fontSize: "14px", color: "#9ca3af", margin: 0 }}>
+                    Get an itemised scope proposal or schedule a 15-minute operational discovery call.
+                  </p>
+                </div>
+                <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                  <button
+                    onClick={() => {
+                      setContactMode("quote");
+                      setCurrentPage("contact");
+                    }}
+                    className="nav-button"
+                    style={{ padding: "14px 24px", fontSize: "12px" }}
+                  >
+                    Request a Proposal →
+                  </button>
+                  <button
+                    onClick={() => {
+                      setContactMode("call");
+                      setCurrentPage("contact");
+                    }}
+                    style={{
+                      background: "transparent",
+                      color: "#ffffff",
+                      border: "1px solid rgba(255,255,255,0.3)",
+                      padding: "14px 20px",
+                      borderRadius: "4px",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.06em",
+                      fontFamily: "'DM Sans', sans-serif"
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#ffffff"; e.currentTarget.style.background = "rgba(255,255,255,0.06)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)"; e.currentTarget.style.background = "transparent"; }}
+                  >
+                    Book 15-Min Discovery Call
+                  </button>
+                </div>
+              </div>
+
             </div>
           </section>
         </>
