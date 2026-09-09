@@ -2420,11 +2420,15 @@ const annualCostLost = annualHoursLost * hourlyCost;
                     We do not offer generic virtual assistants. Instead of adding another high-cost hire, we provide dedicated <strong>back-office specialists</strong> who integrate directly into your systems to execute daily work with total accountability.
                   </p>
 
-                  <div style={{ display: "flex", gap: "20px", marginTop: "8px", flexWrap: "wrap", fontSize: "12px", color: "#16866f", fontWeight: 700 }}>
+                 <div style={{ display: "flex", gap: "20px", marginTop: "8px", flexWrap: "wrap", fontSize: "12px", color: "#16866f", fontWeight: 700 }}>
                     <span>• UK & Ireland Business Hours (GMT)</span>
                     <span>• Dedicated Named Operations Manager</span>
                     <span>• Strict GDPR & Data Compliance</span>
                   </div>
+                </div>
+              </div>
+
+              {/* THREE OPERATIONAL PILLARS (VALUE DIFFERENTIATORS) */}
 
               {/* THREE OPERATIONAL PILLARS (VALUE DIFFERENTIATORS) */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", marginBottom: "60px" }}>
