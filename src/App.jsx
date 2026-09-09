@@ -2246,40 +2246,139 @@ const annualCostLost = annualHoursLost * hourlyCost;
           </section>
 
           {/* PROCESS */}
-          <section id="process" className="section process">
-            <div className="container process-heading">
-              <div className="eyebrow">How It Works</div>
-              <h2>From conversation to operation.</h2>
-              <p>
-                A straightforward onboarding process designed to get your
-                operational support running quickly and with minimal disruption.
-              </p>
-            </div>
-
+          <section id="process" style={{ padding: "100px 0", background: "#fbfbfa", borderTop: "1px solid #e7e7e2", borderBottom: "1px solid #e7e7e2" }}>
             <div className="container">
-              <div className="process-grid">
-                {process.map((step, index) => (
+              {/* SECTION HEADER */}
+              <div style={{ maxWidth: "720px", marginBottom: "50px" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "11px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#16866f", marginBottom: "12px" }}>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#16866f" }} />
+                  Rapid Onboarding Framework
+                </div>
+                <h2 style={{ fontSize: "clamp(36px, 4.5vw, 56px)", fontWeight: 800, color: "#171717", lineHeight: 1.15, letterSpacing: "-0.025em", margin: "0 0 14px 0" }}>
+                  From conversation to operation.
+                </h2>
+                <p style={{ fontSize: "16px", color: "#666660", lineHeight: 1.6, margin: 0 }}>
+                  A zero-friction 7-day onboarding model designed to embed SYS Ops directly into your recruitment, payroll, and compliance software with zero disruption to daily desk placements.
+                </p>
+              </div>
+
+              {/* CONNECTED 5-STEP LINEAR TIMELINE */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
+                {[
+                  {
+                    step: "01",
+                    timing: "Day 1",
+                    icon: "ri-search-eye-line",
+                    title: "Operational Discovery",
+                    desc: "We analyze your weekly volume, timesheet cutoffs, software stack (Sage, Bullhorn, Xero), and immediate back-office pain points.",
+                    tag: "Volume & Stack Audit",
+                  },
+                  {
+                    step: "02",
+                    timing: "Day 2",
+                    icon: "ri-file-shield-line",
+                    title: "Proposal & Scope SLA",
+                    desc: "You receive a fixed transparent monthly scope, guaranteed 4-hour SLA turnaround metrics, and named pod assignments.",
+                    tag: "Fixed Scope & SLAs",
+                  },
+                  {
+                    step: "03",
+                    timing: "Day 3–4",
+                    icon: "ri-key-2-line",
+                    title: "Access & Runbooks",
+                    desc: "Secure software credentials granted. We draft your bespoke SOP runbooks, exception workflows, and shared communication channels.",
+                    tag: "SOPs & Security Setup",
+                  },
+                  {
+                    step: "04",
+                    timing: "Day 5–6",
+                    icon: "ri-git-merge-line",
+                    title: "Shadow & Calibration",
+                    desc: "We run a live payroll/vetting cycle in parallel alongside your team to cross-verify zero discrepancies and align tone.",
+                    tag: "Zero-Risk Parallel Run",
+                  },
+                  {
+                    step: "05",
+                    timing: "Day 7",
+                    icon: "ri-rocket-2-line",
+                    title: "Full Go-Live",
+                    desc: "SYS Ops takes full proactive ownership of agreed workflows. Your fee-earners reclaim up to 15+ hours weekly per desk.",
+                    tag: "100% Proactive Desk",
+                  },
+                ].map((item, idx) => (
                   <div
-                    className="process-step"
-                    key={step.number}
+                    key={idx}
                     onClick={() => setCurrentPage("contact")}
+                    style={{
+                      background: "#ffffff",
+                      border: "1px solid #deded9",
+                      borderRadius: "8px",
+                      padding: "26px 22px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      minHeight: "320px",
+                      position: "relative",
+                      transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+                      cursor: "pointer",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "translateY(-6px)";
+                      e.currentTarget.style.borderColor = "#16866f";
+                      e.currentTarget.style.boxShadow = "0 16px 36px rgba(0,0,0,0.08)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "translateY(0)";
+                      e.currentTarget.style.borderColor = "#deded9";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
                   >
-                    <div className="process-number">{step.number}</div>
-                    <div className="process-icon">
-                      <i
-                        className={[
-                          "ri-search-line",
-                          "ri-file-text-line",
-                          "ri-settings-3-line",
-                          "ri-links-line",
-                          "ri-rocket-line",
-                        ][index]}
-                      />
+                    <div>
+                      {/* TOP ROW: STEP NUMBER + TIMING BADGE */}
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
+                        <span style={{ fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", color: "#16866f" }}>
+                          {item.step}
+                        </span>
+                        <span style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: "#171717", background: "#f0f0eb", padding: "3px 8px", borderRadius: "4px" }}>
+                          {item.timing}
+                        </span>
+                      </div>
+
+                      {/* ICON WITH ACCENT CONTAINER */}
+                      <div style={{ width: "42px", height: "42px", borderRadius: "8px", background: "rgba(22, 134, 111, 0.08)", border: "1px solid rgba(22, 134, 111, 0.18)", display: "flex", alignItems: "center", justifyContent: "center", color: "#16866f", fontSize: "20px", marginBottom: "18px" }}>
+                        <i className={item.icon} />
+                      </div>
+
+                      {/* TITLE & DESCRIPTION */}
+                      <h3 style={{ fontSize: "17px", fontWeight: 800, color: "#171717", margin: "0 0 10px 0", letterSpacing: "-0.01em" }}>
+                        {item.title}
+                      </h3>
+                      <p style={{ fontSize: "12.5px", color: "#666660", lineHeight: 1.6, margin: 0 }}>
+                        {item.desc}
+                      </p>
                     </div>
-                    <h3>{step.title}</h3>
-                    <p>{step.text}</p>
+
+                    {/* SUBTLE CARD FOOTER WITH MILESTONE TAG */}
+                    <div style={{ marginTop: "24px", paddingTop: "14px", borderTop: "1px solid #f0f0eb", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <span style={{ fontSize: "10px", fontWeight: 600, color: "#888882", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                        {item.tag}
+                      </span>
+                      <span style={{ color: "#16866f", fontSize: "14px", fontWeight: "bold" }}>→</span>
+                    </div>
                   </div>
                 ))}
+              </div>
+
+              {/* TIMELINE REASSURANCE GUARANTEE */}
+              <div style={{ marginTop: "36px", background: "#ffffff", border: "1px solid #e7e7e2", borderRadius: "6px", padding: "16px 24px", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "14px", fontSize: "12.5px", color: "#555550" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ color: "#16866f", fontWeight: "bold", fontSize: "15px" }}>✓</span>
+                  <span><strong>Zero Downtime Guarantee:</strong> Your current admin operations continue uninterrupted during setup.</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ color: "#16866f", fontWeight: "bold", fontSize: "15px" }}>✓</span>
+                  <span><strong>Dedicated Onboarding Lead:</strong> Single point of contact managing software handovers.</span>
+                </div>
               </div>
             </div>
           </section>
