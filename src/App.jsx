@@ -2856,9 +2856,11 @@ const annualCostLost = annualHoursLost * hourlyCost;
                   Request an Operational Audit
                 </span>
                 <div style={{ display: "flex", maxWidth: "320px", background: "#12151c", border: "1px solid #232936", borderRadius: "6px", overflow: "hidden" }}>
-                  <input
+                <input
                     type="email"
                     placeholder="name@company.co.uk"
+                    value={formData.email}
+                    onChange={(e) => updateField("email", e.target.value)}
                     style={{
                       flex: 1,
                       background: "transparent",
@@ -2871,14 +2873,18 @@ const annualCostLost = annualHoursLost * hourlyCost;
                     }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        updateField("email", e.currentTarget.value);
+                        e.preventDefault();
+                        setContactMode("quote");
                         setCurrentPage("contact");
                       }
                     }}
                   />
                   <button
                     type="button"
-                    onClick={() => setCurrentPage("contact")}
+                    onClick={() => {
+                      setContactMode("quote");
+                      setCurrentPage("contact");
+                    }}
                     style={{
                       background: "var(--brand-green)",
                       color: "#ffffff",
