@@ -427,10 +427,11 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
 
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { margin: 0; background: var(--brand-bg); color: var(--brand-dark); font-family: 'DM Sans', sans-serif; }
+        body { margin: 0; background: var(--brand-bg); color: var(--brand-dark); font-family: 'DM Sans', sans-serif; overflow-x: clip; }
+
         a { color: inherit; }
 
-        .sys-site { min-height: 100vh; background: var(--brand-bg); color: var(--brand-dark); overflow-x: hidden; font-family: 'DM Sans', sans-serif; }
+        .sys-site { min-height: 100vh; background: var(--brand-bg); color: var(--brand-dark); font-family: 'DM Sans', sans-serif; }
         .container { width: min(1240px, calc(100% - 64px)); margin: 0 auto; }
         .section { padding: 110px 0; }
 
@@ -462,7 +463,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
 
         /* NAVBAR */
         .navbar {
-          position: sticky; top: 0; z-index: 1000; height: 76px;
+          position: sticky; top: 0; left: 0; width: 100%; z-index: 1000; height: 76px;
           background: rgba(247,247,244,0.95); backdrop-filter: blur(14px);
           border-bottom: 1px solid var(--brand-border);
           transition: height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
