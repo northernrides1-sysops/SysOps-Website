@@ -48,6 +48,7 @@ const RIBBON_ITEMS = [
 export default function SysOpsWebsite() {
   // NAVIGATION: 'home' | 'services' | 'contact'
   const [currentPage, setCurrentPage] = useState("home");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -856,6 +857,148 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
           .footer-inner { flex-direction: column; align-items: flex-start; }
           .footer-copy { text-align: left; }
         }
+        /* =========================================================
+           RESPONSIVE MOBILE & TABLET STYLES 
+           ========================================================= */
+        
+        /* Mobile menu toggle button (hidden on desktop) */
+        .mobile-menu-btn {
+          display: none;
+          background: transparent;
+          border: 1px solid #dcdcd6;
+          border-radius: 6px;
+          cursor: pointer;
+          padding: 6px 10px;
+          color: var(--brand-dark);
+          font-size: 18px;
+          line-height: 1;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+        }
+        .mobile-menu-btn:hover {
+          background: #f4f4f0;
+          border-color: #b0b0a8;
+        }
+
+        /* Mobile drawer navigation overlay (hidden on desktop) */
+        .mobile-nav-drawer {
+          display: none;
+        }
+
+        /* Tablets and smaller (hide desktop nav links, show hamburger) */
+        @media (max-width: 991px) {
+          .nav-links {
+            display: none !important;
+          }
+          .mobile-menu-btn {
+            display: inline-flex !important;
+          }
+          .nav-inner {
+            gap: 10px !important;
+          }
+        }
+
+        /* Phones and small screens */
+        @media (max-width: 768px) {
+          .section {
+            padding: 56px 0 !important;
+          }
+          .container {
+            width: calc(100% - 32px) !important;
+          }
+          .sys-site {
+            padding-top: 64px !important;
+          }
+
+          /* Navbar on Mobile */
+          .navbar {
+            height: 64px !important;
+          }
+          .navbar.scrolled {
+            height: 52px !important;
+          }
+          .brand-name {
+            font-size: 14px !important;
+          }
+          .brand-sub {
+            display: none !important; /* Hide small subtitle on phones to save room */
+          }
+
+          /* Hide contact button in top bar on small phones so it fits comfortably */
+          .navbar .nav-button {
+            display: none !important;
+          }
+
+          /* Responsive Grids stack into a single column */
+          .grid-2, .grid-3, .grid-4, 
+          [style*="gridTemplateColumns"],
+          [style*="grid-template-columns"] {
+            grid-template-columns: 1fr !important;
+            gap: 18px !important;
+          }
+
+          /* Stacking buttons & CTAs */
+          .hero-buttons-wrap,
+          .cta-actions {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            width: 100% !important;
+          }
+
+          .hero-buttons-wrap button,
+          .hero-buttons-wrap a {
+            width: 100% !important;
+            justify-content: center !important;
+            text-align: center !important;
+          }
+
+          /* Fluid Headings */
+          h1 {
+            font-size: 32px !important;
+            line-height: 1.2 !important;
+            letter-spacing: -0.02em !important;
+          }
+          h2 {
+            font-size: 24px !important;
+            line-height: 1.25 !important;
+          }
+          h3 {
+            font-size: 19px !important;
+          }
+
+          /* Full screen mobile drawer */
+          .mobile-nav-drawer {
+            display: flex !important;
+            flex-direction: column;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #ffffff;
+            z-index: 9998;
+            padding: 24px;
+            gap: 14px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+            overflow-y: auto;
+          }
+          .mobile-nav-drawer button {
+            text-align: left;
+            background: transparent;
+            border: none;
+            font-size: 17px;
+            font-weight: 600;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0eb;
+            color: #1c1f26;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+          }
+          .mobile-nav-drawer button.active {
+            color: var(--brand-green);
+          }
+        }
       `}</style>
 
       {/* GLOBAL NAVBAR */}
@@ -1006,8 +1149,106 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
               >
                 Contact Us
               </button>
+          {/* MOBILE HAMBURGER BUTTON */}
+            <button
+              type="button"
+              className="mobile-menu-btn"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? "✕" : "☰"}
+            </button>
         </div>
       </header>
+      {/* MOBILE DRAWER */}
+        {mobileMenuOpen && (
+          <div className="mobile-nav-drawer">
+            <button
+              className={currentPage === "home" ? "active" : ""}
+              onClick={() => {
+                setCurrentPage("home");
+                setMobileMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              Home
+            </button>
+            <button
+              className={currentPage === "services" ? "active" : ""}
+              onClick={() => {
+                setCurrentPage("services");
+                setMobileMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              Services
+            </button>
+            <button
+              onClick={() => {
+                setCurrentPage("home");
+                setMobileMenuOpen(false);
+                setTimeout(() => {
+                  document.getElementById("industries")?.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }}
+            >
+              Industries
+            </button>
+            <button
+              onClick={() => {
+                setCurrentPage("home");
+                setMobileMenuOpen(false);
+                setTimeout(() => {
+                  document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }}
+            >
+              Packages
+            </button>
+            <button
+              onClick={() => {
+                setCurrentPage("home");
+                setMobileMenuOpen(false);
+                setTimeout(() => {
+                  document.getElementById("process")?.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }}
+            >
+              Process
+            </button>
+            <button
+              onClick={() => {
+                setCurrentPage("home");
+                setMobileMenuOpen(false);
+                setTimeout(() => {
+                  document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }}
+            >
+              About
+            </button>
+            <button
+              style={{
+                marginTop: "16px",
+                background: "var(--brand-green)",
+                color: "#ffffff",
+                padding: "14px",
+                borderRadius: "6px",
+                textAlign: "center",
+                fontWeight: 700,
+                border: "none",
+                fontSize: "16px"
+              }}
+              onClick={() => {
+                setCurrentPage("contact");
+                setMobileMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              Contact Us →
+            </button>
+          </div>
+        )}
 
       {/* ======================================================== */}
       {/* 1. HOMEPAGE VIEW                                        */}
