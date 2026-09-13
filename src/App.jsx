@@ -48,6 +48,15 @@ const RIBBON_ITEMS = [
 export default function SysOpsWebsite() {
   // NAVIGATION: 'home' | 'services' | 'contact'
   const [currentPage, setCurrentPage] = useState("home");
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 const [opsPillar, setOpsPillar] = useState("finance");
   // Capacity & ROI Calculator State
   const [calcTeamSize, setCalcTeamSize] = useState(5);
@@ -453,9 +462,18 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
 
         /* NAVBAR */
         .navbar {
-          position: sticky; top: 0; z-index: 100; height: 76px;
-          background: rgba(247,247,244,.94); backdrop-filter: blur(18px); border-bottom: 1px solid var(--brand-border);
-          transition: all 0.3s ease;
+          position: sticky; top: 0; z-index: 1000; height: 76px;
+          background: rgba(247,247,244,0.95); backdrop-filter: blur(14px);
+          border-bottom: 1px solid var(--brand-border);
+          transition: height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                      box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                      background 0.22s ease;
+        }
+        .navbar.scrolled {
+          height: 60px;
+          background: rgba(255,255,255,0.97);
+          box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+          border-bottom-color: #e5e5e0;
         }
         .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
         .brand-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer; }
@@ -832,15 +850,24 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
       `}</style>
 
       {/* GLOBAL NAVBAR */}
-      <header className="navbar">
+      <header className={`navbar ${isScrolled ? "scrolled" : ""}`}>
         <div className="container nav-inner">
-          <div className="brand-wrap" onClick={() => setCurrentPage("home")}>
-            <img src="/SYS_Dark.png" alt="SYS Ops" style={{ height: "36px", width: "auto" }} />
+          <div className="brand-wrap" onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+            <img 
+              src="/SYS_Dark.png" 
+              alt="SYS Ops" 
+              style={{ 
+                height: isScrolled ? "28px" : "34px", 
+                width: "auto", 
+                transition: "height 0.22s cubic-bezier(0.16, 1, 0.3, 1)" 
+              }} 
+            />
             <div>
-              <div className="brand-name">SYS OPS</div>
+              <div className="brand-name" style={{ fontSize: isScrolled ? "15px" : "16px", transition: "font-size 0.22s ease" }}>SYS OPS</div>
               <div className="brand-sub">Remote Operations Specialist</div>
             </div>
           </div>
+
 
          <nav className="nav-links">
             <button
