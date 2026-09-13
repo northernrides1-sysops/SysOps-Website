@@ -906,106 +906,99 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
           </nav>
 
           {/* UNIFIED SINGLE ACTION BUTTON */}
-          {/* COMPACT REGION & CURRENCY DROPDOWN */}
-              <div style={{ position: "relative", marginRight: "14px" }}>
+          {/* MINIMALIST CURRENCY SELECTOR */}
+              <div style={{ position: "relative" }}>
                 <button
                   type="button"
                   onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
+                  title="Change Currency"
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "6px",
-                    background: "#ffffff",
-                    border: "1px solid #d4d4cd",
+                    justifyContent: "center",
+                    gap: "4px",
+                    height: isScrolled ? "30px" : "34px",
+                    padding: "0 10px",
+                    background: currencyDropdownOpen ? "#f0f0eb" : "transparent",
+                    border: "1px solid #e2e2dc",
                     borderRadius: "6px",
-                    padding: "6px 11px",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    color: "#171717",
+                    fontSize: "13px",
+                    fontWeight: 700,
+                    color: "#1c1f26",
                     cursor: "pointer",
-                    transition: "all 0.15s ease"
+                    transition: "all 0.2s ease"
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#16866f"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#d4d4cd"; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "#f4f4f0"; e.currentTarget.style.borderColor = "#cfcfc8"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = currencyDropdownOpen ? "#f0f0eb" : "transparent"; e.currentTarget.style.borderColor = "#e2e2dc"; }}
                 >
-                  <span style={{ fontSize: "14px" }}>
-                    {selectedCountry === 'UK' ? '🇬🇧' : selectedCountry === 'IE' ? '🇮🇪' : '🇺🇸'}
+                  <span style={{ fontSize: "14px", fontWeight: 800, color: "var(--brand-green)" }}>
+                    {countrySymbols[selectedCountry]?.symbol || "£"}
                   </span>
-                  <span>
-                    {selectedCountry === 'UK' ? 'GBP (£)' : selectedCountry === 'IE' ? 'EUR (€)' : 'USD ($)'}
+                  <span style={{ fontSize: "11px", fontWeight: 600, color: "#666" }}>
+                    {countrySymbols[selectedCountry]?.code || "GBP"}
                   </span>
-                  <span style={{ fontSize: "10px", color: "#888", marginLeft: "2px" }}>▼</span>
+                  <span style={{ fontSize: "9px", color: "#888", marginLeft: "1px" }}>▾</span>
                 </button>
 
-                {/* DROPDOWN MENU */}
                 {currencyDropdownOpen && (
                   <div
                     style={{
                       position: "absolute",
-                      top: "calc(100% + 6px)",
+                      top: "calc(100% + 8px)",
                       right: 0,
                       background: "#ffffff",
-                      border: "1px solid #e2e2dc",
+                      border: "1px solid #e6e6e1",
                       borderRadius: "8px",
-                      boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
-                      padding: "6px",
-                      width: "180px",
-                      zIndex: 100,
+                      boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+                      padding: "4px",
+                      minWidth: "140px",
+                      zIndex: 10000,
                       display: "flex",
                       flexDirection: "column",
                       gap: "2px"
                     }}
                   >
-                    {[
-                      { id: 'UK', flag: '🇬🇧', name: 'United Kingdom', curr: 'GBP (£)' },
-                      { id: 'IE', flag: '🇮🇪', name: 'Ireland', curr: 'EUR (€)' },
-                      { id: 'US', flag: '🇺🇸', name: 'International', curr: 'USD ($)' },
-                    ].map((item) => {
-                      const isSelected = selectedCountry === item.id;
-                      return (
-                        <button
-                          key={item.id}
-                          type="button"
-                          onClick={() => {
-                            setSelectedCountry(item.id);
-                            setCurrencyDropdownOpen(false);
-                          }}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            padding: "8px 10px",
-                            border: "none",
-                            borderRadius: "5px",
-                            background: isSelected ? "#f0f7f5" : "transparent",
-                            color: isSelected ? "#16866f" : "#222222",
-                            fontSize: "12px",
-                            fontWeight: isSelected ? 700 : 500,
-                            cursor: "pointer",
-                            textAlign: "left",
-                            transition: "background 0.1s"
-                          }}
-                          onMouseEnter={(e) => {
-                            if (!isSelected) e.currentTarget.style.background = "#f5f5f2";
-                          }}
-                          onMouseLeave={(e) => {
-                            if (!isSelected) e.currentTarget.style.background = "transparent";
-                          }}
-                        >
-                          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                            <span style={{ fontSize: "14px" }}>{item.flag}</span>
-                            <span>{item.name}</span>
-                          </div>
-                          <span style={{ fontSize: "10.5px", color: isSelected ? "#16866f" : "#888" }}>
-                            {item.curr.split(' ')[0]}
-                          </span>
-                        </button>
-                      );
-                    })}
+                    {Object.entries(countrySymbols).map(([code, info]) => (
+                      <button
+                        key={code}
+                        type="button"
+                        onClick={() => {
+                          setSelectedCountry(code);
+                          setCurrencyDropdownOpen(false);
+                        }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          padding: "8px 12px",
+                          background: selectedCountry === code ? "rgba(22, 134, 111, 0.08)" : "transparent",
+                          color: selectedCountry === code ? "var(--brand-green)" : "#1c1f26",
+                          border: "none",
+                          borderRadius: "5px",
+                          fontSize: "12px",
+                          fontWeight: selectedCountry === code ? 700 : 500,
+                          cursor: "pointer",
+                          textAlign: "left",
+                          transition: "background 0.15s"
+                        }}
+                        onMouseEnter={(e) => {
+                          if (selectedCountry !== code) e.currentTarget.style.background = "#f7f7f4";
+                        }}
+                        onMouseLeave={(e) => {
+                          if (selectedCountry !== code) e.currentTarget.style.background = "transparent";
+                        }}
+                      >
+                        <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                          <strong style={{ fontSize: "13px", minWidth: "14px" }}>{info.symbol}</strong>
+                          <span>{info.code}</span>
+                        </span>
+                        {selectedCountry === code && <span style={{ fontSize: "10px" }}>✓</span>}
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>
-
+          
               {/* ONLY ONE SINGLE CONTACT US BUTTON */}
               <button
                 onClick={() => setCurrentPage("contact")}
