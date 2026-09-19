@@ -903,6 +903,73 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
            HIGH-END COMPACT MOBILE EXPERIENCE (DESKTOP UNTOUCHED)
            ========================================================= */
         @media (max-width: 768px) {
+        /* STOP HORIZONTAL VIEWPORT EXPANSION & WHITE GAPS */
+          html, body {
+            overflow-x: hidden !important;
+            max-width: 100vw !important;
+            position: relative;
+          }
+
+          .sys-site {
+            overflow-x: hidden !important;
+            max-width: 100% !important;
+          }
+
+          /* Comparison Table & Wide Blocks must scroll internally instead of stretching the phone page */
+          table, 
+          .table-wrap, 
+          .comparison-table,
+          [style*="minWidth"],
+          [style*="min-width"] {
+            display: block !important;
+            max-width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+          }
+/* PACKAGE & FEATURE CARDS: SWIPE HORIZONTALLY (ELIMINATES ENDLESS VERTICAL SCROLL) */
+          .package-grid, 
+          .packages-wrapper,
+          .service-grid, 
+          .industry-grid, 
+          .process-grid,
+          .why-grid {
+            display: flex !important;
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            -webkit-overflow-scrolling: touch !important;
+            gap: 12px !important;
+            padding: 8px 4px 16px 4px !important;
+            scrollbar-width: none !important;
+          }
+
+          .package-grid::-webkit-scrollbar,
+          .service-grid::-webkit-scrollbar,
+          .industry-grid::-webkit-scrollbar,
+          .process-grid::-webkit-scrollbar,
+          .why-grid::-webkit-scrollbar {
+            display: none !important;
+          }
+
+          /* Individual card width inside swipe row */
+          .package-grid > *,
+          .service-grid > *,
+          .industry-grid > *,
+          .process-grid > *,
+          .why-grid > * {
+            flex: 0 0 84% !important;
+            min-width: 84% !important;
+            max-width: 84% !important;
+            scroll-snap-align: start !important;
+          }
+
+          /* Tighter padding on card contents so they aren't tall blocks */
+          .package-grid ul,
+          .package-grid li {
+            font-size: 13px !important;
+            line-height: 1.35 !important;
+            padding: 3px 0 !important;
+          }
           /* 1. COMPACT PAGE SPACING */
           .section {
             padding: 44px 0 !important;
