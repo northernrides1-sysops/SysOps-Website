@@ -899,103 +899,154 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
           }
         }
 
-        /* Phones and small screens */
+       /* =========================================================
+           HIGH-END COMPACT MOBILE EXPERIENCE (DESKTOP UNTOUCHED)
+           ========================================================= */
         @media (max-width: 768px) {
+          /* 1. COMPACT PAGE SPACING */
           .section {
-            padding: 56px 0 !important;
-          }
-          .container {
-            width: calc(100% - 32px) !important;
+            padding: 44px 0 !important;
           }
           .sys-site {
-            padding-top: 64px !important;
+            padding-top: 60px !important;
+          }
+          .container {
+            width: calc(100% - 28px) !important;
+            padding: 0 !important;
           }
 
-          /* Navbar on Mobile */
-          .navbar {
-            height: 64px !important;
+          /* 2. PROPORTIONAL MOBILE TYPOGRAPHY */
+          h1 {
+            font-size: 28px !important;
+            line-height: 1.2 !important;
+            letter-spacing: -0.02em !important;
+            margin-bottom: 12px !important;
           }
-          .navbar.scrolled {
-            height: 52px !important;
+          h2 {
+            font-size: 22px !important;
+            line-height: 1.25 !important;
+            margin-bottom: 10px !important;
           }
-          .brand-name {
+          h3 {
+            font-size: 17px !important;
+            margin-bottom: 6px !important;
+          }
+          p, .subhead {
             font-size: 14px !important;
-          }
-          .brand-sub {
-            display: none !important; /* Hide small subtitle on phones to save room */
+            line-height: 1.5 !important;
           }
 
-          /* Hide contact button in top bar on small phones so it fits comfortably */
-          .navbar .nav-button {
-            display: none !important;
+          /* 3. HERO COMPACTING */
+          .hero-content {
+            padding: 40px 16px !important;
           }
-
-          /* Responsive Grids stack into a single column */
-          .grid-2, .grid-3, .grid-4, 
-          [style*="gridTemplateColumns"],
-          [style*="grid-template-columns"] {
-            grid-template-columns: 1fr !important;
-            gap: 18px !important;
-          }
-
-          /* Stacking buttons & CTAs */
-          .hero-buttons-wrap,
-          .cta-actions {
+          .hero-buttons-wrap {
             flex-direction: column !important;
-            align-items: stretch !important;
-            width: 100% !important;
+            gap: 10px !important;
           }
-
           .hero-buttons-wrap button,
           .hero-buttons-wrap a {
             width: 100% !important;
+            padding: 12px 18px !important;
+            font-size: 13px !important;
             justify-content: center !important;
-            text-align: center !important;
           }
 
-          /* Fluid Headings */
-          h1 {
-            font-size: 32px !important;
-            line-height: 1.2 !important;
-            letter-spacing: -0.02em !important;
+          /* 4. TURN ENDLESS VERTICAL CARDS INTO HORIZONTAL SWIPE ROWS */
+          .service-grid, 
+          .industry-grid, 
+          .process-grid,
+          .package-grid,
+          .why-grid {
+            display: flex !important;
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            -webkit-overflow-scrolling: touch !important;
+            gap: 14px !important;
+            padding-bottom: 14px !important;
+            padding-left: 2px !important;
+            padding-right: 2px !important;
+            margin-right: -14px !important;
+            scrollbar-width: none !important;
           }
-          h2 {
-            font-size: 24px !important;
-            line-height: 1.25 !important;
-          }
-          h3 {
-            font-size: 19px !important;
+          .service-grid::-webkit-scrollbar,
+          .industry-grid::-webkit-scrollbar,
+          .process-grid::-webkit-scrollbar,
+          .package-grid::-webkit-scrollbar,
+          .why-grid::-webkit-scrollbar {
+            display: none !important;
           }
 
-          /* Full screen mobile drawer */
+          /* Card sizing inside swipe rows */
+          .service-grid > *,
+          .industry-grid > *,
+          .process-grid > *,
+          .why-grid > * {
+            flex: 0 0 82% !important;
+            scroll-snap-align: start !important;
+            padding: 20px 18px !important;
+          }
+
+          .package-grid > * {
+            flex: 0 0 88% !important;
+            scroll-snap-align: center !important;
+            padding: 22px 18px !important;
+          }
+
+          /* 5. AUDIT / ROI CALCULATOR COMPACTING */
+          .unified-card {
+            padding: 20px 16px !important;
+          }
+          .intro-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+
+          /* 6. CLEAN TOP BAR & DRAWER */
+          .nav-currency-wrap,
+          .navbar .nav-button,
+          .brand-sub {
+            display: none !important;
+          }
+          .navbar {
+            height: 58px !important;
+          }
+          .brand-name {
+            font-size: 15px !important;
+          }
+
+          /* Mobile drawer */
           .mobile-nav-drawer {
             display: flex !important;
             flex-direction: column;
             position: fixed;
-            top: 64px;
+            top: 58px;
             left: 0;
             right: 0;
             bottom: 0;
             background: #ffffff;
-            z-index: 9998;
-            padding: 24px;
-            gap: 14px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+            z-index: 99999;
+            padding: 24px 20px;
+            gap: 8px;
             overflow-y: auto;
+            border-top: 1px solid #eee;
           }
-          .mobile-nav-drawer button {
+          .mobile-nav-drawer .drawer-link {
             text-align: left;
             background: transparent;
             border: none;
             font-size: 17px;
             font-weight: 600;
             padding: 12px 0;
-            border-bottom: 1px solid #f0f0eb;
+            border-bottom: 1px solid #f4f4f0;
             color: #1c1f26;
             cursor: pointer;
-            font-family: 'DM Sans', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
           }
-          .mobile-nav-drawer button.active {
+          .mobile-nav-drawer .drawer-link.active {
             color: var(--brand-green);
           }
         }
