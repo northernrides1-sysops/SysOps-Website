@@ -1155,9 +1155,18 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
             <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("industries")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
               Industries
             </button>
-            <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("packages")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
-              Packages
-            </button>
+         <button onClick={() => {
+  if (currentPage !== "home") setCurrentPage("home");
+  setTimeout(() => {
+    const el = document.getElementById("packages");
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }, 100);
+}}>
+  Packages
+</button>
             <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("process")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
               Process
             </button>
@@ -2322,7 +2331,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
           {/* PRICING & RETAINER TIERS (DYNAMIC CURRENCY & ANIMATED)   */}
           {/* ======================================================== */}
           <section id="pricing" style={{ padding: "100px 0", background: "#ffffff", borderBottom: "1px solid #e7e7e2" }}>
-            <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+            <div id="packages" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
               
               {/* HEADER */}
               <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 56px auto" }}>
