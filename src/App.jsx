@@ -316,36 +316,66 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
     },
   ];
 
-  const industries = [
+ const industries = [
     {
       icon: "ri-team-line",
       title: "Staffing & Recruitment",
       text: "Payroll, compliance, onboarding and operational support for temporary, contract and permanent staffing businesses.",
+      highlights: [
+        "Digital RTW & Share Code Verification",
+        "Bullhorn & Vincere ATS Integration",
+        "Friday Margin & Timesheet Reconciliation"
+      ]
     },
     {
       icon: "ri-heart-pulse-line",
       title: "Social Care",
       text: "Operational support for home care, residential and supported-living providers with complex workforce requirements.",
+      highlights: [
+        "CQC & Care Inspectorate File Hygiene",
+        "Enhanced DBS & Training Matrix Tracking",
+        "Complex Sleep-In & Weekend Pay Rules"
+      ]
     },
     {
       icon: "ri-building-2-line",
       title: "Construction & Labour",
       text: "Worker administration, variable payroll, subcontractor invoicing and site compliance for labour-led businesses.",
+      highlights: [
+        "CSCS, CPCS & Sentinel Card Active Checks",
+        "HMRC CIS Tax Withholding & Reverse VAT",
+        "Site Register vs. Timesheet Variance Audits"
+      ]
     },
     {
       icon: "ri-flashlight-line",
-      title: "Utilities & Field Services",
-      text: "Certification tracking, workforce payroll and multi-site operational coordination for field engineering teams.",
+      title: "Utilities, Metering & Field Services",
+      text: "Certification tracking, engineer pay, and multi-site operational coordination for smart metering and field teams.",
+      highlights: [
+        "MOCOPA, EUSR & Gas Safe Tracking",
+        "Smart Meter Install & Abort-Fee Audits",
+        "Van Stock & Emergency Callout Logs"
+      ]
     },
     {
       icon: "ri-truck-line",
       title: "Transport & Logistics",
       text: "Driver compliance, licence renewals, shift payroll and administration for fleet and logistics operators.",
+      highlights: [
+        "HGV Class 1/2 CPC & Tacho Card Renewals",
+        "Working Time Directive (WTD) Monitoring",
+        "Driver Night-Out & Mileage Reconciliation"
+      ]
     },
     {
       icon: "ri-community-line",
       title: "Facilities Management",
       text: "Back-office support for cleaning, security and maintenance companies managing distributed workforces.",
+      highlights: [
+        "SIA Licence & BS7858 Vetting Support",
+        "Multi-Site Cleaner Mobile Check-Ins",
+        "TUPE Records & Holiday Pay Accruals"
+      ]
     },
   ];
 
@@ -2334,9 +2364,35 @@ const annualCostLost = annualHoursLost * hourlyCost;
                     <div className="industry-icon">
                       <i className={industry.icon} />
                     </div>
-                    <h3>{industry.title}</h3>
-                    <p>{industry.text}</p>
-                  </div>
+                  <h3>{industry.title}</h3>
+      <p>{industry.text}</p>
+      {industry.highlights && (
+        <ul style={{ 
+          marginTop: "16px", 
+          paddingTop: "14px", 
+          borderTop: "1px solid rgba(255, 255, 255, 0.08)", 
+          listStyle: "none", 
+          paddingLeft: 0, 
+          display: "flex", 
+          flexDirection: "column", 
+          gap: "8px" 
+        }}>
+          {industry.highlights.map((item, idx) => (
+            <li key={idx} style={{ 
+              fontSize: "12px", 
+              color: "rgba(255, 255, 255, 0.65)", 
+              display: "flex", 
+              alignItems: "center", 
+              gap: "8px", 
+              lineHeight: 1.4 
+            }}>
+              <span style={{ color: "#10b981", fontSize: "12px" }}>✓</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
                 ))}
               </div>
             </div>
