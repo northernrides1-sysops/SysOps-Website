@@ -58,6 +58,46 @@ export default function SysOpsWebsite() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  // Universal Hash Routing & Smooth Scroll Handler
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash) {
+        if (currentPage !== "home") {
+          setCurrentPage("home");
+        }
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) {
+            const headerOffset = 80;
+            const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: targetY, behavior: "smooth" });
+          }
+        }, 150);
+      }
+    };
+
+    handleHashScroll();
+    window.addEventListener("hashchange", handleHashScroll);
+    return () => window.removeEventListener("hashchange", handleHashScroll);
+  }, [currentPage]);
+
+  const scrollToSection = (id) => {
+    if (currentPage !== "home") {
+      setCurrentPage("home");
+    }
+    window.history.pushState(null, "", `#${id}`);
+    setMobileMenuOpen(false);
+
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        const headerOffset = 80;
+        const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: targetY, behavior: "smooth" });
+      }
+    }, 150);
+  };
 const [opsPillar, setOpsPillar] = useState("finance");
   // Capacity & ROI Calculator State
   const [calcTeamSize, setCalcTeamSize] = useState(5);
@@ -1152,25 +1192,16 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
             >
               Services
             </button>
-            <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("industries")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
+            <button className="nav-link" onClick={() => scrollToSection("industries")}>
               Industries
             </button>
-         <button onClick={() => {
-  if (currentPage !== "home") setCurrentPage("home");
-  setTimeout(() => {
-    const el = document.getElementById("packages");
-    if (el) {
-      const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  }, 100);
-}}>
-  Packages
-</button>
-            <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("process")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
+            <button className="nav-link" onClick={() => scrollToSection("packages")}>
+              Packages
+            </button>
+            <button className="nav-link" onClick={() => scrollToSection("process")}>
               Process
             </button>
-            <button onClick={() => { setCurrentPage("home"); setTimeout(() => { document.getElementById("about")?.scrollIntoView({ behavior: 'smooth' }); }, 100); }}>
+            <button className="nav-link" onClick={() => scrollToSection("about")}>
               About
             </button>
           </nav>
@@ -1310,49 +1341,33 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
             >
               Services
             </button>
-            <button
-              onClick={() => {
-                setCurrentPage("home");
-                setMobileMenuOpen(false);
-                setTimeout(() => {
-                  document.getElementById("industries")?.scrollIntoView({ behavior: "smooth" });
-                }, 100);
-              }}
+           <button
+              className="drawer-link"
+              onClick={() => scrollToSection("industries")}
             >
-              Industries
+              <span>Industries</span>
+              <span>›</span>
             </button>
             <button
-              onClick={() => {
-                setCurrentPage("home");
-                setMobileMenuOpen(false);
-                setTimeout(() => {
-                  document.getElementById("packages")?.scrollIntoView({ behavior: "smooth" });
-                }, 100);
-              }}
+              className="drawer-link"
+              onClick={() => scrollToSection("packages")}
             >
-              Packages
+              <span>Packages</span>
+              <span>›</span>
             </button>
             <button
-              onClick={() => {
-                setCurrentPage("home");
-                setMobileMenuOpen(false);
-                setTimeout(() => {
-                  document.getElementById("process")?.scrollIntoView({ behavior: "smooth" });
-                }, 100);
-              }}
+              className="drawer-link"
+              onClick={() => scrollToSection("process")}
             >
-              Process
+              <span>Process</span>
+              <span>›</span>
             </button>
             <button
-              onClick={() => {
-                setCurrentPage("home");
-                setMobileMenuOpen(false);
-                setTimeout(() => {
-                  document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-                }, 100);
-              }}
+              className="drawer-link"
+              onClick={() => scrollToSection("about")}
             >
-              About
+              <span>About</span>
+              <span>›</span>
             </button>
             <button
               style={{
