@@ -48,6 +48,7 @@ const RIBBON_ITEMS = [
 export default function SysOpsWebsite() {
   // NAVIGATION: 'home' | 'services' | 'contact'
   const [currentPage, setCurrentPage] = useState("home");
+  const [selectedIndustry, setSelectedIndustry] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -316,67 +317,157 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
     },
   ];
 
- const industries = [
+const industries = [
     {
+      id: "staffing",
       icon: "ri-team-line",
       title: "Staffing & Recruitment",
-      text: "Payroll, compliance, onboarding and operational support for temporary, contract and permanent staffing businesses.",
+      tagline: "Candidate onboarding, ATS hygiene, and high-velocity recurring payroll runs.",
+      scaleBadge: "Temp, Contract & Permanent Desks",
+      description: "Built for recruitment agencies running fast-paced candidate placements across modern CRM/ATS platforms with zero tolerance for payroll delays.",
       highlights: [
-        "Digital RTW & Share Code Verification",
-        "Bullhorn & Vincere ATS Integration",
-        "Friday Margin & Timesheet Reconciliation"
+        "Digital Right to Work & statutory identity verification",
+        "CRM & ATS candidate placement, rate card & timesheet synchronization",
+        "Periodic net margin reconciliation & direct bank payment exports"
+      ],
+      ctaText: "Explore Operational Workflow →",
+      guardrails: [
+        "Statutory Right to Work & Identity Validation",
+        "Contingent Worker Employment Directives",
+        "Cross-Border Contract & Margin Transparency"
+      ],
+      operationalPhases: [
+        { phase: "Phase 01", title: "Candidate & Identity Clearance", focus: "Validation of identity documents, background vetting, and placement parameters directly inside your CRM.", deliverable: "100% Cleared Placement File" },
+        { phase: "Phase 02", title: "Timesheet & Margin Audit", focus: "Aggregating candidate hours across client portals, auditing standard vs. overtime rates and client charge multiples.", deliverable: "Verified Gross Margin Ledger" },
+        { phase: "Phase 03", title: "Pre-Payroll Sign-Off", focus: "Structured digital approval packs sent to agency directors with complete transparent margin visibility.", deliverable: "Locked Payroll Batch" },
+        { phase: "Phase 04", title: "Bureau & Ledger Export", focus: "Direct bank transfer payment files and synchronized sales invoices mapped directly into your accounting software.", deliverable: "On-Time Candidate Pay & Dispatched Invoices" }
       ]
     },
     {
-      icon: "ri-heart-pulse-line",
-      title: "Social Care",
-      text: "Operational support for home care, residential and supported-living providers with complex workforce requirements.",
-      highlights: [
-        "CQC & Care Inspectorate File Hygiene",
-        "Enhanced DBS & Training Matrix Tracking",
-        "Complex Sleep-In & Weekend Pay Rules"
-      ]
-    },
-    {
+      id: "construction",
       icon: "ri-building-2-line",
       title: "Construction & Labour",
-      text: "Worker administration, variable payroll, subcontractor invoicing and site compliance for labour-led businesses.",
+      tagline: "Site registers, contractor tax withholdings, and subcontractor reverse charge billing.",
+      scaleBadge: "Site Contractors & Trade Operatives",
+      description: "Tailored for labour supply and construction contractors managing distributed job sites, gate logs, trade competencies, and statutory tax withholding.",
       highlights: [
-        "CSCS, CPCS & Sentinel Card Active Checks",
-        "HMRC CIS Tax Withholding & Reverse VAT",
-        "Site Register vs. Timesheet Variance Audits"
+        "Site safety passports & trade competency card active verification",
+        "Subcontractor tax withholding verification & domestic reverse charge accounting",
+        "Daily biometric / site gate register vs. timesheet variance audits"
+      ],
+      ctaText: "Explore Operational Workflow →",
+      guardrails: [
+        "Statutory Subcontractor Tax Withholding Schemes",
+        "Domestic Reverse Charge & Value Added Tax Standards",
+        "Occupational Health, Safety & Site Pass Mandates"
+      ],
+      operationalPhases: [
+        { phase: "Phase 01", title: "Site & Ticket Verification", focus: "Automated checks of site passes, trade accreditations, and subcontractor tax statuses before site admission.", deliverable: "Active Site Safety & Tax Roster" },
+        { phase: "Phase 02", title: "Attendance vs. Timesheet Audit", focus: "Cross-matching daily gate sign-ins against supervisor timesheets to eliminate unverified or phantom hours.", deliverable: "Reconciled Site Hours Report" },
+        { phase: "Phase 03", title: "Contractor Tax & Deduction Processing", focus: "Calculating net statutory withholdings, applying reverse charge rules, and drafting payment certificates.", deliverable: "Contractor Deduction Statements" },
+        { phase: "Phase 04", title: "Statutory Filing & Ledger Sync", focus: "Compiling statutory tax return files and posting verified project subcontractor costs to your general ledger.", deliverable: "Audit-Proof Tax Filing & Cost Pack" }
       ]
     },
     {
+      id: "social-care",
+      icon: "ri-heart-pulse-line",
+      title: "Social Care",
+      tagline: "Regulatory file compliance, background vetting, and complex shift rate rules.",
+      scaleBadge: "Residential, Supported Living & Home Care",
+      description: "Designed for home care, residential homes, and supported living providers where staff compliance and complex shift pay must be 100% audit-proof.",
+      highlights: [
+        "Regulatory personnel compliance file hygiene & training record matrices",
+        "Criminal background check disclosures & qualification expiry tracking",
+        "Sleep-in allowances, waking night rates & travel time parity calculations"
+      ],
+      ctaText: "Explore Operational Workflow →",
+      guardrails: [
+        "Care Quality & Statutory Personnel Fit-and-Proper Standards",
+        "Statutory Minimum Wage Regulations (Sleep-In & Travel Time)",
+        "Background Disclosure & Vulnerable Group Safeguarding"
+      ],
+      operationalPhases: [
+        { phase: "Phase 01", title: "Pre-Deployment Vetting Gate", focus: "Continuous tracking of background disclosures, safeguarding clearance, and mandatory care training renewals.", deliverable: "Regulatory Audit-Ready Personnel File" },
+        { phase: "Phase 02", title: "Rota & Electronic Visit Verification", focus: "Cross-referencing scheduling software and electronic visit logs against timesheets to verify delivered care hours.", deliverable: "Verified Visit & Shift Audit" },
+        { phase: "Phase 03", title: "Complex Shift & Minimum Wage Parity", focus: "Calculating blended rates for sleep-in shifts, waking nights, and inter-client travel to guarantee wage parity.", deliverable: "Compliant Care Payroll Matrix" },
+        { phase: "Phase 04", title: "Authority & Funder Invoicing", focus: "Formatting invoices to match exact regional authority, healthcare trusts, or private funder schedule templates.", deliverable: "Dispatched Invoices with Care Proof" }
+      ]
+    },
+    {
+      id: "utilities",
       icon: "ri-flashlight-line",
-      title: "Utilities, Metering & Field Services",
-      text: "Certification tracking, engineer pay, and multi-site operational coordination for smart metering and field teams.",
+      title: "Utilities & Field Services",
+      tagline: "Field technician accreditations, install completions, and abort recovery.",
+      scaleBadge: "Electric Metering & Engineering Teams",
+      description: "Tailored for metering contractors, field engineering firms, and utility service providers managing piece-rate installs, technician accreditations, and abort billing.",
       highlights: [
-        "MOCOPA, EUSR & Gas Safe Tracking",
-        "Smart Meter Install & Abort-Fee Audits",
-        "Van Stock & Emergency Callout Logs"
+        "Smart meter, electrical & technical qualification matrix tracking",
+        "Job install completion vs. abort-fee chargeback audits",
+        "Van stock inventory, tool allowances & standby callout reconciliation"
+      ],
+      ctaText: "Explore Operational Workflow →",
+      guardrails: [
+        "Technical Metering & Network Operator Authorisations",
+        "National Safety & Environmental Passports",
+        "Statutory Technical Installation & Safety Codes"
+      ],
+      operationalPhases: [
+        { phase: "Phase 01", title: "Accreditation & Competency Tracking", focus: "Auditing technician authorizations and equipment safety calibration dates to prevent uncertified field dispatch.", deliverable: "Validated Field Tech Roster" },
+        { phase: "Phase 02", title: "Job Completion & Abort Recovery", focus: "Reconciling technician handheld job closes against supplier settlement portals to capture all legitimate abort fees.", deliverable: "Recovered Abort-Fee & Job Register" },
+        { phase: "Phase 03", title: "Piece-Rate & Bonus Audit", focus: "Auditing install quotas, tiered performance rates, and deducting unreturned van stock or asset charges.", deliverable: "Verified Technician Performance Pay" },
+        { phase: "Phase 04", title: "Supplier Self-Bill Reconciliation", focus: "Matching energy and utility supplier bulk payment remittances against internal job IDs to recover lost revenue.", deliverable: "Zero-Variance Supplier Account Ledger" }
       ]
     },
     {
+      id: "transport",
       icon: "ri-truck-line",
       title: "Transport & Logistics",
-      text: "Driver compliance, licence renewals, shift payroll and administration for fleet and logistics operators.",
+      tagline: "Commercial driver compliance, tachograph audits, and fleet shift payroll.",
+      scaleBadge: "Commercial Drivers & Fleet Operators",
+      description: "Built for haulage, freight, and driver staffing operations needing tight tachograph reconciliation, working time compliance, and zero driver payroll disputes.",
       highlights: [
-        "HGV Class 1/2 CPC & Tacho Card Renewals",
-        "Working Time Directive (WTD) Monitoring",
-        "Driver Night-Out & Mileage Reconciliation"
+        "Commercial driving licence endorsements & qualification card renewals",
+        "Working Time Directive (WTD) rolling hours & mandatory rest monitoring",
+        "Night-out allowances, toll reconciliations & weekend shift rate audits"
+      ],
+      ctaText: "Explore Operational Workflow →",
+      guardrails: [
+        "Regional & International Driving Hours & Rest Rules",
+        "Commercial Road Transport Working Time Directives",
+        "Driver Competency & Electronic Licence Verification"
+      ],
+      operationalPhases: [
+        { phase: "Phase 01", title: "Licence & Competency Verification", focus: "Digital checks for driving licence endorsements, medical validity, and active commercial qualification cards.", deliverable: "Active Driver Compliance Matrix" },
+        { phase: "Phase 02", title: "Tachograph vs. Hours Audit", focus: "Cross-matching digital tachograph downloads with dispatch manifest sheets to verify driving hours and rest compliance.", deliverable: "Statutory Driving & Rest Hours Log" },
+        { phase: "Phase 03", title: "Expenses & Subsistence Reconciliation", focus: "Verifying signed Proof of Delivery (POD) sheets, night-out claims, and toll expenses prior to payroll sign-off.", deliverable: "Audited Driver Expense Summary" },
+        { phase: "Phase 04", title: "Direct & Agency Payroll Batch", focus: "Generating compliant payroll runs with automatic statutory tax and social insurance filings.", deliverable: "On-Time Driver Bank Pay & Remittance" }
       ]
     },
     {
+      id: "facilities",
       icon: "ri-community-line",
       title: "Facilities Management",
-      text: "Back-office support for cleaning, security and maintenance companies managing distributed workforces.",
+      tagline: "Multi-site cleaner check-ins, employee transfer records, and site billing.",
+      scaleBadge: "Distributed Multi-Site Workforces",
+      description: "Crafted for cleaning contractors, commercial maintenance, and security providers operating across multiple client facilities with complex shift allocations.",
       highlights: [
-        "SIA Licence & BS7858 Vetting Support",
-        "Multi-Site Cleaner Mobile Check-Ins",
-        "TUPE Records & Holiday Pay Accruals"
+        "Personnel security vetting & background screening validation",
+        "Multi-site mobile check-in verification & lone worker logs",
+        "Statutory employee transfer records & holiday pay accrual audits"
+      ],
+      ctaText: "Explore Operational Workflow →",
+      guardrails: [
+        "Statutory Employee Transfer Protections",
+        "Industry Security & Facility Personnel Screening Standards",
+        "Workplace Health & Lone Worker Safety Directives"
+      ],
+      operationalPhases: [
+        { phase: "Phase 01", title: "Vetting & Personnel Onboarding", focus: "Processing security screening files, background verifications, and right-to-work documentation.", deliverable: "Audited Worker Security File" },
+        { phase: "Phase 02", title: "Multi-Location Attendance Check", focus: "Consolidating geofenced mobile check-ins and time-and-attendance logs across multiple commercial sites.", deliverable: "Building Attendance & Coverage Report" },
+        { phase: "Phase 03", title: "Contract Costing & Transfer Rules", focus: "Allocating labor costs directly to individual client contracts while maintaining protected employee transfer terms.", deliverable: "Contract Margin & Profitability Pack" },
+        { phase: "Phase 04", title: "Client SLA Pack & Ledger Invoicing", focus: "Issuing client invoices accompanied by transparent site attendance verification sheets.", deliverable: "Validated Client Billing Pack" }
       ]
-    },
+    }
   ];
 
   const advantages = [
@@ -2358,44 +2449,214 @@ const annualCostLost = annualHoursLost * hourlyCost;
                 </p>
               </div>
 
-              <div className="industry-grid">
-                {industries.map((industry) => (
-                  <div className="industry" key={industry.title}>
-                    <div className="industry-icon">
-                      <i className={industry.icon} />
-                    </div>
-                  <h3>{industry.title}</h3>
-      <p>{industry.text}</p>
-      {industry.highlights && (
-        <ul style={{ 
-          marginTop: "16px", 
-          paddingTop: "14px", 
-          borderTop: "1px solid rgba(255, 255, 255, 0.08)", 
-          listStyle: "none", 
-          paddingLeft: 0, 
-          display: "flex", 
-          flexDirection: "column", 
-          gap: "8px" 
-        }}>
-          {industry.highlights.map((item, idx) => (
-            <li key={idx} style={{ 
-              fontSize: "12px", 
-              color: "rgba(255, 255, 255, 0.65)", 
-              display: "flex", 
-              alignItems: "center", 
-              gap: "8px", 
-              lineHeight: 1.4 
-            }}>
-              <span style={{ color: "#10b981", fontSize: "12px" }}>✓</span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
+            <div className="industry-grid">
+  {industries.map((industry) => (
+    <div 
+      className="industry" 
+      key={industry.title}
+      onClick={() => setSelectedIndustry(industry)}
+      style={{
+        cursor: "pointer",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between"
+      }}
+    >
+      <div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
+          <div className="industry-icon">
+            <i className={industry.icon} />
+          </div>
+          <span style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.45)", fontFamily: "monospace", background: "rgba(255,255,255,0.04)", padding: "2px 8px", borderRadius: "4px", border: "1px solid rgba(255,255,255,0.08)" }}>
+            {industry.scaleBadge}
+          </span>
+        </div>
+
+        <h3>{industry.title}</h3>
+        <p style={{ margin: "0 0 14px", fontSize: "13px", color: "rgba(255, 255, 255, 0.6)", lineHeight: "1.5" }}>
+          {industry.tagline}
+        </p>
+
+        {industry.highlights && (
+          <ul style={{ 
+            marginTop: "12px", 
+            paddingTop: "12px", 
+            borderTop: "1px solid rgba(255, 255, 255, 0.08)", 
+            listStyle: "none", 
+            paddingLeft: 0, 
+            display: "flex", 
+            flexDirection: "column", 
+            gap: "8px" 
+          }}>
+            {industry.highlights.map((item, idx) => (
+              <li key={idx} style={{ fontSize: "12px", color: "rgba(255, 255, 255, 0.7)", display: "flex", alignItems: "center", gap: "8px", lineHeight: 1.4 }}>
+                <span style={{ color: "#10b981", fontSize: "12px" }}>✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div style={{ marginTop: "18px", paddingTop: "14px", borderTop: "1px solid rgba(255, 255, 255, 0.08)", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px", fontWeight: 600, color: "#10b981" }}>
+        <span>{industry.ctaText}</span>
+        <span style={{ fontSize: "14px" }}>→</span>
+      </div>
     </div>
-                ))}
+  ))}
+</div>
+
+{/* SLEEK, NO-SCROLL EXECUTIVE MODAL */}
+{selectedIndustry && (
+  <div 
+    onClick={() => setSelectedIndustry(null)}
+    style={{
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0, 0, 0, 0.85)",
+      backdropFilter: "blur(8px)",
+      zIndex: 9999,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "16px"
+    }}
+  >
+    <div 
+      onClick={(e) => e.stopPropagation()}
+      style={{
+        background: "#0c1220",
+        border: "1px solid rgba(255, 255, 255, 0.14)",
+        borderRadius: "16px",
+        maxWidth: "760px",
+        width: "100%",
+        color: "#ffffff",
+        position: "relative",
+        boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.8)",
+        overflow: "hidden"
+      }}
+    >
+      {/* Top Emerald Accent Bar */}
+      <div style={{ height: "3px", width: "100%", background: "linear-gradient(90deg, #10b981, #06b6d4, #10b981)" }}></div>
+
+      {/* Modal Header */}
+      <div style={{ padding: "24px 28px 16px", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", background: "#0e1526", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div style={{ paddingRight: "24px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
+            <span style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", padding: "2px 8px", background: "rgba(16, 185, 129, 0.15)", color: "#34d399", borderRadius: "4px", border: "1px solid rgba(16, 185, 129, 0.3)", textTransform: "uppercase" }}>
+              {selectedIndustry.scaleBadge}
+            </span>
+            <span style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.4)", fontFamily: "monospace" }}>
+              UK, Ireland & International Ready
+            </span>
+          </div>
+          <h2 style={{ fontSize: "22px", fontWeight: 800, margin: "0 0 6px" }}>
+            {selectedIndustry.title} Operational Blueprint
+          </h2>
+          <p style={{ fontSize: "12px", color: "#94a3b8", lineHeight: 1.5, margin: 0, maxWidth: "580px" }}>
+            {selectedIndustry.description}
+          </p>
+        </div>
+
+        <button 
+          onClick={() => setSelectedIndustry(null)}
+          style={{
+            background: "rgba(255, 255, 255, 0.08)",
+            border: "none",
+            color: "#94a3b8",
+            fontSize: "18px",
+            width: "32px",
+            height: "32px",
+            borderRadius: "8px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0
+          }}
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Modal Body: 4-Phase Grid (2x2 Compact, No internal scroll) */}
+      <div style={{ padding: "20px 28px" }}>
+        <div style={{ fontSize: "10px", fontWeight: 700, color: "rgba(255, 255, 255, 0.45)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "12px" }}>
+          4-Phase Standardised Operating Rhythm:
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "10px", marginBottom: "16px" }}>
+          {selectedIndustry.operationalPhases.map((phase, idx) => (
+            <div key={idx} style={{ background: "rgba(255, 255, 255, 0.025)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "8px", padding: "12px 14px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
+                  <span style={{ fontSize: "10px", background: "rgba(16, 185, 129, 0.15)", color: "#34d399", padding: "2px 6px", borderRadius: "4px", fontWeight: 700, border: "1px solid rgba(16, 185, 129, 0.25)" }}>
+                    {phase.phase}
+                  </span>
+                  <span style={{ fontSize: "12px", fontWeight: 700, color: "#fff" }}>
+                    {phase.title}
+                  </span>
+                </div>
+                <p style={{ fontSize: "11px", color: "#94a3b8", margin: "4px 0 8px", lineHeight: 1.45 }}>
+                  {phase.focus}
+                </p>
+              </div>
+              <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.4)", fontFamily: "monospace", paddingTop: "6px", borderTop: "1px solid rgba(255, 255, 255, 0.05)", display: "flex", justifyContent: "space-between" }}>
+                <span>Deliverable:</span>
+                <span style={{ color: "#34d399", fontWeight: 600 }}>{phase.deliverable}</span>
               </div>
             </div>
+          ))}
+        </div>
+
+        {/* Guardrails Strip */}
+        <div style={{ background: "rgba(0, 0, 0, 0.35)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: "8px", padding: "10px 14px", display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+          <span style={{ fontSize: "10px", fontWeight: 700, color: "rgba(255, 255, 255, 0.5)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            Regulatory Safeguards:
+          </span>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+            {selectedIndustry.guardrails.map((gw, idx) => (
+              <span key={idx} style={{ fontSize: "10px", color: "#cbd5e1", background: "rgba(255, 255, 255, 0.04)", padding: "2px 8px", borderRadius: "4px", border: "1px solid rgba(255, 255, 255, 0.08)" }}>
+                ✓ {gw}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Modal Footer */}
+      <div style={{ padding: "14px 28px", borderTop: "1px solid rgba(255, 255, 255, 0.08)", background: "#0a0f1d", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
+        <span style={{ fontSize: "11px", color: "#94a3b8" }}>
+          Customised to your exact software platforms, currencies, and pay schedules.
+        </span>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <button 
+            onClick={() => setSelectedIndustry(null)}
+            style={{ background: "transparent", border: "1px solid rgba(255, 255, 255, 0.15)", color: "#94a3b8", fontSize: "11px", padding: "8px 14px", borderRadius: "6px", cursor: "pointer" }}
+          >
+            Close
+          </button>
+          <a 
+            href="#contact"
+            onClick={() => setSelectedIndustry(null)}
+            style={{
+              background: "#10b981",
+              color: "#0a0f1d",
+              fontWeight: 700,
+              fontSize: "11px",
+              padding: "8px 16px",
+              borderRadius: "6px",
+              textDecoration: "none"
+            }}
+          >
+            Enquire for {selectedIndustry.title.split("&")[0].trim()} →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+)}
           </section>
 
        {/* ======================================================== */}
