@@ -2657,8 +2657,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
     </div>
   </div>
 )}
-      </div>
-    </div>
+                </div>
           </section>
 
        {/* ======================================================== */}
