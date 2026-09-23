@@ -2506,117 +2506,153 @@ const annualCostLost = annualHoursLost * hourlyCost;
   ))}
 </div>
 
-{/* SLEEK, NO-SCROLL EXECUTIVE MODAL */}
+{/* SYS OPS SEAMLESS EXPANSION MODAL */}
 {selectedIndustry && (
   <div 
     onClick={() => setSelectedIndustry(null)}
     style={{
       position: "fixed",
       inset: 0,
-      background: "rgba(0, 0, 0, 0.85)",
-      backdropFilter: "blur(8px)",
+      background: "rgba(10, 15, 18, 0.72)",
+      backdropFilter: "blur(6px)",
+      WebkitBackdropFilter: "blur(6px)",
       zIndex: 9999,
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      padding: "16px"
+      padding: "20px",
+      animation: "fadeInBackdrop 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards"
     }}
   >
+    <style>{`
+      @keyframes fadeInBackdrop {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes popExpandFromCard {
+        0% { opacity: 0; transform: scale(0.95) translateY(14px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      .sysops-blueprint-box {
+        animation: popExpandFromCard 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+    `}</style>
+
     <div 
+      className="sysops-blueprint-box"
       onClick={(e) => e.stopPropagation()}
       style={{
-        background: "#0c1220",
-        border: "1px solid rgba(255, 255, 255, 0.14)",
-        borderRadius: "16px",
-        maxWidth: "760px",
+        background: "#14171a",
+        border: "1px solid rgba(255, 255, 255, 0.12)",
+        borderRadius: "12px",
+        maxWidth: "800px",
         width: "100%",
         color: "#ffffff",
         position: "relative",
-        boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.8)",
+        boxShadow: "0 30px 70px -15px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(22, 134, 111, 0.25)",
         overflow: "hidden"
       }}
     >
-      {/* Top Emerald Accent Bar */}
-      <div style={{ height: "3px", width: "100%", background: "linear-gradient(90deg, #10b981, #06b6d4, #10b981)" }}></div>
+      {/* Signature SYS Ops Emerald Header Line */}
+      <div style={{ height: "3px", width: "100%", background: "#16866f" }}></div>
 
-      {/* Modal Header */}
-      <div style={{ padding: "24px 28px 16px", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", background: "#0e1526", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-        <div style={{ paddingRight: "24px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
-            <span style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", padding: "2px 8px", background: "rgba(16, 185, 129, 0.15)", color: "#34d399", borderRadius: "4px", border: "1px solid rgba(16, 185, 129, 0.3)", textTransform: "uppercase" }}>
+      {/* Modal Header matching SYS Ops Brand */}
+      <div style={{ padding: "26px 30px 18px", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", background: "#171b1f", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <div style={{ paddingRight: "20px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
+            <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", padding: "3px 9px", background: "rgba(22, 134, 111, 0.18)", color: "#76c9b4", borderRadius: "4px", border: "1px solid rgba(22, 134, 111, 0.4)", textTransform: "uppercase" }}>
               {selectedIndustry.scaleBadge}
             </span>
-            <span style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.4)", fontFamily: "monospace" }}>
-              UK, Ireland & International Ready
+            <span style={{ fontSize: "11.5px", color: "#8a949b", letterSpacing: "0.02em" }}>
+              • UK, Ireland & International Operations
             </span>
           </div>
-          <h2 style={{ fontSize: "22px", fontWeight: 800, margin: "0 0 6px" }}>
+
+          <h3 style={{ fontSize: "23px", fontWeight: 800, margin: "0 0 8px", color: "#ffffff", letterSpacing: "-0.02em" }}>
             {selectedIndustry.title} Operational Blueprint
-          </h2>
-          <p style={{ fontSize: "12px", color: "#94a3b8", lineHeight: 1.5, margin: 0, maxWidth: "580px" }}>
+          </h3>
+
+          <p style={{ fontSize: "13px", color: "#a0aab2", lineHeight: 1.5, margin: 0, maxWidth: "620px" }}>
             {selectedIndustry.description}
           </p>
         </div>
 
+        {/* Close Button matching theme */}
         <button 
           onClick={() => setSelectedIndustry(null)}
+          aria-label="Close"
           style={{
-            background: "rgba(255, 255, 255, 0.08)",
-            border: "none",
-            color: "#94a3b8",
-            fontSize: "18px",
-            width: "32px",
-            height: "32px",
-            borderRadius: "8px",
+            background: "rgba(255, 255, 255, 0.05)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            color: "#9ca3af",
+            fontSize: "16px",
+            width: "34px",
+            height: "34px",
+            borderRadius: "6px",
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            flexShrink: 0
+            flexShrink: 0,
+            transition: "all 0.15s ease"
           }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255, 255, 255, 0.12)"; e.currentTarget.style.color = "#fff"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)"; e.currentTarget.style.color = "#9ca3af"; }}
         >
           ✕
         </button>
       </div>
 
-      {/* Modal Body: 4-Phase Grid (2x2 Compact, No internal scroll) */}
-      <div style={{ padding: "20px 28px" }}>
-        <div style={{ fontSize: "10px", fontWeight: 700, color: "rgba(255, 255, 255, 0.45)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "12px" }}>
-          4-Phase Standardised Operating Rhythm:
+      {/* 4-Phase Operating Rhythm Grid */}
+      <div style={{ padding: "22px 30px" }}>
+        <div style={{ fontSize: "10.5px", fontWeight: 700, color: "#76c9b4", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "14px" }}>
+          Standard Operating Routine:
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "10px", marginBottom: "16px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "12px", marginBottom: "18px" }}>
           {selectedIndustry.operationalPhases.map((phase, idx) => (
-            <div key={idx} style={{ background: "rgba(255, 255, 255, 0.025)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "8px", padding: "12px 14px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div 
+              key={idx} 
+              style={{ 
+                background: "#191d22", 
+                border: "1px solid rgba(255, 255, 255, 0.07)", 
+                borderRadius: "6px", 
+                padding: "14px 16px", 
+                display: "flex", 
+                flexDirection: "column", 
+                justifyContent: "space-between" 
+              }}
+            >
               <div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
-                  <span style={{ fontSize: "10px", background: "rgba(16, 185, 129, 0.15)", color: "#34d399", padding: "2px 6px", borderRadius: "4px", fontWeight: 700, border: "1px solid rgba(16, 185, 129, 0.25)" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "6px" }}>
+                  <span style={{ fontSize: "10px", background: "rgba(22, 134, 111, 0.2)", color: "#76c9b4", padding: "2px 7px", borderRadius: "3px", fontWeight: 700, border: "1px solid rgba(22, 134, 111, 0.35)" }}>
                     {phase.phase}
                   </span>
-                  <span style={{ fontSize: "12px", fontWeight: 700, color: "#fff" }}>
+                  <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#ffffff" }}>
                     {phase.title}
                   </span>
                 </div>
-                <p style={{ fontSize: "11px", color: "#94a3b8", margin: "4px 0 8px", lineHeight: 1.45 }}>
+                <p style={{ fontSize: "12px", color: "#9ca9b3", margin: "6px 0 10px", lineHeight: 1.45 }}>
                   {phase.focus}
                 </p>
               </div>
-              <div style={{ fontSize: "10px", color: "rgba(255, 255, 255, 0.4)", fontFamily: "monospace", paddingTop: "6px", borderTop: "1px solid rgba(255, 255, 255, 0.05)", display: "flex", justifyContent: "space-between" }}>
+
+              <div style={{ fontSize: "11px", color: "#6e7a85", paddingTop: "8px", borderTop: "1px solid rgba(255, 255, 255, 0.06)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span>Deliverable:</span>
-                <span style={{ color: "#34d399", fontWeight: 600 }}>{phase.deliverable}</span>
+                <span style={{ color: "#76c9b4", fontWeight: 600 }}>{phase.deliverable}</span>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Guardrails Strip */}
-        <div style={{ background: "rgba(0, 0, 0, 0.35)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: "8px", padding: "10px 14px", display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-          <span style={{ fontSize: "10px", fontWeight: 700, color: "rgba(255, 255, 255, 0.5)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+        {/* Regulatory Safeguards Strip */}
+        <div style={{ background: "#111417", border: "1px solid rgba(255, 255, 255, 0.07)", borderRadius: "6px", padding: "12px 16px", display: "flex", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
+          <span style={{ fontSize: "10.5px", fontWeight: 700, color: "#76c9b4", textTransform: "uppercase", letterSpacing: "0.08em" }}>
             Regulatory Safeguards:
           </span>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
             {selectedIndustry.guardrails.map((gw, idx) => (
-              <span key={idx} style={{ fontSize: "10px", color: "#cbd5e1", background: "rgba(255, 255, 255, 0.04)", padding: "2px 8px", borderRadius: "4px", border: "1px solid rgba(255, 255, 255, 0.08)" }}>
+              <span key={idx} style={{ fontSize: "11px", color: "#c5cdd4", background: "rgba(255, 255, 255, 0.04)", padding: "3px 9px", borderRadius: "4px", border: "1px solid rgba(255, 255, 255, 0.08)" }}>
                 ✓ {gw}
               </span>
             ))}
@@ -2624,15 +2660,27 @@ const annualCostLost = annualHoursLost * hourlyCost;
         </div>
       </div>
 
-      {/* Modal Footer */}
-      <div style={{ padding: "14px 28px", borderTop: "1px solid rgba(255, 255, 255, 0.08)", background: "#0a0f1d", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
-        <span style={{ fontSize: "11px", color: "#94a3b8" }}>
+      {/* Modal Footer matching SYS Ops styling */}
+      <div style={{ padding: "16px 30px", borderTop: "1px solid rgba(255, 255, 255, 0.08)", background: "#101316", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+        <span style={{ fontSize: "12px", color: "#8a949b" }}>
           Customised to your exact software platforms, currencies, and pay schedules.
         </span>
         <div style={{ display: "flex", gap: "10px" }}>
           <button 
             onClick={() => setSelectedIndustry(null)}
-            style={{ background: "transparent", border: "1px solid rgba(255, 255, 255, 0.15)", color: "#94a3b8", fontSize: "11px", padding: "8px 14px", borderRadius: "6px", cursor: "pointer" }}
+            style={{ 
+              background: "transparent", 
+              border: "1px solid rgba(255, 255, 255, 0.16)", 
+              color: "#c5cdd4", 
+              fontSize: "12px", 
+              fontWeight: 600,
+              padding: "9px 16px", 
+              borderRadius: "5px", 
+              cursor: "pointer",
+              transition: "all 0.15s ease"
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.3)"}
+            onMouseLeave={(e) => e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.16)"}
           >
             Close
           </button>
@@ -2640,14 +2688,20 @@ const annualCostLost = annualHoursLost * hourlyCost;
             href="#contact"
             onClick={() => setSelectedIndustry(null)}
             style={{
-              background: "#10b981",
-              color: "#0a0f1d",
+              background: "#16866f",
+              color: "#ffffff",
               fontWeight: 700,
-              fontSize: "11px",
-              padding: "8px 16px",
-              borderRadius: "6px",
-              textDecoration: "none"
+              fontSize: "12px",
+              padding: "9px 20px",
+              borderRadius: "5px",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              transition: "background 0.15s ease"
             }}
+            onMouseEnter={(e) => e.currentTarget.style.background = "#137460"}
+            onMouseLeave={(e) => e.currentTarget.style.background = "#16866f"}
           >
             Enquire for {selectedIndustry.title.split("&")[0].trim()} →
           </a>
