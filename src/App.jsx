@@ -51,6 +51,7 @@ export default function SysOpsWebsite() {
   const [selected, setSelected] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [selectedIndustry, setSelectedIndustry] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
