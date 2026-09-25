@@ -842,12 +842,12 @@ const industries = [
         .industries-heading { display: grid; grid-template-columns: 1.1fr .9fr; gap: 80px; margin-bottom: 58px; align-items: end; }
         .industries h2 { margin: 16px 0 0; font-size: clamp(38px, 4.5vw, 60px); line-height: 1.02; letter-spacing: -.055em; }
         .industries-heading p { color: #92928e; font-size: 15px; line-height: 1.8; }
-        .-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #343434; border-left: 1px solid #343434; }
-        . { min-height: 240px; padding: 30px; border-right: 1px solid #343434; border-bottom: 1px solid #343434; transition: background .2s ease, transform .2s ease; }
-        .:hover { background: #222; }
-        .-icon { font-size: 21px; color: var(--brand-green-light); margin-bottom: 45px; }
-        . h3 { margin: 0 0 10px; font-size: 17px; }
-        . p { margin: 0; color: #8e8e8a; font-size: 12px; line-height: 1.75; }
+      .industries-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #343434; border-left: 1px solid #343434; }
+        .industry-card { min-height: 240px; padding: 30px; border-right: 1px solid #343434; border-bottom: 1px solid #343434; transition: background .2s ease, transform .2s ease; }
+        .industry-card:hover { background: #222; }
+        .industry-icon { font-size: 21px; color: var(--brand-green-light); margin-bottom: 45px; }
+        .industry-card h3 { margin: 0 0 10px; font-size: 17px; }
+        .industry-card p { margin: 0; color: #8e8e8a; font-size: 12px; line-height: 1.75; }
 
         /* PACKAGES */
         .packages { background: var(--brand-bg); }
@@ -2521,7 +2521,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      padding: "24px"
+      padding: "20px"
     }}
   >
     <div 
@@ -2531,22 +2531,14 @@ const annualCostLost = annualHoursLost * hourlyCost;
         width: "100%",
         background: "#16191d",
         border: "1px solid #282f37",
-        borderRadius: "10px",
-        boxShadow: "0 20px 50px rgba(0, 0, 0, 0.6)",
-        overflow: "hidden",
-        animation: "industryPop 0.22s ease-out forwards"
+        borderRadius: "8px",
+        boxShadow: "0 25px 60px rgba(0, 0, 0, 0.7)",
+        overflow: "hidden"
       }}
     >
-      <style>{`
-        @keyframes industryPop {
-          from { opacity: 0; transform: scale(0.96) translateY(10px); }
-          to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-      `}</style>
-
-      {/* Header */}
+      {/* Top Header */}
       <div style={{
-        padding: "24px 28px 18px",
+        padding: "22px 28px",
         borderBottom: "1px solid #23282f",
         display: "flex",
         justifyContent: "space-between",
@@ -2562,13 +2554,13 @@ const annualCostLost = annualHoursLost * hourlyCost;
             color: "#16866f",
             marginBottom: "6px"
           }}>
-            {selectedIndustry.scaleBadge || "Industry Operations"}
+            {selectedIndustry.scaleBadge || "Workforce Sector"}
           </div>
-          <h3 style={{ fontSize: "22px", fontWeight: 700, color: "#ffffff", margin: "0 0 8px 0" }}>
+          <h3 style={{ fontSize: "22px", fontWeight: 700, color: "#ffffff", margin: "0 0 6px 0" }}>
             {selectedIndustry.title}
           </h3>
           <p style={{ margin: 0, fontSize: "13.5px", color: "rgba(255, 255, 255, 0.65)", lineHeight: "1.5" }}>
-            {selectedIndustry.tagline}
+            {selectedIndustry.description}
           </p>
         </div>
 
@@ -2593,56 +2585,57 @@ const annualCostLost = annualHoursLost * hourlyCost;
         </button>
       </div>
 
-      {/* Content: Scope & Highlights */}
-      <div style={{ padding: "24px 28px" }}>
+      {/* Operational Phases List */}
+      <div style={{ padding: "24px 28px", maxHeight: "420px", overflowY: "auto" }}>
         <div style={{
-          fontSize: "12px",
-          fontWeight: 600,
-          color: "rgba(255, 255, 255, 0.45)",
+          fontSize: "11px",
+          fontWeight: 700,
           textTransform: "uppercase",
-          letterSpacing: "0.06em",
-          marginBottom: "14px"
+          letterSpacing: "0.08em",
+          color: "rgba(255,255,255,0.45)",
+          marginBottom: "16px"
         }}>
-          Operational Workflow & Governance
+          Standard Operational Phases & Governance
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          {(selectedIndustry.highlights || [
-            "Digital Right to Work & statutory identity verification",
-            "CRM & ATS candidate placement, rate card & timesheet synchronization",
-            "Periodic net margin reconciliation & direct bank payment exports"
-          ]).map((item, idx) => (
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          {(selectedIndustry.operationalPhases || []).map((ph, idx) => (
             <div 
-              key={idx} 
+              key={idx}
               style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: "12px",
-                padding: "10px 14px",
-                background: "rgba(255, 255, 255, 0.02)",
-                border: "1px solid #23282f",
-                borderRadius: "6px"
+                padding: "14px 18px",
+                border: "1px solid #242a33",
+                borderRadius: "6px",
+                background: "#1a1e24"
               }}
             >
-              <span style={{ color: "#16866f", fontSize: "14px", lineHeight: "1.4" }}>✓</span>
-              <span style={{ fontSize: "13px", color: "rgba(255, 255, 255, 0.85)", lineHeight: "1.5" }}>
-                {item}
-              </span>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                <strong style={{ fontSize: "14px", color: "#ffffff" }}>
+                  <span style={{ color: "#16866f", marginRight: "8px" }}>{ph.phase}:</span>
+                  {ph.title}
+                </strong>
+                <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.5)" }}>
+                  {ph.deliverable}
+                </span>
+              </div>
+              <p style={{ margin: 0, fontSize: "12.5px", color: "#9ca3af", lineHeight: "1.5" }}>
+                {ph.focus}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Footer CTA */}
+      {/* Footer Strip */}
       <div style={{
         padding: "16px 28px",
-        background: "#111417",
         borderTop: "1px solid #23282f",
+        background: "#111417",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between"
       }}>
-        <span style={{ fontSize: "12px", color: "rgba(255, 255, 255, 0.45)" }}>
+        <span style={{ fontSize: "12px", color: "#888" }}>
           Tailored to UK & Irish workforce requirements
         </span>
 
@@ -2654,8 +2647,8 @@ const annualCostLost = annualHoursLost * hourlyCost;
             color: "#ffffff",
             fontSize: "12.5px",
             fontWeight: 600,
-            padding: "8px 18px",
-            borderRadius: "6px",
+            padding: "9px 20px",
+            borderRadius: "4px",
             textDecoration: "none"
           }}
         >
