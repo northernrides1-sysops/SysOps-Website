@@ -2450,7 +2450,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                 </p>
               </div>
 
-            <div className="industry-grid">
+            <div className="industries-grid">
  {industries.map((industry) => (
     <div 
      className="industry-card"
@@ -2507,222 +2507,160 @@ const annualCostLost = annualHoursLost * hourlyCost;
   ))}
 </div>
 
-{/* SYS OPS EXECUTIVE OPERATIONAL DOSSIER */}
+{/* SYS OPS INDUSTRY DETAIL MODAL */}
 {selectedIndustry && (
   <div 
     onClick={() => setSelectedIndustry(null)}
     style={{
       position: "fixed",
       inset: 0,
-      background: "rgba(4, 7, 12, 0.78)",
-      backdropFilter: "blur(8px)",
-      WebkitBackdropFilter: "blur(8px)",
+      background: "rgba(10, 12, 15, 0.75)",
+      backdropFilter: "blur(6px)",
+      WebkitBackdropFilter: "blur(6px)",
       zIndex: 9999,
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      padding: "20px"
+      padding: "24px"
     }}
   >
     <div 
       onClick={(e) => e.stopPropagation()}
       style={{
-        maxWidth: "860px",
+        maxWidth: "760px",
         width: "100%",
-        background: "#0c1017",
-        border: "1px solid #1e293b",
-        borderRadius: "12px",
-        boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.04)",
+        background: "#16191d",
+        border: "1px solid #282f37",
+        borderRadius: "10px",
+        boxShadow: "0 20px 50px rgba(0, 0, 0, 0.6)",
         overflow: "hidden",
-        animation: "dossierIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards"
+        animation: "industryPop 0.22s ease-out forwards"
       }}
     >
       <style>{`
-        @keyframes dossierIn {
-          from { opacity: 0; transform: scale(0.97) translateY(8px); }
+        @keyframes industryPop {
+          from { opacity: 0; transform: scale(0.96) translateY(10px); }
           to { opacity: 1; transform: scale(1) translateY(0); }
         }
       `}</style>
 
-      {/* Top Meta Bar */}
+      {/* Header */}
       <div style={{
-        padding: "16px 28px",
-        borderBottom: "1px solid #1e293b",
-        background: "#090d13",
+        padding: "24px 28px 18px",
+        borderBottom: "1px solid #23282f",
         display: "flex",
-        alignItems: "center",
-        justifyContent: "between",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
         gap: "16px"
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: 1 }}>
-          <span style={{
-            fontSize: "10px",
-            fontFamily: "monospace",
+        <div>
+          <div style={{
+            fontSize: "11px",
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
             fontWeight: 700,
-            letterSpacing: "0.08em",
-            color: "#10b981",
-            background: "rgba(16, 185, 129, 0.1)",
-            border: "1px solid rgba(16, 185, 129, 0.25)",
-            padding: "3px 8px",
-            borderRadius: "4px"
+            color: "#16866f",
+            marginBottom: "6px"
           }}>
-            SYS OPS // SPECIFICATION RUNBOOK
-          </span>
-          <span style={{ fontSize: "11px", color: "#64748b" }}>
-            UK & Ireland Operations
-          </span>
+            {selectedIndustry.scaleBadge || "Industry Operations"}
+          </div>
+          <h3 style={{ fontSize: "22px", fontWeight: 700, color: "#ffffff", margin: "0 0 8px 0" }}>
+            {selectedIndustry.title}
+          </h3>
+          <p style={{ margin: 0, fontSize: "13.5px", color: "rgba(255, 255, 255, 0.65)", lineHeight: "1.5" }}>
+            {selectedIndustry.tagline}
+          </p>
         </div>
 
         <button
           onClick={() => setSelectedIndustry(null)}
           style={{
-            background: "transparent",
-            border: "none",
-            color: "#94a3b8",
-            cursor: "pointer",
-            fontSize: "13px",
+            background: "rgba(255, 255, 255, 0.06)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            color: "rgba(255, 255, 255, 0.7)",
+            width: "32px",
+            height: "32px",
+            borderRadius: "6px",
             display: "flex",
             alignItems: "center",
-            gap: "6px",
-            padding: "4px 8px",
-            borderRadius: "4px",
-            transition: "all 0.15s"
+            justifyContent: "center",
+            cursor: "pointer",
+            fontSize: "14px",
+            flexShrink: 0
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#f8fafc")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "#94a3b8")}
         >
-          <span style={{ fontSize: "16px", lineHeight: 1 }}>✕</span>
-          <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Close</span>
+          ✕
         </button>
       </div>
 
-      {/* Header Info */}
-      <div style={{ padding: "26px 28px 20px", borderBottom: "1px solid #161f2e" }}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: "12px", marginBottom: "8px", flexWrap: "wrap" }}>
-          <h3 style={{ fontSize: "22px", fontWeight: 700, color: "#f8fafc", margin: 0, letterSpacing: "-0.02em" }}>
-            {selectedIndustry.name || selectedIndustry.title}
-          </h3>
-          <span style={{ fontSize: "12px", color: "#38bdf8", fontWeight: 500 }}>
-            {selectedIndustry.badge || selectedIndustry.tagline || "Workforce Operations Desk"}
-          </span>
+      {/* Content: Scope & Highlights */}
+      <div style={{ padding: "24px 28px" }}>
+        <div style={{
+          fontSize: "12px",
+          fontWeight: 600,
+          color: "rgba(255, 255, 255, 0.45)",
+          textTransform: "uppercase",
+          letterSpacing: "0.06em",
+          marginBottom: "14px"
+        }}>
+          Operational Workflow & Governance
         </div>
-        <p style={{ fontSize: "13.5px", color: "#94a3b8", lineHeight: "1.6", margin: 0 }}>
-          {selectedIndustry.description || "Dedicated operational coordinator managing high-friction administration, cross-referencing timesheets, compliance filings, and routine daily dispatch."}
-        </p>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          {(selectedIndustry.highlights || [
+            "Digital Right to Work & statutory identity verification",
+            "CRM & ATS candidate placement, rate card & timesheet synchronization",
+            "Periodic net margin reconciliation & direct bank payment exports"
+          ]).map((item, idx) => (
+            <div 
+              key={idx} 
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "12px",
+                padding: "10px 14px",
+                background: "rgba(255, 255, 255, 0.02)",
+                border: "1px solid #23282f",
+                borderRadius: "6px"
+              }}
+            >
+              <span style={{ color: "#16866f", fontSize: "14px", lineHeight: "1.4" }}>✓</span>
+              <span style={{ fontSize: "13px", color: "rgba(255, 255, 255, 0.85)", lineHeight: "1.5" }}>
+                {item}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Operational Two-Column Ledger */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0", background: "#0c1017" }}>
-        
-        {/* Left Column: Critical Bottlenecks */}
-        <div style={{ padding: "22px 28px", borderRight: "1px solid #161f2e" }}>
-          <div style={{
-            fontSize: "11px",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.06em",
-            color: "#ef4444",
-            marginBottom: "14px",
-            display: "flex",
-            alignItems: "center",
-            gap: "6px"
-          }}>
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }}></span>
-            Operational Friction & Gaps
-          </div>
-
-          <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "11px" }}>
-            {(selectedIndustry.commonBottlenecks || [
-              "Delayed documentation and missing logs choking billing cycles",
-              "Expiring tickets, compliance filings, and audit vulnerability",
-              "Senior staff wasting billable hours on repetitive manual administration",
-              "Inconsistent communication between field teams and client accounts"
-            ]).slice(0, 4).map((item, idx) => (
-              <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "12.5px", color: "#cbd5e1", lineHeight: "1.5" }}>
-                <span style={{ color: "#64748b", fontSize: "14px", lineHeight: "1.2" }}>–</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Right Column: SYS Ops Execution Cadence */}
-        <div style={{ padding: "22px 28px", background: "rgba(16, 185, 129, 0.02)" }}>
-          <div style={{
-            fontSize: "11px",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.06em",
-            color: "#10b981",
-            marginBottom: "14px",
-            display: "flex",
-            alignItems: "center",
-            gap: "6px"
-          }}>
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981", display: "inline-block" }}></span>
-            SYS Ops Routine Execution
-          </div>
-
-          <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "11px" }}>
-            {(selectedIndustry.sysOpsSolution || [
-              "Daily log reconciliation, cross-referencing, and rate verification",
-              "Continuous compliance monitoring, credentials tracking, and proactive renewals",
-              "Structured vendor, contractor, and client communications run on schedule",
-              "Weekly management dashboard with clear operational metrics and exceptions"
-            ]).slice(0, 4).map((item, idx) => (
-              <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "12.5px", color: "#f1f5f9", lineHeight: "1.5" }}>
-                <span style={{ color: "#10b981", fontSize: "13px", fontWeight: 700 }}>✓</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-      </div>
-
-      {/* Key Deliverable Strip */}
+      {/* Footer CTA */}
       <div style={{
-        padding: "14px 28px",
-        background: "#080c12",
-        borderTop: "1px solid #161f2e",
+        padding: "16px 28px",
+        background: "#111417",
+        borderTop: "1px solid #23282f",
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
-        gap: "20px",
-        flexWrap: "wrap"
+        justifyContent: "space-between"
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: 1, minWidth: "260px" }}>
-          <span style={{ fontSize: "10px", fontFamily: "monospace", textTransform: "uppercase", color: "#64748b", fontWeight: 700 }}>
-            TARGET OUTCOME:
-          </span>
-          <span style={{ fontSize: "12px", color: "#e2e8f0", fontWeight: 500 }}>
-            {selectedIndustry.keyOutcomes || "Zero operational backlogs, audit-ready compliance, and 8–15 recovered weekly hours for fee earners."}
-          </span>
-        </div>
+        <span style={{ fontSize: "12px", color: "rgba(255, 255, 255, 0.45)" }}>
+          Tailored to UK & Irish workforce requirements
+        </span>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <a
-            href="#contact"
-            onClick={() => setSelectedIndustry(null)}
-            style={{
-              background: "#059669",
-              color: "#ffffff",
-              fontSize: "12px",
-              fontWeight: 600,
-              padding: "8px 18px",
-              borderRadius: "6px",
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
-              transition: "background 0.15s"
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "#10b981")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "#059669")}
-          >
-            Enquire for this Sector →
-          </a>
-        </div>
+        <a
+          href="#contact"
+          onClick={() => setSelectedIndustry(null)}
+          style={{
+            background: "#16866f",
+            color: "#ffffff",
+            fontSize: "12.5px",
+            fontWeight: 600,
+            padding: "8px 18px",
+            borderRadius: "6px",
+            textDecoration: "none"
+          }}
+        >
+          Enquire for {selectedIndustry.title.split("&")[0].trim()} →
+        </a>
       </div>
 
     </div>
