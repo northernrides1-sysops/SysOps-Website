@@ -2449,10 +2449,10 @@ const annualCostLost = annualHoursLost * hourlyCost;
                 </p>
               </div>
 
-            <div className="-grid">
-  {industries.map(() => (
+            <div className="industry-grid">
+ {industries.map((industry) => (
     <div 
-      className="" 
+     className="industry-card"
       key={industry.title}
       onClick={() => setSelectedIndustry(industry)}
       style={{
