@@ -48,7 +48,7 @@ const RIBBON_ITEMS = [
 export default function SysOpsWebsite() {
   // NAVIGATION: 'home' | 'services' | 'contact'
   const [currentPage, setCurrentPage] = useState("home");
-  const [selectedIndustry, setSelectedIndustry] = useState(null);
+  const [selected, setSelected] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -458,7 +458,7 @@ const industries = [
       ctaText: "Explore Operational Workflow →",
       guardrails: [
         "Statutory Employee Transfer Protections",
-        "Industry Security & Facility Personnel Screening Standards",
+        " Security & Facility Personnel Screening Standards",
         "Workplace Health & Lone Worker Safety Directives"
       ],
       operationalPhases: [
@@ -841,12 +841,12 @@ const industries = [
         .industries-heading { display: grid; grid-template-columns: 1.1fr .9fr; gap: 80px; margin-bottom: 58px; align-items: end; }
         .industries h2 { margin: 16px 0 0; font-size: clamp(38px, 4.5vw, 60px); line-height: 1.02; letter-spacing: -.055em; }
         .industries-heading p { color: #92928e; font-size: 15px; line-height: 1.8; }
-        .industry-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #343434; border-left: 1px solid #343434; }
-        .industry { min-height: 240px; padding: 30px; border-right: 1px solid #343434; border-bottom: 1px solid #343434; transition: background .2s ease, transform .2s ease; }
-        .industry:hover { background: #222; }
-        .industry-icon { font-size: 21px; color: var(--brand-green-light); margin-bottom: 45px; }
-        .industry h3 { margin: 0 0 10px; font-size: 17px; }
-        .industry p { margin: 0; color: #8e8e8a; font-size: 12px; line-height: 1.75; }
+        .-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #343434; border-left: 1px solid #343434; }
+        . { min-height: 240px; padding: 30px; border-right: 1px solid #343434; border-bottom: 1px solid #343434; transition: background .2s ease, transform .2s ease; }
+        .:hover { background: #222; }
+        .-icon { font-size: 21px; color: var(--brand-green-light); margin-bottom: 45px; }
+        . h3 { margin: 0 0 10px; font-size: 17px; }
+        . p { margin: 0; color: #8e8e8a; font-size: 12px; line-height: 1.75; }
 
         /* PACKAGES */
         .packages { background: var(--brand-bg); }
@@ -1006,13 +1006,13 @@ const industries = [
         @media (max-width: 1000px) {
           .nav-links { display: none; }
           .intro-grid, .why-grid, .service-spec-grid { grid-template-columns: 1fr; gap: 40px; }
-          .service-grid, .industry-grid, .process-grid { grid-template-columns: repeat(2, 1fr); }
+          .service-grid, .-grid, .process-grid { grid-template-columns: repeat(2, 1fr); }
           .package-grid { grid-template-columns: 1fr; max-width: 600px; }
         }
         @media (max-width: 650px) {
           .hero-content { padding: 80px 0 200px; }
           .hero-stats { grid-template-columns: 1fr 1fr; width: calc(100% - 36px); }
-          .service-grid, .industry-grid, .process-grid { grid-template-columns: 1fr; }
+          .service-grid, .-grid, .process-grid { grid-template-columns: 1fr; }
           .form-grid-2 { grid-template-columns: 1fr; }
           .unified-card { padding: 30px 22px; }
           .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -1091,7 +1091,7 @@ const industries = [
           .package-grid, 
           .packages-wrapper,
           .service-grid, 
-          .industry-grid, 
+          .-grid, 
           .process-grid,
           .why-grid {
             display: flex !important;
@@ -1106,7 +1106,7 @@ const industries = [
 
           .package-grid::-webkit-scrollbar,
           .service-grid::-webkit-scrollbar,
-          .industry-grid::-webkit-scrollbar,
+          .-grid::-webkit-scrollbar,
           .process-grid::-webkit-scrollbar,
           .why-grid::-webkit-scrollbar {
             display: none !important;
@@ -1115,7 +1115,7 @@ const industries = [
           /* Individual card width inside swipe row */
           .package-grid > *,
           .service-grid > *,
-          .industry-grid > *,
+          .-grid > *,
           .process-grid > *,
           .why-grid > * {
             flex: 0 0 84% !important;
@@ -1182,7 +1182,7 @@ const industries = [
 
           /* 4. TURN ENDLESS VERTICAL CARDS INTO HORIZONTAL SWIPE ROWS */
           .service-grid, 
-          .industry-grid, 
+          .-grid, 
           .process-grid,
           .package-grid,
           .why-grid {
@@ -1199,7 +1199,7 @@ const industries = [
             scrollbar-width: none !important;
           }
           .service-grid::-webkit-scrollbar,
-          .industry-grid::-webkit-scrollbar,
+          .-grid::-webkit-scrollbar,
           .process-grid::-webkit-scrollbar,
           .package-grid::-webkit-scrollbar,
           .why-grid::-webkit-scrollbar {
@@ -1208,7 +1208,7 @@ const industries = [
 
           /* Card sizing inside swipe rows */
           .service-grid > *,
-          .industry-grid > *,
+          .-grid > *,
           .process-grid > *,
           .why-grid > * {
             flex: 0 0 82% !important;
@@ -2449,10 +2449,10 @@ const annualCostLost = annualHoursLost * hourlyCost;
                 </p>
               </div>
 
-            <div className="industry-grid">
-  {industries.map((industry) => (
+            <div className="-grid">
+  {industries.map(() => (
     <div 
-      className="industry" 
+      className="" 
       key={industry.title}
       onClick={() => setSelectedIndustry(industry)}
       style={{
@@ -2506,204 +2506,220 @@ const annualCostLost = annualHoursLost * hourlyCost;
   ))}
 </div>
 
-{/* SYS OPS SEAMLESS EXPANSION MODAL */}
+{/* SYS OPS EXECUTIVE OPERATIONAL DOSSIER */}
 {selectedIndustry && (
   <div 
     onClick={() => setSelectedIndustry(null)}
     style={{
       position: "fixed",
       inset: 0,
-      background: "rgba(10, 15, 18, 0.72)",
-      backdropFilter: "blur(6px)",
-      WebkitBackdropFilter: "blur(6px)",
+      background: "rgba(4, 7, 12, 0.78)",
+      backdropFilter: "blur(8px)",
+      WebkitBackdropFilter: "blur(8px)",
       zIndex: 9999,
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      padding: "20px",
-      animation: "fadeInBackdrop 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards"
+      padding: "20px"
     }}
   >
-    <style>{`
-      @keyframes fadeInBackdrop {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      @keyframes popExpandFromCard {
-        0% { opacity: 0; transform: scale(0.95) translateY(14px); }
-        100% { opacity: 1; transform: scale(1) translateY(0); }
-      }
-      .sysops-blueprint-box {
-        animation: popExpandFromCard 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
-    `}</style>
-
     <div 
-      className="sysops-blueprint-box"
       onClick={(e) => e.stopPropagation()}
       style={{
-        background: "#14171a",
-        border: "1px solid rgba(255, 255, 255, 0.12)",
-        borderRadius: "12px",
-        maxWidth: "800px",
+        maxWidth: "860px",
         width: "100%",
-        color: "#ffffff",
-        position: "relative",
-        boxShadow: "0 30px 70px -15px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(22, 134, 111, 0.25)",
-        overflow: "hidden"
+        background: "#0c1017",
+        border: "1px solid #1e293b",
+        borderRadius: "12px",
+        boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.04)",
+        overflow: "hidden",
+        animation: "dossierIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards"
       }}
     >
-      {/* Signature SYS Ops Emerald Header Line */}
-      <div style={{ height: "3px", width: "100%", background: "#16866f" }}></div>
+      <style>{`
+        @keyframes dossierIn {
+          from { opacity: 0; transform: scale(0.97) translateY(8px); }
+          to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+      `}</style>
 
-      {/* Modal Header matching SYS Ops Brand */}
-      <div style={{ padding: "26px 30px 18px", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", background: "#171b1f", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-        <div style={{ paddingRight: "20px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-            <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", padding: "3px 9px", background: "rgba(22, 134, 111, 0.18)", color: "#76c9b4", borderRadius: "4px", border: "1px solid rgba(22, 134, 111, 0.4)", textTransform: "uppercase" }}>
-              {selectedIndustry.scaleBadge}
-            </span>
-            <span style={{ fontSize: "11.5px", color: "#8a949b", letterSpacing: "0.02em" }}>
-              • UK, Ireland & International Operations
-            </span>
-          </div>
-
-          <h3 style={{ fontSize: "23px", fontWeight: 800, margin: "0 0 8px", color: "#ffffff", letterSpacing: "-0.02em" }}>
-            {selectedIndustry.title} Operational Blueprint
-          </h3>
-
-          <p style={{ fontSize: "13px", color: "#a0aab2", lineHeight: 1.5, margin: 0, maxWidth: "620px" }}>
-            {selectedIndustry.description}
-          </p>
+      {/* Top Meta Bar */}
+      <div style={{
+        padding: "16px 28px",
+        borderBottom: "1px solid #1e293b",
+        background: "#090d13",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "between",
+        gap: "16px"
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: 1 }}>
+          <span style={{
+            fontSize: "10px",
+            fontFamily: "monospace",
+            fontWeight: 700,
+            letterSpacing: "0.08em",
+            color: "#10b981",
+            background: "rgba(16, 185, 129, 0.1)",
+            border: "1px solid rgba(16, 185, 129, 0.25)",
+            padding: "3px 8px",
+            borderRadius: "4px"
+          }}>
+            SYS OPS // SPECIFICATION RUNBOOK
+          </span>
+          <span style={{ fontSize: "11px", color: "#64748b" }}>
+            UK & Ireland Operations
+          </span>
         </div>
 
-        {/* Close Button matching theme */}
-        <button 
+        <button
           onClick={() => setSelectedIndustry(null)}
-          aria-label="Close"
           style={{
-            background: "rgba(255, 255, 255, 0.05)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            color: "#9ca3af",
-            fontSize: "16px",
-            width: "34px",
-            height: "34px",
-            borderRadius: "6px",
+            background: "transparent",
+            border: "none",
+            color: "#94a3b8",
             cursor: "pointer",
+            fontSize: "13px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-            transition: "all 0.15s ease"
+            gap: "6px",
+            padding: "4px 8px",
+            borderRadius: "4px",
+            transition: "all 0.15s"
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255, 255, 255, 0.12)"; e.currentTarget.style.color = "#fff"; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)"; e.currentTarget.style.color = "#9ca3af"; }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#f8fafc")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "#94a3b8")}
         >
-          ✕
+          <span style={{ fontSize: "16px", lineHeight: 1 }}>✕</span>
+          <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Close</span>
         </button>
       </div>
 
-      {/* 4-Phase Operating Rhythm Grid */}
-      <div style={{ padding: "22px 30px" }}>
-        <div style={{ fontSize: "10.5px", fontWeight: 700, color: "#76c9b4", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "14px" }}>
-          Standard Operating Routine:
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "12px", marginBottom: "18px" }}>
-          {selectedIndustry.operationalPhases.map((phase, idx) => (
-            <div 
-              key={idx} 
-              style={{ 
-                background: "#191d22", 
-                border: "1px solid rgba(255, 255, 255, 0.07)", 
-                borderRadius: "6px", 
-                padding: "14px 16px", 
-                display: "flex", 
-                flexDirection: "column", 
-                justifyContent: "space-between" 
-              }}
-            >
-              <div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "6px" }}>
-                  <span style={{ fontSize: "10px", background: "rgba(22, 134, 111, 0.2)", color: "#76c9b4", padding: "2px 7px", borderRadius: "3px", fontWeight: 700, border: "1px solid rgba(22, 134, 111, 0.35)" }}>
-                    {phase.phase}
-                  </span>
-                  <span style={{ fontSize: "12.5px", fontWeight: 700, color: "#ffffff" }}>
-                    {phase.title}
-                  </span>
-                </div>
-                <p style={{ fontSize: "12px", color: "#9ca9b3", margin: "6px 0 10px", lineHeight: 1.45 }}>
-                  {phase.focus}
-                </p>
-              </div>
-
-              <div style={{ fontSize: "11px", color: "#6e7a85", paddingTop: "8px", borderTop: "1px solid rgba(255, 255, 255, 0.06)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span>Deliverable:</span>
-                <span style={{ color: "#76c9b4", fontWeight: 600 }}>{phase.deliverable}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Regulatory Safeguards Strip */}
-        <div style={{ background: "#111417", border: "1px solid rgba(255, 255, 255, 0.07)", borderRadius: "6px", padding: "12px 16px", display: "flex", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
-          <span style={{ fontSize: "10.5px", fontWeight: 700, color: "#76c9b4", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-            Regulatory Safeguards:
+      {/* Header Info */}
+      <div style={{ padding: "26px 28px 20px", borderBottom: "1px solid #161f2e" }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: "12px", marginBottom: "8px", flexWrap: "wrap" }}>
+          <h3 style={{ fontSize: "22px", fontWeight: 700, color: "#f8fafc", margin: 0, letterSpacing: "-0.02em" }}>
+            {selectedIndustry.name || selectedIndustry.title}
+          </h3>
+          <span style={{ fontSize: "12px", color: "#38bdf8", fontWeight: 500 }}>
+            {selectedIndustry.badge || selectedIndustry.tagline || "Workforce Operations Desk"}
           </span>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-            {selectedIndustry.guardrails.map((gw, idx) => (
-              <span key={idx} style={{ fontSize: "11px", color: "#c5cdd4", background: "rgba(255, 255, 255, 0.04)", padding: "3px 9px", borderRadius: "4px", border: "1px solid rgba(255, 255, 255, 0.08)" }}>
-                ✓ {gw}
-              </span>
-            ))}
-          </div>
         </div>
+        <p style={{ fontSize: "13.5px", color: "#94a3b8", lineHeight: "1.6", margin: 0 }}>
+          {selectedIndustry.description || "Dedicated operational coordinator managing high-friction administration, cross-referencing timesheets, compliance filings, and routine daily dispatch."}
+        </p>
       </div>
 
-      {/* Modal Footer matching SYS Ops styling */}
-      <div style={{ padding: "16px 30px", borderTop: "1px solid rgba(255, 255, 255, 0.08)", background: "#101316", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-        <span style={{ fontSize: "12px", color: "#8a949b" }}>
-          Customised to your exact software platforms, currencies, and pay schedules.
-        </span>
-        <div style={{ display: "flex", gap: "10px" }}>
-          <button 
-            onClick={() => setSelectedIndustry(null)}
-            style={{ 
-              background: "transparent", 
-              border: "1px solid rgba(255, 255, 255, 0.16)", 
-              color: "#c5cdd4", 
-              fontSize: "12px", 
-              fontWeight: 600,
-              padding: "9px 16px", 
-              borderRadius: "5px", 
-              cursor: "pointer",
-              transition: "all 0.15s ease"
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.3)"}
-            onMouseLeave={(e) => e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.16)"}
-          >
-            Close
-          </button>
-          <a 
+      {/* Operational Two-Column Ledger */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0", background: "#0c1017" }}>
+        
+        {/* Left Column: Critical Bottlenecks */}
+        <div style={{ padding: "22px 28px", borderRight: "1px solid #161f2e" }}>
+          <div style={{
+            fontSize: "11px",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.06em",
+            color: "#ef4444",
+            marginBottom: "14px",
+            display: "flex",
+            alignItems: "center",
+            gap: "6px"
+          }}>
+            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }}></span>
+            Operational Friction & Gaps
+          </div>
+
+          <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "11px" }}>
+            {(selectedIndustry.commonBottlenecks || [
+              "Delayed documentation and missing logs choking billing cycles",
+              "Expiring tickets, compliance filings, and audit vulnerability",
+              "Senior staff wasting billable hours on repetitive manual administration",
+              "Inconsistent communication between field teams and client accounts"
+            ]).slice(0, 4).map((item, idx) => (
+              <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "12.5px", color: "#cbd5e1", lineHeight: "1.5" }}>
+                <span style={{ color: "#64748b", fontSize: "14px", lineHeight: "1.2" }}>–</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Right Column: SYS Ops Execution Cadence */}
+        <div style={{ padding: "22px 28px", background: "rgba(16, 185, 129, 0.02)" }}>
+          <div style={{
+            fontSize: "11px",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.06em",
+            color: "#10b981",
+            marginBottom: "14px",
+            display: "flex",
+            alignItems: "center",
+            gap: "6px"
+          }}>
+            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981", display: "inline-block" }}></span>
+            SYS Ops Routine Execution
+          </div>
+
+          <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "11px" }}>
+            {(selectedIndustry.sysOpsSolution || [
+              "Daily log reconciliation, cross-referencing, and rate verification",
+              "Continuous compliance monitoring, credentials tracking, and proactive renewals",
+              "Structured vendor, contractor, and client communications run on schedule",
+              "Weekly management dashboard with clear operational metrics and exceptions"
+            ]).slice(0, 4).map((item, idx) => (
+              <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "12.5px", color: "#f1f5f9", lineHeight: "1.5" }}>
+                <span style={{ color: "#10b981", fontSize: "13px", fontWeight: 700 }}>✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </div>
+
+      {/* Key Deliverable Strip */}
+      <div style={{
+        padding: "14px 28px",
+        background: "#080c12",
+        borderTop: "1px solid #161f2e",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: "20px",
+        flexWrap: "wrap"
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", flex: 1, minWidth: "260px" }}>
+          <span style={{ fontSize: "10px", fontFamily: "monospace", textTransform: "uppercase", color: "#64748b", fontWeight: 700 }}>
+            TARGET OUTCOME:
+          </span>
+          <span style={{ fontSize: "12px", color: "#e2e8f0", fontWeight: 500 }}>
+            {selectedIndustry.keyOutcomes || "Zero operational backlogs, audit-ready compliance, and 8–15 recovered weekly hours for fee earners."}
+          </span>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <a
             href="#contact"
             onClick={() => setSelectedIndustry(null)}
             style={{
-              background: "#16866f",
+              background: "#059669",
               color: "#ffffff",
-              fontWeight: 700,
               fontSize: "12px",
-              padding: "9px 20px",
-              borderRadius: "5px",
+              fontWeight: 600,
+              padding: "8px 18px",
+              borderRadius: "6px",
               textDecoration: "none",
               display: "inline-flex",
               alignItems: "center",
               gap: "6px",
-              transition: "background 0.15s ease"
+              transition: "background 0.15s"
             }}
-            onMouseEnter={(e) => e.currentTarget.style.background = "#137460"}
-            onMouseLeave={(e) => e.currentTarget.style.background = "#16866f"}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#10b981")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "#059669")}
           >
-            Enquire for {selectedIndustry.title.split("&")[0].trim()} →
+            Enquire for this Sector →
           </a>
         </div>
       </div>
