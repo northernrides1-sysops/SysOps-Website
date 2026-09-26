@@ -60,29 +60,23 @@ export default function SysOpsWebsite() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  // Universal Hash Routing & Smooth Scroll Handler
+ // Universal Hash Routing & Smooth Scroll Handler
   useEffect(() => {
     const handleHashScroll = () => {
       const hash = window.location.hash.replace("#", "");
       if (hash) {
-        if (currentPage !== "home") {
-          setCurrentPage("home");
+        const el = document.getElementById(hash);
+        if (el) {
+          const headerOffset = 90;
+          const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+          window.scrollTo({ top: targetY, behavior: "smooth" });
         }
-        setTimeout(() => {
-          const el = document.getElementById(hash);
-          if (el) {
-            const headerOffset = 80;
-            const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-            window.scrollTo({ top: targetY, behavior: "smooth" });
-          }
-        }, 150);
       }
     };
 
-    handleHashScroll();
     window.addEventListener("hashchange", handleHashScroll);
     return () => window.removeEventListener("hashchange", handleHashScroll);
-  }, [currentPage]);
+  }, []);
 
   const scrollToSection = (id) => {
     if (currentPage !== "home") {
@@ -94,11 +88,11 @@ export default function SysOpsWebsite() {
     setTimeout(() => {
       const el = document.getElementById(id);
       if (el) {
-        const headerOffset = 80;
+        const headerOffset = 90;
         const targetY = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
         window.scrollTo({ top: targetY, behavior: "smooth" });
       }
-    }, 150);
+    }, 120);
   };
 const [opsPillar, setOpsPillar] = useState("finance");
   // Capacity & ROI Calculator State
