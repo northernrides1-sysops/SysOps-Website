@@ -3473,7 +3473,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                             <option value="Worker Vetting & Compliance Audits">Worker Vetting & Compliance Audits</option>
                             <option value="Custom Operational Scope">Custom Operational Scope</option>
                           </select>
-
+                          </div>
                         <div className="form-group">
                           <label>Operational Scope / Context</label>
                           <textarea
