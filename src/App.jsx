@@ -3353,7 +3353,15 @@ const annualCostLost = annualHoursLost * hourlyCost;
 
           <div className="container">
             <div className="unified-contact-container">
-              <div className="unified-card">
+             <div 
+  className="unified-card" 
+  style={{ 
+    maxWidth: contactMode === "call" ? "1050px" : "640px", 
+    width: "100%", 
+    margin: "0 auto", 
+    transition: "max-width 0.3s ease" 
+  }}
+>
 
                 {/* THE CLEAN DUAL TOGGLE */}
                 <div className="mode-toggle-wrap">
@@ -3401,6 +3409,8 @@ const annualCostLost = annualHoursLost * hourlyCost;
                 ) : (
                   <form onSubmit={handleSubmit}>
                     {/* STEP 1: ESSENTIAL CLIENT INFO */}
+                   {contactMode === "quote" && (
+  <>
                     <div className="form-grid-2">
                       <div className="form-group">
                         <label>Your Full Name *</label>
@@ -3443,9 +3453,11 @@ const annualCostLost = annualHoursLost * hourlyCost;
                         />
                       </div>
                     </div>
+    </>
+)}
 
                    {/* STEP 2: ADAPTIVE FIELDS ACCORDING TO SELECTION */}
-                    {contactMode === "quote" ? (
+ {contactMode === "quote" ? (
                       <div className="animate-fade-in">
                         <div className="form-group">
                           <label>Service Area of Interest</label>
@@ -3484,146 +3496,44 @@ const annualCostLost = annualHoursLost * hourlyCost;
                         </p>
                       </div>
                     ) : (
-                      /* INSPIRED 3-PANEL INTERACTIVE BOOKING DESK */
-                      <div className="animate-fade-in" style={{ marginTop: "16px" }}>
+                      /* CAL.COM 3-COLUMN BOOKING ENGINE */
+                      <div className="animate-fade-in" style={{ width: "100%", marginTop: "12px" }}>
                         <div style={{
-                          display: "grid",
-                          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-                          gap: "16px",
-                          background: "#0f1318",
-                          border: "1px solid #232a32",
-                          borderRadius: "10px",
-                          padding: "20px",
-                          color: "#f1f5f9"
+                          width: "100%",
+                          borderRadius: "12px",
+                          overflow: "hidden",
+                          background: "#18181b",
+                          border: "1px solid #27272a",
+                          boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
                         }}>
-                          {/* PANEL 1: BRIEFING */}
-                          <div style={{ borderRight: "1px solid #1e2630", paddingRight: "12px" }}>
-                            <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(22, 134, 111, 0.2)", color: "#76c9b4", padding: "4px 8px", borderRadius: "4px", fontSize: "11px", fontWeight: "600", marginBottom: "12px" }}>
-                              SYS OPS • 15 MIN
+                          {/* TOP TOUCH BAR */}
+                          <div style={{
+                            padding: "12px 20px",
+                            background: "#0f0f11",
+                            borderBottom: "1px solid #27272a",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            fontSize: "12px"
+                          }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981", display: "inline-block" }}></span>
+                              <span style={{ color: "#f4f4f5", fontWeight: "600" }}>SYS OPS Discovery Desk</span>
                             </div>
-                            <h4 style={{ margin: "0 0 6px", fontSize: "16px", fontWeight: "700", color: "#ffffff" }}>
-                              Operational Discovery Call
-                            </h4>
-                            <p style={{ margin: "0 0 14px", fontSize: "12px", color: "#94a3b8", lineHeight: "1.5" }}>
-                              15-minute briefing to review timesheets, payroll cutoff, or vetting workflows.
-                            </p>
-                            <div style={{ display: "flex", flexDirection: "column", gap: "8px", fontSize: "12px", color: "#cbd5e1" }}>
-                              <div>⏱ <strong>Duration:</strong> 15 minutes</div>
-                              <div>📹 <strong>Location:</strong> Google Meet (Video)</div>
-                              <div>🌍 <strong>Zone:</strong> London GMT / Irish IST</div>
-                            </div>
+                            <span style={{ color: "#71717a" }}>Timezone: <strong style={{ color: "#16866f" }}>London GMT</strong></span>
                           </div>
 
-                          {/* PANEL 2: DATE & SECTOR */}
-                          <div style={{ borderRight: "1px solid #1e2630", paddingRight: "12px" }}>
-                            <label style={{ display: "block", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.5px", color: "#76c9b4", fontWeight: "600", marginBottom: "6px" }}>
-                              1. Select Target Date
-                            </label>
-                            <input
-                              type="date"
-                              required
-                              value={formData.preferredDate}
-                              onChange={(e) => updateField("preferredDate", e.target.value)}
-                              style={{
-                                width: "100%",
-                                padding: "10px",
-                                background: "#171c24",
-                                border: "1px solid #2d3744",
-                                borderRadius: "6px",
-                                color: "#ffffff",
-                                fontSize: "13px",
-                                marginBottom: "14px"
-                              }}
-                            />
-
-                            <label style={{ display: "block", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.5px", color: "#76c9b4", fontWeight: "600", marginBottom: "6px" }}>
-                              2. Your Industry
-                            </label>
-                            <select
-                              value={formData.service}
-                              onChange={(e) => updateField("service", e.target.value)}
-                              style={{
-                                width: "100%",
-                                padding: "10px",
-                                background: "#171c24",
-                                border: "1px solid #2d3744",
-                                borderRadius: "6px",
-                                color: "#ffffff",
-                                fontSize: "13px"
-                              }}
-                            >
-                              <option value="Staffing & Recruitment">Staffing & Recruitment</option>
-                              <option value="Construction & Labour">Construction & Labour Supply</option>
-                              <option value="Social Care">Social Care & Healthcare</option>
-                              <option value="Utilities & Field Services">Utilities & Field Services</option>
-                              <option value="Transport & Logistics">Transport & Logistics</option>
-                              <option value="Facilities Management">Facilities Management</option>
-                              <option value="Other Workforce Sector">Other Workforce Sector</option>
-                            </select>
-                          </div>
-
-                          {/* PANEL 3: TIME SLOTS */}
-                          <div>
-                            <label style={{ display: "block", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.5px", color: "#76c9b4", fontWeight: "600", marginBottom: "8px" }}>
-                              3. Select GMT Slot
-                            </label>
-                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginBottom: "12px" }}>
-                              {[
-                                "09:30 AM GMT",
-                                "11:00 AM GMT",
-                                "01:30 PM GMT",
-                                "03:00 PM GMT",
-                                "04:30 PM GMT",
-                                "05:15 PM GMT"
-                              ].map((slot) => {
-                                const isSelected = (formData.preferredTime || "11:00 AM GMT") === slot;
-                                return (
-                                  <button
-                                    type="button"
-                                    key={slot}
-                                    onClick={() => updateField("preferredTime", slot)}
-                                    style={{
-                                      padding: "8px 6px",
-                                      fontSize: "12px",
-                                      fontWeight: isSelected ? "700" : "500",
-                                      borderRadius: "6px",
-                                      border: isSelected ? "1px solid #16866f" : "1px solid #283340",
-                                      background: isSelected ? "#16866f" : "#171c24",
-                                      color: isSelected ? "#ffffff" : "#cbd5e1",
-                                      cursor: "pointer",
-                                      transition: "all 0.15s ease",
-                                      textAlign: "center"
-                                    }}
-                                  >
-                                    {slot.replace(" GMT", "")}
-                                  </button>
-                                );
-                              })}
-                            </div>
-
-                            <p style={{ margin: "0", fontSize: "11px", color: "#94a3b8" }}>
-                              Selected: <strong style={{ color: "#76c9b4" }}>{formData.preferredTime || "11:00 AM GMT"}</strong>
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="form-group" style={{ marginTop: "14px" }}>
-                          <label>Primary Operational Focus (Optional)</label>
-                          <textarea
-                            value={formData.message}
-                            onChange={(e) => updateField("message", e.target.value)}
-                            placeholder="e.g. Bullhorn timesheets, Sage 50 Friday payroll cutoff, or Right-to-Work compliance..."
-                            rows={2}
+                          <iframe
+                            src="https://cal.com/sys-ops/15min?theme=dark"
+                            title="SYS OPS Operational Discovery Call"
+                            style={{
+                              width: "100%",
+                              height: "680px",
+                              border: "none",
+                              display: "block"
+                            }}
                           />
                         </div>
-
-                        <button type="submit" className="unified-submit-btn" disabled={sending}>
-                          {sending ? "Transmitting..." : "Confirm Discovery Call Booking →"}
-                        </button>
-
-                        <p style={{ margin: "14px 0 0", color: "#8b8b85", fontSize: "11px", textAlign: "center" }}>
-                          🔒 Google Meet invite and calendar invitation dispatched upon submission.
-                        </p>
                       </div>
                     )}
                   </form>
