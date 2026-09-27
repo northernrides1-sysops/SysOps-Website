@@ -3474,60 +3474,40 @@ const annualCostLost = annualHoursLost * hourlyCost;
                             placeholder="Share your workforce size, current software (Sage, Xero, BrightPay), and primary bottlenecks..."
                           />
                         </div>
+
+                        <button type="submit" className="unified-submit-btn" disabled={sending}>
+                          {sending ? "Transmitting Request..." : "Submit Proposal Request →"}
+                        </button>
+
+                        <p style={{ margin: "14px 0 0", color: "#8b8b85", fontSize: "11px", textAlign: "center" }}>
+                          🔒 SLA-backed response: Written proposal within 3 business hours.
+                        </p>
                       </div>
                     ) : (
-                      <div className="animate-fade-in">
-                        <div className="form-grid-2">
-                          <div className="form-group">
-                            <label>Preferred Date *</label>
-                            <input
-                              type="date"
-                              required
-                              value={formData.preferredDate}
-                              onChange={(e) => updateField("preferredDate", e.target.value)}
-                            />
-                          </div>
-
-                          <div className="form-group">
-                            <label>Time Slot (GMT)</label>
-                            <select
-                              value={formData.preferredTime}
-                              onChange={(e) => updateField("preferredTime", e.target.value)}
-                            >
-                              <option>09:30 AM GMT</option>
-                              <option>11:00 AM GMT</option>
-                              <option>02:00 PM GMT</option>
-                              <option>04:30 PM GMT</option>
-                            </select>
-                          </div>
+                      <div className="animate-fade-in" style={{ marginTop: "12px" }}>
+                        <div style={{
+                          border: "1px solid #e2e8f0",
+                          borderRadius: "8px",
+                          overflow: "hidden",
+                          background: "#ffffff",
+                          boxShadow: "0 4px 16px rgba(0,0,0,0.04)"
+                        }}>
+                          <iframe
+                            src="https://cal.com/sys-ops/15min?embed=true&theme=light&brandColor=16866f"
+                            title="Schedule a 15-Minute Operational Discovery Call"
+                            style={{
+                              width: "100%",
+                              height: "640px",
+                              border: "none",
+                              display: "block"
+                            }}
+                          />
                         </div>
-
-                        <div className="form-group">
-                          <label>Primary Audit Focus</label>
-                          <select
-                            value={formData.service}
-                            onChange={(e) => updateField("service", e.target.value)}
-                          >
-                            <option value="Sage Payroll Review">Sage Payroll & Timesheets Workflow</option>
-                            <option value="Compliance & Vetting">Right-to-Work & Worker Vetting Audit</option>
-                            <option value="Billing & Debtor Days">Billing & Credit Control Optimization</option>
-                            <option value="Full Back-Office Review">Full Operational Architecture Review</option>
-                          </select>
-                        </div>
+                        <p style={{ margin: "14px 0 0", color: "#8b8b85", fontSize: "11px", textAlign: "center" }}>
+                          ⚡ Instant confirmation: Google Meet invitation sent directly to your calendar.
+                        </p>
                       </div>
                     )}
-
-                    <button type="submit" className="unified-submit-btn" disabled={sending}>
-                      {sending
-                        ? "Transmitting Request..."
-                        : contactMode === "call"
-                        ? "Confirm Discovery Call Booking →"
-                        : "Submit Proposal Request →"}
-                    </button>
-
-                    <p style={{ margin: "14px 0 0", color: "#8b8b85", fontSize: "11px", textAlign: "center" }}>
-                      🔒 SLA-backed response: Written proposal or call confirmation within 3 business hours.
-                    </p>
                   </form>
                 )}
 
