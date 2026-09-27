@@ -3445,7 +3445,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                     </div>
 
                     {/* STEP 2: ADAPTIVE FIELDS ACCORDING TO SELECTION */}
-                    {contactMode === "quote" ? (
+                   {contactMode === "quote" ? (
                       <div className="animate-fade-in">
                         <div className="form-group">
                           <label>Service Area of Interest</label>
@@ -3484,33 +3484,110 @@ const annualCostLost = annualHoursLost * hourlyCost;
                         </p>
                       </div>
                     ) : (
-                      <div className="animate-fade-in" style={{ marginTop: "12px" }}>
-                        <div style={{
-                          border: "1px solid #e2e8f0",
-                          borderRadius: "8px",
-                          overflow: "hidden",
-                          background: "#ffffff",
-                          boxShadow: "0 4px 16px rgba(0,0,0,0.04)"
-                        }}>
-                          <iframe
-                            src="https://cal.com/sys-ops/15min?embed=true&theme=light&brandColor=16866f"
-                            title="Schedule a 15-Minute Operational Discovery Call"
-                            style={{
-                              width: "100%",
-                              height: "640px",
-                              border: "none",
-                              display: "block"
-                            }}
+                      <div className="animate-fade-in">
+                        <div className="form-grid-2">
+                          <div className="form-group">
+                            <label>Industry Sector *</label>
+                            <select
+                              value={formData.service}
+                              onChange={(e) => updateField("service", e.target.value)}
+                            >
+                              <option value="Staffing & Recruitment">Staffing & Recruitment</option>
+                              <option value="Construction & Labour Supply">Construction & Labour Supply</option>
+                              <option value="Social Care & Healthcare">Social Care & Healthcare</option>
+                              <option value="Utilities & Field Services">Utilities & Field Services</option>
+                              <option value="Transport & Logistics">Transport & Logistics</option>
+                              <option value="Facilities Management">Facilities Management / Cleaning</option>
+                              <option value="Other Workforce Sector">Other Workforce Business</option>
+                            </select>
+                          </div>
+
+                          <div className="form-group">
+                            <label>Weekly Active Workforce</label>
+                            <select
+                              value={formData.companySize || "26-75 workers"}
+                              onChange={(e) => updateField("companySize", e.target.value)}
+                            >
+                              <option value="1-25 workers">1 – 25 active workers</option>
+                              <option value="26-75 workers">26 – 75 active workers</option>
+                              <option value="76-150 workers">76 – 150 active workers</option>
+                              <option value="150+ workers">150+ active workers</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="form-grid-2">
+                          <div className="form-group">
+                            <label>Preferred Date *</label>
+                            <input
+                              type="date"
+                              required
+                              value={formData.preferredDate}
+                              onChange={(e) => updateField("preferredDate", e.target.value)}
+                            />
+                          </div>
+
+                          <div className="form-group">
+                            <label>Preferred Time (London GMT) *</label>
+                            <select
+                              value={formData.preferredTime}
+                              onChange={(e) => updateField("preferredTime", e.target.value)}
+                            >
+                              <option value="09:30 AM GMT">09:30 AM GMT</option>
+                              <option value="11:30 AM GMT">11:30 AM GMT</option>
+                              <option value="02:00 PM GMT">02:00 PM GMT</option>
+                              <option value="04:00 PM GMT">04:00 PM GMT</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="form-group">
+                          <label>Primary Bottleneck / Software Stack</label>
+                          <textarea
+                            value={formData.message}
+                            onChange={(e) => updateField("message", e.target.value)}
+                            placeholder="e.g. Sage 50 timesheet cut-off delays, RTW vetting compliance, CIS reverse charge, or Bullhorn billing margins..."
+                            rows={3}
                           />
                         </div>
-                        <p style={{ margin: "14px 0 0", color: "#8b8b85", fontSize: "11px", textAlign: "center" }}>
-                          ⚡ Instant confirmation: Google Meet invitation sent directly to your calendar.
-                        </p>
+
+                        <button type="submit" className="unified-submit-btn" disabled={sending}>
+                          {sending ? "Confirming Discovery Call..." : "Confirm Discovery Call Booking →"}
+                        </button>
+
+                        <div style={{
+                          marginTop: "16px",
+                          padding: "12px 16px",
+                          borderRadius: "6px",
+                          background: "#f4f6f8",
+                          border: "1px dashed #d1d5db",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          fontSize: "12px",
+                          color: "#4b5563"
+                        }}>
+                          <span>Want to pick an immediate Google Calendar slot?</span>
+                          <a
+                            href="https://cal.com/sys-ops/15min"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              color: "#16866f",
+                              fontWeight: "600",
+                              textDecoration: "none",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "4px"
+                            }}
+                          >
+                            Open Live Cal.com Scheduler ↗
+                          </a>
+                        </div>
                       </div>
                     )}
                   </form>
                 )}
-
                 {/* BOTTOM TRAY: DIRECT REACH */}
                 <div className="contact-direct-tray">
                   <div className="tray-item">
