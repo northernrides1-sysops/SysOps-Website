@@ -121,7 +121,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
     email: "",
     phone: "",
     actionType: "Request a Proposal",
-    service: "Full Ops Package",
+    service: "Operations Engine Package",
     preferredDate: "",
     preferredTime: "11:00 AM GMT",
     message: "",
@@ -3465,18 +3465,14 @@ const annualCostLost = annualHoursLost * hourlyCost;
                             value={formData.service}
                             onChange={(e) => updateField("service", e.target.value)}
                           >
-                            <option value="Full Ops Package">Full Ops Package (£450/month) — Most Popular</option>
-                            <option value="Compliance Core">Compliance Core (£300/month)</option>
-                            <option value="Dedicated Ops Manager">Dedicated Ops Manager (£600/month)</option>
-                            <option value="Invoice & Billing Management">Invoice & Billing Management</option>
-                            <option value="Payroll & Timesheet Processing">Payroll & Timesheet Processing</option>
-                            <option value="Compliance & Documentation">Compliance & Documentation</option>
-                            <option value="Data Analysis & Power BI">Data Analysis & Reporting (Power BI)</option>
-                            <option value="Remote Business Operations">Remote Business Operations</option>
-                            <option value="Worker Onboarding & Lifecycle">Worker Onboarding & Lifecycle</option>
-                            <option value="Custom Scope">Custom Operational Scope</option>
+                            <option value="Operations Engine Package">Operations Engine (£650/month) — Most Popular</option>
+                            <option value="Compliance Core Package">Compliance Core (£350/month)</option>
+                            <option value="Enterprise Ops Package">Enterprise Ops (£1,200/month)</option>
+                            <option value="Timesheet & Payroll Management">Timesheet & Payroll Management</option>
+                            <option value="Billing & Invoicing Workflow">Billing & Invoicing Workflow</option>
+                            <option value="Worker Vetting & Compliance Audits">Worker Vetting & Compliance Audits</option>
+                            <option value="Custom Operational Scope">Custom Operational Scope</option>
                           </select>
-                        </div>
 
                         <div className="form-group">
                           <label>Operational Scope / Context</label>
