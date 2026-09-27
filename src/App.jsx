@@ -3352,7 +3352,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
           </div>
 
           <div className="container">
-            <div className="unified-contact-container">
+            <div className="unified-contact-container" style={{ maxWidth: contactMode === "call" ? "1100px" : "680px", width: "100%", margin: "0 auto", transition: "max-width 0.3s ease" }}>
              <div 
   className="unified-card" 
   style={{ 
@@ -3524,7 +3524,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                           </div>
 
                           <iframe
-                            src="https://cal.com/sys-ops/15min?theme=dark"
+                            src="https://cal.com/sys-ops/15min?theme=dark&layout=month_view"
                             title="SYS OPS Operational Discovery Call"
                             style={{
                               width: "100%",
