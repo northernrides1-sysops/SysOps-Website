@@ -721,19 +721,41 @@ const industries = [
         }
         .button-outline:hover { background: rgba(255,255,255,.15); transform: translateY(-2px); border-color: #fff; }
 
-        .hero-stats {
-          position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-          width: min(1120px, calc(100% - 100px)); display: grid; grid-template-columns: repeat(4, 1fr);
-          background: #fff; color: var(--brand-dark); box-shadow: 0 18px 50px rgba(0,0,0,.16); z-index: 6;
+        /* OPTION B: EXECUTIVE HUD BOTTOM RAIL */
+        .hud-bottom-rail {
+          position: absolute; bottom: 0; left: 0; right: 0;
+          background: linear-gradient(180deg, rgba(6, 8, 13, 0) 0%, rgba(6, 8, 13, 0.85) 40%, rgba(6, 8, 13, 0.98) 100%);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          z-index: 6; padding: 18px 0;
         }
-        .hero-stat { padding: 24px 26px; border-right: 1px solid #e8e8e4; }
-        .hero-stat:last-child { border-right: 0; }
-        .hero-stat strong { display: block; font-family: 'Manrope', sans-serif; font-size: 28px; letter-spacing: -.04em; }
-        .hero-stat span {
-          display: block; margin-top: 5px; color: #777773; font-size: 10px; line-height: 1.4;
-          text-transform: uppercase; letter-spacing: .12em;
+        .hud-inner {
+          display: flex; align-items: center; justify-content: space-between;
+          width: min(1240px, calc(100% - 100px)); margin: 0 auto;
+        }
+        .hud-stat-cell { display: flex; align-items: center; gap: 14px; }
+        .hud-stat-cell strong {
+          font-size: 26px; font-weight: 800; color: #ffffff;
+          font-family: 'Manrope', sans-serif; letter-spacing: -0.02em;
+        }
+        .hud-stat-cell div { display: flex; flex-direction: column; }
+        .hud-stat-cell .hud-title {
+          font-size: 11px; font-weight: 700; color: #f1f5f9;
+          text-transform: uppercase; letter-spacing: 0.06em;
+        }
+        .hud-stat-cell .hud-sub {
+          font-size: 10px; color: #76c9b4; font-weight: 600;
+        }
+        .hud-divider {
+          width: 1px; height: 32px; background: rgba(255, 255, 255, 0.12);
         }
 
+        @media (max-width: 900px) {
+          .hud-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; width: calc(100% - 32px); }
+          .hud-divider { display: none; }
+        }
+        @media (max-width: 600px) {
+          .hud-inner { grid-template-columns: 1fr; }
+        }
         /* RIBBON */
         .ops-ribbon {
           width: 100%; background: #101216; border-top: 1px solid #20242c; border-bottom: 1px solid #20242c;
@@ -1584,22 +1606,45 @@ const industries = [
                 </div>
               </div>
 
-              <div className="hero-stats">
-                <div className="hero-stat">
-                  <strong>9+</strong>
-                  <span>Years Experience</span>
-                </div>
-                <div className="hero-stat">
-                  <strong>50+</strong>
-                  <span>Professionals Managed</span>
-                </div>
-                <div className="hero-stat">
-                  <strong>UK + IE</strong>
-                  <span>Markets Supported</span>
-                </div>
-                <div className="hero-stat">
-                  <strong>60–75%</strong>
-                  <span>Potential Cost Saving</span>
+             <div className="hud-bottom-rail">
+                <div className="hud-inner">
+                  <div className="hud-stat-cell">
+                    <strong>100%</strong>
+                    <div>
+                      <span className="hud-title">Audit Placement Gate</span>
+                      <span className="hud-sub">Zero Breach Guarantee</span>
+                    </div>
+                  </div>
+
+                  <div className="hud-divider" />
+
+                  <div className="hud-stat-cell">
+                    <strong>&lt; 3 hrs</strong>
+                    <div>
+                      <span className="hud-title">Turnaround SLA</span>
+                      <span className="hud-sub">Contractual Response</span>
+                    </div>
+                  </div>
+
+                  <div className="hud-divider" />
+
+                  <div className="hud-stat-cell">
+                    <strong>0% Drift</strong>
+                    <div>
+                      <span className="hud-title">Friday Payroll Discrepancy</span>
+                      <span className="hud-sub">Pre-Run Reconciliation</span>
+                    </div>
+                  </div>
+
+                  <div className="hud-divider" />
+
+                  <div className="hud-stat-cell">
+                    <strong>UK + IE</strong>
+                    <div>
+                      <span className="hud-title">Statutory Operations</span>
+                      <span className="hud-sub">PAYE, CIS & Garda Vetted</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
