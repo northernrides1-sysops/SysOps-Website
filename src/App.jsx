@@ -721,21 +721,21 @@ const industries = [
         }
         .button-outline:hover { background: rgba(255,255,255,.15); transform: translateY(-2px); border-color: #fff; }
 
-        /* OPTION B: EXECUTIVE HUD BOTTOM RAIL */
+       /* OPTION B: EXECUTIVE HUD BOTTOM RAIL (FULLY RESPONSIVE) */
         .hud-bottom-rail {
           position: absolute; bottom: 0; left: 0; right: 0;
-          background: linear-gradient(180deg, rgba(6, 8, 13, 0) 0%, rgba(6, 8, 13, 0.85) 40%, rgba(6, 8, 13, 0.98) 100%);
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          background: linear-gradient(180deg, rgba(6, 8, 13, 0) 0%, rgba(6, 8, 13, 0.88) 35%, rgba(6, 8, 13, 0.98) 100%);
+          border-top: 1px solid rgba(255, 255, 255, 0.12);
           z-index: 6; padding: 18px 0;
         }
         .hud-inner {
           display: flex; align-items: center; justify-content: space-between;
-          width: min(1240px, calc(100% - 100px)); margin: 0 auto;
+          width: min(1240px, calc(100% - 60px)); margin: 0 auto;
         }
         .hud-stat-cell { display: flex; align-items: center; gap: 14px; }
         .hud-stat-cell strong {
           font-size: 26px; font-weight: 800; color: #ffffff;
-          font-family: 'Manrope', sans-serif; letter-spacing: -0.02em;
+          font-family: 'Manrope', sans-serif; letter-spacing: -0.02em; white-space: nowrap;
         }
         .hud-stat-cell div { display: flex; flex-direction: column; }
         .hud-stat-cell .hud-title {
@@ -747,6 +747,35 @@ const industries = [
         }
         .hud-divider {
           width: 1px; height: 32px; background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* MOBILE & TABLET FIX (NO OVERLAP, CLEAN 2x2 GRID) */
+        @media (max-width: 900px) {
+          .hud-bottom-rail {
+            position: relative;
+            background: #090c12;
+            padding: 24px 16px;
+            margin-top: 20px;
+          }
+          .hud-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 16px;
+            width: 100%;
+          }
+          .hud-divider { display: none; }
+          .hud-stat-cell {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 6px;
+            padding: 12px 14px;
+          }
+          .hud-stat-cell strong { font-size: 22px; }
+          .hud-stat-cell .hud-title { font-size: 10px; }
+          .hud-stat-cell .hud-sub { font-size: 9px; }
         }
 
         @media (max-width: 900px) {
