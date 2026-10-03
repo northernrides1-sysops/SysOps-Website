@@ -749,41 +749,50 @@ const industries = [
           width: 1px; height: 32px; background: rgba(255, 255, 255, 0.12);
         }
 
-        /* MOBILE & TABLET FIX (NO OVERLAP, CLEAN 2x2 GRID) */
+       /* MOBILE & TABLET FIX (NATURAL STACK + 2x2 CARDS) */
         @media (max-width: 900px) {
+          .hero-card {
+            flex-direction: column !important;
+            height: auto !important;
+            min-height: auto !important;
+            display: flex !important;
+            padding-bottom: 0 !important;
+          }
+          .hero-content {
+            width: 100% !important;
+            padding: 40px 20px 24px !important;
+          }
           .hud-bottom-rail {
-            position: relative;
-            background: #090c12;
-            padding: 24px 16px;
-            margin-top: 20px;
+            position: relative !important;
+            bottom: auto !important;
+            left: auto !important;
+            right: auto !important;
+            width: 100% !important;
+            background: rgba(9, 12, 18, 0.95) !important;
+            backdrop-filter: blur(12px);
+            padding: 20px 16px 28px !important;
+            margin-top: 10px !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
           }
           .hud-inner {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px 16px;
-            width: 100%;
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 12px !important;
+            width: 100% !important;
           }
-          .hud-divider { display: none; }
+          .hud-divider { display: none !important; }
           .hud-stat-cell {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 4px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 6px;
-            padding: 12px 14px;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 4px !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 6px !important;
+            padding: 12px 14px !important;
           }
-          .hud-stat-cell strong { font-size: 22px; }
-          .hud-stat-cell .hud-title { font-size: 10px; }
-          .hud-stat-cell .hud-sub { font-size: 9px; }
-        }
-
-        @media (max-width: 900px) {
-          .hud-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; width: calc(100% - 32px); }
-          .hud-divider { display: none; }
-        }
-        @media (max-width: 600px) {
-          .hud-inner { grid-template-columns: 1fr; }
+          .hud-stat-cell strong { font-size: 22px !important; }
+          .hud-stat-cell .hud-title { font-size: 10px !important; line-height: 1.3 !important; }
+          .hud-stat-cell .hud-sub { font-size: 9px !important; }
         }
         /* RIBBON */
         .ops-ribbon {
