@@ -2712,7 +2712,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                     </h3>
                     <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
                       <span style={{ fontSize: "14px", fontWeight: 600, color: "#666" }}>From</span>
-                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#171717", letterSpacing: "-0.02em" }}>{activeSymbol}{countrySymbols[selectedCountry]?.tier1 || '400'}</span
+                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#171717", letterSpacing: "-0.02em" }}>{activeSymbol}{countrySymbols[selectedCountry]?.tier1 || '400'}</span>
                       <span style={{ fontSize: "13px", color: "#888" }}>/ month</span>
                     </div>
                     <p style={{ fontSize: "13.5px", color: "#666660", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
