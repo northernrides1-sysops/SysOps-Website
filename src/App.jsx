@@ -100,10 +100,10 @@ const [opsPillar, setOpsPillar] = useState("finance");
  // Country & Currency Selector
   const [selectedCountry, setSelectedCountry] = useState('UK'); // 'UK' | 'IE' | 'US'
 const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
-  const countrySymbols = {
-    UK: { symbol: '£', code: 'GBP', label: 'UK (£)', flag: '🇬🇧' },
-    IE: { symbol: '€', code: 'EUR', label: 'Ireland (€)', flag: '🇮🇪' },
-    US: { symbol: '$', code: 'USD', label: 'International ($)', flag: '🇺🇸' }
+ const countrySymbols = {
+    UK: { symbol: '£', code: 'GBP', label: 'UK (£)', flag: '🇬🇧', tier1: '400', tier2: '800', tier3: '1,200' },
+    IE: { symbol: '€', code: 'EUR', label: 'Ireland (€)', flag: '🇮🇪', tier1: '450', tier2: '850', tier3: '1,250' },
+    US: { symbol: '$', code: 'USD', label: 'International ($)', flag: '🇺🇸', tier1: '500', tier2: '900', tier3: '1,300' }
   };
   const activeSymbol = countrySymbols[selectedCountry]?.symbol || '£';
   const [selectedBottlenecks, setSelectedBottlenecks] = useState(['timesheets', 'compliance', 'crm']);
@@ -121,7 +121,7 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
     email: "",
     phone: "",
     actionType: "Request a Proposal",
-    service: "Operations Engine Package",
+    service: "Full Ops Package",
     preferredDate: "",
     preferredTime: "11:00 AM GMT",
     message: "",
@@ -2712,7 +2712,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                     </h3>
                     <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
                       <span style={{ fontSize: "14px", fontWeight: 600, color: "#666" }}>From</span>
-                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#171717", letterSpacing: "-0.02em" }}>{activeSymbol}495</span>
+                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#171717", letterSpacing: "-0.02em" }}>{activeSymbol}{countrySymbols[selectedCountry]?.tier1 || '400'}</span
                       <span style={{ fontSize: "13px", color: "#888" }}>/ month</span>
                     </div>
                     <p style={{ fontSize: "13.5px", color: "#666660", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
@@ -2807,7 +2807,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                     </h3>
                     <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
                       <span style={{ fontSize: "14px", fontWeight: 600, color: "#9ca3af" }}>From</span>
-                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#ffffff", letterSpacing: "-0.02em" }}>{activeSymbol}850</span>
+                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#ffffff", letterSpacing: "-0.02em" }}>{activeSymbol}{countrySymbols[selectedCountry]?.tier2 || '800'}</span>
                       <span style={{ fontSize: "13px", color: "#9ca3af" }}>/ month</span>
                     </div>
                     <p style={{ fontSize: "13.5px", color: "#a8a8a2", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
@@ -2895,7 +2895,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                     </h3>
                     <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
                       <span style={{ fontSize: "14px", fontWeight: 600, color: "#666" }}>From</span>
-                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#171717", letterSpacing: "-0.02em" }}>{activeSymbol}1,250</span>
+                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#171717", letterSpacing: "-0.02em" }}>{activeSymbol}{countrySymbols[selectedCountry]?.tier3 || '1,200'}</span>
                       <span style={{ fontSize: "13px", color: "#888" }}>/ month</span>
                     </div>
                     <p style={{ fontSize: "13.5px", color: "#666660", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
@@ -3465,9 +3465,15 @@ const annualCostLost = annualHoursLost * hourlyCost;
                             value={formData.service}
                             onChange={(e) => updateField("service", e.target.value)}
                           >
-                            <option value="Operations Engine Package">Operations Engine (£650/month) — Most Popular</option>
-                            <option value="Compliance Core Package">Compliance Core (£350/month)</option>
-                            <option value="Enterprise Ops Package">Enterprise Ops (£1,200/month)</option>
+                        <option value={`Full Ops Package (${activeSymbol}${countrySymbols[selectedCountry]?.tier2 || '800'}/month)`}>
+                              Full Ops Package ({activeSymbol}{countrySymbols[selectedCountry]?.tier2 || '800'}/month) — Most Popular
+                            </option>
+                            <option value={`Compliance Core (${activeSymbol}${countrySymbols[selectedCountry]?.tier1 || '400'}/month)`}>
+                              Compliance Core ({activeSymbol}{countrySymbols[selectedCountry]?.tier1 || '400'}/month)
+                            </option>
+                            <option value={`Dedicated Ops Pod (${activeSymbol}${countrySymbols[selectedCountry]?.tier3 || '1,200'}/month)`}>
+                              Dedicated Ops Pod ({activeSymbol}{countrySymbols[selectedCountry]?.tier3 || '1,200'}/month)
+                            </option>
                             <option value="Timesheet & Payroll Management">Timesheet & Payroll Management</option>
                             <option value="Billing & Invoicing Workflow">Billing & Invoicing Workflow</option>
                             <option value="Worker Vetting & Compliance Audits">Worker Vetting & Compliance Audits</option>
