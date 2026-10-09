@@ -52,6 +52,21 @@ export default function SysOpsWebsite() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedIndustry, setSelectedIndustry] = useState(null);
+  // Interactive state for Starter Ops Desk (Client can select any 2 focus areas)
+  const [selectedFocusAreas, setSelectedFocusAreas] = useState([]);
+
+  const toggleFocusArea = (area) => {
+    if (selectedFocusAreas.includes(area)) {
+      setSelectedFocusAreas(selectedFocusAreas.filter((item) => item !== area));
+    } else {
+      if (selectedFocusAreas.length >= 2) {
+        // Keeps the 2 most recent selections
+        setSelectedFocusAreas([selectedFocusAreas[1], area]);
+      } else {
+        setSelectedFocusAreas([...selectedFocusAreas, area]);
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -793,6 +808,32 @@ const industries = [
           .hud-stat-cell strong { font-size: 22px !important; }
           .hud-stat-cell .hud-title { font-size: 10px !important; line-height: 1.3 !important; }
           .hud-stat-cell .hud-sub { font-size: 9px !important; }
+        }
+        /* TIER OUTLINE BUTTONS WITH HOVER & ACTIVE STATE */
+        .package-btn-outline {
+          width: 100%;
+          padding: 13px;
+          background: transparent;
+          color: #111111;
+          border: 1px solid #dcdcd8;
+          border-radius: 4px;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: .06em;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .package-btn-outline:hover {
+          background: #11141a !important;
+          color: #ffffff !important;
+          border-color: #11141a !important;
+        }
+        .package-btn-outline.is-active {
+          background: #11141a !important;
+          color: #ffffff !important;
+          border-color: #11141a !important;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
         }
         /* RIBBON */
         .ops-ribbon {
@@ -2762,7 +2803,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
               {/* 3 PRICING CARDS WITH SMOOTH HOVER ANIMATIONS */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "28px", alignItems: "stretch" }}>
                 
-                {/* TIER 1: COMPLIANCE CORE */}
+               {/* TIER 1: STARTER OPS DESK (NEW INTERACTIVE DESIGN) */}
                 <div 
                   style={{ 
                     background: "#ffffff", 
@@ -2791,7 +2832,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                       Tier One
                     </span>
                     <h3 style={{ fontSize: "22px", fontWeight: 800, color: "#171717", margin: "0 0 12px 0" }}>
-                      Compliance Core
+                      Starter Ops Desk
                     </h3>
                     <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
                       <span style={{ fontSize: "14px", fontWeight: 600, color: "#666" }}>From</span>
@@ -2799,57 +2840,118 @@ const annualCostLost = annualHoursLost * hourlyCost;
                       <span style={{ fontSize: "13px", color: "#888" }}>/ month</span>
                     </div>
                     <p style={{ fontSize: "13.5px", color: "#666660", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
-                      For growing agencies establishing a watertight, zero-breach candidate onboarding and vetting desk.
+                      A focused operational desk where the client can choose the areas they need support with.
                     </p>
 
-                    <div style={{ borderTop: "1px solid #eeeeea", paddingTop: "20px", marginBottom: "28px" }}>
-                      <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", color: "#171717", display: "block", marginBottom: "12px", letterSpacing: "0.05em" }}>
-                        What’s Included:
-                      </span>
-                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px", fontSize: "13px", color: "#444" }}>
+                    {/* Focus Area Selection Box */}
+                    <div style={{ borderTop: "1px solid #eeeeea", paddingTop: "20px", marginBottom: "20px" }}>
+                      <div style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginBottom: "12px"
+                      }}>
+                        <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", color: "#171717", letterSpacing: "0.05em" }}>
+                          Choose Any 2 Focus Areas:
+                        </span>
+                        <span style={{
+                          fontSize: "10px",
+                          fontWeight: 700,
+                          background: selectedFocusAreas.length === 2 ? "#e6f4f1" : "#f3f4f6",
+                          color: selectedFocusAreas.length === 2 ? "#16866f" : "#6b7280",
+                          padding: "2px 8px",
+                          borderRadius: "10px",
+                          border: `1px solid ${selectedFocusAreas.length === 2 ? "#16866f" : "#e5e7eb"}`
+                        }}>
+                          {selectedFocusAreas.length}/2 Selected
+                        </span>
+                      </div>
+
+                      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                         {[
-                          selectedCountry === 'IE' ? "Irish GNIB/IRP & Right-to-Work validation" : "Home Office RTW & share code verification",
-                          selectedCountry === 'IE' ? "Garda vetting & ticket expiry tracking" : "DBS, tickets & certification expiry tracking",
-                          "Candidate vetting & audit-ready digital packs",
-                          "Pre-placement compliance sign-off gates",
-                          "Monthly compliance health & audit summary",
-                          "Guaranteed 4-hour candidate pack turnaround"
-                        ].map((item, idx) => (
-                          <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
-                            <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                          "Compliance & Vetting",
+                          "Timesheets & Payroll Support",
+                          "Invoicing & Credit Control",
+                          "Candidate Administration"
+                        ].map((item) => {
+                          const isSelected = selectedFocusAreas.includes(item);
+                          return (
+                            <div
+                              key={item}
+                              onClick={() => toggleFocusArea(item)}
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "10px",
+                                padding: "10px 12px",
+                                borderRadius: "6px",
+                                cursor: "pointer",
+                                userSelect: "none",
+                                transition: "all 0.15s ease",
+                                background: isSelected ? "rgba(22, 134, 111, 0.07)" : "#ffffff",
+                                border: isSelected ? "1.5px solid #16866f" : "1px solid #e2e2de",
+                              }}
+                            >
+                              <div style={{
+                                width: "18px",
+                                height: "18px",
+                                borderRadius: "4px",
+                                background: isSelected ? "#16866f" : "#ffffff",
+                                border: isSelected ? "1px solid #16866f" : "1.5px solid #cbd5e1",
+                                color: "#ffffff",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                fontSize: "11px",
+                                fontWeight: 800,
+                                flexShrink: 0
+                              }}>
+                                {isSelected ? "✓" : ""}
+                              </div>
+                              <span style={{
+                                fontSize: "13px",
+                                color: isSelected ? "#111111" : "#4b5563",
+                                lineHeight: 1.3,
+                                fontWeight: isSelected ? 700 : 500
+                              }}>
+                                {item}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Always Included Box */}
+                    <div style={{
+                      background: "#f7f7f4",
+                      border: "1px solid #e8e8e4",
+                      borderRadius: "6px",
+                      padding: "12px 14px",
+                      marginBottom: "20px"
+                    }}>
+                      <div style={{ fontSize: "10px", fontWeight: 800, color: "#16866f", textTransform: "uppercase", letterSpacing: ".08em", marginBottom: "6px" }}>
+                        ALWAYS INCLUDED:
+                      </div>
+                      <div style={{ fontSize: "11px", color: "#555550", lineHeight: 1.5 }}>
+                        Named point of contact • Monthly summary • 4-hour response SLA • Secure system access
+                      </div>
                     </div>
                   </div>
 
                   <button
                     onClick={() => {
-                      setFormData(prev => ({ ...prev, service: `Compliance Core (${countrySymbols[selectedCountry]?.code})` }));
+                      const serviceSummary = selectedFocusAreas.length > 0 
+                        ? `Starter Ops Desk (${selectedFocusAreas.join(' + ')})` 
+                        : 'Starter Ops Desk';
+                      setFormData(prev => ({ ...prev, service: `${serviceSummary} (${countrySymbols[selectedCountry]?.code})` }));
                       setCurrentPage('contact');
                     }}
-                    style={{
-                      width: "100%",
-                      background: "#f4f4f1",
-                      color: "#171717",
-                      border: "1px solid #d4d4cd",
-                      padding: "13px 20px",
-                      borderRadius: "4px",
-                      fontSize: "11.5px",
-                      fontWeight: 700,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      cursor: "pointer",
-                      transition: "all 0.2s ease"
-                    }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "#171717"; e.currentTarget.style.color = "#ffffff"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = "#f4f4f1"; e.currentTarget.style.color = "#171717"; }}
+                    className={`package-btn-outline ${selectedFocusAreas.length === 2 ? 'is-active' : ''}`}
                   >
-                    Discuss Compliance Core →
+                    Discuss Starter Desk →
                   </button>
                 </div>
-
                 {/* TIER 2: FULL OPS PACKAGE (HERO - OBSIDIAN #171717) */}
                 <div 
                   style={{ 
