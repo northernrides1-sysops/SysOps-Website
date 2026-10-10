@@ -54,7 +54,9 @@ export default function SysOpsWebsite() {
   const [selectedIndustry, setSelectedIndustry] = useState(null);
   // Interactive state for Starter Ops Desk (Client can select any 2 focus areas)
   const [selectedFocusAreas, setSelectedFocusAreas] = useState([]);
-
+// State for the Industry Deliverables modal
+  const [industryModalTier, setIndustryModalTier] = useState(null);
+  const [modalActiveSector, setModalActiveSector] = useState("construction");
   const toggleFocusArea = (area) => {
     if (selectedFocusAreas.includes(area)) {
       setSelectedFocusAreas(selectedFocusAreas.filter((item) => item !== area));
@@ -2934,7 +2936,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
                         ALWAYS INCLUDED:
                       </div>
                       <div style={{ fontSize: "11px", color: "#555550", lineHeight: 1.5 }}>
-                        Named point of contact • Monthly summary • 4-hour response SLA • Secure system access
+                        Named point of contact • Monthly summary • 3-hour response SLA • Secure system access
                       </div>
                     </div>
                   </div>
@@ -2953,189 +2955,210 @@ const annualCostLost = annualHoursLost * hourlyCost;
                   </button>
                 </div>
                 {/* TIER 2: FULL OPS PACKAGE (HERO - OBSIDIAN #171717) */}
-                <div 
-                  style={{ 
-                    background: "#171717", 
-                    color: "#ffffff", 
-                    border: "1px solid #171717", 
-                    borderRadius: "8px", 
-                    padding: "36px", 
-                    display: "flex", 
-                    flexDirection: "column", 
-                    justifyContent: "space-between", 
-                    position: "relative", 
-                    transform: "scale(1.02)", 
-                    boxShadow: "0 14px 34px rgba(0,0,0,0.12)",
-                    transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)"
-                  }}
-                  onMouseEnter={(e) => { 
-                    e.currentTarget.style.transform = "scale(1.03) translateY(-8px)"; 
-                    e.currentTarget.style.boxShadow = "0 24px 50px rgba(0,0,0,0.28)"; 
-                  }}
-                  onMouseLeave={(e) => { 
-                    e.currentTarget.style.transform = "scale(1.02) translateY(0px)"; 
-                    e.currentTarget.style.boxShadow = "0 14px 34px rgba(0,0,0,0.12)"; 
-                  }}
-                >
-                  
-                  {/* POPULAR BADGE */}
-                  <div style={{ position: "absolute", top: "-13px", left: "50%", transform: "translateX(-50%)", background: "#16866f", color: "#ffffff", padding: "4px 14px", borderRadius: "12px", fontSize: "10px", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase", boxShadow: "0 4px 12px rgba(22,134,111,0.35)" }}>
-                    Most Selected by Agencies
-                  </div>
-
-                  <div>
-                    <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#76c9b4", display: "block", marginBottom: "8px" }}>
-                      Tier Two
-                    </span>
-                    <h3 style={{ fontSize: "22px", fontWeight: 800, color: "#ffffff", margin: "0 0 12px 0" }}>
-                      Full Ops Package
-                    </h3>
-                    <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
-                      <span style={{ fontSize: "14px", fontWeight: 600, color: "#9ca3af" }}>From</span>
-                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#ffffff", letterSpacing: "-0.02em" }}>{activeSymbol}{countrySymbols[selectedCountry]?.tier2 || '800'}</span>
-                      <span style={{ fontSize: "13px", color: "#9ca3af" }}>/ month</span>
-                    </div>
-                    <p style={{ fontSize: "13.5px", color: "#a8a8a2", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
-                      Complete operational desk taking full ownership of your Friday payroll cutoffs, timesheet chasing, and billing.
-                    </p>
-
-                    <div style={{ borderTop: "1px solid #2a2a2a", paddingTop: "20px", marginBottom: "28px" }}>
-                      <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", color: "#76c9b4", display: "block", marginBottom: "12px", letterSpacing: "0.05em" }}>
-                        Everything in Core, Plus:
-                      </span>
-                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px", fontSize: "13px", color: "#d1d1cc" }}>
-                        {[
-                          "Proactive Friday timesheet chasing & validation",
-                          selectedCountry === 'IE' ? "Irish payroll prep & RCT deduction reconciliation" : "UK payroll reconciliation (PAYE/CIS/Umbrella)",
-                          "Client PO matching & pre-billing invoice dispatch",
-                          "Fast 2-hour client billing query resolution",
-                          "ATS/CRM candidate profiling & file administration",
-                          "52-week primary + secondary pod lead redundancy"
-                        ].map((item, idx) => (
-                          <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
-                            <span style={{ color: "#76c9b4", fontWeight: "bold" }}>✓</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      setFormData(prev => ({ ...prev, service: `Full Ops Package (${countrySymbols[selectedCountry]?.code})` }));
-                      setCurrentPage('contact');
-                    }}
-                    style={{
-                      width: "100%",
-                      background: "#ffffff",
-                      color: "#171717",
-                      border: "none",
-                      padding: "14px 20px",
-                      borderRadius: "4px",
-                      fontSize: "11.5px",
-                      fontWeight: 700,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      cursor: "pointer",
-                      transition: "all 0.2s ease"
-                    }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "#76c9b4"; e.currentTarget.style.color = "#171717"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = "#ffffff"; e.currentTarget.style.color = "#171717"; }}
-                  >
-                    Select Full Ops Package →
-                  </button>
-                </div>
-
-                {/* TIER 3: DEDICATED OPS POD */}
-                <div 
-                  style={{ 
-                    background: "#ffffff", 
-                    border: "1px solid #deded9", 
-                    borderRadius: "8px", 
-                    padding: "36px", 
-                    display: "flex", 
-                    flexDirection: "column", 
-                    justifyContent: "space-between",
-                    transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
-                    cursor: "default"
-                  }}
-                  onMouseEnter={(e) => { 
-                    e.currentTarget.style.transform = "translateY(-8px)"; 
-                    e.currentTarget.style.boxShadow = "0 16px 36px rgba(0,0,0,0.08)";
-                    e.currentTarget.style.borderColor = "#16866f";
-                  }}
-                  onMouseLeave={(e) => { 
-                    e.currentTarget.style.transform = "translateY(0px)"; 
-                    e.currentTarget.style.boxShadow = "none";
-                    e.currentTarget.style.borderColor = "#deded9";
-                  }}
-                >
-                  <div>
-                    <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "8px" }}>
-                      Tier Three
-                    </span>
-                    <h3 style={{ fontSize: "22px", fontWeight: 800, color: "#171717", margin: "0 0 12px 0" }}>
-                      Dedicated Ops Pod
-                    </h3>
-                    <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "14px" }}>
-                      <span style={{ fontSize: "14px", fontWeight: 600, color: "#666" }}>From</span>
-                      <span style={{ fontSize: "44px", fontWeight: 800, color: "#171717", letterSpacing: "-0.02em" }}>{activeSymbol}{countrySymbols[selectedCountry]?.tier3 || '1,200'}</span>
-                      <span style={{ fontSize: "13px", color: "#888" }}>/ month</span>
-                    </div>
-                    <p style={{ fontSize: "13.5px", color: "#666660", lineHeight: 1.5, margin: "0 0 24px 0", minHeight: "42px" }}>
-                      For scaling recruitment and healthcare firms requiring a dedicated operational lead and commercial reporting.
-                    </p>
-
-                    <div style={{ borderTop: "1px solid #eeeeea", paddingTop: "20px", marginBottom: "28px" }}>
-                      <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", color: "#171717", display: "block", marginBottom: "12px", letterSpacing: "0.05em" }}>
-                        Everything in Full Ops, Plus:
-                      </span>
-                      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px", fontSize: "13px", color: "#444" }}>
-                        {[
-                          "Dedicated named Senior Operations Lead",
-                          "Direct Slack/Teams desk liaison with fee-earners",
-                          "Weekly gross margin & consultant billing flash reports",
-                          "Vendor & portal management (Fieldglass, 1Click, etc.)",
-                          "Priority 1-hour SLA response escalations",
-                          "Monthly workflow reviews & process optimization"
-                        ].map((item, idx) => (
-                          <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "8px" }}>
-                            <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      setFormData(prev => ({ ...prev, service: `Dedicated Ops Pod (${countrySymbols[selectedCountry]?.code})` }));
-                      setCurrentPage('contact');
-                    }}
-                    style={{
-                      width: "100%",
-                      background: "#f4f4f1",
-                      color: "#171717",
-                      border: "1px solid #d4d4cd",
-                      padding: "13px 20px",
-                      borderRadius: "4px",
-                      fontSize: "11.5px",
-                      fontWeight: 700,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      cursor: "pointer",
-                      transition: "all 0.2s ease"
-                    }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "#171717"; e.currentTarget.style.color = "#ffffff"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = "#f4f4f1"; e.currentTarget.style.color = "#171717"; }}
-                  >
-                    Discuss Dedicated Pod →
-                  </button>
-                </div>
-
+            <div style={{
+              background: "#111317",
+              border: "1px solid #232730",
+              borderRadius: "10px",
+              padding: "40px 32px 32px",
+              display: "flex",
+              flexDirection: "column",
+              boxShadow: "0 18px 45px rgba(0, 0, 0, 0.18)",
+              position: "relative"
+            }}>
+              <div style={{
+                position: "absolute",
+                top: "-12px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                background: "#16866f",
+                color: "#ffffff",
+                fontSize: "10px",
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: ".08em",
+                padding: "5px 16px",
+                borderRadius: "20px",
+                whiteSpace: "nowrap"
+              }}>
+                MOST SELECTED BY WORKFORCE BUSINESSES
               </div>
+
+              <span style={{ fontSize: "11px", fontWeight: 700, color: "#76c9b4", letterSpacing: ".12em", textTransform: "uppercase" }}>
+                TIER TWO
+              </span>
+              <h3 style={{ fontSize: "24px", fontWeight: 800, color: "#ffffff", margin: "8px 0 16px" }}>
+                Full Ops Package
+              </h3>
+
+              <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "16px" }}>
+                <span style={{ fontSize: "13px", fontWeight: 600, color: "#94a3b8" }}>From</span>
+                <span style={{ fontSize: "38px", fontWeight: 800, color: "#ffffff", letterSpacing: "-0.03em" }}>
+                  £800
+                </span>
+                <span style={{ fontSize: "13px", color: "#94a3b8", fontWeight: 500 }}>/ month</span>
+              </div>
+
+              <p style={{ fontSize: "13px", color: "#94a3b8", lineHeight: 1.5, margin: "0 0 18px", minHeight: "38px" }}>
+                End-to-end back office desk running your weekly workforce timesheet chasing, payroll reconciliations, and billing.
+              </p>
+
+              {/* SEE WHAT'S INCLUDED FOR YOUR INDUSTRY BUTTON */}
+              <button
+                type="button"
+                onClick={() => setIndustryModalTier({ tierName: "Full Ops Package (Tier 2)", tierPrice: "From £800 / month" })}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  background: "rgba(22, 134, 111, 0.18)",
+                  border: "1px solid rgba(22, 134, 111, 0.4)",
+                  color: "#76c9b4",
+                  borderRadius: "6px",
+                  padding: "9px 13px",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  marginBottom: "20px",
+                  transition: "all 0.15s"
+                }}
+              >
+                <span>🔍 See what's included for your industry</span>
+                <span style={{ fontSize: "12px" }}>→</span>
+              </button>
+
+              <div style={{ borderTop: "1px solid #20242e", paddingTop: "20px", marginBottom: "28px", flex: 1 }}>
+                <div style={{ fontSize: "10px", fontWeight: 800, color: "#76c9b4", textTransform: "uppercase", letterSpacing: ".1em", marginBottom: "14px" }}>
+                  EVERYTHING IN CORE, PLUS:
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {[
+                    "Workforce timesheet chasing & site/shift sign-off validation",
+                    "Payroll reconciliation (PAYE, CIS, Reverse Charge VAT & Umbrella)",
+                    "Client PO matching & pre-billing invoice dispatch",
+                    "Fast 2-hour client & subcontractor query resolution",
+                    "Worker vetting & tickets (CSCS, DBS, RTW, tickets, licenses)",
+                    "52-week primary + secondary pod lead redundancy"
+                  ].map((item, idx) => (
+                    <div key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                      <span style={{ color: "#16866f", fontWeight: 800, fontSize: "13px", marginTop: "1px" }}>✓</span>
+                      <span style={{ fontSize: "13px", color: "#cbd5e1", lineHeight: 1.4 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData(prev => ({ ...prev, service: `Full Ops Package (${countrySymbols[selectedCountry]?.code || 'GBP'})` }));
+                  setCurrentPage('contact');
+                }}
+                style={{
+                  width: "100%",
+                  padding: "13px",
+                  background: "#ffffff",
+                  color: "#111111",
+                  border: 0,
+                  borderRadius: "4px",
+                  fontSize: "12px",
+                  fontWeight: 700,
+                  letterSpacing: ".06em",
+                  textTransform: "uppercase",
+                  cursor: "pointer"
+                }}
+              >
+                SELECT FULL OPS PACKAGE →
+              </button>
+            </div>
+
+            {/* TIER 3: DEDICATED OPS POD */}
+            <div style={{
+              background: "#ffffff",
+              border: "1px solid #e2e2de",
+              borderRadius: "10px",
+              padding: "40px 32px 32px",
+              display: "flex",
+              flexDirection: "column",
+              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.03)",
+              position: "relative"
+            }}>
+              <span style={{ fontSize: "11px", fontWeight: 700, color: "#16866f", letterSpacing: ".12em", textTransform: "uppercase" }}>
+                TIER THREE
+              </span>
+              <h3 style={{ fontSize: "24px", fontWeight: 800, color: "#111111", margin: "8px 0 16px" }}>
+                Dedicated Ops Pod
+              </h3>
+
+              <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "16px" }}>
+                <span style={{ fontSize: "13px", fontWeight: 600, color: "#777773" }}>From</span>
+                <span style={{ fontSize: "38px", fontWeight: 800, color: "#111111", letterSpacing: "-0.03em" }}>
+                  £1,200
+                </span>
+                <span style={{ fontSize: "13px", color: "#777773", fontWeight: 500 }}>/ month</span>
+              </div>
+
+              <p style={{ fontSize: "13px", color: "#666662", lineHeight: 1.5, margin: "0 0 18px", minHeight: "38px" }}>
+                For scaling workforce operators requiring an embedded operations lead, custom portal workflows, and commercial reporting.
+              </p>
+
+              {/* SEE WHAT'S INCLUDED FOR YOUR INDUSTRY BUTTON */}
+              <button
+                type="button"
+                onClick={() => setIndustryModalTier({ tierName: "Dedicated Ops Pod (Tier 3)", tierPrice: "From £1,200 / month" })}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  background: "#f4f4f1",
+                  border: "1px solid #d4d4cd",
+                  color: "#16866f",
+                  borderRadius: "6px",
+                  padding: "9px 13px",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  marginBottom: "20px",
+                  transition: "all 0.15s"
+                }}
+              >
+                <span>🔍 See what's included for your industry</span>
+                <span style={{ fontSize: "12px" }}>→</span>
+              </button>
+
+              <div style={{ borderTop: "1px solid #eeeeea", paddingTop: "20px", marginBottom: "28px", flex: 1 }}>
+                <div style={{ fontSize: "10px", fontWeight: 800, color: "#111111", textTransform: "uppercase", letterSpacing: ".1em", marginBottom: "14px" }}>
+                  ADVANCED DELIVERABLES:
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {[
+                    "Dedicated named Senior Operations Lead",
+                    "Direct Slack/Teams desk liaison with project managers & dispatchers",
+                    "Weekly gross margin, project P&L & crew utilisation flash reports",
+                    "Client vendor portal management (SimPRO, CarePlanner, Fieldglass)",
+                    "Priority 1-hour SLA response escalations",
+                    "Monthly workflow reviews & standard operating procedure (SOP) audits"
+                  ].map((item, idx) => (
+                    <div key={idx} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                      <span style={{ color: "#16866f", fontWeight: 800, fontSize: "13px", marginTop: "1px" }}>✓</span>
+                      <span style={{ fontSize: "13px", color: "#333330", lineHeight: 1.4 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData(prev => ({ ...prev, service: `Dedicated Ops Pod (${countrySymbols[selectedCountry]?.code || 'GBP'})` }));
+                  setCurrentPage('contact');
+                }}
+                className="package-btn-outline"
+              >
+                DISCUSS DEDICATED POD →
+              </button>
+            </div>
 
               {/* REASSURANCE BAR BELOW PRICING */}
               <div style={{ marginTop: "44px", background: "#f8f8f6", border: "1px solid #e7e7e2", borderRadius: "6px", padding: "16px 24px", display: "flex", flexWrap: "wrap", justifyContent: "space-around", alignItems: "center", gap: "16px", fontSize: "13px", color: "#555" }}>
@@ -3155,6 +3178,250 @@ const annualCostLost = annualHoursLost * hourlyCost;
 
             </div>
           </section>
+            {/* ========================================================= */}
+        {/* INDUSTRY DELIVERABLES POPUP MODAL (ALL 6 WEBSITE SECTORS) */}
+        {/* ========================================================= */}
+        {industryModalTier && (
+          <div style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 99999,
+            background: "rgba(6, 8, 13, 0.75)",
+            backdropFilter: "blur(6px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px"
+          }}>
+            <div style={{
+              background: "#ffffff",
+              borderRadius: "12px",
+              width: "min(680px, 100%)",
+              maxHeight: "90vh",
+              overflowY: "auto",
+              boxShadow: "0 24px 60px rgba(0,0,0,0.3)",
+              border: "1px solid #e2e2de",
+              padding: "32px",
+              position: "relative"
+            }}>
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setIndustryModalTier(null)}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "20px",
+                  background: "#f3f4f6",
+                  border: 0,
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#6b7280"
+                }}
+              >
+                ✕
+              </button>
+
+              {/* Modal Header */}
+              <div style={{ marginBottom: "20px" }}>
+                <span style={{ fontSize: "10px", fontWeight: 800, color: "#16866f", letterSpacing: ".1em", textTransform: "uppercase" }}>
+                  Specialised Industry Breakdown
+                </span>
+                <h3 style={{ fontSize: "22px", fontWeight: 800, color: "#111111", margin: "4px 0 2px" }}>
+                  {industryModalTier.tierName}
+                </h3>
+                <span style={{ fontSize: "13px", color: "#666662", fontWeight: 600 }}>{industryModalTier.tierPrice}</span>
+              </div>
+
+              {/* Industry Selector Tabs inside Modal */}
+              <div style={{
+                display: "flex",
+                gap: "6px",
+                flexWrap: "wrap",
+                marginBottom: "24px",
+                borderBottom: "1px solid #eeeeea",
+                paddingBottom: "14px"
+              }}>
+                {[
+                  { id: "recruitment", label: "Staffing & Recruitment" },
+                  { id: "construction", label: "Construction & Labour" },
+                  { id: "social_care", label: "Social Care" },
+                  { id: "utilities", label: "Utilities & Field Services" },
+                  { id: "transport", label: "Transport & Logistics" },
+                  { id: "facilities", label: "Facilities Management" },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setModalActiveSector(tab.id)}
+                    style={{
+                      padding: "6px 13px",
+                      borderRadius: "6px",
+                      fontSize: "11px",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      border: modalActiveSector === tab.id ? "1px solid #16866f" : "1px solid #e5e7eb",
+                      background: modalActiveSector === tab.id ? "#16866f" : "#f9fafb",
+                      color: modalActiveSector === tab.id ? "#ffffff" : "#4b5563",
+                      transition: "all 0.15s"
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Dynamic Deliverables Content */}
+              <div style={{ background: "#fbfbf9", borderRadius: "8px", padding: "20px", border: "1px solid #eee" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px", flexWrap: "wrap", gap: "8px" }}>
+                  <div style={{ fontSize: "12px", fontWeight: 800, color: "#111111", textTransform: "uppercase", letterSpacing: ".06em" }}>
+                    {modalActiveSector === "recruitment" && "👥 Staffing & Recruitment Desks:"}
+                    {modalActiveSector === "construction" && "🏗️ Construction & Labour:"}
+                    {modalActiveSector === "social_care" && "🩺 Social Care (Residential & Supported Living):"}
+                    {modalActiveSector === "utilities" && "⚡ Utilities & Field Services (Engineering & Metering):"}
+                    {modalActiveSector === "transport" && "🚚 Transport & Logistics (Drivers & Fleets):"}
+                    {modalActiveSector === "facilities" && "🏢 Facilities Management (Multi-Site Workforces):"}
+                  </div>
+                  <span style={{
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    background: "rgba(22, 134, 111, 0.1)",
+                    color: "#16866f",
+                    padding: "3px 8px",
+                    borderRadius: "4px"
+                  }}>
+                    {modalActiveSector === "recruitment" && "Temp, Contract & Permanent Desks"}
+                    {modalActiveSector === "construction" && "Site Contractors & Trade Operatives"}
+                    {modalActiveSector === "social_care" && "Residential, Supported Living & Home Care"}
+                    {modalActiveSector === "utilities" && "Electric Metering & Engineering Teams"}
+                    {modalActiveSector === "transport" && "Commercial Drivers & Fleet Operators"}
+                    {modalActiveSector === "facilities" && "Distributed Multi-Site Workforces"}
+                  </span>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                  {(modalActiveSector === "recruitment"
+                    ? [
+                        "Digital Right to Work & statutory identity verification (Share Code & Home Office gates)",
+                        "CRM & ATS candidate placement, rate card & weekly timesheet synchronization",
+                        "Periodic net margin reconciliation & direct bank payment exports",
+                        "Pre-placement compliance sign-off gates & automated pack turnaround (<4 hrs)",
+                        "Dedicated desk liaison directly with fee-earning recruitment consultants"
+                      ]
+                    : modalActiveSector === "construction"
+                    ? [
+                        "Site safety passports & trade competency card active verification (CSCS, CPCS, CISRS)",
+                        "Subcontractor tax withholding verification & domestic reverse charge accounting",
+                        "Daily biometric / site gate register vs. timesheet variance audits",
+                        "Plant hire reconciliation & job-level subcontractor cost allocation",
+                        "Urgent site query dispute handling & dedicated PM / Quantity Surveyor liaison"
+                      ]
+                    : modalActiveSector === "social_care"
+                    ? [
+                        "Regulatory personnel compliance file hygiene & training record matrices (Mandatory Care Certs)",
+                        "Criminal background check disclosures (Enhanced DBS) & qualification expiry tracking",
+                        "Sleep-in allowances, waking night rates & travel time parity calculations",
+                        "Pre-payroll visit log cross-referencing against council / local authority billing",
+                        "Emergency rota gap coordination support & 3-hour fast query turnaround"
+                      ]
+                    : modalActiveSector === "utilities"
+                    ? [
+                        "Smart meter, electrical & technical qualification matrix tracking",
+                        "Job install completion vs. abort-fee chargeback audits",
+                        "Van stock inventory, tool allowances & standby callout reconciliation",
+                        "Field technician engineer onboarding, safety sign-offs & equipment logs",
+                        "Purchase Order reconciliation against framework utility client contracts"
+                      ]
+                    : modalActiveSector === "transport"
+                    ? [
+                        "Commercial driving licence endorsements & qualification card renewals (CPC, Digi-tacho)",
+                        "Working Time Directive (WTD) rolling hours & mandatory rest monitoring",
+                        "Night-out allowances, toll reconciliations & weekend shift rate audits",
+                        "Daily Proof of Delivery (POD) collation, matching & billing dispatch",
+                        "Agency driver timesheet chasing & subcontractor invoice reconciliation"
+                      ]
+                    : [
+                        "Personnel security vetting & background screening validation",
+                        "Multi-site mobile check-in verification & lone worker logs",
+                        "Statutory employee transfer records (TUPE) & holiday pay accrual audits",
+                        "Planned Preventive Maintenance (PPM) schedule tracking & work order sign-offs",
+                        "Client monthly SLA performance scorecard & KPI pack preparation"
+                      ]
+                  ).map((line, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                      <span style={{
+                        width: "18px",
+                        height: "18px",
+                        borderRadius: "50%",
+                        background: "#16866f",
+                        color: "#fff",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "11px",
+                        fontWeight: 700,
+                        flexShrink: 0,
+                        marginTop: "1px"
+                      }}>✓</span>
+                      <span style={{ fontSize: "13px", color: "#374151", lineHeight: 1.45 }}>{line}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Modal Footer CTA */}
+              <div style={{ marginTop: "24px", display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+                <button
+                  type="button"
+                  onClick={() => setIndustryModalTier(null)}
+                  style={{
+                    padding: "10px 18px",
+                    borderRadius: "4px",
+                    background: "transparent",
+                    border: "1px solid #d1d5db",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    color: "#374151"
+                  }}
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const sectorLabel = modalActiveSector.replace('_', ' ').toUpperCase();
+                    setFormData(prev => ({ ...prev, service: `${industryModalTier.tierName} [Sector: ${sectorLabel}]` }));
+                    setIndustryModalTier(null);
+                    setCurrentPage('contact');
+                  }}
+                  style={{
+                    padding: "10px 20px",
+                    borderRadius: "4px",
+                    background: "#16866f",
+                    border: 0,
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    color: "#ffffff",
+                    letterSpacing: ".04em",
+                    textTransform: "uppercase"
+                  }}
+                >
+                  Discuss Scope For My Industry →
+                </button>
+              </div>
+
+            </div>
+          </div>
+        )}
 
           {/* PROCESS */}
           <section id="process" style={{ padding: "100px 0", background: "#fbfbfa", borderTop: "1px solid #e7e7e2", borderBottom: "1px solid #e7e7e2" }}>
