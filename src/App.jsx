@@ -3415,13 +3415,13 @@ const annualCostLost = annualHoursLost * hourlyCost;
                     textTransform: "uppercase"
                   }}
                 >
-                  Discuss Scope For My Industry →
+                Discuss Scope For My Industry →
                 </button>
               </div>
-
             </div>
           </div>
         )}
+      </section>
 
           {/* PROCESS */}
           <section id="process" style={{ padding: "100px 0", background: "#fbfbfa", borderTop: "1px solid #e7e7e2", borderBottom: "1px solid #e7e7e2" }}>
