@@ -3177,7 +3177,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
               </div>
 
             </div>
-          </section>
+      
             {/* ========================================================= */}
         {/* INDUSTRY DELIVERABLES POPUP MODAL (ALL 6 WEBSITE SECTORS) */}
         {/* ========================================================= */}
