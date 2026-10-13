@@ -3421,6 +3421,7 @@ const annualCostLost = annualHoursLost * hourlyCost;
             </div>
           </div>
         )}
+              </div>
       </section>
 
           {/* PROCESS */}
