@@ -3278,16 +3278,46 @@ const annualCostLost = annualHoursLost * hourlyCost;
                 ))}
               </div>
 
-              {/* Dynamic Deliverables Content */}
+             {/* Dynamic Deliverables Content */}
               <div style={{ background: "#fbfbf9", borderRadius: "8px", padding: "20px", border: "1px solid #eee" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px", flexWrap: "wrap", gap: "8px" }}>
-                  <div style={{ fontSize: "12px", fontWeight: 800, color: "#111111", textTransform: "uppercase", letterSpacing: ".06em" }}>
-                    {modalActiveSector === "recruitment" && "👥 Staffing & Recruitment Desks:"}
-                    {modalActiveSector === "construction" && "🏗️ Construction & Labour:"}
-                    {modalActiveSector === "social_care" && "🩺 Social Care (Residential & Supported Living):"}
-                    {modalActiveSector === "utilities" && "⚡ Utilities & Field Services (Engineering & Metering):"}
-                    {modalActiveSector === "transport" && "🚚 Transport & Logistics (Drivers & Fleets):"}
-                    {modalActiveSector === "facilities" && "🏢 Facilities Management (Multi-Site Workforces):"}
+                  <div style={{ fontSize: "12px", fontWeight: 800, color: "#111111", textTransform: "uppercase", letterSpacing: ".06em", display: "inline-flex", alignItems: "center", gap: "8px" }}>
+                    {modalActiveSector === "recruitment" && (
+                      <>
+                        <i className="ri-team-line" style={{ color: "#16866f", fontSize: "16px" }}></i>
+                        <span>Staffing & Recruitment Desks:</span>
+                      </>
+                    )}
+                    {modalActiveSector === "construction" && (
+                      <>
+                        <i className="ri-building-2-line" style={{ color: "#16866f", fontSize: "16px" }}></i>
+                        <span>Construction & Labour:</span>
+                      </>
+                    )}
+                    {modalActiveSector === "social_care" && (
+                      <>
+                        <i className="ri-heart-pulse-line" style={{ color: "#16866f", fontSize: "16px" }}></i>
+                        <span>Social Care (Residential & Supported Living):</span>
+                      </>
+                    )}
+                    {modalActiveSector === "utilities" && (
+                      <>
+                        <i className="ri-flashlight-line" style={{ color: "#16866f", fontSize: "16px" }}></i>
+                        <span>Utilities & Field Services (Engineering & Metering):</span>
+                      </>
+                    )}
+                    {modalActiveSector === "transport" && (
+                      <>
+                        <i className="ri-truck-line" style={{ color: "#16866f", fontSize: "16px" }}></i>
+                        <span>Transport & Logistics (Drivers & Fleets):</span>
+                      </>
+                    )}
+                    {modalActiveSector === "facilities" && (
+                      <>
+                        <i className="ri-community-line" style={{ color: "#16866f", fontSize: "16px" }}></i>
+                        <span>Facilities Management (Multi-Site Workforces):</span>
+                      </>
+                    )}
                   </div>
                   <span style={{
                     fontSize: "10px",
