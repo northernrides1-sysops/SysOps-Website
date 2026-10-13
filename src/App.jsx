@@ -3022,8 +3022,11 @@ const annualCostLost = annualHoursLost * hourlyCost;
                   transition: "all 0.15s"
                 }}
               >
-                <span>🔍 See what's included for your industry</span>
-                <span style={{ fontSize: "12px" }}>→</span>
+               <span style={{ display: "inline-flex", alignItems: "center", gap: "7px" }}>
+  <i className="ri-search-line" style={{ fontSize: "14px", color: "#76c9b4" }}></i>
+  <span>See what's included for your industry</span>
+</span>
+<span style={{ fontSize: "12px" }}>→</span>
               </button>
 
               <div style={{ borderTop: "1px solid #20242e", paddingTop: "20px", marginBottom: "28px", flex: 1 }}>
