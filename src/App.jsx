@@ -2955,16 +2955,30 @@ const annualCostLost = annualHoursLost * hourlyCost;
                   </button>
                 </div>
                 {/* TIER 2: FULL OPS PACKAGE (HERO - OBSIDIAN #171717) */}
-            <div style={{
-              background: "#111317",
-              border: "1px solid #232730",
-              borderRadius: "10px",
-              padding: "40px 32px 32px",
-              display: "flex",
-              flexDirection: "column",
-              boxShadow: "0 18px 45px rgba(0, 0, 0, 0.18)",
-              position: "relative"
-            }}>
+            <div 
+  style={{
+    background: "#111317",
+    border: "1px solid #232730",
+    borderRadius: "10px",
+    padding: "40px 32px 32px",
+    display: "flex",
+    flexDirection: "column",
+    boxShadow: "0 18px 45px rgba(0, 0, 0, 0.18)",
+    position: "relative",
+    transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+    cursor: "default"
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.transform = "translateY(-10px)";
+    e.currentTarget.style.boxShadow = "0 26px 55px rgba(0, 0, 0, 0.4), 0 0 0 1px #16866f, 0 8px 28px rgba(22, 134, 111, 0.25)";
+    e.currentTarget.style.borderColor = "#16866f";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.transform = "translateY(0px)";
+    e.currentTarget.style.boxShadow = "0 18px 45px rgba(0, 0, 0, 0.18)";
+    e.currentTarget.style.borderColor = "#232730";
+  }}
+>
               <div style={{
                 position: "absolute",
                 top: "-12px",
@@ -3051,41 +3065,62 @@ const annualCostLost = annualHoursLost * hourlyCost;
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={() => {
-                  setFormData(prev => ({ ...prev, service: `Full Ops Package (${countrySymbols[selectedCountry]?.code || 'GBP'})` }));
-                  setCurrentPage('contact');
-                }}
-                style={{
-                  width: "100%",
-                  padding: "13px",
-                  background: "#ffffff",
-                  color: "#111111",
-                  border: 0,
-                  borderRadius: "4px",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  letterSpacing: ".06em",
-                  textTransform: "uppercase",
-                  cursor: "pointer"
-                }}
-              >
-                SELECT FULL OPS PACKAGE →
-              </button>
+             <button
+  type="button"
+  onClick={() => {
+    setFormData(prev => ({ ...prev, service: `Full Ops Package (${countrySymbols[selectedCountry]?.code || 'GBP'})` }));
+    setCurrentPage('contact');
+  }}
+  style={{
+    width: "100%",
+    padding: "13px",
+    background: "#ffffff",
+    color: "#111111",
+    border: 0,
+    borderRadius: "4px",
+    fontSize: "12px",
+    fontWeight: 700,
+    letterSpacing: ".06em",
+    textTransform: "uppercase",
+    cursor: "pointer",
+    transition: "all 0.2s ease"
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.background = "#16866f";
+    e.currentTarget.style.color = "#ffffff";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.background = "#ffffff";
+    e.currentTarget.style.color = "#111111";
+  }}
+>
+  SELECT FULL OPS PACKAGE →
+</button>
             </div>
 
             {/* TIER 3: DEDICATED OPS POD */}
             <div style={{
-              background: "#ffffff",
-              border: "1px solid #e2e2de",
-              borderRadius: "10px",
-              padding: "40px 32px 32px",
-              display: "flex",
-              flexDirection: "column",
-              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.03)",
-              position: "relative"
-            }}>
+  background: "#ffffff",
+  border: "1px solid #e2e2de",
+  borderRadius: "10px",
+  padding: "40px 32px 32px",
+  display: "flex",
+  flexDirection: "column",
+  boxShadow: "0 4px 20px rgba(0, 0, 0, 0.03)",
+  position: "relative",
+  transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+  cursor: "default"
+}}
+onMouseEnter={(e) => {
+  e.currentTarget.style.transform = "translateY(-8px)";
+  e.currentTarget.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px #16866f";
+  e.currentTarget.style.borderColor = "#16866f";
+}}
+onMouseLeave={(e) => {
+  e.currentTarget.style.transform = "translateY(0px)";
+  e.currentTarget.style.boxShadow = "0 4px 20px rgba(0, 0, 0, 0.03)";
+  e.currentTarget.style.borderColor = "#e2e2de";
+}}>
               <span style={{ fontSize: "11px", fontWeight: 700, color: "#16866f", letterSpacing: ".12em", textTransform: "uppercase" }}>
                 TIER THREE
               </span>
@@ -3162,27 +3197,26 @@ const annualCostLost = annualHoursLost * hourlyCost;
                 }}
                 className="package-btn-outline"
               >
-                DISCUSS DEDICATED POD →
+               DISCUSS DEDICATED POD →
               </button>
             </div>
+          </div>
 
-              {/* REASSURANCE BAR BELOW PRICING */}
-              <div style={{ marginTop: "44px", background: "#f8f8f6", border: "1px solid #e7e7e2", borderRadius: "6px", padding: "16px 24px", display: "flex", flexWrap: "wrap", justifyContent: "space-around", alignItems: "center", gap: "16px", fontSize: "13px", color: "#555" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
-                  <span><strong>30-Day Rolling Agreements</strong> (No 12-month lock-in)</span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
-                  <span><strong>Zero Onboarding or Setup Fees</strong></span>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
-                  <span><strong>{selectedCountry === 'IE' ? 'Irish & UK' : 'UK & Ireland'} Business Hours Coverage</strong> (9:00 AM – 5:30 PM GMT)</span>
-                </div>
-              </div>
-
+          {/* REASSURANCE BAR BELOW PRICING (Now spans full 100% width across all 3 cards) */}
+          <div style={{ marginTop: "44px", background: "#f8f8f6", border: "1px solid #e7e7e2", borderRadius: "6px", padding: "16px 24px", display: "flex", flexWrap: "wrap", justifyContent: "space-around", alignItems: "center", gap: "16px", fontSize: "13px", color: "#555" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
+              <span><strong>30-Day Rolling Agreements</strong> (No 12-month lock-in)</span>
             </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
+              <span><strong>Zero Onboarding or Setup Fees</strong></span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <span style={{ color: "#16866f", fontWeight: "bold" }}>✓</span>
+              <span><strong>{selectedCountry === 'IE' ? 'Irish & UK' : 'UK & Ireland'} Business Hours Coverage</strong> (9:00 AM – 5:30 PM GMT)</span>
+            </div>
+          </div>
       
             {/* ========================================================= */}
         {/* INDUSTRY DELIVERABLES POPUP MODAL (ALL 6 WEBSITE SECTORS) */}
