@@ -2807,28 +2807,30 @@ const annualCostLost = annualHoursLost * hourlyCost;
                 
                {/* TIER 1: STARTER OPS DESK (NEW INTERACTIVE DESIGN) */}
                 <div 
-                  style={{ 
-                    background: "#ffffff", 
-                    border: "1px solid #deded9", 
-                    borderRadius: "8px", 
-                    padding: "36px", 
-                    display: "flex", 
-                    flexDirection: "column", 
-                    justifyContent: "space-between",
-                    transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
-                    cursor: "default"
-                  }}
-                  onMouseEnter={(e) => { 
-                    e.currentTarget.style.transform = "translateY(-8px)"; 
-                    e.currentTarget.style.boxShadow = "0 16px 36px rgba(0,0,0,0.08)";
-                    e.currentTarget.style.borderColor = "#16866f";
-                  }}
-                  onMouseLeave={(e) => { 
-                    e.currentTarget.style.transform = "translateY(0px)"; 
-                    e.currentTarget.style.boxShadow = "none";
-                    e.currentTarget.style.borderColor = "#deded9";
-                  }}
-                >
+  style={{ 
+    background: "#ffffff", 
+    border: "1px solid #e2e2de", 
+    borderRadius: "10px", 
+    padding: "40px 32px 32px", 
+    display: "flex", 
+    flexDirection: "column", 
+    justifyContent: "space-between",
+    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.03)",
+    position: "relative",
+    transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+    cursor: "default"
+  }}
+  onMouseEnter={(e) => { 
+    e.currentTarget.style.transform = "translateY(-8px)"; 
+    e.currentTarget.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.08), 0 0 0 1px #16866f";
+    e.currentTarget.style.borderColor = "#16866f";
+  }}
+  onMouseLeave={(e) => { 
+    e.currentTarget.style.transform = "translateY(0px)"; 
+    e.currentTarget.style.boxShadow = "0 4px 20px rgba(0, 0, 0, 0.03)";
+    e.currentTarget.style.borderColor = "#e2e2de";
+  }}
+>
                   <div>
                     <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#888", display: "block", marginBottom: "8px" }}>
                       Tier One
