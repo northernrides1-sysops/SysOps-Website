@@ -863,7 +863,7 @@ const industries = [
         .tech-logo-strip:hover .tech-logo-track { animation-play-state: paused; }
         .tech-logo-track {
           display: flex; align-items: center; gap: 40px; white-space: nowrap; width: max-content;
-          animation: smoothTicker 60s linear infinite; will-change: transform;
+          animation: smoothTicker 80s linear infinite; will-change: transform;
         }
         .tech-logo-item {
           display: inline-flex; align-items: center; gap: 9px; opacity: 0.85; flex-shrink: 0;
@@ -1692,7 +1692,7 @@ const industries = [
                   <div className="hud-stat-cell">
                     <strong>100%</strong>
                     <div>
-                      <span className="hud-title">Audit Placement Gate</span>
+                      <span className="hud-title">Worker Compliance Gate</span>
                       <span className="hud-sub">Zero Breach Guarantee</span>
                     </div>
                   </div>
@@ -1737,13 +1737,50 @@ const industries = [
           {/* ======================================================== */}
           {/* NATIVE SOFTWARE & TECH STACK TRUST STRIP (TICKER STYLE)  */}
           {/* ======================================================== */}
-       {/* SLIM SILKY SMOOTH REAL TECH LOGO TICKER (ALL 13 APPS) */}
+       {/* SLIM SILKY SMOOTH REAL TECH LOGO TICKER (ALL 22 PLATFORMS ACROSS ALL INDUSTRIES) */}
           <div className="tech-logo-strip" aria-hidden="true">
             <div className="tech-logo-track">
-              {[1, 2, 3, 4].map((repeat) => (
+              {[1, 2].map((repeat) => (
                 <React.Fragment key={repeat}>
-                  {/* 1. Bullhorn */}
-                  <div className="tech-logo-item">
+                  {/* 1. Procore (Construction) */}
+                  <div className="tech-logo-item" title="Procore">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" fill="#f16521" />
+                      <path d="M12 6.5l5.5 3.2v6.4L12 19.3l-5.5-3.2V9.7L12 6.5z" fill="#ffffff" opacity="0.9" />
+                      <circle cx="12" cy="12.9" r="2.8" fill="#f16521" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Procore</span>
+                  </div>
+
+                  {/* 2. CarePlanner (Social Care) */}
+                  <div className="tech-logo-item" title="CarePlanner">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#f43f5e" />
+                      <path d="M12 7.5v4.5l2.8 1.8" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>CarePlanner</span>
+                  </div>
+
+                  {/* 3. Samsara (Transport & Fleet Telematics) */}
+                  <div className="tech-logo-item" title="Samsara">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="9" stroke="#38bdf8" strokeWidth="2.2" strokeDasharray="14 4" />
+                      <circle cx="12" cy="12" r="3" fill="#38bdf8" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Samsara</span>
+                  </div>
+
+                  {/* 4. Joblogic (Facilities & Field Service) */}
+                  <div className="tech-logo-item" title="Joblogic">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="9" fill="#0284c7" />
+                      <path d="M7.5 12l3 3 6-6" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Joblogic</span>
+                  </div>
+
+                  {/* 5. Bullhorn (Staffing CRM/ATS) */}
+                  <div className="tech-logo-item" title="Bullhorn">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                       <path d="M4 8l10-4v16L4 16V8z" fill="#ff6b00" />
                       <path d="M14 8l6-2v12l-6-2V8z" fill="#ff944d" />
@@ -1751,44 +1788,70 @@ const industries = [
                     <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Bullhorn</span>
                   </div>
 
-                  {/* 2. Vincere */}
-                  <div className="tech-logo-item">
+                  {/* 6. Sage 50 & Payroll (Finance, Payroll & CIS) */}
+                  <div className="tech-logo-item" title="Sage 50 & Cloud Payroll">
+                    <svg width="22" height="17" viewBox="0 0 32 20" fill="none">
+                      <path d="M6 14c-2 0-4-1-4-3 0-3 3-4 6-4 4 0 5 2 5 2M16 7c2 0 4 1 4 3 0 3-3 4-6 4-4 0-5-2-5-2M26 14c-2 0-4-1-4-3 0-3 3-4 6-4 4 0 5 2 5 2" stroke="#00dc7d" strokeWidth="2.5" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#00dc7d" }}>Sage 50 & Payroll</span>
+                  </div>
+
+                  {/* 7. Allocate HealthRoster (Healthcare & Clinical Staffing) */}
+                  <div className="tech-logo-item" title="Allocate HealthRoster">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="9" fill="#7c3aed" />
+                      <path d="M12 7.5v9M7.5 12h9" stroke="#ffffff" strokeWidth="2.4" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Allocate HealthRoster</span>
+                  </div>
+
+                  {/* 8. Causeway (Construction & Subcontractor Payroll) */}
+                  <div className="tech-logo-item" title="Causeway">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M3 17l6-10h12l-6 10H3z" fill="#0d9488" />
+                      <circle cx="16" cy="12" r="2.5" fill="#5eead4" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Causeway</span>
+                  </div>
+
+                  {/* 9. Mandata (Transport & Haulage TMS) */}
+                  <div className="tech-logo-item" title="Mandata">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M3 7h10v8H3z" fill="#0284c7" />
+                      <path d="M13 10h4l3 2.5v2.5h-7V10z" fill="#38bdf8" />
+                      <circle cx="6.5" cy="16.5" r="2" fill="#f8fafc" stroke="#0284c7" strokeWidth="1.5" />
+                      <circle cx="17.5" cy="16.5" r="2" fill="#f8fafc" stroke="#0284c7" strokeWidth="1.5" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Mandata</span>
+                  </div>
+
+                  {/* 10. TimeGate (Facilities & Security Workforce) */}
+                  <div className="tech-logo-item" title="TimeGate">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="9" stroke="#14b8a6" strokeWidth="2.4" />
+                      <path d="M12 6.5v5.5l3.8 2.2" stroke="#2dd4bf" strokeWidth="2.2" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>TimeGate</span>
+                  </div>
+
+                  {/* 11. Xero (Cloud Accounting) */}
+                  <div className="tech-logo-item" title="Xero">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M6 6l12 12M18 6L6 18" stroke="#13b5ea" strokeWidth="3" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#13b5ea" }}>Xero</span>
+                  </div>
+
+                  {/* 12. Vincere (Recruitment ATS / CRM) */}
+                  <div className="tech-logo-item" title="Vincere">
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
                       <polygon points="2,3 12,21 22,3 17,3 12,13 7,3" fill="#2563eb" />
                     </svg>
                     <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Vincere</span>
                   </div>
 
-                  {/* 3. Mercury xRM */}
-                  <div className="tech-logo-item">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                      <rect x="3" y="3" width="8" height="8" rx="1" fill="#7c3aed" />
-                      <rect x="13" y="3" width="8" height="8" rx="1" fill="#a78bfa" />
-                      <rect x="3" y="13" width="8" height="8" rx="1" fill="#a78bfa" />
-                      <rect x="13" y="13" width="8" height="8" rx="1" fill="#7c3aed" />
-                    </svg>
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Mercury xRM</span>
-                  </div>
-
-                  {/* 4. Firefish */}
-                  <div className="tech-logo-item">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 3c-4 3-6 7-3 11 1 1 2 2 3 2 1 0 2-1 3-2 3-4 1-8-3-11z" fill="#0284c7" />
-                      <circle cx="12" cy="11" r="2" fill="#38bdf8" />
-                    </svg>
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Firefish</span>
-                  </div>
-
-                  {/* 5. Sage 50 & Express Accounts */}
-                  <div className="tech-logo-item">
-                    <svg width="22" height="17" viewBox="0 0 32 20" fill="none">
-                      <path d="M6 14c-2 0-4-1-4-3 0-3 3-4 6-4 4 0 5 2 5 2M16 7c2 0 4 1 4 3 0 3-3 4-6 4-4 0-5-2-5-2M26 14c-2 0-4-1-4-3 0-3 3-4 6-4 4 0 5 2 5 2" stroke="#00dc7d" strokeWidth="2.5" strokeLinecap="round" />
-                    </svg>
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#00dc7d" }}>Sage 50 & Express</span>
-                  </div>
-
-                  {/* 6. BrightPay */}
-                  <div className="tech-logo-item">
+                  {/* 13. BrightPay (HMRC Certified Payroll & CIS) */}
+                  <div className="tech-logo-item" title="BrightPay">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                       <circle cx="12" cy="12" r="9" stroke="#0ea5e9" strokeWidth="2.5" />
                       <path d="M12 7v5l3 3" stroke="#38bdf8" strokeWidth="2.5" strokeLinecap="round" />
@@ -1796,16 +1859,27 @@ const industries = [
                     <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>BrightPay</span>
                   </div>
 
-                  {/* 7. Xero */}
-                  <div className="tech-logo-item">
+                  {/* 14. Deputy (Shift Scheduling & Care Rotas) */}
+                  <div className="tech-logo-item" title="Deputy">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                      <path d="M6 6l12 12M18 6L6 18" stroke="#13b5ea" strokeWidth="3" strokeLinecap="round" />
+                      <circle cx="12" cy="12" r="9" fill="#4f46e5" />
+                      <path d="M9 7.5h3.5a4.5 4.5 0 010 9H9V7.5z" fill="#ffffff" />
+                      <circle cx="12.5" cy="12" r="1.8" fill="#4f46e5" />
                     </svg>
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#13b5ea" }}>Xero</span>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Deputy</span>
                   </div>
 
-                  {/* 8. QuickBooks */}
-                  <div className="tech-logo-item">
+                  {/* 15. Simpro (Field Services & Trade Operations) */}
+                  <div className="tech-logo-item" title="Simpro">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="9.5" fill="#0284c7" />
+                      <path d="M7 14.5c2.5-4 7.5-4 10-4M7 9.5c2.5 4 7.5 4 10 4" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Simpro</span>
+                  </div>
+
+                  {/* 16. QuickBooks (Accounting & Invoicing) */}
+                  <div className="tech-logo-item" title="QuickBooks">
                     <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
                       <circle cx="12" cy="12" r="10" fill="#2ca01c" />
                       <path d="M9 15V9h2a3 3 0 010 6H9zm6-6v6h-2a3 3 0 010-6h2z" fill="#ffffff" />
@@ -1813,8 +1887,28 @@ const industries = [
                     <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>QuickBooks</span>
                   </div>
 
-                  {/* 9. Microsoft Power BI */}
-                  <div className="tech-logo-item">
+                  {/* 17. BigChange (Mobile Workforce & Logistics) */}
+                  <div className="tech-logo-item" title="BigChange">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="9.5" fill="#eab308" />
+                      <path d="M8 12.5l2.5 3L16 9" stroke="#0f172a" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>BigChange</span>
+                  </div>
+
+                  {/* 18. Mercury xRM (Dynamics 365 Workforce) */}
+                  <div className="tech-logo-item" title="Mercury xRM">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <rect x="3" y="3" width="8" height="8" rx="1.5" fill="#7c3aed" />
+                      <rect x="13" y="3" width="8" height="8" rx="1.5" fill="#a78bfa" />
+                      <rect x="3" y="13" width="8" height="8" rx="1.5" fill="#a78bfa" />
+                      <rect x="13" y="13" width="8" height="8" rx="1.5" fill="#7c3aed" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Mercury xRM</span>
+                  </div>
+
+                  {/* 19. Microsoft Power BI (Operational Analytics) */}
+                  <div className="tech-logo-item" title="Microsoft Power BI">
                     <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
                       <rect x="0" y="10" width="4" height="8" rx="1" fill="#f59e0b" />
                       <rect x="6" y="5" width="4" height="13" rx="1" fill="#fbbf24" />
@@ -1823,8 +1917,16 @@ const industries = [
                     <span style={{ fontSize: "12px", fontWeight: 700, color: "#f59e0b" }}>Microsoft Power BI</span>
                   </div>
 
-                  {/* 10. Slack */}
-                  <div className="tech-logo-item">
+                  {/* 20. SAP Fieldglass (Enterprise Contingent Workforce) */}
+                  <div className="tech-logo-item" title="SAP Fieldglass">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#eab308" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>SAP Fieldglass</span>
+                  </div>
+
+                  {/* 21. Slack (Operations Comms) */}
+                  <div className="tech-logo-item" title="Slack">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                       <circle cx="7" cy="7" r="3" fill="#e01e5a" />
                       <circle cx="17" cy="7" r="3" fill="#36c5f0" />
@@ -1834,31 +1936,14 @@ const industries = [
                     <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Slack</span>
                   </div>
 
-                  {/* 11. Monday.com */}
-                  <div className="tech-logo-item">
+                  {/* 22. Monday.com (Workflows & Pipelines) */}
+                  <div className="tech-logo-item" title="Monday.com">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                       <circle cx="6" cy="14" r="3" fill="#ff3d57" />
                       <circle cx="12" cy="12" r="3" fill="#ffcb00" />
                       <circle cx="18" cy="10" r="3" fill="#00d647" />
                     </svg>
                     <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>Monday.com</span>
-                  </div>
-
-                  {/* 12. SAP Fieldglass */}
-                  <div className="tech-logo-item">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#eab308" strokeWidth="2" strokeLinecap="round" />
-                    </svg>
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>SAP Fieldglass</span>
-                  </div>
-
-                  {/* 13. 1Click */}
-                  <div className="tech-logo-item">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="9" stroke="#64748b" strokeWidth="2.5" />
-                      <path d="M12 8v8M8 12h8" stroke="#94a3b8" strokeWidth="2.5" strokeLinecap="round" />
-                    </svg>
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#f1f5f9" }}>1Click</span>
                   </div>
                 </React.Fragment>
               ))}
