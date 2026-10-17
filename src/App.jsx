@@ -2007,7 +2007,7 @@ const industries = [
                 })}
               </div>
 
-              {/* Dynamic Console Deck */}
+             {/* Dynamic Console Deck */}
               <div style={{ background: "#171717", borderRadius: "16px", border: "1px solid #2a2a2a", color: "#ffffff", padding: "40px", boxShadow: "0 20px 40px -15px rgba(0,0,0,0.25)" }}>
                 
                 {/* PILLAR 1: FINANCE & CASH FLOW */}
@@ -2022,15 +2022,15 @@ const industries = [
                         Invoice & Payroll Operations
                       </h3>
                       <p style={{ fontSize: "14px", color: "#9ca3af", lineHeight: 1.6, marginBottom: "24px" }}>
-                        We eliminate Friday payroll panic and late invoicing cycles by owning the entire verification, calculation, and bureau export workflow.
+                        We eliminate Friday payroll pressure and late invoicing by owning the full verification, calculation, and export workflow — across staffing desks, site labour, care shifts, field teams, drivers and multi-site workforces.
                       </p>
 
                       <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                         {[
-                          { step: "Phase 1", title: "Intake & Timesheet Chasing", desc: "Systematic Friday aggregation of site registers, worker clock-ins, and client PO approvals." },
-                          { step: "Phase 2", title: "Rate & Variance Audit", desc: "Cross-checking standard hours, overtime premiums, CIS/PAYE deductions, and client charge rates." },
-                          { step: "Phase 3", title: "One-Click Client Sign-Off", desc: "Structured approval packs sent to client managers with transparent digital audit verification." },
-                          { step: "Phase 4", title: "Bureau & Ledger Export", desc: "Zero-error batch generation mapped directly into your payroll engine and accounting system." },
+                          { step: "Phase 1", title: "Intake & Timesheet Capture", desc: "Systematic collection of timesheets, site registers, clock-ins, visit logs, shift confirmations and client approvals." },
+                          { step: "Phase 2", title: "Rate & Variance Audit", desc: "Cross-checking standard hours, overtime, premiums, sleep-in/night rates, CIS/PAYE deductions, subsistence and client charge rates." },
+                          { step: "Phase 3", title: "Client / Manager Sign-Off", desc: "Structured approval packs sent to clients, site managers or care coordinators with clear digital audit trails." },
+                          { step: "Phase 4", title: "Bureau & Ledger Export", desc: "Zero-error batch files mapped directly into your payroll engine and accounting system (BACS, FPS, direct bank formats)." },
                         ].map((s, idx) => (
                           <div key={idx} style={{ display: "flex", gap: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "12px 16px" }}>
                             <div style={{ fontSize: "10px", fontWeight: 800, color: "#22a085", padding: "3px 6px", background: "rgba(34, 160, 133, 0.12)", borderRadius: "4px", height: "fit-content" }}>
@@ -2055,7 +2055,7 @@ const industries = [
                         {/* Metric Highlights */}
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
                           <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                            <div style={{ fontSize: "20px", fontWeight: 800, color: "##ffffff" }}>24-Hour</div>
+                            <div style={{ fontSize: "20px", fontWeight: 800, color: "#ffffff" }}>24-Hour</div>
                             <div style={{ fontSize: "12px", color: "#9ca3af" }}>Invoice Dispatch SLA</div>
                           </div>
                           <div style={{ background: "rgba(255,255,255,0.03)", padding: "14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
@@ -2069,8 +2069,9 @@ const industries = [
                           {[
                             "Weekly Net & Gross margin reconciliation packs",
                             "Aged debtor tracking and automated chasing workflows",
-                            "Subcontractor CIS statement prep and tax withholding",
-                            "Import-ready bureau files (BACS, direct bank formats)",
+                            "Subcontractor CIS statements & tax withholding",
+                            "Complex shift rule handling (nights, sleep-ins, overtime, call-outs)",
+                            "Import-ready bureau files (BACS, FPS, direct bank formats)",
                           ].map((item, i) => (
                             <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#d1d5db" }}>
                               <span style={{ color: "#22a085", fontWeight: "bold" }}>✓</span> {item}
@@ -2084,7 +2085,7 @@ const industries = [
                             Native Software Stack:
                           </div>
                           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                            {["Sage 50", "BrightPay", "Xero", "QuickBooks", "Bullhorn Pay & Bill", "PayCircle"].map((tech) => (
+                            {["Sage 50", "BrightPay", "Xero", "QuickBooks", "Causeway CIS", "Merit Software", "Bullhorn Pay & Bill", "PayCircle"].map((tech) => (
                               <span key={tech} style={{ fontSize: "11px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", padding: "4px 8px", color: "#e5e7eb" }}>
                                 {tech}
                               </span>
@@ -2123,15 +2124,15 @@ const industries = [
                         Vetting & Worker Lifecycle
                       </h3>
                       <p style={{ fontSize: "14px", color: "#9ca3af", lineHeight: 1.6, marginBottom: "24px" }}>
-                        From initial candidate registration to active site deployment — ensuring every worker is vetted, right-to-work verified, and 100% audit-proof.
+                        From initial worker intake to active deployment — ensuring every operative, driver, carer, and contractor is vetted, right-to-work verified, and 100% audit-proof across all sectors.
                       </p>
 
                       <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                         {[
-                          { step: "Phase 1", title: "Applicant Intake (< 15 mins)", desc: "Direct candidate contact upon referral to capture RTW credentials, bank details, and photo ID." },
-                          { step: "Phase 2", title: "Credential & Ticket Vetting", desc: "DBS checking, CSCS ticket validation, nursing PINs, and automated 5-year work history references." },
-                          { step: "Phase 3", title: "CRM Profile & Compliance Tag", desc: "Creating verified digital candidate files with strict pay/charge rates and skill matrix tagging." },
-                          { step: "Phase 4", title: "Automated Expiry Triggers", desc: "Proactive 60, 30, and 14-day renewal alerts preventing lapsed visas or expired certifications." },
+                          { step: "Phase 1", title: "Worker Intake (< 15 mins)", desc: "Direct capture of Right to Work (RTW), share codes, IDSP identity validation, bank details, and emergency contacts." },
+                          { step: "Phase 2", title: "Multi-Sector Credential Vetting", desc: "Validating CSCS cards, DBS/Garda updates, care training matrices, driver CPC/licences, and technical/metering tickets." },
+                          { step: "Phase 3", title: "Security & Induction Clearance", desc: "Creating audit-ready worker files with security vetting (BS7858), facility passes, and client/site-specific induction tracking." },
+                          { step: "Phase 4", title: "Automated Expiry Triggers", desc: "Proactive 60, 30, and 14-day renewal alerts preventing lapsed visas, CPC cards, care certifications, or trade tickets." },
                         ].map((s, idx) => (
                           <div key={idx} style={{ display: "flex", gap: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "12px 16px" }}>
                             <div style={{ fontSize: "10px", fontWeight: 800, color: "#22a085", padding: "3px 6px", background: "rgba(34, 160, 133, 0.12)", borderRadius: "4px", height: "fit-content" }}>
@@ -2167,9 +2168,9 @@ const industries = [
                         <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
                           {[
                             "Digital Right-to-Work verification audit certs",
-                            "Enhanced DBS and update service renewal tracking",
-                            "Site-specific CSCS ticket and H&S induction matrices",
-                            "Weekly compliance health status scorecards",
+                            "Enhanced DBS, Garda vetting & care training matrices",
+                            "Driver CPC, CSCS cards & technical metering accreditations",
+                            "Security screening (BS7858) & multi-site induction compliance",
                           ].map((item, i) => (
                             <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#d1d5db" }}>
                               <span style={{ color: "#22a085", fontWeight: "bold" }}>✓</span> {item}
@@ -2182,7 +2183,7 @@ const industries = [
                             Verified Compatibility:
                           </div>
                           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                            {["TrustID RTW", "Home Office Share Codes", "CarePlanner", "Bullhorn", "Vincere", "Deputy"].map((tech) => (
+                            {["TrustID RTW", "Procore", "CarePlanner", "Samsara", "TimeGate", "Deputy", "Bullhorn", "Vincere"].map((tech) => (
                               <span key={tech} style={{ fontSize: "11px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", padding: "4px 8px", color: "#e5e7eb" }}>
                                 {tech}
                               </span>
@@ -2221,15 +2222,15 @@ const industries = [
                         Power BI & Operations Desk
                       </h3>
                       <p style={{ fontSize: "14px", color: "#9ca3af", lineHeight: 1.6, marginBottom: "24px" }}>
-                        We plug into your business as a dedicated UK & Ireland operational unit, delivering real-time leadership analytics and rapid query resolution.
+                        We plug into your business as a dedicated UK & Ireland operational unit, delivering real-time leadership analytics, multi-sector dispatch coordination, and rapid query resolution.
                       </p>
 
                       <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                         {[
-                          { step: "Phase 1", title: "Central Inbox & Ticket Triage", desc: "15-minute response SLA for incoming worker queries, change requests, and client orders." },
-                          { step: "Phase 2", title: "Shared Resource Coordination", desc: "Dispatching work orders, liaising with site supervisors, and confirming roster attendance." },
-                          { step: "Phase 3", title: "Power BI Data Engineering", desc: "Consolidating hours, revenue, and payroll data into live dashboards accessible by leadership." },
-                          { step: "Phase 4", title: "Weekly Strategy Flash Report", desc: "Clear executive briefing highlighting gross margin trends, unbilled hours, and workforce capacity." },
+                          { step: "Phase 1", title: "Central Inbox & Ticket Triage", desc: "15-minute response SLA for incoming worker queries, rate adjustments, client change orders, and delivery slips." },
+                          { step: "Phase 2", title: "Cross-Sector Operations Coordination", desc: "Liaising with site supervisors, care coordinators, fleet dispatchers, and field leads to verify daily attendance." },
+                          { step: "Phase 3", title: "Power BI Data Engineering", desc: "Consolidating hours, job completions, fuel/subsistence, and gross margin trends into live dashboards for leadership." },
+                          { step: "Phase 4", title: "Weekly Strategy Flash Report", desc: "Clear executive briefings highlighting margin drift, unbilled hours, compliance health, and workforce capacity trends." },
                         ].map((s, idx) => (
                           <div key={idx} style={{ display: "flex", gap: "14px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "12px 16px" }}>
                             <div style={{ fontSize: "10px", fontWeight: 800, color: "#22a085", padding: "3px 6px", background: "rgba(34, 160, 133, 0.12)", borderRadius: "4px", height: "fit-content" }}>
@@ -2264,10 +2265,10 @@ const industries = [
 
                         <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
                           {[
-                            "Custom Power BI gross margin and labor utilization views",
-                            "Named UK & Ireland Operations Account Manager",
-                            "Transparent task boards with real-time ticket logs",
-                            "Seamless absence and holiday cover for internal admin staff",
+                            "Custom Power BI gross margin, utilization and fleet/site cost views",
+                            "Dedicated UK & Ireland Operations Account Manager",
+                            "Live roster, visit verification & site coverage visibility",
+                            "Seamless absence and holiday cover for internal back-office staff",
                           ].map((item, i) => (
                             <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#d1d5db" }}>
                               <span style={{ color: "#22a085", fontWeight: "bold" }}>✓</span> {item}
