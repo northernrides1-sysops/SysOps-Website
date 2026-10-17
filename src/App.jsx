@@ -229,38 +229,38 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
     }
   };
 
-  // ALL 6 CORE SERVICES (PRESERVED 100%)
+  // ALL 6 CORE SERVICES (BALANCED ACROSS ALL 6 TARGET INDUSTRIES)
   const services = [
     {
       number: "01",
       icon: "ri-file-list-3-line",
       title: "Invoice & Billing Management",
       description:
-        "End-to-end invoice generation, tracking and reconciliation. Overdue payment chasing, credit control support and billing query resolution.",
+        "End-to-end invoice generation, tracking and reconciliation. Overdue payment chasing, credit control support and billing query resolution across multi-site workforces.",
       tags: ["Invoice Generation", "Credit Control", "Reconciliation"],
       details: [
-        "Automated sales invoice creation matched against purchase orders and approved timesheets",
+        "Automated sales invoice creation matched against purchase orders, approved timesheets, site registers, or signed PODs",
         "Structured credit control schedule with courteous, firm payment chasing",
         "Weekly aged debtors reporting & reconciliation against live bank feeds",
-        "Supplier billing query resolution within 4 business hours",
+        "Supplier billing and client charge dispute resolution within 4 business hours",
       ],
-      systems: "Sage 50, Xero, QuickBooks, BrightPay, Excel Macro Feeds",
-      sla: "Invoices processed & dispatched within 24 hours of timesheet sign-off",
+      systems: "Sage 50, Xero, QuickBooks, BrightPay, Causeway, Excel Macro Feeds",
+      sla: "Invoices processed & dispatched within 24 hours of hours sign-off",
     },
     {
       number: "02",
       icon: "ri-money-pound-circle-line",
       title: "Payroll & Timesheet Processing",
       description:
-        "Complete payroll cycles managed end-to-end — timesheet validation, payslip generation, deductions and reconciliation.",
-      tags: ["Sage Payroll", "Timesheets", "Payslips"],
+        "Complete payroll and subcontractor pay cycles managed end-to-end — hours validation, CIS deductions, payslip generation, and statutory filings.",
+      tags: ["PAYE & CIS", "Timesheets", "Payslips"],
       details: [
         "Weekly, fortnightly or monthly gross-to-net payroll computation",
-        "Real-time RTI submissions to HMRC / Revenue Ireland",
-        "Electronic payslips distribution via secure worker portal",
-        "Pension auto-enrolment management (Nest, The People's Pension, Smart Pension)",
+        "Subcontractor CIS deductions, payment statements & monthly HMRC CIS300 filing",
+        "Complex shift rule calculations (sleep-ins, waking nights, travel-time, and call-out premiums)",
+        "Real-time RTI submissions to HMRC / Revenue Ireland & pension auto-enrolment",
       ],
-      systems: "Sage Payroll (Native), BrightPay, Iris, Staffology, Xero Payroll",
+      systems: "Sage Payroll (Native), BrightPay, Causeway CIS, Merit Software, Iris, Xero Payroll",
       sla: "Zero-error payroll calculation with 48-hour cut-off compliance",
     },
     {
@@ -268,15 +268,15 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
       icon: "ri-shield-check-line",
       title: "Compliance & Documentation",
       description:
-        "Worker documentation, certification tracking, renewal reminders, vetting coordination and audit-ready records.",
+        "Worker documentation, certification tracking, renewal reminders, vetting coordination and audit-ready records across all regulated sectors.",
       tags: ["DBS / Vetting", "Certifications", "Audit Records"],
       details: [
         "Continuous DBS Update Service & Garda Vetting checks",
-        "CSCS, Gas Safe, CPC, NMC and mandatory certification tracking",
-        "Automated 30/60-day expiry notifications to workers & management",
-        "Instant exportable audit-ready digital folders for regulatory inspections",
+        "CSCS, Gas Safe, CPC, NMC and mandatory care training matrix tracking",
+        "Security screening (BS7858) and multi-site induction compliance tracking",
+        "Automated 30/60-day expiry notifications to workers & management with instant audit export packs",
       ],
-      systems: "TrustID, Disclosure Services, Home Office RTW Tool, BrightHR",
+      systems: "TrustID, Disclosure Services, Home Office RTW Tool, BrightHR, Procore",
       sla: "100% compliance audit readiness with zero non-compliant workers rostered",
     },
     {
@@ -284,11 +284,11 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
       icon: "ri-bar-chart-2-line",
       title: "Data Analysis & Reporting",
       description:
-        "Power BI dashboards, KPI tracking, workforce utilisation reports and management packs that make operational data useful.",
+        "Power BI dashboards, KPI tracking, workforce utilisation reports and management packs that make operational and margin data immediately useful.",
       tags: ["Power BI", "KPI Dashboards", "Management Reports"],
       details: [
         "Interactive Power BI executive dashboards refreshed on your schedule",
-        "Worker utilisation, overtime trends and client profitability packs",
+        "Worker utilisation, overtime trends, fuel/fleet costs, and client profitability packs",
         "Monthly financial summaries comparing budget vs. operational reality",
         "Automated KPI alerts for management exceptions and margin drops",
       ],
@@ -300,15 +300,15 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
       icon: "ri-settings-3-line",
       title: "Remote Business Operations",
       description:
-        "Scheduling, placement coordination, worker database management, client liaison and day-to-day back-office execution.",
-      tags: ["Scheduling", "Database", "Operations"],
+        "Shift roster coordination, job allocation, workforce database hygiene, supervisor liaison and day-to-day back-office dispatch execution.",
+      tags: ["Scheduling", "Rosters", "Operations"],
       details: [
-        "Shift roster management and short-notice relief cover coordination",
-        "Centralised CRM & worker database hygiene maintenance",
-        "Client liaison for booking confirmations and shift confirmations",
+        "Shift roster management, route relief cover, and emergency shift coordination",
+        "Workforce database and compliance status hygiene maintenance",
+        "Client, care coordinator & site supervisor liaison for access and shift confirmations",
         "Back-office ticket desk answering daily operational communications",
       ],
-      systems: "Bullhorn, Vincere, Deputy, Rotacloud, Monday.com, ClickUp",
+      systems: "Deputy, CarePlanner, Joblogic, Samsara, Bullhorn, Monday.com, Simpro",
       sla: "Dedicated operations manager available Mon–Fri 08:00–18:00 GMT",
     },
     {
@@ -316,19 +316,18 @@ const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
       icon: "ri-user-add-line",
       title: "Worker Onboarding & Lifecycle",
       description:
-        "Managing the full worker journey — registration, documentation, right-to-work checks, contracts and offboarding administration.",
+        "Managing the complete operative, driver, carer, and contractor journey — registration packs, statutory RTW verification, contract issuance, and offboarding.",
       tags: ["Onboarding", "Right-to-Work", "Contracts"],
       details: [
-        "Digital candidate registration packs and contract signing administration",
-        "Statutory Right-to-Work share code and passport identity verification",
+        "Digital worker & subcontractor registration packs with bespoke contract/agreement signing",
+        "Statutory Right-to-Work share code and passport identity verification via IDSP",
         "Emergency contact, bank detail verification and P45 collection",
-        "Offboarding administration, holiday pay reconciliation and archiving",
+        "Offboarding administration, holiday pay reconciliation and audit archiving",
       ],
       systems: "DocuSign, Adobe Sign, Home Office Verification Portal, Formstack",
-      sla: "Candidates verified & cleared for deployment within 6 hours of submission",
+      sla: "Workers verified & compliance-cleared for deployment within 6 hours of submission",
     },
   ];
-
 const industries = [
     {
       id: "staffing",
