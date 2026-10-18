@@ -4389,9 +4389,11 @@ onMouseLeave={(e) => {
                   <span>sysops.enquiries@gmail.com</span>
                 </a>
 
-                {/* Phone / WhatsApp */}
+               {/* WhatsApp */}
                 <a
-                  href="tel:+923368242425"
+                  href="https://wa.me/923368242425"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -4403,8 +4405,8 @@ onMouseLeave={(e) => {
                   onMouseEnter={(e) => { e.currentTarget.style.color = "#76c9b4"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.color = "#cbd5e1"; }}
                 >
-                  <i className="ri-phone-line" style={{ fontSize: "16px", color: "var(--brand-green)" }} />
-                  <span>+92 336 824 2425</span>
+                  <i className="ri-whatsapp-line" style={{ fontSize: "16px", color: "#25D366" }} />
+                  <span>WhatsApp SYS Ops</span>
                 </a>
 
                 {/* Working Hours */}
