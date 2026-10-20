@@ -2351,67 +2351,65 @@ const industries = [
                 ))}
               </div>
 
-              {/* UNIFIED BOTTLENECK & CALCULATOR ENGINE */}
+            {/* UNIFIED BOTTLENECK & CALCULATOR ENGINE */}
               {(() => {
                 const bottlenecksList = [
                   {
                     id: 'timesheets',
-                    title: 'Friday Timesheet Chasing',
+                    title: 'Friday Timesheet & Attendance Chasing',
                     hours: 3.5,
-                    desc: 'Chasing 30+ missing timesheets, worker rate arguments, and late sign-offs.',
-                    solution: 'Proactive 3-stage chasing cycles starting Wednesday; fully reconciled by Friday 12 PM.'
+                    desc: 'Chasing missing timesheets, site registers, clock-ins, visit logs and late sign-offs.',
+                    solution: 'Proactive follow-up cycles for timesheets, site registers, visit logs and shift confirmations, with records reconciled ahead of the agreed payroll cut-off.'
                   },
                   {
                     id: 'compliance',
-                    title: 'Right-to-Work & Document Vetting',
+                    title: 'Right-to-Work & Compliance Vetting',
                     hours: 2.5,
-                    desc: 'Validating share codes, DBS checks, and tickets to prevent £45k civil penalties.',
-                    solution: 'Zero-breach digital onboarding gates; full audit pack delivered in under 4 hours.'
+                    desc: 'Tracking Right-to-Work documentation, DBS/Garda vetting, licences, care qualifications, industry tickets and certifications to support compliance and reduce the risk of penalties.',
+                    solution: 'Structured documentation checks, expiry tracking and digital onboarding workflows covering Right to Work, DBS/Garda vetting, CSCS, driver licences, care qualifications and relevant industry certifications. Audit-ready documentation prepared within the agreed turnaround, subject to receipt of complete records and required verification results.'
                   },
                   {
                     id: 'invoicing',
                     title: 'Invoice Queries & PO Matching',
-                    hours: 2.0,
-                    desc: 'Clients rejecting invoices due to missing PO numbers, rate mismatches, or disputed hours.',
-                    solution: 'Pre-dispatch audit matched directly to client POs; zero rejected invoices on ledgers.'
+                    hours: 2,
+                    desc: 'Invoices delayed or rejected due to missing purchase orders, rate mismatches, cancellation charges or disputed hours.',
+                    solution: 'Purchase-order matching, rate validation, cancellation-charge checks and structured query investigation to reduce avoidable invoice rejections and payment delays.'
                   },
                   {
                     id: 'crm',
-                    title: 'CRM Data Entry & Candidate Admin',
-                    hours: 3.0,
-                    desc: 'Top recruiters spending 20% of their day formatting CVs and typing data into Bullhorn/Vincere.',
-                    solution: 'Recruiters send raw files; SYS Ops formats profiles and clears administrative files.'
+                    title: 'CRM / System Admin & Worker Records',
+                    hours: 3,
+                    desc: 'Formatting worker data, updating profiles, clearing administrative backlogs and maintaining accurate records across operational systems.',
+                    solution: 'We maintain accurate worker profiles, compliance records and operational system data across your ATS, CRM or workforce scheduling platform, using the systems agreed with each client.'
                   },
                   {
                     id: 'cover',
-                    title: 'Holiday & Sickness Cover Gaps',
-                    hours: 2.0,
-                    desc: 'Internal administrators off on leave, causing payroll stalls and customer service backlog.',
-                    solution: 'Living SOP runbooks and pod redundancy ensure 100% operational continuity.'
+                    title: 'Holiday, Sickness & Cover Gaps',
+                    hours: 2,
+                    desc: 'Staff absences creating administrative backlogs, payroll delays, scheduling gaps and service disruption.',
+                    solution: 'Named primary and secondary operational leads help maintain continuity of payroll support and administrative workflows during planned leave and unexpected staff absences.'
                   }
                 ];
 
                 const toggleBottleneck = (id) => {
-                  if (selectedBottlenecks.includes(id)) {
-                    if (selectedBottlenecks.length > 1) {
-                      setSelectedBottlenecks(selectedBottlenecks.filter(item => item !== id));
-                    }
-                  } else {
-                    setSelectedBottlenecks([...selectedBottlenecks, id]);
-                  }
-                };
+  if (selectedBottlenecks.includes(id)) {
+    setSelectedBottlenecks(selectedBottlenecks.filter(item => item !== id));
+  } else {
+    setSelectedBottlenecks([...selectedBottlenecks, id]);
+  }
+};
 
-                // Calculate hours directly from selected bottlenecks!
-                const hoursPerPersonPerWeek = selectedBottlenecks.reduce((sum, id) => {
-                  const b = bottlenecksList.find(item => item.id === id);
-                  return sum + (b ? b.hours : 0);
-                }, 0);
+                // Calculate hours directly from selected bottlenecks
+const hoursPerPersonPerWeek = selectedBottlenecks.reduce((sum, id) => {
+  const b = bottlenecksList.find(item => item.id === id);
+  return sum + (b ? b.hours : 0);
+}, 0);
 
-                const weeklyHoursLost = Math.round(calcTeamSize * hoursPerPersonPerWeek);
-                const monthlyHoursLost = weeklyHoursLost * 4;
-                const annualHoursLost = monthlyHoursLost * 12;
-                const equivalentFTE = (weeklyHoursLost / 37.5).toFixed(1);
-  const hourlyCost = 22;
+const weeklyHoursLost = Math.round(calcTeamSize * hoursPerPersonPerWeek * 10) / 10;
+const monthlyHoursLost = Math.round(weeklyHoursLost * 4);
+const annualHoursLost = Math.round(monthlyHoursLost * 12);
+const equivalentFTE = (weeklyHoursLost / 37.5).toFixed(1);
+const hourlyCost = 22; // Standard loaded £22/hr admin cost
 const monthlyCostLost = monthlyHoursLost * hourlyCost;
 const annualCostLost = annualHoursLost * hourlyCost;
 
@@ -2506,11 +2504,11 @@ const annualCostLost = annualHoursLost * hourlyCost;
                       <div style={{ marginTop: "20px", background: "#fafaf8", border: "1px solid #eeeeea", borderRadius: "6px", padding: "10px 14px", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "11.5px", color: "#666" }}>
                         <span><strong>Formula:</strong> {hoursPerPersonPerWeek} hrs × {calcTeamSize} staff = <strong>{weeklyHoursLost} hrs/wk lost</strong></span>
                         <button
-                          onClick={() => { setCalcTeamSize(5); setSelectedBottlenecks(['timesheets', 'compliance', 'crm']); }}
-                          style={{ border: "none", background: "transparent", color: "#16866f", cursor: "pointer", fontSize: "11px", fontWeight: "bold" }}
-                        >
-                          Reset
-                        </button>
+  onClick={() => { setCalcTeamSize(5); setSelectedBottlenecks([]); }}
+  style={{ border: "none", background: "transparent", color: "#16866f", cursor: "pointer", fontSize: "11px", fontWeight: "bold" }}
+>
+  Reset
+</button>
                       </div>
 
                     </div>
