@@ -4171,7 +4171,7 @@ onMouseLeave={(e) => {
       )}
 
       {/* GLOBAL FOOTER */}
-<footer style={{ background: "#11141b", color: "#ffffff", borderTop: "1px solid #161a22", padding: "45px 0 24px" }}>
+<footer style={{ background: "#171717", color: "#ffffff", borderTop: "1px solid #161a22", padding: "45px 0 24px" }}>
         <div className="container">
           
           {/* MAIN 4-COLUMN HOSTPRO GRID */}
@@ -4198,10 +4198,10 @@ onMouseLeave={(e) => {
                 <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#e2e8f0", display: "block", marginBottom: "8px" }}>
                   Request an Operational Audit
                 </span>
-                <div style={{ display: "flex", maxWidth: "320px", background: "#12151c", border: "1px solid #232936", borderRadius: "6px", overflow: "hidden" }}>
+                <div style={{ display: "flex", maxWidth: "320px", background: "#242424", border: "1px solid #333333", borderRadius: "6px", overflow: "hidden" }}>
                 <input
                     type="email"
-                    placeholder="name@company.co.uk"
+                    placeholder="name@company.com"
                     value={formData.email}
                     onChange={(e) => updateField("email", e.target.value)}
                     style={{
