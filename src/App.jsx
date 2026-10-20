@@ -4171,7 +4171,7 @@ onMouseLeave={(e) => {
       )}
 
       {/* GLOBAL FOOTER */}
-<footer style={{ background: "##171717", color: "#ffffff", borderTop: "1px solid #161a22", padding: "45px 0 24px" }}>
+<footer style={{ background: "#11141b", color: "#ffffff", borderTop: "1px solid #161a22", padding: "45px 0 24px" }}>
         <div className="container">
           
           {/* MAIN 4-COLUMN HOSTPRO GRID */}
