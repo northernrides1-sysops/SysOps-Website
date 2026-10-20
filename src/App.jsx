@@ -4171,7 +4171,7 @@ onMouseLeave={(e) => {
       )}
 
       {/* GLOBAL FOOTER */}
-<footer style={{ background: "#08090c", color: "#ffffff", borderTop: "1px solid #161a22", padding: "45px 0 24px" }}>
+<footer style={{ background: "##171717", color: "#ffffff", borderTop: "1px solid #161a22", padding: "45px 0 24px" }}>
         <div className="container">
           
           {/* MAIN 4-COLUMN HOSTPRO GRID */}
@@ -4256,12 +4256,12 @@ onMouseLeave={(e) => {
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 {[
+                  "Invoice Management",
                   "Payroll & Timesheets",
                   "Compliance & Vetting",
-                  "Invoice Management",
-                  "Power BI Dashboards",
-                  "Onboarding & Lifecycle",
+                  "Data Analysis & Reporting",
                   "Remote Ops Desk",
+                  "Onboarding & Lifecycle",
                 ].map((s, idx) => (
                   <button
                     key={idx}
