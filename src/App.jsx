@@ -2614,10 +2614,30 @@ const annualCostLost = annualHoursLost * hourlyCost;
                     </thead>
                     <tbody>
                       {[
-                        { aspect: "Ownership & Follow-through", va: "Requires constant task micromanagement", inhouse: "Depends on single employee consistency", sysops: "Complete proactive ownership of recurring workflows" },
-                        { aspect: "Workforce Sector Knowledge", va: "Generalists with no idea of CIS, DBS or rotas", inhouse: "Requires months of training & onboarding", sysops: "Pre-trained in workforce rotas, compliance & payroll" },
-                        { aspect: "Cost & Employment Liabilities", va: "Cheap hourly but expensive in management time", inhouse: "High fixed salaries, NI, pension & recruiting fees", sysops: "Flexible, predictable retainer with zero HR liabilities" },
-                        { aspect: "Business Continuity", va: "High turnover and frequent ghosting", inhouse: "Sick days and holidays stall operations", sysops: "Backed by team SOP redundancy — zero downtime" },
+                        { 
+                          aspect: "Workflow Ownership", 
+                          va: "Requires constant task micromanagement", 
+                          inhouse: "Depends on single employee consistency", 
+                          sysops: "Proactive ownership of agreed recurring workflows, including timesheets, invoicing and back-office administration." 
+                        },
+                        { 
+                          aspect: "Industry & Compliance Knowledge", 
+                          va: "May lack sector-specific operational knowledge", 
+                          inhouse: "Requires onboarding and training on your systems and processes", 
+                          sysops: "Operational support tailored to your industry and agreed workflows, covering relevant workforce documentation, certifications, timesheets and sector payroll inputs." 
+                        },
+                        { 
+                          aspect: "Cost & Overhead", 
+                          va: "Cheap hourly but expensive in management time", 
+                          inhouse: "High fixed salaries, NI, pension & recruiting fees", 
+                          sysops: "Predictable monthly service fees without the additional employment overhead of hiring an in-house employee for the agreed scope." 
+                        },
+                        { 
+                          aspect: "Operational Continuity", 
+                          va: "Availability and continuity can depend on one individual", 
+                          inhouse: "Sick days and holidays stall operations", 
+                          sysops: "Named primary and secondary operational leads help maintain continuity of support during planned leave and unexpected staff absences." 
+                        },
                       ].map((row, i) => (
                         <tr key={i} style={{ borderBottom: i === 3 ? "none" : "1px solid #eeeeea" }}>
                           <td style={{ padding: "14px 18px", fontWeight: 600, color: "#171717" }}>{row.aspect}</td>
