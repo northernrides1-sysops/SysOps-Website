@@ -3616,7 +3616,7 @@ onMouseLeave={(e) => {
                 </p>
               </div>
 
-              {/* CONNECTED 5-STEP LINEAR TIMELINE */}
+             {/* CONNECTED 5-STEP LINEAR TIMELINE */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
                 {[
                   {
@@ -3624,7 +3624,7 @@ onMouseLeave={(e) => {
                     timing: "Day 1",
                     icon: "ri-search-eye-line",
                     title: "Operational Discovery",
-                    desc: "We analyze your weekly volume, timesheet cutoffs, software stack (Sage, Bullhorn, Xero), and immediate back-office pain points.",
+                    desc: "We analyze your weekly worker volume, timesheet cutoffs, software systems (e.g. accounting, CRM, and workforce portals), and immediate operational bottlenecks.",
                     tag: "Volume & Stack Audit",
                   },
                   {
@@ -3632,7 +3632,7 @@ onMouseLeave={(e) => {
                     timing: "Day 2",
                     icon: "ri-file-shield-line",
                     title: "Proposal & Scope SLA",
-                    desc: "You receive a fixed transparent monthly scope, guaranteed 4-hour SLA turnaround metrics, and named pod assignments.",
+                    desc: "You receive a transparent monthly scope proposal, defined turnaround SLAs, and dedicated primary and secondary operational leads.",
                     tag: "Fixed Scope & SLAs",
                   },
                   {
@@ -3640,7 +3640,7 @@ onMouseLeave={(e) => {
                     timing: "Day 3–4",
                     icon: "ri-key-2-line",
                     title: "Access & Runbooks",
-                    desc: "Secure software credentials granted. We draft your bespoke SOP runbooks, exception workflows, and shared communication channels.",
+                    desc: "Secure system credentials granted. We document your bespoke SOP runbooks, exception escalation paths, and shared communication channels.",
                     tag: "SOPs & Security Setup",
                   },
                   {
@@ -3648,94 +3648,118 @@ onMouseLeave={(e) => {
                     timing: "Day 5–6",
                     icon: "ri-git-merge-line",
                     title: "Shadow & Calibration",
-                    desc: "We run a live payroll/vetting cycle in parallel alongside your team to cross-verify zero discrepancies and align tone.",
-                    tag: "Zero-Risk Parallel Run",
+                    desc: "We run a live cycle in parallel alongside your team to cross-verify timesheets, vetting data, and invoice accuracy before full handover.",
+                    tag: "Parallel Shadow Run",
                   },
                   {
                     step: "05",
                     timing: "Day 7",
                     icon: "ri-rocket-2-line",
-                    title: "Full Go-Live",
-                    desc: "SYS Ops takes full proactive ownership of agreed workflows. Your fee-earners reclaim up to 15+ hours weekly per desk.",
-                    tag: "100% Proactive Desk",
+                    title: "Full Handover",
+                    desc: "SYS Ops assumes proactive daily ownership of agreed workflows. Your operational managers and consultants reclaim valuable hours each week.",
+                    tag: "Proactive Ops Desk",
                   },
                 ].map((item, idx) => (
                   <div
                     key={idx}
-                    onClick={() => setCurrentPage("contact")}
                     style={{
                       background: "#ffffff",
-                      border: "1px solid #deded9",
-                      borderRadius: "8px",
-                      padding: "26px 22px",
+                      border: "1px solid #e5e5e0",
+                      borderRadius: "10px",
+                      padding: "20px 18px",
+                      position: "relative",
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "space-between",
-                      minHeight: "320px",
-                      position: "relative",
-                      transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
-                      cursor: "pointer",
+                      transition: "transform 0.15s ease, box-shadow 0.15s ease",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-6px)";
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                      e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.06)";
                       e.currentTarget.style.borderColor = "#16866f";
-                      e.currentTarget.style.boxShadow = "0 16px 36px rgba(0,0,0,0.08)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.borderColor = "#deded9";
                       e.currentTarget.style.boxShadow = "none";
+                      e.currentTarget.style.borderColor = "#e5e5e0";
                     }}
                   >
+                    {/* TOP ACCENT LINE */}
+                    <div style={{ position: "absolute", top: 0, left: "18px", right: "18px", height: "2px", background: idx === 4 ? "var(--brand-green)" : "#e5e5e0", borderRadius: "2px" }} />
+
                     <div>
-                      {/* TOP ROW: STEP NUMBER + TIMING BADGE */}
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
-                        <span style={{ fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", color: "#16866f" }}>
-                          {item.step}
+                      {/* HEADER: STEP NUMBER & TIMING PILL */}
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", marginTop: "4px" }}>
+                        <span style={{ fontSize: "11px", fontWeight: 800, color: "var(--brand-green)", letterSpacing: "0.08em" }}>
+                          STEP {item.step}
                         </span>
-                        <span style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: "#171717", background: "#f0f0eb", padding: "3px 8px", borderRadius: "4px" }}>
+                        <span style={{ fontSize: "11px", fontWeight: 700, padding: "3px 8px", borderRadius: "100px", background: "#f0f0ed", color: "#666660", letterSpacing: "0.02em" }}>
                           {item.timing}
                         </span>
                       </div>
 
-                      {/* ICON WITH ACCENT CONTAINER */}
-                      <div style={{ width: "42px", height: "42px", borderRadius: "8px", background: "rgba(22, 134, 111, 0.08)", border: "1px solid rgba(22, 134, 111, 0.18)", display: "flex", alignItems: "center", justifyContent: "center", color: "#16866f", fontSize: "20px", marginBottom: "18px" }}>
-                        <i className={item.icon} />
+                      {/* ICON & TITLE */}
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                        <div style={{ width: "28px", height: "28px", borderRadius: "6px", background: "rgba(22, 134, 111, 0.08)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--brand-green)", fontSize: "15px", flexShrink: 0 }}>
+                          <i className={item.icon} />
+                        </div>
+                        <h3 style={{ fontSize: "14px", fontWeight: 700, color: "#171717", margin: 0, lineHeight: 1.3 }}>
+                          {item.title}
+                        </h3>
                       </div>
 
-                      {/* TITLE & DESCRIPTION */}
-                      <h3 style={{ fontSize: "17px", fontWeight: 800, color: "#171717", margin: "0 0 10px 0", letterSpacing: "-0.01em" }}>
-                        {item.title}
-                      </h3>
-                      <p style={{ fontSize: "12.5px", color: "#666660", lineHeight: 1.6, margin: 0 }}>
+                      {/* DESCRIPTION */}
+                      <p style={{ fontSize: "12px", lineHeight: "1.55", color: "#666660", margin: "0 0 14px 0" }}>
                         {item.desc}
                       </p>
                     </div>
 
-                    {/* SUBTLE CARD FOOTER WITH MILESTONE TAG */}
-                    <div style={{ marginTop: "24px", paddingTop: "14px", borderTop: "1px solid #f0f0eb", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <span style={{ fontSize: "10px", fontWeight: 600, color: "#888882", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                    {/* BOTTOM TAG */}
+                    <div style={{ borderTop: "1px dashed #e5e5e0", paddingTop: "10px", marginTop: "auto" }}>
+                      <span style={{ fontSize: "10px", fontWeight: 600, color: "#8a8a82", letterSpacing: "0.04em", textTransform: "uppercase" }}>
                         {item.tag}
                       </span>
-                      <span style={{ color: "#16866f", fontSize: "14px", fontWeight: "bold" }}>→</span>
                     </div>
                   </div>
                 ))}
               </div>
 
               {/* TIMELINE REASSURANCE GUARANTEE */}
-              <div style={{ marginTop: "36px", background: "#ffffff", border: "1px solid #e7e7e2", borderRadius: "6px", padding: "16px 24px", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "14px", fontSize: "12.5px", color: "#555550" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ color: "#16866f", fontWeight: "bold", fontSize: "15px" }}>✓</span>
-                  <span><strong>Zero Downtime Guarantee:</strong> Your current admin operations continue uninterrupted during setup.</span>
+              <div
+                style={{
+                  marginTop: "24px",
+                  background: "#ffffff",
+                  border: "1px solid #e5e5e0",
+                  borderRadius: "8px",
+                  padding: "16px 20px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  gap: "12px",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <i className="ri-shield-check-fill" style={{ color: "var(--brand-green)", fontSize: "18px" }} />
+                    <span style={{ fontSize: "13px", fontWeight: 700, color: "#171717" }}>
+                      Continuity During Transition:
+                    </span>
+                  </div>
+                  <span style={{ fontSize: "13px", color: "#666660" }}>
+                    Your current administrative operations continue uninterrupted throughout onboarding.
+                  </span>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ color: "#16866f", fontWeight: "bold", fontSize: "15px" }}>✓</span>
-                  <span><strong>Dedicated Onboarding Lead:</strong> Single point of contact managing software handovers.</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <i className="ri-user-star-line" style={{ color: "var(--brand-green)", fontSize: "15px" }} />
+                  <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--brand-green)" }}>
+                    Dedicated Onboarding Lead: Single point of contact coordinating runbooks and software handover.
+                  </span>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+        </section>
           {/* ======================================================== */}
           {/* ABOUT SYS OPS: PURPOSE-BUILT WORKFORCE OPERATIONAL HUB     */}
           {/* ======================================================== */}
