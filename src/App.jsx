@@ -3762,7 +3762,7 @@ onMouseLeave={(e) => {
           {/* ======================================================== */}
           {/* ABOUT SYS OPS: PURPOSE-BUILT WORKFORCE OPERATIONAL HUB     */}
           {/* ======================================================== */}
-          <section id="about" style={{ padding: "110px 0", background: "#ffffff", borderTop: "1px solid #e7e7e2" }}>
+           <section id="about" style={{ padding: "110px 0", background: "#ffffff", borderTop: "1px solid #e7e7e2" }}>
             <div className="container">
               
               {/* TOP ROW: MANIFESTO & MISSION */}
@@ -3777,8 +3777,11 @@ onMouseLeave={(e) => {
                     <br />
                     <span style={{ color: "#9ca3af" }}>Without the overhead.</span>
                   </h2>
-                  <p style={{ fontSize: "16px", color: "#4b5563", lineHeight: 1.7, margin: 0, maxWidth: "520px" }}>
-                    SYS Ops was engineered to solve a systemic problem in workforce businesses: billing leaks, payroll cut-off panic, and high-earning recruiters trapped in administrative fires.
+                  <p style={{ fontSize: "15px", color: "#4b5563", lineHeight: 1.7, margin: "0 0 14px 0", maxWidth: "520px" }}>
+                    SYS Ops supports workforce-led businesses across the UK and Ireland with the operational work that keeps business running—from timesheets and invoicing to workforce documentation and back-office administration.
+                  </p>
+                  <p style={{ fontSize: "15px", color: "#4b5563", lineHeight: 1.7, margin: 0, maxWidth: "520px" }}>
+                    We provide structured operational support within your existing systems and workflows, helping your team reduce administrative pressure without the added commitment of hiring for every operational need.
                   </p>
                 </div>
 
@@ -3788,24 +3791,31 @@ onMouseLeave={(e) => {
                       ✓
                     </div>
                     <div>
-                      <strong style={{ fontSize: "14px", color: "#171717", display: "block" }}>UK & Ireland Workforce Specialism</strong>
-                      <span style={{ fontSize: "12px", color: "#666660" }}>9+ years managing high-velocity temporary and contract rosters.</span>
+                      <strong style={{ fontSize: "14px", color: "#171717", display: "block" }}>UK & Ireland Workforce Operations</strong>
+                      <span style={{ fontSize: "12px", color: "#666660" }}>Operational support for staffing agencies, social care providers, construction contractors and other workforce-led businesses.</span>
                     </div>
                   </div>
                   
                   <p style={{ fontSize: "14px", color: "#555550", lineHeight: 1.7, margin: 0 }}>
-                    We do not offer generic virtual assistants. Instead of adding another high-cost hire, we provide dedicated <strong>back-office specialists</strong> who integrate directly into your systems to execute daily work with total accountability.
+                    We go beyond ad-hoc task assistance. We take responsibility for agreed recurring workflows, follow documented procedures and keep your team informed through clear communication and reporting.
                   </p>
 
-                 <div style={{ display: "flex", gap: "20px", marginTop: "8px", flexWrap: "wrap", fontSize: "12px", color: "#16866f", fontWeight: 700 }}>
-                    <span>• UK & Ireland Business Hours (GMT)</span>
-                    <span>• Dedicated Named Operations Manager</span>
-                    <span>• Strict GDPR & Data Compliance</span>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "4px" }}>
+                    {[
+                      "UK & Ireland working-hour alignment, as agreed",
+                      "Named point of contact",
+                      "Defined data-handling and access procedures",
+                    ].map((bullet, bIdx) => (
+                      <div key={bIdx} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#2d3748", fontWeight: 600 }}>
+                        <span style={{ width: "18px", height: "18px", borderRadius: "50%", background: "rgba(22, 134, 111, 0.12)", color: "#16866f", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: "bold", flexShrink: 0 }}>
+                          ✓
+                        </span>
+                        <span>{bullet}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-
-              {/* THREE OPERATIONAL PILLARS (VALUE DIFFERENTIATORS) */}
 
               {/* THREE OPERATIONAL PILLARS (VALUE DIFFERENTIATORS) */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px", marginBottom: "60px" }}>
@@ -3813,17 +3823,17 @@ onMouseLeave={(e) => {
                   {
                     num: "01",
                     title: "Proactive Workflow Ownership",
-                    desc: "We don't wait for tickets or instructions. We follow living SOP runbooks, chasing missing timesheets on Wednesdays so Friday payroll runs cleanly.",
+                    desc: "We manage agreed recurring workflows using documented procedures and follow-up routines—from timesheet collection and record checks to invoicing preparation and operational reporting.",
                   },
                   {
                     num: "02",
-                    title: "Native Software Pre-Training",
-                    desc: "Experienced with Sage 50, BrightPay, Xero, Bullhorn, and Power BI from day one. Zero weeks lost training staff on basic workforce workflows.",
+                    title: "Experience Across Operational Systems",
+                    desc: "We work within your existing systems and agreed processes, documenting workflows and establishing clear procedures to support consistent delivery and smoother handovers.",
                   },
                   {
                     num: "03",
-                    title: "Zero Employer Liabilities",
-                    desc: "No employer NI (13.8%), pension auto-enrolment, recruitment placement fees, or hardware costs. A predictable monthly retainer on a rolling 30-day agreement.",
+                    title: "Flexible Operational Capacity",
+                    desc: "Access dedicated operational support through a predictable monthly service fee, without needing to recruit an additional in-house employee for the agreed scope. Service levels, responsibilities and costs are defined upfront.",
                   },
                 ].map((col, idx) => (
                   <div key={idx} style={{ background: "#ffffff", border: "1px solid #deded9", borderRadius: "8px", padding: "30px 26px" }}>
@@ -3833,7 +3843,7 @@ onMouseLeave={(e) => {
                     <h3 style={{ fontSize: "18px", fontWeight: 800, color: "#171717", margin: "0 0 10px 0" }}>
                       {col.title}
                     </h3>
-                    <p style={{ fontSize: "13px", color: "#666660", lineHeight: 1.65, margin: 0 }}>
+                    <p style={{ fontSize: "13px", color: "#666660", lineHeight: 1.6, margin: 0 }}>
                       {col.desc}
                     </p>
                   </div>
@@ -3847,7 +3857,7 @@ onMouseLeave={(e) => {
                     Ready to streamline your back-office operations?
                   </h3>
                   <p style={{ fontSize: "14px", color: "#9ca3af", margin: 0 }}>
-                    Get an itemised scope proposal or schedule a 15-minute operational discovery call.
+                    Get a clearly scoped proposal or book a 15-minute operational discovery call to discuss your workload, bottlenecks and support requirements.
                   </p>
                 </div>
                 <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
@@ -3859,30 +3869,32 @@ onMouseLeave={(e) => {
                     className="nav-button"
                     style={{ padding: "14px 24px", fontSize: "12px" }}
                   >
-                    Request a Proposal →
+                    Request Scoped Proposal
                   </button>
                   <button
                     onClick={() => {
-                      setContactMode("call");
+                      setContactMode("discovery");
                       setCurrentPage("contact");
                     }}
                     style={{
                       background: "transparent",
+                      border: "1px solid #404040",
                       color: "#ffffff",
-                      border: "1px solid rgba(255,255,255,0.3)",
-                      padding: "14px 20px",
-                      borderRadius: "4px",
+                      borderRadius: "6px",
+                      padding: "14px 24px",
                       fontSize: "12px",
-                      fontWeight: 600,
+                      fontWeight: 700,
                       cursor: "pointer",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.06em",
-                      fontFamily: "'DM Sans', sans-serif"
+                      transition: "all 0.15s ease",
                     }}
-                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#ffffff"; e.currentTarget.style.background = "rgba(255,255,255,0.06)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)"; e.currentTarget.style.background = "transparent"; }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = "#ffffff";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "#404040";
+                    }}
                   >
-                    Book 15-Min Discovery Call
+                    Book Discovery Call
                   </button>
                 </div>
               </div>
